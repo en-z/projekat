@@ -11,7 +11,7 @@ public class UserController {
         this.user = user;
     }
     @PostMapping("/register")
-    public void register(@RequsetParam String email,@RequstParam String password){
+    public void register(@RequestParam String email,@RequestParam String password){
         user.Register(email,password);
     }
     @GetMapping("/isRegistered")
