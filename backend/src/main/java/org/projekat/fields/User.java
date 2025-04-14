@@ -7,6 +7,7 @@ import org.projekat.macros.DB_Macro.*;
 public class User {
     private String email;
     private String password;
+    private String username;
 
     public User(String email,String password){
         this.email = email;

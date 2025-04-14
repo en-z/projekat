@@ -14,9 +14,6 @@ public class UserController {
     public void register(@RequestParam String email,@RequestParam String password){
         user.Register(email,password);
     }
-    @GetMapping("/isRegistered")
-    public boolean isRegistered(@RequestParam String email,@RequestParam String password){
-        return user.isRegistered(email,password);
     }
 }
 
