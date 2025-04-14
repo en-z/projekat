@@ -1,4 +1,4 @@
-package org.projekat.macros;
+package org.projekat.security;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
