@@ -1,19 +1,44 @@
 package org.projekat.controllers;
 
-import org.projekat.fields.User;
+import org.projekat.model.User;
+import org.projekat.repositorys.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
-    private final User user;
-    public UserController(User user){
-        this.user = user;
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping
+    public List<User> getAllUsers(){
+        return (List<User>) userRepository.findAll();
     }
-    @PostMapping("/register")
-    public void register(@RequestParam String email,@RequestParam String password){
-        user.Register(email,password);
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable long id){
+        return userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
     }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public User addUser(@RequestBody User user){
+        return userRepository.save(user);
+    }
+    @PutMapping("/{id}")
+    public User putUser(@PathVariable long id,@RequestBody User userNew){
+        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+        user.setEmail(userNew.getEmail());
+        user.setPassword(userNew.getPassword());
+        return userRepository.save(user);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable long id){
+        userRepository.deleteById(id);
     }
 }
+
 

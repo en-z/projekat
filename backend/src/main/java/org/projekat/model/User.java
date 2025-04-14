@@ -2,12 +2,18 @@ package org.projekat.model;
 
 import org.projekat.macros.DB_Macro;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.SQLException;
-
+@Entity
 public class User {
     private String email;
     private String password;
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     public User(String email,String password,int id){
         this.email = email;
@@ -32,7 +38,7 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
