@@ -1,31 +1,35 @@
 package org.projekat.security;
 
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKey;
-
+@Component
 public class JwtToken {
-    private final String secret = "ucitajIzCFG"; //TODO(en):dodaj da se cita iz cfg ili env
-    private final SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-    private final long validTime = 3600000L;// 1h
-
-    public String generateToken(String email){
-        Date now = new Date();
-        Date validity = new Date(now.getTime()+validTime);
-        return Jwts.builder().subject(email).issuedAt(now).expiration(validity).signWith(key).compact();
+    private String jwtSecret;
+    private long jwtExpirationDate;
+    public String generateToken(Authentication authentication){
+        String username = authentication.getName();
+        Date currDate = new Date();
+        Date expireDate = new Date(currDate.getTime()+jwtExpirationDate);
+        String token =Jwts.builder().subject(username).issuedAt(new Date()).expiration(expireDate).signWith(key()).compact();
+        return token;
     }
-    public Claims extractClaims(String token){
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
+    private Key key(){
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
-    public String extractUsername(String token){
-        return extractClaims(token).getSubject();
+    public String getUsername(String token){
+        return Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(token).getPayload().getSubject();
     }
-    public boolean isExpired(String token){
-        return extractClaims(token).getExpiration().before(new Date());
-    }
-    public boolean validateToken(String token,String username){
-        return (username.equals(extractUsername(token)) && !isExpired(token));
+    public boolean validateToken(String token){
+        Jwts.parser().verifyWith((SecretKey) key()).build().parse(token);
+        return true;
     }
 }
