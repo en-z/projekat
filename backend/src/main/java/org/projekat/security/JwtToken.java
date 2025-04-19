@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 @Component
 public class JwtToken {
+    @Value("${jwt.secret}")
     private String jwtSecret;
+    @Value("${jwt.date}")
     private long jwtExpirationDate;
     public String generateToken(Authentication authentication){
         String username = authentication.getName();
