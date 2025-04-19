@@ -39,6 +39,7 @@ public class SpringSecurityConf {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf->csrf.disable()).authorizeRequests((authorize)->{
             //authorize.requestMatchers(new AntPathRequestMatcher("/user/**")).hasAuthority("User").anyRequest().authenticated();// Primjer  !!!TODO(en):CVE na requestMachers
+            authorize.requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll();
             authorize.anyRequest().authenticated();//ovo je za sve koji ostalo
         }).httpBasic(Customizer.withDefaults());
         http.exceptionHandling(exception->exception.authenticationEntryPoint(entryPoint));

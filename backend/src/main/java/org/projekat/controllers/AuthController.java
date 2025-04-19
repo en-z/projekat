@@ -20,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDTO loginDTO){ //TODO(en):Dodati hashovanje lozinke Argon2
+    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDTO loginDTO){ //
         String token = authService.login(loginDTO);
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
         jwtAuthResponse.setAccessToken(token);
