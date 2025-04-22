@@ -11,15 +11,20 @@ import javax.persistence.*;
 import java.util.Optional;
 import java.util.Set;
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name="id")
+    private Osoba osoba;
     @Column(nullable = false,unique = true)
     private String email;
     @Column(nullable = false,unique = true)
