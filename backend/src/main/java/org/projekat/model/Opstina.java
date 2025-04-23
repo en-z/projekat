@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +20,6 @@ public class Opstina {
     @ManyToOne
     @JoinColumn(name="drzava_iddrzava",referencedColumnName = "iddrzava")
     private Drzava drzava;
+    @OneToMany // TODO(en):mozda nece treba da se pravi ova veze u api
+    private List<Ulica> ulicaList;
 }
