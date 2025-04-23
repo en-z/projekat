@@ -1,4 +1,7 @@
 package org.projekat.repositorys;
 
-public interface UlicaRepository {
+import org.projekat.model.Ulica;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UlicaRepository extends JpaRepository<Ulica,Long> {
 }
