@@ -30,8 +30,8 @@ public class FakultetController {
     public Fakultet putFakultet(@RequestBody Fakultet newFakultet,@PathVariable long id){
         Fakultet fakultet =fakultetRepository.findById(id).orElseThrow(()->new RuntimeException("Fakultet nije pronadjen"));
         fakultet.setNaziv(newFakultet.getNaziv());
-        fakultet.setOpis(newFakultet.getOpis());
         fakultet.setKontakt(newFakultet.getKontakt());
+        fakultet.setOpis(newFakultet.getOpis());
         fakultet.setUniverzitet(newFakultet.getUniverzitet());
         return fakultetRepository.save(fakultet);
     }
