@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/fakulteti")
+@RequestMapping("/api/v1/fakulteti")
 public class FakultetController {
     @Autowired
     private FakultetRepository fakultetRepository;

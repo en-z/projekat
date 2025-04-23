@@ -11,7 +11,7 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/osobe")
+@RequestMapping("/api/v1/osobe")
 @PreAuthorize("hasAnyAuthority('ADMIN','NASTAVNIK','STUDENT')")
 public class OsobaController {
     @Autowired
