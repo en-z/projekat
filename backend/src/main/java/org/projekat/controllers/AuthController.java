@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth") //TODO(en):odluciti da li da stavimo verzuju ispre /api
+@RequestMapping("/api/v1/auth") //TODO(en):odluciti da li da stavimo verzuju ispre /api
 public class AuthController {
     private AuthService authService;
 
