@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,4 +26,6 @@ public class Student {
     private Date godinaUpisa;
     private float prosecnaOcena;
     private int osvojeniESPB;
+    @OneToMany(mappedBy = "student")
+    private Set<IspitPrijava> ispitPrijavaSet;
 }

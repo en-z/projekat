@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,4 +23,7 @@ public class Predmet {
     @ManyToOne
     @JoinColumn(name = "fk_idstudiskiProgram",referencedColumnName = "idstudiskiProgram")
     private StudiskiProgram studiskiProgram;
+    @OneToMany(mappedBy = "predmet")
+    private Set<IspitPrijava> ispitPrijavaSet;
+
 }
