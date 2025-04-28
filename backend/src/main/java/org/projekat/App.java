@@ -5,15 +5,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.Arrays;
 
+
 @SpringBootApplication
-public class App 
+@EnableAsync
+public class App
 {
-    //TODO(EN):dodaj async conf i ostalo za service!!!!! LOGIN I CRYPTO TREBA DA JE SYNC SAMO NOVI THREAD NEKA PRAVI SPRINGBOOT
     public static void main(String[]args){
-        System.out.println("JOS NIJE DODAT ASYNC");
         SpringApplication.run(App.class,args);
     }
     @Bean
@@ -29,6 +31,17 @@ public class App
             }
 
         };
+    }
+    @Bean
+    public ThreadPoolTaskExecutor taskExecutor(){
+        ThreadPoolTaskExecutor executor =new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(3);
+        executor.setMaxPoolSize(3);
+        executor.setQueueCapacity(1000);
+        executor.setThreadNamePrefix("ATHREAD-");
+        executor.setRejectedExecutionHandler((r,executor1)->System.out.println("taskRejected tpool full and queue full")); //TODO(en:add log warn
+        executor.initialize();
+        return executor;
     }
 
 }
