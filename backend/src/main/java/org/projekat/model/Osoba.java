@@ -1,25 +1,24 @@
 package org.projekat.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "osoba")
 public class Osoba {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long user_id;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
     private String ime;
     private String prezime;
     @ManyToOne
-    @JoinColumn(name = "ulica_idulica",referencedColumnName = "idulica")
-    private Ulica ulica;
+    @JoinColumn(name = "adresa_id",referencedColumnName = "id")
+    private Adresa adresa;
 }

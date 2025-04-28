@@ -18,9 +18,9 @@ USE `mydb` ;
 -- Table `mydb`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(32) NOT NULL,
-  `id` BIGINT NOT NULL,
+  `password` TEXT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 

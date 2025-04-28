@@ -17,13 +17,10 @@ import java.util.Set;
 public class Predmet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idpredmet;
+    private long id;
     private String naziv;
     private int esbp;
     @ManyToOne
-    @JoinColumn(name = "fk_idstudiskiProgram",referencedColumnName = "idstudiskiProgram")
+    @JoinColumn(name = "studiskiProgram_id",referencedColumnName = "id")
     private StudiskiProgram studiskiProgram;
-    @OneToMany(mappedBy = "predmet")
-    private Set<IspitPrijava> ispitPrijavaSet;
-
 }

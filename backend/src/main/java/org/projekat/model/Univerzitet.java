@@ -1,25 +1,22 @@
 package org.projekat.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "univerzite")
 public class Univerzitet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long iduniverzitet;
+    private long id;
     private String kontakt;
     private String opis;
     //private Nastavnik rektor;
     @OneToOne
-    @JoinColumn(name = "ulica_idulica",referencedColumnName = "idulica")
-    private Ulica ulica;
+    @JoinColumn(name = "adresa_id",referencedColumnName = "id")
+    private Adresa adresa;
 }

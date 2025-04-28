@@ -1,31 +1,31 @@
 package org.projekat.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "student")
 public class Student {
     @Id
-    private long fk_idosoba;
-    @OneToOne
-    @MapsId
-    @JoinColumn(name="fk_idosoba",referencedColumnName = "id")
-    private Osoba osoba;
+    private long osoba_id;
     private String brojIndeksa;
     private Date godinaUpisa;
     private float prosecnaOcena;
     private int osvojeniESPB;
+    @ManyToOne
+    @MapsId
+    @JoinColumn(name = "osoba_id",referencedColumnName = "user_id")
+    private Osoba osoba;
     @OneToMany(mappedBy = "student")
-    private Set<IspitPrijava> ispitPrijavaSet;
+    private List<PrijavaIspita> prijavaIspitaList;
+    @OneToMany(mappedBy = "student")
+    private List<IshodIspita> ishodIspitaList;
+
 }

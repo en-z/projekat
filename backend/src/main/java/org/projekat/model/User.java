@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,8 @@ public class User {
     private String password;
     @ElementCollection
     @CollectionTable(name = "users_roles",joinColumns=@JoinColumn(name = "user_id"))
-    @Column(name = "role")
+    @Column(name = "roles")
     private List<String> roles;
+    @OneToOne(mappedBy = "user")
+    private Osoba osoba;
 }

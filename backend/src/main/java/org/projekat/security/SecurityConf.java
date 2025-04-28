@@ -29,7 +29,7 @@ public class SecurityConf {
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                     .authorizeHttpRequests(auth->auth //TODO(en):testirati oce li pulat rektora i ostale kad otvorim ovo
-                        .requestMatchers("/auth/v1/generateToken","/auth/v1/addNewUser","/auth/v1/welcome").permitAll()
+                        .requestMatchers("/auth/v1/login").permitAll()
                         .requestMatchers("/auth/v1/admin/**").hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers("/auth/v1/user/**").hasAnyAuthority("ROLE_USER")
                         .requestMatchers("/auth/v1/nastavnik/**").hasAnyAuthority("ROLE_NASTAVNIK")

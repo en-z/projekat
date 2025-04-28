@@ -12,18 +12,22 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "fakultet")
 public class Fakultet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idfakultet;
+    private long id;
     private String naziv;
     private String opis;
     private String kontakt;
     @ManyToOne
-    @JoinColumn(name = "fk_iduniverzitet",referencedColumnName = "iduniverzitet")
+    @JoinColumn(name = "univerzitet_id",referencedColumnName = "id")
     private Univerzitet univerzitet;
-    //@OneToOne
-    //@JoinColumn
-    //private Nastavnik dekan;
+    @OneToOne
+    @JoinColumn(name = "dekan",referencedColumnName = "osoba_id")
+    private Nastavnik dekan;
+    @OneToOne
+    @JoinColumn(name = "adresa_id",referencedColumnName = "id")
+    private Adresa adresa;
 
 }

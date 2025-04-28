@@ -7,20 +7,24 @@ import lombok.Setter;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "studiskiProgram")
 public class StudiskiProgram {
     @Id
-    private long idstudiskiProgram;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String naziv;
     private String opis;
-    //@OneToOne
-    //@JoinColumn
-    //private Nastavnik rukovodilac;
     @ManyToOne
-    @JoinColumn(name = "fk_idfakultet",referencedColumnName = "idfakultet")
+    @JoinColumn(name = "fakultet_id",referencedColumnName = "id")
     private Fakultet fakultet;
+    @OneToOne
+    @JoinColumn(name = "rukovodioc",referencedColumnName = "osoba_id")
+    private Nastavnik rukovodioc;
 }
