@@ -44,7 +44,8 @@ public class UserController {
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),loginDTO.getPassword())
         );
         if (authentication.isAuthenticated()){ //TODO(en):refactor ovaj cancer od koda
-            String token = jwtService.generateToken(loginDTO.getUsername());
+            User user = userRepository.findByEmail(loginDTO.getUsername()).orElseThrow(()->new RuntimeException("error"));
+            String token = jwtService.generateToken(loginDTO.getUsername(),user.getId());
             Map<String,String> res = new HashMap<>();
             res.put("token",token);
             return ResponseEntity.ok(res);
