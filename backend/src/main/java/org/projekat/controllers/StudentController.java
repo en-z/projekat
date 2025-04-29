@@ -1,7 +1,9 @@
 package org.projekat.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.projekat.model.Student;
 import org.projekat.service.StudentService;
+import org.projekat.statics.Wayne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,8 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
     @GetMapping("/student/{id}")
-    public CompletableFuture<ResponseEntity<Student>> getStudent(@PathVariable long id){
+    public CompletableFuture<ResponseEntity<Student>> getStudent(@PathVariable long id, HttpServletRequest request){
+        Long idToken = (Long) request.getAttribute("id");
         return studentService.getStudent(id).thenApply(ResponseEntity::ok);
     }
     @PostMapping("/student")

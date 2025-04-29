@@ -23,7 +23,7 @@ public class StudentService {
         return CompletableFuture.completedFuture(students);
     }
     @Async
-    public CompletableFuture<Student> getStudent(long id){
+    public CompletableFuture<Student> getStudent(long id){ //TODO:(en) doddaj auth extract id check
         Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student nije pronadjen"));
         return CompletableFuture.completedFuture(student);
     }

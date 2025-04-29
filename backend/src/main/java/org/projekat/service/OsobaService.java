@@ -1,0 +1,26 @@
+package org.projekat.service;
+
+import org.projekat.dtos.OsobaDTO;
+import org.projekat.model.Osoba;
+import org.projekat.repositorys.OsobaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
+
+@Service
+public class OsobaService {
+    @Autowired
+    private OsobaRepository osobaRepository;
+    @Async
+    public CompletableFuture<OsobaDTO> getOsoba(long id){
+        Osoba osoba = osobaRepository.findById(id).orElseThrow(()->new RuntimeException("Osoba ne postoji"));
+        OsobaDTO osobaDTO = new OsobaDTO();
+        osobaDTO.setIme(osoba.getIme());
+        osobaDTO.setPrezime(osoba.getPrezime());
+        osobaDTO.setAdresa(osoba.getAdresa());
+        osobaDTO.setEmail(osoba.getUser().getEmail());
+        return CompletableFuture.completedFuture(osobaDTO);
+    }
+}

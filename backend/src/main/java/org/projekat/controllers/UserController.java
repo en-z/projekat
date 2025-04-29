@@ -43,7 +43,7 @@ public class UserController {
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),loginDTO.getPassword())
         );
-        if (authentication.isAuthenticated()){
+        if (authentication.isAuthenticated()){ //TODO(en):refactor ovaj cancer od koda
             String token = jwtService.generateToken(loginDTO.getUsername());
             Map<String,String> res = new HashMap<>();
             res.put("token",token);

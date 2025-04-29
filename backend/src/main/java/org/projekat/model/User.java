@@ -16,7 +16,7 @@ public class User {
     private long id;
     private String email;
     private String password;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles",joinColumns=@JoinColumn(name = "user_id"))
     @Column(name = "roles")
     private List<String> roles;
