@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     public UserService service;
     @Autowired
-    public UserRepository userRepository;
+    public UserRepository userRepository; //samo za tesitranje
     @Autowired
     private JwtService jwtService;
     @Autowired
