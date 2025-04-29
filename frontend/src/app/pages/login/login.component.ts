@@ -22,10 +22,11 @@ export class LoginComponent {
       private http:HttpClient,
       private router:Router
     ){
-      this.loginForm= this.fb.group({
-        username:['',Validators.required],
-        password:['',Validators.required,Validators.minLength(5)]
+      this.loginForm = this.fb.group({
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(5)]]
       });
+
     }
     get f(){
       return this.loginForm.controls;
@@ -35,15 +36,15 @@ export class LoginComponent {
       this.subbmited = true;
       const{username,password} =this.loginForm.value;
       this.http.post<{token:string}>('http://localhost:8080/auth/v1/login',{username,password})
-        .pipe(
-          catchError(e=>{
-            this.error = "Pogresan username ili password";
-            return throwError(()=>new Error(e));
-          })
-      ).subscribe({
+      .subscribe({
         next:(res)=>{
+          console.log(username,password);
+          console.log(res.token);
           localStorage.setItem('jwtToken',res.token);
-          this.router.navigate(['/'])//TODO(en):dodaj navigaciuju
+        },error:(err)=>{
+          console.error("Login error:",err);
+          this.error = "Pogresan login"
+          this.subbmited = false;
         },
         complete:()=>{this.subbmited=false}
       });

@@ -18,7 +18,7 @@ public class StudentController {
     public CompletableFuture<ResponseEntity<Student>> getStudent(@PathVariable long id){
         return studentService.getStudent(id).thenApply(ResponseEntity::ok);
     }
-    @PostMapping("/student/}")
+    @PostMapping("/student")
     public CompletableFuture<ResponseEntity<Student>> postStudent(@RequestBody Student student){
         return studentService.saveStudent(student).thenApply(ResponseEntity::ok);
     }

@@ -6,12 +6,17 @@ import org.projekat.model.User;
 import org.projekat.repositorys.UserRepository;
 import org.projekat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth/v1")
@@ -34,12 +39,15 @@ public class UserController {
         return service.addUser(user);
     }
     @PostMapping("/login")// login
-    public String authAndGetToken(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<Map<String,String>>authAndGetToken(@RequestBody LoginDTO loginDTO){
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(),loginDTO.getPassword())
         );
         if (authentication.isAuthenticated()){
-            return jwtService.generateToken(loginDTO.getUsername());
+            String token = jwtService.generateToken(loginDTO.getUsername());
+            Map<String,String> res = new HashMap<>();
+            res.put("token",token);
+            return ResponseEntity.ok(res);
         }else {
             throw new UsernameNotFoundException("nema korisnika");
         }
