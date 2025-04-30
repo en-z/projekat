@@ -15,7 +15,9 @@ public class OsobaService {
     private OsobaRepository osobaRepository;
     @Async
     public CompletableFuture<OsobaDTO> getOsoba(long id){
+        System.out.println("2");
         Osoba osoba = osobaRepository.findById(id).orElseThrow(()->new RuntimeException("Osoba ne postoji"));
+        System.out.println("3");
         OsobaDTO osobaDTO = new OsobaDTO();
         osobaDTO.setIme(osoba.getIme());
         osobaDTO.setPrezime(osoba.getPrezime());

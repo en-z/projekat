@@ -1,0 +1,136 @@
+<div class="max-w-md mx-auto mt-16 p-6 bg-white rounded-xl shadow-md">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <div *ngIf="error" class="mb-4 p-3 bg-red-100 text-red-700 rounded">
+      {{ error }}
+    </div>
+
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+      <input
+        type="text"
+        id="email"
+        formControlName="email"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['email'].touched && f['email'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['email'].errors?.['required']">Email je potreban</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['password'].touched && f['password'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['password'].errors?.['required']">Password je potreban</div>
+        <div *ngIf="f['password'].errors?.['minlength']">Password mora biti barem 5 karaktera </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="passwordConf" class="block text-sm font-medium text-gray-700 mb-1">Potvrdi Password</label>
+      <input
+        type="password"
+        id="passwordConf"
+        formControlName="passwordConf"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['passwordConf'].touched && f['passwordConf'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['passwordConf'].errors?.['required']">Password potvrda je prazna</div>
+        <div *ngIf="f['passwordConf'].errors?.['mismatch']">Passwords nisu isti</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="ime" class="block text-sm font-medium text-gray-700 mb-1">Ime</label>
+      <input
+        type="text"
+        id="ime"
+        formControlName="ime"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['ime'].touched && f['ime'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['ime'].errors?.['required']">Polje je prazno</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="prezime" class="block text-sm font-medium text-gray-700 mb-1">Prezime</label>
+      <input
+        type="text"
+        id="prezime"
+        formControlName="prezime"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['prezime'].touched && f['prezime'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['prezime'].errors?.['required']">Polje je prazno</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="ulica" class="block text-sm font-medium text-gray-700 mb-1">Ulica</label>
+      <input
+        type="text"
+        id="ulica"
+        formControlName="ulica"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['ulica'].touched && f['ulica'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['ulica'].errors?.['required']">Polje je prazno</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="broj" class="block text-sm font-medium text-gray-700 mb-1">Broj</label>
+      <input
+        type="text"
+        id="broj"
+        formControlName="broj"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['broj'].touched && f['broj'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['broj'].errors?.['required']">Polje je prazno</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="grad" class="block text-sm font-medium text-gray-700 mb-1">Grad</label>
+      <input
+        type="text"
+        id="grad"
+        formControlName="grad"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['grad'].touched && f['grad'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['grad'].errors?.['required']">Polje je prazno</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="drzava" class="block text-sm font-medium text-gray-700 mb-1">Drzava</label>
+      <input
+        type="text"
+        id="drzava"
+        formControlName="drzava"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div *ngIf="f['drzava'].touched && f['drzava'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['drzava'].errors?.['required']">Polje je prazno</div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="submitted"
+      class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
+    >
+      {{ submitted? 'Registrujem...' : 'Registruj' }}
+    </button>
+  </form>
+</div>
+

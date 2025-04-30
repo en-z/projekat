@@ -1,9 +1,11 @@
 package org.projekat.controllers;
 
 import org.projekat.dtos.LoginDTO;
+import org.projekat.dtos.RegisterDTO;
 import org.projekat.jwt.JwtService;
 import org.projekat.model.User;
 import org.projekat.repositorys.UserRepository;
+import org.projekat.service.RegisterService;
 import org.projekat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/auth/v1")
@@ -26,6 +29,8 @@ public class UserController {
     @Autowired
     public UserRepository userRepository; //samo za tesitranje
     @Autowired
+    public RegisterService registerService; //samo za tesitranje
+    @Autowired
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authManager;
@@ -34,9 +39,9 @@ public class UserController {
     public String welcome(){
         return "treba na nije secure";
     }
-    @PostMapping("/register") // register
-    public String addUser(@RequestBody User user){
-        return service.addUser(user);
+    @PostMapping("/registration") // izbacit u poseban mapping
+    public CompletableFuture<ResponseEntity<?>>addUser(@RequestBody RegisterDTO user){
+        return registerService.addUser(user);
     }
     @PostMapping("/login")// login
     public ResponseEntity<Map<String,String>>authAndGetToken(@RequestBody LoginDTO loginDTO){
