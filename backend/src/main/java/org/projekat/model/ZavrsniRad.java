@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.projekat.model.users.Nastavnik;
+import org.projekat.model.users.Student;
 
 @Data
 @AllArgsConstructor
@@ -16,10 +18,11 @@ public class ZavrsniRad {
     private long id;
     private String opis;
     private String naslov;
+    private String status;
     @ManyToOne
-    @JoinColumn(name = "nastavnik_osoba_id",referencedColumnName = "osoba_id")
+    @JoinColumn(name = "nastavnik_id",referencedColumnName = "id")
     private Nastavnik mentor;
     @OneToOne
-    @JoinColumn(name = "student_osoba_id",referencedColumnName = "osoba_id")
+    @JoinColumn(name = "student_id",referencedColumnName = "id")
     private Student student;
 }

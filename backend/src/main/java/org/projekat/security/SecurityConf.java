@@ -26,20 +26,20 @@ public class SecurityConf {
         this.userDetailsService = userDetailsService;
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                    .authorizeHttpRequests(auth->auth //TODO(en):testirati oce li pulat rektora i ostale kad otvorim ovo
-                        .requestMatchers("/auth/v1/login","auth/v1/registration").permitAll()
-                        .requestMatchers("/auth/v1/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers("/auth/v1/user/**").hasAnyAuthority("ROLE_USER")
-                        .requestMatchers("/auth/v1/nastavnik/**").hasAnyAuthority("ROLE_NASTAVNIK")
-                            .requestMatchers("/auth/v1/student/**").hasAnyAuthority("ROLE_STUDENT")
-                            .requestMatchers("/auth/v1/osoba/**").hasAnyAuthority("ROLE_STUDENT","ROLE_ADMIN","ROLE_NASTAVNIK")
-                        .anyRequest()
-                        .authenticated()
-                ).sessionManagement(sess->sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/users/login", "/api/users/registration").permitAll()
+
+                        // .requestMatchers("/api/nastavnici/**").hasRole("NASTAVNIK")
+
+                        // ovo treba ovde dok se testira
+                        .anyRequest().permitAll()
+                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
     @Bean

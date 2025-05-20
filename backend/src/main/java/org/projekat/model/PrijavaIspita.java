@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.projekat.model.users.Student;
 
 import java.time.Year;
 import java.util.Date;
@@ -17,11 +18,11 @@ public class PrijavaIspita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Year godina;
-    private int rok;
+    private int godina;
+    private String rok;
     private Date datumPrijave;
     @ManyToOne
-    @JoinColumn(name = "student_osoba_id",referencedColumnName = "osoba_id")
+    @JoinColumn(name = "student_id",referencedColumnName = "id")
     private Student student;
     @ManyToOne
     @JoinColumn(name = "predmet_id",referencedColumnName = "id")

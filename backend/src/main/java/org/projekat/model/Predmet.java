@@ -1,26 +1,44 @@
 package org.projekat.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Set;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "predmet")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Predmet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String naziv;
-    private int esbp;
+
+    private int espb;
+
     @ManyToOne
-    @JoinColumn(name = "studiskiProgram_id",referencedColumnName = "id")
-    private StudiskiProgram studiskiProgram;
+    @JoinColumn(name = "studijski_program_id", referencedColumnName = "id")
+    private StudijskiProgram studijskiProgram;
+
+    @OneToOne(mappedBy = "predmet", cascade = CascadeType.ALL)
+    private Silabus silabus;
+
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    private Set<Termin> termini;
+
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Angazovanje> angazovanja;
+
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    private Set<InstrumentEvaluacije> instrumenti;
+
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    private Set<Obavestenje> obavestenja;
 }
