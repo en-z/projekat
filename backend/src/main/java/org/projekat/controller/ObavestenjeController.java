@@ -2,12 +2,12 @@ package org.projekat.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.projekat.dto.ObavestenjeDTO;
+import org.projekat.model.Nastavnik;
 import org.projekat.model.Obavestenje;
 import org.projekat.model.Predmet;
-import org.projekat.model.users.Nastavnik;
 import org.projekat.service.ObavestenjeService;
 import org.projekat.service.PredmetService;
-import org.projekat.service.users.NastavnikService;
+import org.projekat.service.NastavnikService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +51,7 @@ public class ObavestenjeController {
         Obavestenje o = new Obavestenje();
         o.setNaslov(dto.getNaslov());
         o.setTekst(dto.getTekst());
-        o.setDatumPostavljanja(LocalDateTime.now());
+        o.setDatum(LocalDateTime.now());
         o.setPredmet(predmet);
         o.setAutor(nastavnik);
 
@@ -78,6 +78,6 @@ public class ObavestenjeController {
 
     private ObavestenjeDTO toDTO(Obavestenje o) {
         return new ObavestenjeDTO(o.getId(), o.getNaslov(), o.getTekst(),
-                o.getDatumPostavljanja(), o.getPredmet().getId(), o.getAutor().getId());
+                o.getDatum(), o.getPredmet().getId(), o.getAutor().getId());
     }
 }

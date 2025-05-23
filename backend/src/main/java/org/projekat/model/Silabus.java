@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.projekat.model.users.Nastavnik;
 
 @Entity
 @Table(name = "silabus")
@@ -24,7 +23,7 @@ public class Silabus {
     private Predmet predmet;
 
     @ManyToOne
-    @JoinColumn(name = "nastavnik_id")
+    @JoinColumn(name = "nastavnik_id",referencedColumnName = "osoba_id")
     private Nastavnik autor;
 }
 

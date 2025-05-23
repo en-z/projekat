@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.projekat.dto.IshodIspitaDTO;
 import org.projekat.mapper.IshodIspitaMapper;
 import org.projekat.model.IshodIspita;
+import org.projekat.model.Nastavnik;
 import org.projekat.model.Predmet;
-import org.projekat.model.users.Nastavnik;
-import org.projekat.model.users.Student;
+import org.projekat.model.Student;
 import org.projekat.service.IshodIspitaService;
 import org.projekat.service.PredmetService;
-import org.projekat.service.users.NastavnikService;
-import org.projekat.service.users.StudentService;
+import org.projekat.service.NastavnikService;
+import org.projekat.service.users.StudentServiceDusan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class IshodIspitaController {
 
     private final IshodIspitaService service;
-    private final StudentService studentService;
+    private final StudentServiceDusan studentService;
     private final PredmetService predmetService;
     private final NastavnikService nastavnikService;
 
@@ -66,7 +66,7 @@ public class IshodIspitaController {
     @GetMapping("/student/{id}")
     public ResponseEntity<List<IshodIspitaDTO>> getByStudent(@PathVariable Long id) {
         List<IshodIspitaDTO> dtos = service.findAll().stream()
-                .filter(i -> i.getStudent().getId() == id)
+                .filter(i -> i.getStudent().getOsoba_id() == id)
                 .map(IshodIspitaMapper::toDTO)
                 .toList();
 

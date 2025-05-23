@@ -1,0 +1,72 @@
+<div class="max-w-2xl mx-auto p-6 bg-white shadow rounded">
+  <h2 class="text-2xl font-bold mb-4">Dodaj Univerzitet</h2>
+
+  <form (ngSubmit)="onSubmit()" class="space-y-4">
+
+    <div>
+      <label class="block font-medium mb-1">Naziv</label>
+      <input type="text" [(ngModel)]="noviUniverzitet.naziv" name="naziv"
+             class="w-full border rounded px-3 py-2" required>
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Opis</label>
+      <textarea [(ngModel)]="noviUniverzitet.opis" name="opis"
+                class="w-full border rounded px-3 py-2" rows="3"></textarea>
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Kontakt</label>
+      <input type="text" [(ngModel)]="noviUniverzitet.kontakt" name="kontakt"
+             class="w-full border rounded px-3 py-2">
+    </div>
+
+    <div class="border-t pt-4">
+      <h3 class="font-semibold mb-2">Adresa</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm">Ulica</label>
+          <input type="text" [(ngModel)]="noviUniverzitet.adresa!.ulica" name="ulica"
+                 class="w-full border rounded px-3 py-2">
+        </div>
+        <div>
+          <label class="block text-sm">Broj</label>
+          <input type="text" [(ngModel)]="noviUniverzitet.adresa!.broj" name="broj"
+                 class="w-full border rounded px-3 py-2">
+        </div>
+        <div>
+          <label class="block text-sm">Grad</label>
+          <input type="text" [(ngModel)]="noviUniverzitet.adresa!.grad" name="grad"
+                 class="w-full border rounded px-3 py-2">
+        </div>
+        <div>
+          <label class="block text-sm">Država</label>
+          <input type="text" [(ngModel)]="noviUniverzitet.adresa!.drzava" name="drzava"
+                 class="w-full border rounded px-3 py-2">
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Rektor</label>
+      <select [(ngModel)]="selectedNastavnik" name="nastavnik"
+              class="w-full border rounded px-3 py-2">
+        <option [ngValue]="null">-- Izaberi nastavnika --</option>
+        <option *ngFor="let n of nastavnikList" [ngValue]="n">
+          {{ n.ime }} {{ n.prezime }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="error" class="text-sm text-red-600">
+      {{ error }}
+    </div>
+
+    <div class="pt-4">
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Sačuvaj Univerzitet
+      </button>
+    </div>
+  </form>
+</div>
+

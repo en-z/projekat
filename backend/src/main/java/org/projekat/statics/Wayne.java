@@ -7,4 +7,7 @@ public class Wayne {
         }
         return id == idFromReq;
     }
+    public static boolean isEven(long num){
+        return (num&1)==0;
+    }
 }

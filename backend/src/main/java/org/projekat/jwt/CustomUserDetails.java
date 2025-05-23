@@ -1,6 +1,6 @@
 package org.projekat.jwt;
 
-import org.projekat.model.users.User;
+import org.projekat.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
+    private long id;
     private String username;
     private String password;
     private List<GrantedAuthority> authorities;
 
     public CustomUserDetails(User user){
+        this.id = user.getId();
         this.username = user.getEmail();
         this.password= user.getPassword();
         this.authorities =user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
@@ -24,6 +26,9 @@ public class CustomUserDetails implements UserDetails {
         return authorities;
     }
 
+    public Long getId(){
+        return id;
+    }
     @Override
     public String getPassword() {
         return password;

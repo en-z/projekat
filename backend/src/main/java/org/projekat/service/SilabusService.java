@@ -1,12 +1,12 @@
 package org.projekat.service;
 
 import lombok.RequiredArgsConstructor;
+import org.projekat.model.Nastavnik;
 import org.projekat.model.Predmet;
 import org.projekat.model.Silabus;
-import org.projekat.model.users.Nastavnik;
 import org.projekat.repository.PredmetRepository;
 import org.projekat.repository.SilabusRepository;
-import org.projekat.repository.users.NastavnikRepository;
+import org.projekat.repository.NastavnikRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

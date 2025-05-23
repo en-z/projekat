@@ -6,14 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
-import org.projekat.model.users.Nastavnik;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "studijskiProgram")
+@Table(name = "studiskiProgram")
 public class StudijskiProgram {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +23,12 @@ public class StudijskiProgram {
     @JoinColumn(name = "fakultet_id",referencedColumnName = "id")
     private Fakultet fakultet;
     @OneToOne
-    @JoinColumn(name = "rukovodilac",referencedColumnName = "id")
+    @JoinColumn(name = "rukovodioc",referencedColumnName = "osoba_id")
     private Nastavnik rukovodilac;
+    public void update(StudijskiProgram o){
+        this.naziv = o.getNaziv();
+        this.opis = o.getOpis();
+        this.fakultet = o.getFakultet();
+        this.rukovodilac = o.getRukovodilac();
+    }
 }

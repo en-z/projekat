@@ -2,12 +2,12 @@ package org.projekat.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.projekat.dto.TerminDTO;
+import org.projekat.model.Nastavnik;
 import org.projekat.model.Predmet;
 import org.projekat.model.Termin;
-import org.projekat.model.users.Nastavnik;
 import org.projekat.service.PredmetService;
 import org.projekat.service.TerminService;
-import org.projekat.service.users.NastavnikService;
+import org.projekat.service.NastavnikService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

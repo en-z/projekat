@@ -14,7 +14,6 @@ public class IshodIspitaDTO {
     private int ocena;
     private int brojPokusaja;
     private int bodovi;
-    private boolean polozen;
     private LocalDateTime datumUnosa;
     private Long studentId;
     private Long predmetId;

@@ -1,0 +1,14 @@
+<div>
+  <button *ngIf="isLogged()"(click)="onLogout()"
+    class = "bg-red-600 text-white px-4 py-2 rounded-mb hover:bg-red-700 transition-colors">
+    LogOut
+  </button>
+  <button *ngIf="!isLogged()" (click)="goToLogin()"
+    class="px-4 py-2 bg-blue-600 rounded-mb hover:bg-blue-700 transition-colors">
+    Login
+  </button>
+  <button *ngIf="!isLogged()"(click)="goToRegister()"
+    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-grey-700 transition-colors">
+    Register
+  </button>
+</div>

@@ -2,10 +2,9 @@ package org.projekat.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.projekat.model.users.Student;
 
 import java.util.Date;
-
+/*
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,3 +26,4 @@ public class UpisGodine {
     @JoinColumn(name = "student_id")
     private Student student;
 }
+*/

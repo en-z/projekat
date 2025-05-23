@@ -2,7 +2,7 @@ package org.projekat.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.projekat.dto.PrijavaIspitaResponseDTO;
-import org.projekat.mapper.users.StudentMapper;
+import org.projekat.mapper.StudentMapper;
 import org.projekat.service.PrijavaIspitaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

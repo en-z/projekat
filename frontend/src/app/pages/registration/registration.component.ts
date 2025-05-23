@@ -29,6 +29,7 @@ export class RegistrationComponent {
       broj: ['', [Validators.required]],
       grad: ['', [Validators.required]],
       drzava: ['', [Validators.required]],
+      roles:['ROLE_ADMIN']
     });
   }
 

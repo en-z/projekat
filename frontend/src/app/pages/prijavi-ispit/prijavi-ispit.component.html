@@ -1,0 +1,19 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<ul *ngIf="listaPredmeta.length">
+  <li *ngFor="let predmet of listaPredmeta">
+    <button (click)="selected(predmet.id)">
+      {{ predmet.naziv}}
+    </button>
+  </li>
+</ul>
+
+<div *ngIf="selectedId">
+  <h3>Selected Subject: {{ selectedId.naziv }}</h3>
+</div>
+
+<button (click)="onSubmit()" [disabled]="!selectedId">
+  Submit Selected Subject
+</button>
+

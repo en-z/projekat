@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.projekat.model.users.Nastavnik;
 
 import java.time.LocalDateTime;
 
@@ -23,11 +22,11 @@ public class Termin {
     private LocalDateTime datum;
 
     @ManyToOne
-    @JoinColumn(name = "predmet_id")
+    @JoinColumn(name = "predmet_id",referencedColumnName = "id")
     private Predmet predmet;
 
     @ManyToOne
-    @JoinColumn(name = "nastavnik_id")
+    @JoinColumn(name = "nastavnik_id",referencedColumnName = "osoba_id")
     private Nastavnik nastavnik;
 }
 

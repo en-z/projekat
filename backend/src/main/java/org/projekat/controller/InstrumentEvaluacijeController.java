@@ -3,11 +3,11 @@ package org.projekat.controller;
 import lombok.RequiredArgsConstructor;
 import org.projekat.dto.InstrumentEvaluacijeDTO;
 import org.projekat.model.InstrumentEvaluacije;
+import org.projekat.model.Nastavnik;
 import org.projekat.model.Predmet;
-import org.projekat.model.users.Nastavnik;
 import org.projekat.service.InstrumentEvaluacijeService;
 import org.projekat.service.PredmetService;
-import org.projekat.service.users.NastavnikService;
+import org.projekat.service.NastavnikService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

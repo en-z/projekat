@@ -4,22 +4,25 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.projekat.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import javax.management.relation.Role;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 @Component
 public class JwtService {
     @Value("${jwt-secret}")
     private String jwtSecret;
-    public String generateToken(String email,long id){
+    public String generateToken(String email, User id){
         Map<String, Object> claims =new HashMap<>();
-        claims.put("id",id);
+        claims.put("roles",id.getRoles());
         return createToken(claims,email);
     }
     public String createToken(Map<String,Object>claims,String email){
@@ -27,7 +30,7 @@ public class JwtService {
                 .claims(claims)
                 .subject(email)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()+1000*60*30))
+                .expiration(new Date(System.currentTimeMillis()+1000*60*120))
                 .signWith(getKey())
                 .compact();
     }
@@ -56,7 +59,4 @@ public class JwtService {
         return (username.equals(userDetails.getUsername())&&!isTokenExpired(token));
     }
 
-    public Long extractId(String token) {
-        return extractClaim(token,claims -> claims.get("id", Long.class));
-    }
 }

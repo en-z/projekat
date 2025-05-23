@@ -29,9 +29,13 @@ CREATE TABLE `IshodIspita` (
   `brojPokusaja` int NOT NULL,
   `bodovi` int NOT NULL,
   `polozen` tinyint NOT NULL,
+  `dastumUnosa` datetime NOT NULL,
+  `nastavnik_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_predmet_has_student_student1_idx` (`student_osoba_id`),
   KEY `fk_predmet_has_student_predmet1_idx` (`predmet_id`),
+  KEY `fk_IshodIspita_nastavnik1_idx` (`nastavnik_id`),
+  CONSTRAINT `fk_IshodIspita_nastavnik1` FOREIGN KEY (`nastavnik_id`) REFERENCES `nastavnik` (`osoba_id`),
   CONSTRAINT `fk_predmet_has_student_predmet1` FOREIGN KEY (`predmet_id`) REFERENCES `predmet` (`id`),
   CONSTRAINT `fk_predmet_has_student_student1` FOREIGN KEY (`student_osoba_id`) REFERENCES `student` (`osoba_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -60,7 +64,7 @@ CREATE TABLE `adresa` (
   `grad` varchar(45) NOT NULL,
   `drzava` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,6 +73,7 @@ CREATE TABLE `adresa` (
 
 LOCK TABLES `adresa` WRITE;
 /*!40000 ALTER TABLE `adresa` DISABLE KEYS */;
+INSERT INTO `adresa` VALUES (1,'jankova','1','novi sad','srbija'),(2,'jankova','2','novi sad','srbija');
 /*!40000 ALTER TABLE `adresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,8 +123,11 @@ CREATE TABLE `instrumentEvaluacije` (
   `tip` varchar(45) NOT NULL,
   `predmet_id` bigint NOT NULL,
   `opis` text NOT NULL,
+  `nastavnik_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_instrumentEvaluacije_predmet1` (`predmet_id`),
+  KEY `fk_instrumentEvaluacije_nastavnik1_idx` (`nastavnik_id`),
+  CONSTRAINT `fk_instrumentEvaluacije_nastavnik1` FOREIGN KEY (`nastavnik_id`) REFERENCES `nastavnik` (`osoba_id`),
   CONSTRAINT `fk_instrumentEvaluacije_predmet1` FOREIGN KEY (`predmet_id`) REFERENCES `predmet` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -131,31 +139,6 @@ CREATE TABLE `instrumentEvaluacije` (
 LOCK TABLES `instrumentEvaluacije` WRITE;
 /*!40000 ALTER TABLE `instrumentEvaluacije` DISABLE KEYS */;
 /*!40000 ALTER TABLE `instrumentEvaluacije` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ishod`
---
-
-DROP TABLE IF EXISTS `ishod`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ishod` (
-  `naziv` varchar(45) NOT NULL,
-  `termin` date NOT NULL,
-  `silabus_id` bigint NOT NULL,
-  PRIMARY KEY (`silabus_id`),
-  CONSTRAINT `fk_ishod_silabus1` FOREIGN KEY (`silabus_id`) REFERENCES `silabus` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ishod`
---
-
-LOCK TABLES `ishod` WRITE;
-/*!40000 ALTER TABLE `ishod` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ishod` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -194,8 +177,9 @@ DROP TABLE IF EXISTS `nastavnik`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nastavnik` (
-  `status` varchar(45) NOT NULL,
   `osoba_id` bigint NOT NULL,
+  `status` bigint NOT NULL,
+  `biografija` text NOT NULL,
   PRIMARY KEY (`osoba_id`),
   KEY `fk_nastavnik_osoba1_idx` (`osoba_id`),
   CONSTRAINT `fk_nastavnik_osoba1` FOREIGN KEY (`osoba_id`) REFERENCES `osoba` (`user_id`)
@@ -219,9 +203,11 @@ DROP TABLE IF EXISTS `nastavnik_has_predmet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nastavnik_has_predmet` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `nastavnik_osoba_id` bigint NOT NULL,
   `predmet_id` bigint NOT NULL,
-  PRIMARY KEY (`nastavnik_osoba_id`,`predmet_id`),
+  `uloga` text NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `fk_nastavnik_has_predmet_predmet1_idx` (`predmet_id`),
   KEY `fk_nastavnik_has_predmet_nastavnik1_idx` (`nastavnik_osoba_id`),
   CONSTRAINT `fk_nastavnik_has_predmet_nastavnik1` FOREIGN KEY (`nastavnik_osoba_id`) REFERENCES `nastavnik` (`osoba_id`),
@@ -246,17 +232,17 @@ DROP TABLE IF EXISTS `obavjestenje`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `obavjestenje` (
-  `idobavjestenje` int NOT NULL AUTO_INCREMENT,
-  `naziv` varchar(45) NOT NULL,
-  `sadrzaj` text NOT NULL,
-  `datum` date NOT NULL,
-  `fk_idpredmet` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `naslov` text NOT NULL,
+  `tekst` text NOT NULL,
+  `datum` datetime NOT NULL,
+  `predmet_id` bigint NOT NULL,
   `nastavnik_osoba_id` bigint NOT NULL,
-  PRIMARY KEY (`idobavjestenje`,`fk_idpredmet`,`nastavnik_osoba_id`),
-  KEY `fk_obavjestenje_predmet1_idx` (`fk_idpredmet`),
+  PRIMARY KEY (`id`,`predmet_id`,`nastavnik_osoba_id`),
+  KEY `fk_obavjestenje_predmet1_idx` (`predmet_id`),
   KEY `fk_obavjestenje_nastavnik1_idx` (`nastavnik_osoba_id`),
   CONSTRAINT `fk_obavjestenje_nastavnik1` FOREIGN KEY (`nastavnik_osoba_id`) REFERENCES `nastavnik` (`osoba_id`),
-  CONSTRAINT `fk_obavjestenje_predmet1` FOREIGN KEY (`fk_idpredmet`) REFERENCES `predmet` (`id`)
+  CONSTRAINT `fk_obavjestenje_predmet1` FOREIGN KEY (`predmet_id`) REFERENCES `predmet` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -277,10 +263,10 @@ DROP TABLE IF EXISTS `osoba`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `osoba` (
+  `user_id` bigint NOT NULL,
   `ime` varchar(45) NOT NULL,
   `prezime` varchar(45) NOT NULL,
   `adresa_id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `fk_osoba_adresa1_idx` (`adresa_id`),
   KEY `fk_osoba_user1_idx` (`user_id`),
@@ -295,6 +281,7 @@ CREATE TABLE `osoba` (
 
 LOCK TABLES `osoba` WRITE;
 /*!40000 ALTER TABLE `osoba` DISABLE KEYS */;
+INSERT INTO `osoba` VALUES (1,'admin','admin',2),(6,'janko','jankovic',1),(8,'ranko','rankovic',2),(10,'ranko','rankovic',2);
 /*!40000 ALTER TABLE `osoba` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,6 +296,7 @@ CREATE TABLE `predmet` (
   `id` bigint NOT NULL,
   `naziv` varchar(45) NOT NULL,
   `esbp` int NOT NULL,
+  `semestar` int NOT NULL,
   `studiskiProgram_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_predmet_studiskiProgram1_idx` (`studiskiProgram_id`),
@@ -365,10 +353,13 @@ DROP TABLE IF EXISTS `silabus`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `silabus` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `tekst` text NOT NULL,
+  `sadrzaj` text NOT NULL,
   `predmet_id` bigint NOT NULL,
+  `nastavnik_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_silabus_predmet1` (`predmet_id`),
+  KEY `fk_silabus_nastavnik1_idx` (`nastavnik_id`),
+  CONSTRAINT `fk_silabus_nastavnik1` FOREIGN KEY (`nastavnik_id`) REFERENCES `nastavnik` (`osoba_id`),
   CONSTRAINT `fk_silabus_predmet1` FOREIGN KEY (`predmet_id`) REFERENCES `predmet` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -396,6 +387,7 @@ CREATE TABLE `student` (
   `osvojeniESPB` int NOT NULL,
   `osoba_id` bigint NOT NULL,
   `studiskiProgram_id` bigint NOT NULL,
+  `godinaStudija` int NOT NULL,
   PRIMARY KEY (`osoba_id`),
   KEY `fk_student_studiskiProgram1_idx` (`studiskiProgram_id`),
   CONSTRAINT `fk_student_osoba1` FOREIGN KEY (`osoba_id`) REFERENCES `osoba` (`user_id`),
@@ -443,6 +435,36 @@ LOCK TABLES `studiskiProgram` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `termin`
+--
+
+DROP TABLE IF EXISTS `termin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `termin` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `tema` text NOT NULL,
+  `datum` datetime NOT NULL,
+  `predmet_id` bigint NOT NULL,
+  `nastavnik_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_termin_predmet1_idx` (`predmet_id`),
+  KEY `fk_termin_nasatavnik1_idx` (`nastavnik_id`),
+  CONSTRAINT `fk_termin_nasatavnik1` FOREIGN KEY (`nastavnik_id`) REFERENCES `nastavnik` (`osoba_id`),
+  CONSTRAINT `fk_termin_predmet1` FOREIGN KEY (`predmet_id`) REFERENCES `predmet` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `termin`
+--
+
+LOCK TABLES `termin` WRITE;
+/*!40000 ALTER TABLE `termin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `termin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `univerzitet`
 --
 
@@ -451,7 +473,9 @@ DROP TABLE IF EXISTS `univerzitet`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `univerzitet` (
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `naziv` varchar(255) NOT NULL,
   `kontakt` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `opis` text NOT NULL,
   `adresa_id` bigint NOT NULL,
   `nastavnik_osoba_rektor` bigint NOT NULL,
@@ -485,7 +509,7 @@ CREATE TABLE `user` (
   `password` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -494,7 +518,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'marko@gmail.com','$2y$10$WKITv3zFXPViI1dxrCMLl.JXKtrVymQ56uSdRqIpxK4dYZw8R1xv2');
+INSERT INTO `user` VALUES (1,'marko@gmail.com','$2y$10$WKITv3zFXPViI1dxrCMLl.JXKtrVymQ56uSdRqIpxK4dYZw8R1xv2'),(6,'janko','$2a$10$Zj97fHR7x5Yi8YGZYnwnzOia1VjQ.XZACvo2rM8DMkuiErbZLsr.m'),(8,'ranko@gmai.com','$2a$10$gbzAgfJ2RZEYoFZDUpeDHO6I6TlK1pS5i1BwdiJsibfFG12GgTCoS'),(10,'ranko@gmail.com','$2a$10$2o.xJfT9439okhkAydYLHuo66ey72cwPcC1mOqZoyTyNzlXKrXsRe');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -536,6 +560,7 @@ CREATE TABLE `zavrsniRad` (
   `naslov` varchar(45) NOT NULL,
   `student_osoba_id` bigint NOT NULL,
   `nastavnik_osoba_id` bigint NOT NULL,
+  `status` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_zavrsniRad_student1_idx` (`student_osoba_id`),
   KEY `fk_zavrsniRad_nastavnik1_idx` (`nastavnik_osoba_id`),
@@ -588,4 +613,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-29 17:55:12
+-- Dump completed on 2025-05-23 16:47:47

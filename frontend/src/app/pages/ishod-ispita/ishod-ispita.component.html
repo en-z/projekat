@@ -1,0 +1,45 @@
+<h2>Group = 5</h2>
+<table border="1" *ngIf="polozeniIspiti.length >0">
+  <thead>
+    <tr>
+      <th>Predmet</th>
+      <th>Broj pokušaja</th>
+      <th>Bodovi</th>
+      <th>ESBP</th>
+      <th>Semestar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ishod of polozeniIspiti" >
+      <td>{{ ishod.predmetNaziv}}</td>
+      <td>{{ getOcena(ishod.bodovi)}}</td>
+      <td>{{ ishod.brojPokusaja }}</td>
+      <td>{{ ishod.bodovi }}</td>
+      <td>{{ ishod.esbp }}</td>
+      <td>{{ ishod.semestar }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Group > 5</h2>
+<table border="1" *ngIf="padIspit.length >0">
+  <thead>
+    <tr>
+      <th>Predmet</th>
+      <th>Broj pokušaja</th>
+      <th>Bodovi</th>
+      <th>ESBP</th>
+      <th>Semestar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ishod of padIspit" >
+      <td>{{ ishod.predmetNaziv }}</td>
+      <td>{{ ishod.brojPokusaja }}</td>
+      <td>{{ ishod.bodovi }}</td>
+      <td>{{ ishod.esbp }}</td>
+      <td>{{ ishod.semestar }}</td>
+    </tr>
+  </tbody>
+</table>
+

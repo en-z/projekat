@@ -12,8 +12,7 @@ import java.util.Date;
 public class PrijavaIspitaDTO {
     private Long id;
     private int godina;
-    private String rok;
+    private int rok; //en:ROK JE BROJ NIJE STRING
     private Date datumPrijave;
-    private Long studentId;
     private Long predmetId;
 }

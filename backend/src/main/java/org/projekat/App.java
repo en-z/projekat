@@ -7,12 +7,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecutor;
+
 
 import java.util.Arrays;
+import java.util.concurrent.Executor;
 
 
 @SpringBootApplication
-@EnableAsync
 public class App
 {
     public static void main(String[]args){
@@ -32,16 +34,4 @@ public class App
 
         };
     }
-    @Bean
-    public ThreadPoolTaskExecutor taskExecutor(){
-        ThreadPoolTaskExecutor executor =new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(3);
-        executor.setMaxPoolSize(3);
-        executor.setQueueCapacity(1000);
-        executor.setThreadNamePrefix("ATHREAD-");
-        executor.setRejectedExecutionHandler((r,executor1)->System.out.println("taskRejected tpool full and queue full")); //TODO(en:add log warn
-        executor.initialize();
-        return executor;
-    }
-
 }

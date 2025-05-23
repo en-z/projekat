@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
-import org.projekat.model.users.Nastavnik;
 
 @Getter
 @Setter
@@ -25,10 +24,17 @@ public class Fakultet {
     @JoinColumn(name = "univerzitet_id",referencedColumnName = "id")
     private Univerzitet univerzitet;
     @OneToOne
-    @JoinColumn(name = "dekan",referencedColumnName = "id")
+    @JoinColumn(name = "dekan",referencedColumnName = "osoba_id")
     private Nastavnik dekan;
     @OneToOne
     @JoinColumn(name = "adresa_id",referencedColumnName = "id")
     private Adresa adresa;
-
+    public void update(Fakultet f){
+        this.naziv = f.getNaziv();
+        this.opis = f.getOpis();
+        this.kontakt = f.getKontakt();
+        this.univerzitet = f.getUniverzitet();
+        this.dekan = f.getDekan();
+        this.adresa = f.getAdresa();
+    }
 }

@@ -1,27 +1,27 @@
 package org.projekat.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import jakarta.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "predmet")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "predmet")
 public class Predmet {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String naziv;
-
-    private int espb;
-
+    private int esbp;
+    private int semestar;
     @ManyToOne
     @JoinColumn(name = "studijski_program_id", referencedColumnName = "id")
     private StudijskiProgram studijskiProgram;

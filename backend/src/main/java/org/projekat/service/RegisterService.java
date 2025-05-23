@@ -2,11 +2,11 @@ package org.projekat.service;
 
 import org.projekat.dto.RegisterDTO;
 import org.projekat.model.Adresa;
-import org.projekat.model.users.Osoba;
-import org.projekat.model.users.User;
+import org.projekat.model.Osoba;
+import org.projekat.model.User;
 import org.projekat.repository.AdresaRepository;
-import org.projekat.repository.users.OsobaRepository;
-import org.projekat.repository.users.UserRepository;
+import org.projekat.repository.OsobaRepository;
+import org.projekat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
