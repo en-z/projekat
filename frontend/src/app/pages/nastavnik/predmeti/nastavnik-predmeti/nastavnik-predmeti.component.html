@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Moji predmeti</h2>
+
+  <div *ngIf="predmeti.length === 0">
+    <p>Nema predmeta za prikaz.</p>
+  </div>
+
+  <ul *ngIf="predmeti.length > 0" class="predmeti-lista">
+    <li *ngFor="let predmet of predmeti" class="predmet-item">
+      <h3>{{ predmet.naziv }}</h3>
+      <p><strong>ID:</strong> {{ predmet.id }}</p>
+      <p><strong>ESPB:</strong> {{ predmet.espb }}</p>
+      <button [routerLink]="['/nastavnik/predmet', predmet.id]">Detalji</button>
+    </li>
+  </ul>
+</div>

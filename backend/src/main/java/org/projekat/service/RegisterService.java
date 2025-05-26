@@ -1,19 +1,18 @@
 package org.projekat.service;
 
-import org.projekat.dtos.RegisterDTO;
+import org.projekat.dto.RegisterDTO;
 import org.projekat.model.Adresa;
-import org.projekat.model.Osoba;
-import org.projekat.model.User;
-import org.projekat.repositorys.AdresaRepository;
-import org.projekat.repositorys.OsobaRepository;
-import org.projekat.repositorys.UserRepository;
+import org.projekat.model.users.Osoba;
+import org.projekat.model.users.User;
+import org.projekat.repository.AdresaRepository;
+import org.projekat.repository.users.OsobaRepository;
+import org.projekat.repository.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.concurrent.CompletableFuture;
 @Service

@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Studenti na predmetu ID: {{ predmetId }}</h2>
+
+  <ul *ngIf="studenti.length > 0; else nemaStudenata">
+    <li *ngFor="let s of studenti">
+      <strong>Indeks:</strong> {{ s.student.brojIndeksa }} |
+      <strong>Godina upisa:</strong> {{ s.student.godinaUpisa }} |
+      <strong>Prosecna ocena:</strong> {{ s.student.prosecnaOcena }} |
+      <strong>ESPB:</strong> {{ s.student.osvojeniESPB }}
+    </li>
+  </ul>
+
+  <ng-template #nemaStudenata>
+    <p>Nema studenata upisanih na ovaj predmet.</p>
+  </ng-template>
+</div>

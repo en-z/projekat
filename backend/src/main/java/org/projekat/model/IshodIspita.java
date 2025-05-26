@@ -1,26 +1,53 @@
 package org.projekat.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.projekat.model.users.Nastavnik;
+import org.projekat.model.users.Student;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "IshodIspita" )
+@Table(name = "ishod_ispita")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IshodIspita {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+
+    private int ocena;
+
+    private LocalDateTime datumUnosa;
+
     private int brojPokusaja;
+
     private int bodovi;
+
     private boolean polozen;
+
     @ManyToOne
-    @JoinColumn(name = "predmet_id",referencedColumnName = "id")
-    private Predmet predmet;
-    @ManyToOne
-    @JoinColumn(name = "student_osoba_id",referencedColumnName = "osoba_id")
+    @JoinColumn(name = "student_id")
     private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "instrument_id")
+    private InstrumentEvaluacije instrumentEvaluacije;
+
+    @ManyToOne
+    @JoinColumn(name = "nastavnik_id")
+    private Nastavnik nastavnik;
+
+    @ManyToOne
+    @JoinColumn(name = "predmet_id")
+    private Predmet predmet;
+
+    @PrePersist
+    public void onCreate() {
+        this.datumUnosa = LocalDateTime.now();
+    }
 }

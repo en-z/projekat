@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Obaveštenja</h2>
+
+  <div class="dodaj">
+    <h3>Dodaj novo obaveštenje</h3>
+    <input type="text" [(ngModel)]="novo.naslov" placeholder="Naslov">
+    <textarea [(ngModel)]="novo.tekst" placeholder="Tekst"></textarea>
+    <button (click)="dodaj()">Dodaj</button>
+  </div>
+
+  <hr>
+
+  <div *ngIf="obavestenja.length > 0">
+    <ul>
+      <li *ngFor="let o of obavestenja">
+        <div *ngIf="uIzmeniId !== o.id">
+          <strong>{{ o.naslov }}</strong> – {{ o.tekst }}<br>
+          <small>{{ o.datumPostavljanja | date: 'short' }}</small>
+          <br>
+          <button (click)="pokreniIzmenu(o)">Izmeni</button>
+          <button (click)="obrisi(o.id)">Obriši</button>
+        </div>
+
+        <div *ngIf="uIzmeniId === o.id">
+          <input type="text" [(ngModel)]="izmena.naslov">
+          <textarea [(ngModel)]="izmena.tekst"></textarea>
+          <button (click)="sacuvajIzmenu()">Sačuvaj</button>
+          <button (click)="otkaziIzmenu()">Otkaži</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="obavestenja.length === 0">
+    <p>Nema obaveštenja za prikaz.</p>
+  </div>
+</div>

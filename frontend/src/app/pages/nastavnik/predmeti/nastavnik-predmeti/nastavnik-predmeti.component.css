@@ -1,0 +1,15 @@
+.container {
+  padding: 20px;
+}
+
+.predmeti-lista {
+  list-style-type: none;
+  padding: 0;
+}
+
+.predmet-item {
+  background-color: #f2f2f2;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}

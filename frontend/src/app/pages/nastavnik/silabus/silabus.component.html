@@ -1,0 +1,20 @@
+<div class="container" *ngIf="silabus">
+  <h2>Silabus</h2>
+
+  <div *ngIf="!uredi">
+    <p>Naziv: {{ silabus.sadrzaj }}</p>
+    <p>predmet id: {{ silabus.predmetId }}</p>
+    <p>nastavnik id: {{ silabus.nastavnikId }}</p>
+    <button (click)="uredi = true">Izmeni</button>
+  </div>
+
+  <div *ngIf="uredi">
+    <textarea [(ngModel)]="noviSadrzaj" rows="10" cols="80"></textarea><br>
+    <button (click)="sacuvajIzmene()">Sačuvaj</button>
+    <button (click)="uredi = false">Otkaži</button>
+  </div>
+</div>
+
+<div *ngIf="!silabus">
+  <p>Silabus nije pronađen.</p>
+</div>

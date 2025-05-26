@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
+import org.projekat.model.users.Nastavnik;
 
 @Getter
 @Setter
@@ -24,7 +25,7 @@ public class Fakultet {
     @JoinColumn(name = "univerzitet_id",referencedColumnName = "id")
     private Univerzitet univerzitet;
     @OneToOne
-    @JoinColumn(name = "dekan",referencedColumnName = "osoba_id")
+    @JoinColumn(name = "dekan",referencedColumnName = "id")
     private Nastavnik dekan;
     @OneToOne
     @JoinColumn(name = "adresa_id",referencedColumnName = "id")

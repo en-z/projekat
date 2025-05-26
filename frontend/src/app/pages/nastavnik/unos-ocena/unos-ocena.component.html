@@ -1,0 +1,43 @@
+<div class="container">
+  <h2>Unos ocene za predmet ID: {{ predmetId }}</h2>
+
+  <ng-container *ngIf="dozvoljenUnos; else blokirano">
+    <form [formGroup]="ocenaForm" (ngSubmit)="submit()" class="dodaj">
+      <select formControlName="studentId" required>
+        <option value="" disabled selected>Izaberi studenta</option>
+        <option *ngFor="let student of studenti" [value]="student.id">
+          {{ student.ime }} {{ student.prezime }} (ID: {{ student.id }})
+        </option>
+      </select>
+      <input type="number" formControlName="ocena" placeholder="Ocena (5-10)" required min="5" max="10">
+      <input type="number" formControlName="brojPokusaja" placeholder="Broj pokušaja" required>
+      <input type="number" formControlName="bodovi" placeholder="Bodovi" required>
+
+      <label>
+        Položen:
+        <input type="checkbox" formControlName="polozen">
+      </label>
+
+      <button type="submit" [disabled]="ocenaForm.invalid">Unesi ocenu</button>
+    </form>
+  </ng-container>
+
+  <ng-template #blokirano>
+    <p style="color: red;">
+      Unos ocena više nije moguc jer je proslo vise od 15 dana od poslednjeg termina ispita.
+    </p>
+  </ng-template>
+
+  <hr />
+
+  <h3>Uneti ishodi</h3>
+  <ul>
+    <li *ngFor="let ishod of ishodi">
+      <strong>Student ID:</strong> {{ ishod.studentId }} |
+      <strong>Ocena:</strong> {{ ishod.ocena }} |
+      <strong>Bodovi:</strong> {{ ishod.bodovi }} |
+      <strong>Pokušaji:</strong> {{ ishod.brojPokusaja }} |
+      <strong>Položen:</strong> {{ ishod.polozen ? 'Da' : 'Ne' }}
+    </li>
+  </ul>
+</div>

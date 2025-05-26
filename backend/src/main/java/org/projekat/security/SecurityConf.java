@@ -15,6 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -26,20 +31,20 @@ public class SecurityConf {
         this.userDetailsService = userDetailsService;
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                    .authorizeHttpRequests(auth->auth //TODO(en):testirati oce li pulat rektora i ostale kad otvorim ovo
-                        .requestMatchers("/auth/v1/login","auth/v1/registration").permitAll()
-                        .requestMatchers("/auth/v1/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers("/auth/v1/user/**").hasAnyAuthority("ROLE_USER")
-                        .requestMatchers("/auth/v1/nastavnik/**").hasAnyAuthority("ROLE_NASTAVNIK")
-                            .requestMatchers("/auth/v1/student/**").hasAnyAuthority("ROLE_STUDENT")
-                            .requestMatchers("/auth/v1/osoba/**").hasAnyAuthority("ROLE_STUDENT","ROLE_ADMIN","ROLE_NASTAVNIK")
-                        .anyRequest()
-                        .authenticated()
-                ).sessionManagement(sess->sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors(cors -> {})
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/users/login", "/api/users/registration").permitAll()
+                        // .requestMatchers("/api/nastavnici/**").hasRole("NASTAVNIK")
+
+                        // ovo treba ovde dok se testira
+                        .anyRequest().permitAll()
+                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
     @Bean
@@ -52,5 +57,18 @@ public class SecurityConf {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)throws Exception{
        return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:4200")); // Angular frontend
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true); // ako koristiš cookie/jwt
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }
