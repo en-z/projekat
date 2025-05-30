@@ -7,7 +7,7 @@ import org.projekat.model.Predmet;
 import org.projekat.model.Termin;
 import org.projekat.service.PredmetService;
 import org.projekat.service.TerminService;
-import org.projekat.service.NastavnikService;
+import org.projekat.service.users.NastavnikService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,6 @@ public class TerminController {
     private final PredmetService predmetService;
     private final NastavnikService nastavnikService;
 
-    // GET all
     @GetMapping
     public ResponseEntity<List<TerminDTO>> getAll() {
         List<TerminDTO> dtos = terminService.findAll().stream()
@@ -33,7 +32,6 @@ public class TerminController {
         return ResponseEntity.ok(dtos);
     }
 
-    // GET by ID
     @GetMapping("/{id}")
     public ResponseEntity<TerminDTO> getById(@PathVariable Long id) {
         return terminService.findById(id)
@@ -42,7 +40,6 @@ public class TerminController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // GET by predmet
     @GetMapping("/predmet/{predmetId}")
     public ResponseEntity<List<TerminDTO>> getByPredmet(@PathVariable Long predmetId) {
         List<TerminDTO> dtos = terminService.findByPredmetId(predmetId).stream()
@@ -51,7 +48,6 @@ public class TerminController {
         return ResponseEntity.ok(dtos);
     }
 
-    // CREATE
     @PostMapping
     public ResponseEntity<TerminDTO> create(@RequestBody TerminDTO dto) {
         Predmet predmet = predmetService.findById(dto.getPredmetId())
@@ -69,7 +65,6 @@ public class TerminController {
         return ResponseEntity.ok(toDTO(saved));
     }
 
-    // UPDATE
     @PutMapping("/{id}")
     public ResponseEntity<TerminDTO> update(@PathVariable Long id, @RequestBody TerminDTO dto) {
         Optional<Termin> existing = terminService.findById(id);
@@ -83,7 +78,6 @@ public class TerminController {
         return ResponseEntity.ok(toDTO(saved));
     }
 
-    // DELETE
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (terminService.findById(id).isEmpty()) return ResponseEntity.notFound().build();
@@ -91,7 +85,6 @@ public class TerminController {
         return ResponseEntity.noContent().build();
     }
 
-    // Mapping helper
     private TerminDTO toDTO(Termin t) {
         return new TerminDTO(t.getId(), t.getTema(), t.getDatum(),
                 t.getPredmet().getId(), t.getNastavnik().getId());

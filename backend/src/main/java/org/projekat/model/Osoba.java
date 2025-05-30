@@ -14,7 +14,7 @@ import jakarta.persistence.*;
 public class Osoba {
     @Id
     @Column(name = "user_id")
-    private long id;
+    private long user_id;
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id",referencedColumnName = "id")

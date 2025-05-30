@@ -1,7 +1,10 @@
 export interface Student{
-  brojIndeksa:string,
-  godinaUpisa:Date,
-  prosecnaOcena:number,
-  osvojeniBodovi:number,
-  godinaStudija:number,
+  id: number;
+  ime: string;
+  prezime: string;
+  brojIndeksa: string;
+  godinaUpisa: number;
+  email: string;
+  prosecnaOcena: number;
+  osvojeniESPB: number;
 }

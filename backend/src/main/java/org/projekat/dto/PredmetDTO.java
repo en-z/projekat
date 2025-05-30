@@ -22,4 +22,10 @@ public class PredmetDTO {
         this.semestar = predmet.getSemestar();
         this.studiskiId = predmet.getStudijskiProgram().getId(); // mozda nije potrebno
     }
+
+    public PredmetDTO(long id, String naziv, int esbp) {
+        this.id = id;
+        this.naziv = naziv;
+        this.esbp = esbp;
+    }
 }

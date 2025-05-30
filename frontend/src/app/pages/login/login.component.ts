@@ -35,7 +35,7 @@ export class LoginComponent {
       if(this.loginForm.invalid)return;
       this.subbmited = true;
       const{username,password} =this.loginForm.value;
-      this.http.post<{token:string}>('http://localhost:8080/auth/v1/login',{username,password})
+      this.http.post<{token:string}>('http://localhost:8080/api/users/login',{username,password})
       .subscribe({
         next:(res)=>{
           console.log(username,password);

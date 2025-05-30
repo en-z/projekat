@@ -1,5 +1,6 @@
 package org.projekat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,11 +19,14 @@ public class Nastavnik {
     @Column(name = "osoba_id")
     private long id;
     @OneToOne
+    @MapsId
     @JoinColumn(name = "osoba_id",referencedColumnName = "user_id")
     private Osoba osoba;
     private String status;
     private String biografija;
+
     @OneToMany
-    @JsonManagedReference
+    @JsonIgnore
+    @JsonManagedReference("nastavnik-angazovanja")
     private List<Angazovanje> angazovanja;
 }

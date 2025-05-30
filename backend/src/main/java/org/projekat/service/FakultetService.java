@@ -11,6 +11,7 @@ import java.net.http.HttpClient;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 @Service
 public class FakultetService {
@@ -46,5 +47,10 @@ public class FakultetService {
     public CompletableFuture<Fakultet> save(Fakultet fakultet) {
         Fakultet saved = fakultetRepository.save(fakultet);
         return CompletableFuture.completedFuture(saved);
+    }
+    @Async
+    public CompletableFuture<List<FakultetDTO>> getFakultetByUniverzitet(long id){
+        List<FakultetDTO> fakultetList = fakultetRepository.findByUniverzitet_Id(id).stream().map(f->new FakultetDTO(f.getId(),f.getNaziv(),f.getOpis(),f.getKontakt(),f.getAdresa(),f.getDekan(),f.getUniverzitet().getId())).collect(Collectors.toList());
+        return CompletableFuture.completedFuture(fakultetList);
     }
 }

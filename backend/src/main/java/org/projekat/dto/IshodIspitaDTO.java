@@ -18,4 +18,5 @@ public class IshodIspitaDTO {
     private Long studentId;
     private Long predmetId;
     private Long nastavnikId;
+
 }

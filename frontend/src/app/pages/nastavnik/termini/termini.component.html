@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>Termini</h2>
+
+  <!-- Dodavanje -->
+  <div class="dodaj">
+    <h3>Dodaj novi termin</h3>
+    <input type="text" [(ngModel)]="noviTermin.tema" placeholder="Tema">
+    <input type="datetime-local" [(ngModel)]="noviTermin.datum" [min]="minDateTime">
+    <button (click)="dodajTermin()">Dodaj</button>
+  </div>
+
+  <hr>
+
+  <!-- Lista termina -->
+  <div *ngIf="termini.length > 0">
+    <h3>Lista termina</h3>
+    <ul>
+      <li *ngFor="let t of termini">
+        <div *ngIf="uIzmeniId !== t.id">
+          <strong>{{ t.tema }}</strong> – {{ t.datum | date: 'dd.MM.yyyy HH:mm' }}
+          <button (click)="pokreniIzmenu(t)">Izmeni</button>
+          <button (click)="obrisiTermin(t.id)">Obriši</button>
+        </div>
+
+        <div *ngIf="uIzmeniId === t.id">
+          <input type="text" [(ngModel)]="izmenaTermin.tema">
+          <input type="datetime-local" [(ngModel)]="izmenaTermin.datum" [min]="minDateTime">
+          <button (click)="sacuvajIzmenu()">Sačuvaj</button>
+          <button (click)="otkaziIzmenu()">Otkaži</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="termini.length === 0">
+    <p>Nema termina za prikaz.</p>
+  </div>
+</div>

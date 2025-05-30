@@ -1,36 +1,26 @@
 package org.projekat.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.projekat.dto.PredmetDTO;
 import org.projekat.dto.PrijavaIspitaDTO;
-import org.projekat.jwt.CustomUserDetails;
-import org.projekat.model.IshodIspita;
-import org.projekat.model.Predmet;
-import org.projekat.model.PrijavaIspita;
-import org.projekat.model.Student;
-import org.projekat.repository.IshodIspitaRepository;
-import org.projekat.repository.PredmetRepository;
-import org.projekat.repository.PrijavaIspitaRepository;
-import org.projekat.repository.StudentRepository;
+import org.projekat.model.*;
+import org.projekat.repository.*;
+import org.projekat.repository.users.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Service
 public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private IspitniRokRepository ispitniRokRepository;
     @Autowired
     private PredmetRepository predmetRepository;
     @Autowired
@@ -52,7 +42,12 @@ public class StudentService {
         return CompletableFuture.completedFuture(studentRepository.save(student));
     }
     @Async
-    public CompletableFuture<ResponseEntity<List<PredmetDTO>>> getPredmeteZaUpis(long id){
+    public CompletableFuture<ResponseEntity<?>> getPredmeteZaUpis(long id){ //
+        LocalDate now = LocalDate.now();
+        List<IspitniRok> ispitniRokList = ispitniRokRepository.getAktivneRokove(now).orElse(Collections.emptyList());
+        if(ispitniRokList.isEmpty()){
+            return CompletableFuture.completedFuture(ResponseEntity.ok("prazno"));//todo:Promjeni
+        }
         Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student nije pronadjen"));
         int godinaStudija = student.getGodinaStudija();
         int maxSemestar = 2*godinaStudija;// 2*1 = 1 2*2=4 ..6..8
@@ -66,7 +61,7 @@ public class StudentService {
     }
     @Async
     public CompletableFuture<List<IshodIspita>> getIshodIspita(long id){
-        List<IshodIspita> ishodIspitaList =ishodIspitaRepository.findAllByStudent_Osoba_id(id);
+        List<IshodIspita> ishodIspitaList =ishodIspitaRepository.findAllByStudent_Osoba_User_id(id);
         return CompletableFuture.completedFuture(ishodIspitaList);
     }
     @Async
@@ -76,11 +71,10 @@ public class StudentService {
         pi.setStudent(s);
         pi.setRok(dto.getRok());
         pi.setGodina(dto.getGodina());
-        Predmet p = predmetRepository.findById(dto.getPredmetId()).orElseThrow();//en:maybe
+        Predmet p = predmetRepository.findById(dto.getPredmetId()).orElseThrow();
         pi.setPredmet(p);
-        pi.setDatumPrijave(dto.getDatumPrijave());
+        pi.setDatumPrijave(LocalDate.now());
         prijavaIspitaRepository.save(pi);
-
         return CompletableFuture.completedFuture(HttpStatus.CREATED);
     }
 }

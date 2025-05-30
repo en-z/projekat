@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.projekat.model.Adresa;
+import org.projekat.model.Nastavnik;
 import org.projekat.model.Osoba;
 import org.projekat.model.User;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 import java.util.List;
 @Getter
@@ -23,6 +25,7 @@ public class AdminDTO {
     private String broj;
     private String grad;
     private String drzava;
+    private String biografija;
     private String status;
     private List<String> roles;
 
@@ -42,5 +45,13 @@ public class AdminDTO {
         u.setPassword(dto.getPassword());
         o.setUser(u);
         return o;
+    }
+    public Nastavnik nastavnikFromDto(AdminDTO dto){
+        Nastavnik n = new Nastavnik();
+        Osoba o = adminFromDTO(dto);
+        n.setOsoba(o);
+        n.setBiografija(dto.getBiografija());
+        n.setStatus(dto.getStatus());
+        return n;
     }
 }

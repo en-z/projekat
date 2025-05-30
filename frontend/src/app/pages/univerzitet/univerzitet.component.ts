@@ -1,44 +1,87 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Univerzitet } from '../../models/univerzitet';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgFor ,NgIf } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { FakultetDTO } from '../../models/fakultet';
 import { StudiskiProgram } from '../../models/StudiskiProgram';
 import { Predmet } from '../../models/predmet';
+import { UniverzitetService } from '../../services/univerzitet.service';
+import { FakultetService } from '../../services/fakultet.service';
+import { StudiskiService } from '../../services/studiski.service';
+import { PredmetService } from '../../services/predmet.service';
+import { AuthService } from '../../services/auth.service';
+import { RouterModule } from '@angular/router';
+import { SilabusService } from '../../services/silabus.service';
+import { Silabus } from '../../models/silabus';
 @Component({
   selector: 'app-univerzitet',
-  imports: [FormsModule,NgFor,NgIf],
+  imports: [FormsModule,CommonModule,RouterModule],
   templateUrl: './univerzitet.component.html',
   styleUrl: './univerzitet.component.css'
 })
 export class UniverzitetComponent implements OnInit{
-  lUniverziteti:Univerzitet[]=[]
-  lFakulteti:FakultetDTO[]=[]
-  lStudiski:StudiskiProgram[]=[]
-  lPredmet:Predmet[]=[]
-  selectedNumber:number|null = null;
-  selectedProgram:number|null = null; //!!! OVO JE ODJE SAMO READI TESITRANJA MORA SE IZVUC
-  selectedPredmet:number|null = null;
-  constructor(private http:HttpClient ,private router:Router){ // router mozda nece trebat
+  univerziteti:Univerzitet[] = [];
+  fakulteti:FakultetDTO[]=[];
+  programi:StudiskiProgram[]=[];
+  predmeti:Predmet[]=[]
+  univerzitetId?:number;
+  fakultetId?:number;
+  programId?:number;
+  predmetId?:number;
+  silabusi:Silabus[]=[];// ovo treba da je lista mozda
+  constructor(private silabusService:SilabusService,private univerzitetService:UniverzitetService,private fakultetService:FakultetService,private programService:StudiskiService,private predmetService:PredmetService,public authService:AuthService){}
+  ngOnInit(): void {
+    this.univerzitetService.getAll().subscribe(data=>this.univerziteti = data)
   }
-  ngOnInit(){
-    this.http.get<Univerzitet[]>(`http://localhost:8080/univerzitet`).subscribe(data=>{
-      this.lUniverziteti= data;
+  onUniverzitetChange(id:number){
+    this.univerzitetId = id;
+    this.fakultetService.getByUniverzitetId(id).subscribe(data=>{
+      this.fakulteti = data;
+      this.programi = []
+      this.predmeti = []
     })
   }
-  onListChange(){
-    if(this.selectedNumber!== null){
-      this.http.get<FakultetDTO[]>(`http://localhost:8080/univerzitet/${this.selectedNumber}/fakulteti`)
-        .subscribe(data=>{this.lFakulteti = data});
-    }if(this.selectedProgram!==null){ // ovo je sve test (DELETE)
-      this.http.get<StudiskiProgram[]>(`http://localhost:8080/univerzitet/fakultet/${this.selectedProgram}/program`).subscribe(data=>{this.lStudiski = data});
-        console.log(this.lStudiski);
-    }if(this.selectedPredmet !==null){
-      this.http.get<Predmet[]>(`http://localhost:8080/univerzitet/fakultet/program/${this.selectedProgram}/predmet`).subscribe(data=>{this.lPredmet = data});
-        console.log(this.lPredmet);
-    }
-
+  onFakultetChange(id: number) {
+    this.fakultetId= id;
+    this.programService.getByFakultet(id).subscribe(data => {
+      this.programi= data;
+      this.predmeti= [];
+    });
   }
+  onProgramChange(id: number) {
+    this.programId= id;
+    this.predmetService.getByProgram(id).subscribe(data => {
+      this.predmeti= data;
+    });
+  }
+  onSilabusChange(id:number){
+    this.predmetId = id;
+    this.silabusService.getAllByPredmetId(id).subscribe((data)=>{
+      this.silabusi= data;
+    })
+  }
+  deleteUniverzitet(id: number) {
+    this.univerzitetService.delete(id).subscribe(() => {
+      this.univerziteti = this.univerziteti.filter(u => u.id !== id);
+    });
+  }
+
+  deleteFakultet(id: number) {
+    this.fakultetService.delete(id).subscribe(() => {
+      this.fakulteti = this.fakulteti.filter(f => f.id !== id);
+    });
+  }
+
+  deleteProgram(id: number) {
+    this.programService.delete(id).subscribe(() => {
+      this.programi = this.programi.filter(p => p.id !== id);
+    });
+  }
+
+  deletePredmet(id: number) {
+    this.predmetService.delete(id).subscribe(() => {
+      this.predmeti = this.predmeti.filter(pr => pr.id !== id);
+    });
+  }
+
 }

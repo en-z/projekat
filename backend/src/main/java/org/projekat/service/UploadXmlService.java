@@ -1,21 +1,18 @@
 package org.projekat.service;
 
 import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import org.projekat.dto.IshodIspitaList;
 import org.projekat.model.IshodIspita;
 import org.projekat.repository.IshodIspitaRepository;
 import org.projekat.repository.PredmetRepository;
-import org.projekat.repository.StudentRepository;
+import org.projekat.repository.users.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

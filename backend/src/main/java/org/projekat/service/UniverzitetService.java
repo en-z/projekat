@@ -1,15 +1,12 @@
 package org.projekat.service;
 
-import org.projekat.dto.FakultetDTO;
 import org.projekat.dto.PredmetDTO;
-import org.projekat.dtos.StudiskiDTO;
 import org.projekat.model.*;
+import org.projekat.repository.StudijskiProgramRepository;
 import org.projekat.repositorys.FakultetRepository;
 import org.projekat.repository.PredmetRepository;
-import org.projekat.repositorys.StudiskiProgramRepository;
 import org.projekat.repository.UniverzitetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -24,23 +21,13 @@ public class UniverzitetService {
     @Autowired
     private FakultetRepository fakultetRepository;
     @Autowired
-    private StudiskiProgramRepository studiskiProgramRepository;
+    private StudijskiProgramRepository studiskiProgramRepository;
     @Autowired
     private PredmetRepository predmetRepository;
     @Async
     public CompletableFuture<List<Univerzitet>> getUniverzitete(){
         List<Univerzitet> univerzitetList = univerzitetRepository.findAll();
         return CompletableFuture.completedFuture(univerzitetList);
-    }
-    @Async
-    public CompletableFuture<List<FakultetDTO>> getFakultetByUniverzitet(long id){
-        List<FakultetDTO> fakultetList = fakultetRepository.findByUniverzitet_Id(id).stream().map(f->new FakultetDTO(f.getId(),f.getNaziv(),f.getOpis(),f.getKontakt(),f.getAdresa(),f.getDekan(),f.getUniverzitet().getId())).collect(Collectors.toList());
-        return CompletableFuture.completedFuture(fakultetList);
-    }
-    @Async
-    public CompletableFuture<List<StudiskiDTO>> getStudiskiByFakultet(long id){
-        List<StudiskiDTO> studiskiProgramList = studiskiProgramRepository.findByFakultet_Id(id).stream().map(f->new StudiskiDTO(f.getId(),f.getNaziv(),f.getOpis(),f.getRukovodilac(),f.getFakultet().getId())).collect(Collectors.toList());
-        return CompletableFuture.completedFuture(studiskiProgramList);
     }
     @Async
     public CompletableFuture<List<PredmetDTO>> getPredmetByStudiski(long id){

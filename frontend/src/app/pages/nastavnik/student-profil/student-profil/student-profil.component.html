@@ -1,0 +1,12 @@
+<div class="container" *ngIf="!loading && student">
+  <h2>Profil studenta</h2>
+  <p><strong>Ime:</strong> {{ student.ime }}</p>
+  <p><strong>Prezime:</strong> {{ student.prezime }}</p>
+  <p><strong>Broj indeksa:</strong> {{ student.brojIndeksa }}</p>
+  <p><strong>Email:</strong> {{ student.email }}</p>
+  <p><strong>Godina upisa:</strong> {{ student.godinaUpisa }}</p>
+  <p><strong>Prosecna ocena:</strong> {{ student.prosecnaOcena }}</p>
+  <p><strong>Osvojeni ESPB:</strong> {{ student.osvojeniESPB }}</p>
+</div>
+
+<div *ngIf="loading">Ucitavanje...</div>

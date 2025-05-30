@@ -1,0 +1,19 @@
+<div class="container" *ngIf="predmet">
+  <h2>{{ predmet.naziv }}</h2>
+  <p><strong>ID:</strong> {{ predmet.id }}</p>
+  <p><strong>ESPB:</strong> {{ predmet.espb }}</p>
+  <button (click)="otvoriListuStudenata()">Pregled studenata</button>
+
+
+  <h3>Akcije</h3>
+  <button (click)="idiNa('silabus')">Silabus</button>
+  <button (click)="idiNa('termini')">Termini</button>
+  <button (click)="idiNa('evaluacije')">Evaluacije</button>
+  <button (click)="idiNa('obavestenja')">Obaveštenja</button>
+  <!-- <button (click)="idiNa('studenti')">Studenti</button> -->
+  <button (click)="idiNa('ocene')">Unos ocena</button>
+</div>
+
+<div *ngIf="!predmet">
+  <p>Učitavanje predmeta...</p>
+</div>

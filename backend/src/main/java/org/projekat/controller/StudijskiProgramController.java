@@ -21,7 +21,10 @@ public class StudijskiProgramController {
         return studijskiProgramService.findAll()
                 .thenApply(ResponseEntity::ok).get();
     }
-
+    @GetMapping("/by-fakultet")
+    public ResponseEntity<List<org.projekat.dtos.StudiskiDTO>>getByFakultet(@RequestParam("fakultetId") long id)throws Exception{
+        return studijskiProgramService.getStudiskiByFakultet(id).thenApply(ResponseEntity::ok).get();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<StudijskiProgram> getById(@PathVariable Long id)throws Exception {
         return studijskiProgramService.findById(id)

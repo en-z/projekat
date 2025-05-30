@@ -26,18 +26,6 @@ public class UniverzitetController {
     public List<Univerzitet>getUniverzitete()throws Exception{
        return univerzitetService.getUniverzitete().get();
     }
-    @GetMapping("/{id}/fakulteti")//en:Ovaj endpoint da se rename??
-    public List<FakultetDTO>getFakulteteByUniverzitet(@PathVariable long id)throws Exception{
-        return univerzitetService.getFakultetByUniverzitet(id).get();
-    }
-    @GetMapping("/fakultet/{id}/studiski")
-    public List<StudiskiDTO>getStudiskiProgramByFakultet(@PathVariable long id)throws Exception{
-        return univerzitetService.getStudiskiByFakultet(id).get();
-    }
-    @GetMapping("/fakultet/studiski/{id}/predmet")
-    public List<PredmetDTO>getPredmetByProgram(@PathVariable long id)throws Exception{
-        return univerzitetService.getPredmetByStudiski(id).get();
-    }
     @GetMapping("/{id}")
     public ResponseEntity<Univerzitet> getById(@PathVariable Long id)throws Exception {
         return univerzitetService.findById(id)

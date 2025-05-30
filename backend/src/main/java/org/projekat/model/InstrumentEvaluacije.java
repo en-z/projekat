@@ -1,9 +1,12 @@
 package org.projekat.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "instrument_evaluacije")
@@ -14,13 +17,20 @@ public class InstrumentEvaluacije {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String tip;
     private String opis;
+
+    @Column(name = "datum_odrzavanja")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime datumOdrzavanja;
+
     @ManyToOne
     @JoinColumn(name = "predmet_id")
     private Predmet predmet;
+
     @ManyToOne
-    @JoinColumn(name = "nastavnik_id",referencedColumnName = "osoba_id")
+    @JoinColumn(name = "nastavnik_id")
     private Nastavnik nastavnik;
 }
 

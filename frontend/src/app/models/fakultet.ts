@@ -5,6 +5,7 @@ export interface FakultetDTO{
   id:number|null,
   naziv:string,
   opis:string,
+  email:string
   kontakt:string,
   adresa:Adresa,
   dekan:Nastavnik,

@@ -4,5 +4,6 @@ export interface Predmet{
   espb:number,
   semestar:number,
   studiskiId:number,
+  dan?:number
   //opis:string,
 }

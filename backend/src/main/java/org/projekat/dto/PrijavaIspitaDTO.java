@@ -3,6 +3,7 @@ package org.projekat.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.projekat.model.IspitniRok;
 
 import java.util.Date;
 
@@ -12,7 +13,6 @@ import java.util.Date;
 public class PrijavaIspitaDTO {
     private Long id;
     private int godina;
-    private int rok; //en:ROK JE BROJ NIJE STRING
-    private Date datumPrijave;
+    private IspitniRok rok;
     private Long predmetId;
 }

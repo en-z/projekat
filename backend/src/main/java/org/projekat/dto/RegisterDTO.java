@@ -17,4 +17,5 @@ public class RegisterDTO {
     private String broj;
     private String grad;
     private String drzava;
+    private long programId;
 }

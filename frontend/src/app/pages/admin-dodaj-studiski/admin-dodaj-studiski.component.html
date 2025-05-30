@@ -1,14 +1,15 @@
 <div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-xl space-y-6">
-  <h2 class="text-2xl font-bold text-gray-800">Dodaj Studiski Program</h2>
+  <h2 class="text-2xl font-bold text-gray-800">
+    {{ id ? 'Izmeni Studijski Program' : 'Dodaj Studijski Program' }}
+  </h2>
 
-  <form (ngSubmit)="onSubmit()" class="space-y-4">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
     <div>
       <label class="block text-sm font-medium text-gray-700">Naziv</label>
       <input
-        [(ngModel)]="noviStudiski.naziv"
-        name="naziv"
         type="text"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        formControlName="naziv"
+        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
         required
       />
     </div>
@@ -16,42 +17,36 @@
     <div>
       <label class="block text-sm font-medium text-gray-700">Opis</label>
       <textarea
-        [(ngModel)]="noviStudiski.opis"
-        name="opis"
         rows="3"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        formControlName="opis"
+        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
       ></textarea>
     </div>
 
     <div>
       <label class="block text-sm font-medium text-gray-700">Rukovodilac</label>
       <select
-        [(ngModel)]="selectedNastavnik"
-        [ngModelOptions]="{ standalone: true }"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        formControlName="rukovodioc_id"
+        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
       >
-        <option [ngValue]="null">-- Izaberi nastavnika --</option>
-        <option *ngFor="let n of nastavnikLista" [ngValue]="n">
-        {{ n.ime }} {{ n.prezime }} <!-- ovo mozda da se dodaj jos ako ima isti profrsor sa imenoma i prezimenom-->
-        </option>
-      </select>
-    </div>
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Fakultet</label>
-      <select
-        [(ngModel)]="selectedFakultet"
-        [ngModelOptions]="{ standalone: true }"
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-      >
-        <option [ngValue]="null">-- Izaberi fakultet --</option>
-        <option *ngFor="let f of fakultetLista" [ngValue]="f">
-          {{ f.naziv }}
+        <option value="">-- Izaberi nastavnika --</option>
+        <option *ngFor="let n of nastavnici" [value]="n.osoba_id">
+          {{ n.ime }} {{ n.prezime }}
         </option>
       </select>
     </div>
 
-    <div *ngIf="error" class="text-red-500 text-sm">
-      {{ error }}
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Fakultet</label>
+      <select
+        formControlName="fakultet_id"
+        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      >
+        <option value="">-- Izaberi fakultet --</option>
+        <option *ngFor="let f of fakulteti" [value]="f.id">
+          {{ f.naziv }}
+        </option>
+      </select>
     </div>
 
     <div>
@@ -59,7 +54,7 @@
         type="submit"
         class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow hover:bg-indigo-700"
       >
-        Dodaj Program
+        {{ id ? 'Izmeni Program' : 'Dodaj Program' }}
       </button>
     </div>
   </form>

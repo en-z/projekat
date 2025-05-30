@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -17,8 +18,10 @@ public class PrijavaIspita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int godina;
-    private int rok;
-    private Date datumPrijave;
+    @ManyToOne
+    @JoinColumn
+    private IspitniRok rok;
+    private LocalDate datumPrijave;
     @ManyToOne
     @JoinColumn(name = "student_id",referencedColumnName = "osoba_id")
     private Student student;

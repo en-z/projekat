@@ -2,12 +2,10 @@ package org.projekat.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.projekat.dto.InstrumentEvaluacijeDTO;
-import org.projekat.model.InstrumentEvaluacije;
-import org.projekat.model.Nastavnik;
-import org.projekat.model.Predmet;
+import org.projekat.model.*;
 import org.projekat.service.InstrumentEvaluacijeService;
 import org.projekat.service.PredmetService;
-import org.projekat.service.NastavnikService;
+import org.projekat.service.users.NastavnikService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +30,16 @@ public class InstrumentEvaluacijeController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/predmet/{id}")
+    public ResponseEntity<List<InstrumentEvaluacijeDTO>> getByPredmetId(@PathVariable Long id) {
+        List<InstrumentEvaluacijeDTO> dtos = service.findAll().stream()
+                .filter(i -> i.getPredmet().getId() == (id))
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<InstrumentEvaluacijeDTO> getById(@PathVariable Long id) {
         return service.findById(id)
@@ -39,6 +47,8 @@ public class InstrumentEvaluacijeController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
 
     @PostMapping
     public ResponseEntity<InstrumentEvaluacijeDTO> create(@RequestBody InstrumentEvaluacijeDTO dto) {
@@ -79,7 +89,7 @@ public class InstrumentEvaluacijeController {
 
 
     private InstrumentEvaluacijeDTO toDTO(InstrumentEvaluacije i) {
-        return new InstrumentEvaluacijeDTO(i.getId(), i.getTip(), i.getOpis(),
+        return new InstrumentEvaluacijeDTO(i.getId(), i.getTip(), i.getOpis(), i.getDatumOdrzavanja(),
                 i.getPredmet().getId(), i.getNastavnik().getId());
     }
 }

@@ -1,0 +1,36 @@
+<div class="container">
+  <h2>Instrumenti evaluacije</h2>
+
+  <div class="dodaj">
+    <h3>Dodaj novu evaluaciju</h3>
+    <input type="text" [(ngModel)]="novaEvaluacija.tip" placeholder="Tip evaluacije">
+    <input type="text" [(ngModel)]="novaEvaluacija.opis" placeholder="Opis">
+    <button (click)="dodajEvaluaciju()">Dodaj</button>
+  </div>
+
+  <hr>
+
+  <div *ngIf="evaluacije.length > 0">
+    <h3>Lista evaluacija</h3>
+    <ul>
+      <li *ngFor="let e of evaluacije">
+        <div *ngIf="uIzmeniId !== e.id">
+          <strong>{{ e.tip }}</strong> – {{ e.opis }}
+          <button (click)="pokreniIzmenu(e)">Izmeni</button>
+          <button (click)="obrisiEvaluaciju(e.id)">Obriši</button>
+        </div>
+
+        <div *ngIf="uIzmeniId === e.id">
+          <input type="text" [(ngModel)]="izmenaEvaluacija.tip">
+          <input type="text" [(ngModel)]="izmenaEvaluacija.opis">
+          <button (click)="sacuvajIzmenu()">Sačuvaj</button>
+          <button (click)="otkaziIzmenu()">Otkaži</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="evaluacije.length === 0">
+    <p>Nema evaluacija za prikaz.</p>
+  </div>
+</div>

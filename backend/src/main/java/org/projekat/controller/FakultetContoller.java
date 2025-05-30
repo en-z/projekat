@@ -4,6 +4,7 @@ import org.projekat.dto.FakultetDTO;
 import org.projekat.model.Fakultet;
 import org.projekat.service.FakultetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,10 @@ public class FakultetContoller {
     public ResponseEntity<List<Fakultet>> getAll() throws Exception{
         return fakultetService.findAll()
                 .thenApply(ResponseEntity::ok).get();
+    }
+    @GetMapping("/by-univerzitet")
+    public ResponseEntity<List<FakultetDTO>> getByUniverzitet( @RequestParam("univerzitetId") long id)throws Exception{
+       return fakultetService.getFakultetByUniverzitet(id).thenApply(ResponseEntity::ok).get();
     }
 
     @GetMapping("/{id}")

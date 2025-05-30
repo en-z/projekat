@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IshodIspitaRepository extends JpaRepository<IshodIspita,Long> {
-    List<IshodIspita> findAllByStudent_Osoba_id(long id);
+    List<IshodIspita> findAllByStudent_Osoba_User_id(long id);
 }

@@ -1,7 +1,7 @@
 package org.projekat.service.users;
 
 import org.projekat.model.Student;
-import org.projekat.repository.StudentRepository;
+import org.projekat.repository.users.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

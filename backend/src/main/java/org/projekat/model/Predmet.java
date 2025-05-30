@@ -22,6 +22,7 @@ public class Predmet {
     private String naziv;
     private int esbp;
     private int semestar;
+    private int dan;
     @ManyToOne
     @JoinColumn(name = "studijski_program_id", referencedColumnName = "id")
     private StudijskiProgram studijskiProgram;
@@ -41,4 +42,6 @@ public class Predmet {
 
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
     private Set<Obavestenje> obavestenja;
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    private Set<SlusanjePredmeta> studenti;
 }

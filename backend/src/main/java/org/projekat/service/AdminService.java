@@ -1,20 +1,15 @@
 package org.projekat.service;
 
-import org.hibernate.annotations.Array;
-import org.projekat.dto.OsobaDTO;
-import org.projekat.dto.RegisterDTO;
 import org.projekat.model.*;
 import org.projekat.repository.*;
-import org.projekat.repositorys.*;
+import org.projekat.repository.users.NastavnikRepository;
+import org.projekat.repository.users.OsobaRepository;
+import org.projekat.repository.users.UserRepository;
 import org.projekat.security.PasswordEncoderConf;
-import org.projekat.security.SecurityConf;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +28,7 @@ public class AdminService {
     @Autowired
     private PasswordEncoderConf passwordEncoderConf;
     @Autowired
-    private StudiskiProgramRepository studiskiProgramRepository;
+    private StudijskiProgramRepository studiskiProgramRepository;
     @Autowired
     private UniverzitetRepository univerzitetRepository;
     @Async

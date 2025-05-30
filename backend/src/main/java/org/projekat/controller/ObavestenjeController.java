@@ -7,7 +7,7 @@ import org.projekat.model.Obavestenje;
 import org.projekat.model.Predmet;
 import org.projekat.service.ObavestenjeService;
 import org.projekat.service.PredmetService;
-import org.projekat.service.NastavnikService;
+import org.projekat.service.users.NastavnikService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +39,15 @@ public class ObavestenjeController {
                 .map(this::toDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/predmet/{id}")
+    public ResponseEntity<List<ObavestenjeDTO>> getByPredmetId(@PathVariable Long id) {
+        List<ObavestenjeDTO> dtos = service.findAll().stream()
+                .filter(o -> o.getPredmet().getId() == (id))
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @PostMapping

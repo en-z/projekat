@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Pretraga studenata</h2>
+  
+  <form (ngSubmit)="pretrazi()">
+    <input type="text" placeholder="Ime" [(ngModel)]="searchParams.ime" name="ime">
+    <input type="text" placeholder="Prezime" [(ngModel)]="searchParams.prezime" name="prezime">
+    <input type="text" placeholder="Broj indeksa" [(ngModel)]="searchParams.brojIndeksa" name="brojIndeksa">
+    <input type="number" placeholder="Godina upisa" [(ngModel)]="searchParams.godinaUpisa" name="godinaUpisa">
+    <input type="number" placeholder="Prosečna ocena" [(ngModel)]="searchParams.prosecnaOcena" name="prosecnaOcena">
+
+    <button type="submit">Pretraga</button>
+  </form>
+
+  <div *ngIf="loading">Pretraga u toku...</div>
+
+  <ul *ngIf="!loading">
+    <li *ngFor="let student of studenti">
+      <a [routerLink]="['/nastavnik/student', student.id]">{{ student.ime }} {{ student.prezime }} ({{ student.brojIndeksa }})</a>
+    </li>
+  </ul>
+</div>

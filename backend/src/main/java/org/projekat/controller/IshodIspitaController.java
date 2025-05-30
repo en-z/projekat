@@ -9,11 +9,12 @@ import org.projekat.model.Predmet;
 import org.projekat.model.Student;
 import org.projekat.service.IshodIspitaService;
 import org.projekat.service.PredmetService;
-import org.projekat.service.NastavnikService;
+import org.projekat.service.users.NastavnikService;
 import org.projekat.service.users.StudentServiceDusan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -71,5 +72,22 @@ public class IshodIspitaController {
                 .toList();
 
         return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/predmet/{id}/unos-ocene-status")
+    public ResponseEntity<Boolean> checkIfUnosOceneDozvoljen(@PathVariable Long id) {
+        List<IshodIspita> ishodi = service.findAll().stream()
+                .filter(i -> i.getPredmet().getId() == id)
+                .toList();
+
+        if (ishodi.isEmpty()) return ResponseEntity.ok(true); // ako nema unosa, dozvoli
+
+        LocalDateTime najnovijiDatum = ishodi.stream()
+                .map(i -> i.getInstrumentEvaluacije().getDatumOdrzavanja())
+                .max(LocalDateTime::compareTo)
+                .orElse(LocalDateTime.MIN);
+
+        boolean dozvoljeno = service.canEnterGrade(najnovijiDatum);
+        return ResponseEntity.ok(dozvoljeno);
     }
 }
