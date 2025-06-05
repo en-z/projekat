@@ -36,11 +36,34 @@ export class IshodIspitaComponent {
     }
     grp():void{
       for(var p of this.ishodLista){
-          if(p.bodovi <=51){//valjda je manje polozenih ispita nego palih ispita
+          if(p.bodovi <=51){
             this.padIspit.push(p);
           }else{
             this.polozeniIspiti.push(p);
           }
       }
+    }
+    getEsbp():number{
+      var broj:number=0;
+      for(var i of this.polozeniIspiti){
+        broj+=i.predmet.espb;
+      }
+      return broj;
+    }
+    searchByOcena(ocena:number){
+      if(ocena <=5){
+        alert("lista padnutih ispita");
+        return;
+      }
+      var bodovi:number = Math.floor((ocena+1)*10)
+
+      const minBodovi = 51;
+      const interval = 10;
+      const lowVal=minBodovi + (ocena-6)*interval;
+      const upVal= lowVal + interval -1;
+      return this.polozeniIspiti.filter(i=>i.bodovi>=lowVal && i.bodovi <=upVal);
+    }
+    searchByIme(query:String){
+      return this.ishodLista.filter(i=>i.predmet.naziv.toLowerCase().includes(query.toLowerCase()))
     }
 }

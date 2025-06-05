@@ -5,7 +5,6 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
 
-    <!-- Naziv -->
     <div>
       <label for="naziv" class="block text-gray-700 font-semibold mb-2">Naziv</label>
       <input
@@ -18,7 +17,6 @@
       />
     </div>
 
-    <!-- Kontakt -->
     <div>
       <label for="kontakt" class="block text-gray-700 font-semibold mb-2">Kontakt</label>
       <input
@@ -30,7 +28,6 @@
       />
     </div>
 
-    <!-- Email -->
     <div>
       <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
       <input
@@ -42,7 +39,6 @@
       />
     </div>
 
-    <!-- Opis -->
     <div>
       <label for="opis" class="block text-gray-700 font-semibold mb-2">Opis</label>
       <textarea
@@ -54,7 +50,6 @@
       ></textarea>
     </div>
 
-    <!-- Rektor select -->
     <div>
       <label for="rektorId" class="block text-gray-700 font-semibold mb-2">Rektor</label>
       <select
@@ -64,13 +59,12 @@
         required
       >
         <option value="" disabled selected>Izaberite rektora</option>
-        <option *ngFor="let n of nastavnici" [value]="n.osoba_id">
-          {{ n.ime }} {{ n.prezime }}
+        <option *ngFor="let n of nastavnici" [value]="n.id">
+        {{ n.ime}}
         </option>
       </select>
     </div>
 
-    <!-- Adresa - Ulica -->
     <div>
       <label for="ulica" class="block text-gray-700 font-semibold mb-2">Ulica</label>
       <input

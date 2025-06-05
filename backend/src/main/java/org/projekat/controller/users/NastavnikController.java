@@ -46,7 +46,7 @@ public class NastavnikController {
 
     @PutMapping("/{id}")
     public ResponseEntity<NastavnikDTO> update(@PathVariable Long id, @RequestBody NastavnikDTO dto) {
-        dto.setOsobaId(id);
+        dto.setId(id);
         Nastavnik updated = nastavnikService.save(NastavnikMapper.fromDTO(dto));
         return ResponseEntity.ok(NastavnikMapper.toDTO(updated));
     }

@@ -25,8 +25,7 @@ public class Nastavnik {
     private String status;
     private String biografija;
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @JsonManagedReference("nastavnik-angazovanja")
     private List<Angazovanje> angazovanja;
 }

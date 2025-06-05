@@ -3,7 +3,8 @@ package org.projekat.controller;
 import org.projekat.dto.FakultetDTO;
 import org.projekat.dto.FakultetDTO;
 import org.projekat.dto.PredmetDTO;
-import org.projekat.dtos.StudiskiDTO;
+import org.projekat.dto.UniverzitetDTO;
+import org.projekat.dto.StudiskiDTO;
 import org.projekat.model.Fakultet;
 import org.projekat.model.Predmet;
 import org.projekat.model.StudijskiProgram;
@@ -32,7 +33,7 @@ public class UniverzitetController {
                 .thenApply(ResponseEntity::ok).get();
     }
     @PostMapping
-    public ResponseEntity<Univerzitet> create(@RequestBody Univerzitet univerzitet)throws Exception {
+    public ResponseEntity<Univerzitet> create(@RequestBody UniverzitetDTO univerzitet)throws Exception {
         return univerzitetService.save(univerzitet)
                 .thenApply(saved -> new ResponseEntity<>(saved, HttpStatus.CREATED)).get();
     }

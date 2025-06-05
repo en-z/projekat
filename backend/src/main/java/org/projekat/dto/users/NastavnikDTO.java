@@ -10,7 +10,10 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class NastavnikDTO {
-    private Long osobaId;
+    private Long id;
+    private String ime;
+    private String prezime;
+    private String biografija;
     private String status;
     private List<AngazovanjeDTO> angazovanja;
 }

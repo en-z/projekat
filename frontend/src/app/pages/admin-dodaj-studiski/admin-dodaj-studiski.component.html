@@ -26,11 +26,11 @@
     <div>
       <label class="block text-sm font-medium text-gray-700">Rukovodilac</label>
       <select
-        formControlName="rukovodioc_id"
+        formControlName="rukovodioc"
         class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
       >
         <option value="">-- Izaberi nastavnika --</option>
-        <option *ngFor="let n of nastavnici" [value]="n.osoba_id">
+        <option *ngFor="let n of nastavnici" [value]="n.id">
           {{ n.ime }} {{ n.prezime }}
         </option>
       </select>

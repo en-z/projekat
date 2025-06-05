@@ -33,7 +33,7 @@ export class AdminDodajStudiskiComponent {
       naziv:[''],
       opis:[''],
       fakultet_id:[''],
-      rukovodioc_id:[''],
+      rukovodioc:[''],
     })
   }
   ngOnInit(){
@@ -49,26 +49,34 @@ export class AdminDodajStudiskiComponent {
         this.form.patchValue({
           naziv:data.naziv,
           opis:data.opis,
-          fakultet_id:data.fakultet.id,
-          rukovodioc_id:data.rukovodioc.osoba_id,
+          fakultetId:data.fakultetId,
+          rukovodioc:data.rukovodioc.id,
         });
       });
     }
   }
   onSubmit(){
-    const payload={
+    const payload:StudiskiProgram={
         naziv: this.form.value.naziv,
-        opis:this.form.value.opis,
-        fakultet_id:this.form.value.fakultet_id,
-        rukovodioc_id:this.form.value.rukovodioc_id
+        opis: this.form.value.opis,
+        rukovodioc: {
+            id: this.form.value.rukovodioc,
+            ime: '',
+            prezime: '',
+            biografija: '',
+            satus: '',
+            angazovanja: []
+        },
+        fakultetId: this.form.value.fakultet_id,
+        id: null
     }
     if(this.id){
-      this.http.put(`http://localhost:8080/api/program/${this.id}`,payload)
+        this.programService.update(this.id,payload)
         .subscribe(()=>{
         this.router.navigate(['/univerziteti'])
       })
     }else{
-      this.http.post(`http://localhost:8080/api/program/`,payload)
+      this.programService.create(payload)
         .subscribe(()=>{
         this.router.navigate(['/univerziteti'])
       })

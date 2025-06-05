@@ -23,7 +23,7 @@ public class Univerzitet {
     @OneToOne
     @JoinColumn(name = "nastavnik_osoba_rektor",referencedColumnName = "osoba_id")
     private Nastavnik rektor;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "adresa_id",referencedColumnName = "id")
     private Adresa adresa;
     public void update(Univerzitet u){

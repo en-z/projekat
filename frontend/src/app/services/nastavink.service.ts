@@ -9,10 +9,10 @@ import { Observable } from "rxjs";
 })
 export class NastavnikService extends BaseService<Nastavnik>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/nastavnik')
+    super(http,'http://localhost:8080/api/nastavnici')
   }
     getNoIdFromToken(): Observable<Nastavnik> {
-      return this.http.get<Nastavnik>(`http://localhost:8080/api/nastavnik`);
+      return this.http.get<Nastavnik>(`http://localhost:8080/api/nastavnici`);
     }
 }
 

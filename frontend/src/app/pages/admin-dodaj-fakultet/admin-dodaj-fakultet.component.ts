@@ -50,7 +50,7 @@ export class AdminDodajFakultetComponent {
           kontakt: data.kontakt,
           email: data.email,
           opis: data.opis,
-          dekan_id: data.dekan.osoba_id,
+          dekan_id: data.dekan.id,
           univerzitet_id: data.univerzitet.id,
           ulica: data.adresa.ulica,
           broj: data.adresa.broj,
@@ -61,31 +61,31 @@ export class AdminDodajFakultetComponent {
     }
   }
   onSubmit(){
-    const payload={
-        naziv: this.form.value.naziv,
-        kontakt: this.form.value.kontakt,
-        email: this.form.value.email,
-        opis: this.form.value.opis,
-        rektor_id:this.form.value.rektor_id,
-        univerziteti_id:this.form.value.univerzitet_id,
+    const payload: FakultetDTO = {
+      naziv: this.form.value.naziv,
+      kontakt: this.form.value.kontakt,
+      email: this.form.value.email,
+      opis: this.form.value.opis,
+      dekan: this.nastavnici.find(n => n.id === +this.form.value.dekan_id)!,
+        univerzitet: this.univerziteti.find(u => u.id === +this.form.value.univerzitet_id)!,
         adresa: {
-            id: null,
-            ulica: this.form.value.ulica,
-            broj: this.form.value.broj,
-            grad: this.form.value.grad,
-            drzava: this.form.value.drzava
-        },
-    }
-    if(this.id){
-      this.http.put(`http://localhost:8080/api/fakultet/${this.id}`,payload)
-        .subscribe(()=>{
-        this.router.navigate(['/univerziteti'])
-      })
-    }else{
-      this.http.post(`http://localhost:8080/api/fakultet/`,payload)
-        .subscribe(()=>{
-        this.router.navigate(['/univerziteti'])
-      })
+        id: null,
+        ulica: this.form.value.ulica,
+        broj: this.form.value.broj,
+        grad: this.form.value.grad,
+        drzava: this.form.value.drzava
+      },
+      id: null
+    };
+
+    if (this.id) {
+      this.fakultetService.update(this.id, payload).subscribe(() => {
+        this.router.navigate(['/univerziteti']);
+      });
+    } else {
+      this.fakultetService.create(payload).subscribe(() => {
+        this.router.navigate(['/univerziteti']);
+      });
     }
   }
 }

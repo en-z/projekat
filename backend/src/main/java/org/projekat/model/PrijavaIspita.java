@@ -22,6 +22,7 @@ public class PrijavaIspita {
     @JoinColumn
     private IspitniRok rok;
     private LocalDate datumPrijave;
+    //private LocalDate datumOdrzavanja;
     @ManyToOne
     @JoinColumn(name = "student_id",referencedColumnName = "osoba_id")
     private Student student;

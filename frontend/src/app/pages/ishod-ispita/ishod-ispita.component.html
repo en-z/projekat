@@ -11,12 +11,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let ishod of polozeniIspiti" >
-      <td>{{ ishod.predmetNaziv}}</td>
+      <td>{{ ishod.predmet.naziv}}</td>
       <td>{{ getOcena(ishod.bodovi)}}</td>
       <td>{{ ishod.brojPokusaja }}</td>
       <td>{{ ishod.bodovi }}</td>
-      <td>{{ ishod.esbp }}</td>
-      <td>{{ ishod.semestar }}</td>
+      <td>{{ ishod.predmet.espb}}</td>
+      <td>{{ ishod.predmet.semestar}}</td>
     </tr>
   </tbody>
 </table>
@@ -34,11 +34,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let ishod of padIspit" >
-      <td>{{ ishod.predmetNaziv }}</td>
+      <td>{{ ishod.predmet.naziv}}</td>
       <td>{{ ishod.brojPokusaja }}</td>
       <td>{{ ishod.bodovi }}</td>
-      <td>{{ ishod.esbp }}</td>
-      <td>{{ ishod.semestar }}</td>
+      <td>{{ ishod.predmet.espb}}</td>
+      <td>{{ ishod.predmet.semestar}}</td>
     </tr>
   </tbody>
 </table>

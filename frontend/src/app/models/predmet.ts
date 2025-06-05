@@ -5,5 +5,5 @@ export interface Predmet{
   semestar:number,
   studiskiId:number,
   dan?:number
-  //opis:string,
+  opis:string,
 }

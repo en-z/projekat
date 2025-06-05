@@ -2,6 +2,7 @@ package org.projekat.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.projekat.dto.PredmetDTO;
+import org.projekat.dto.StudiskiDTO;
 import org.projekat.model.Predmet;
 import org.projekat.service.PredmetService;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,14 @@ public class PredmetController {
         return predmetService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+    @PostMapping
+    public Predmet post(@RequestBody PredmetDTO dto){
+       return predmetService.save(dto);
+    }
+    @GetMapping("/by-program")
+    public List<PredmetDTO>getByFakultet(@RequestParam("programId") long id)throws Exception{
+        return predmetService.getPredmetByStudiski(id);
     }
 }
 

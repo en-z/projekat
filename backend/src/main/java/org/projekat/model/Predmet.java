@@ -24,6 +24,7 @@ public class Predmet {
     private int semestar;
     private int dan;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "studijski_program_id", referencedColumnName = "id")
     private StudijskiProgram studijskiProgram;
 

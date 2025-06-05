@@ -16,6 +16,11 @@ import { StudentiPredmetaComponent } from './pages/nastavnik/studenti-predmeta/s
 import { PretragaStudenataComponent } from './pages/nastavnik/pretraga-studenata/pretraga-studenata/pretraga-studenata.component';
 import { StudentProfilComponent } from './pages/nastavnik/student-profil/student-profil/student-profil.component';
 import { UnosOcenaComponent } from './pages/nastavnik/unos-ocena/unos-ocena.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { AdminDodajIspitnirokComponent } from './pages/admin-dodaj-ispitnirok/admin-dodaj-ispitnirok.component';
+import { PrijaviIspitComponent } from './pages/prijavi-ispit/prijavi-ispit.component';
+import { IshodIspitaComponent } from './pages/ishod-ispita/ishod-ispita.component';
+import { AdminDodajPredmetComponent } from './pages/admin-dodaj-predmet/admin-dodaj-predmet.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -46,6 +51,24 @@ export const routes: Routes = [
   },
   {
     path:"program",component:AdminDodajStudiskiComponent
+  },
+  {
+    path:"predmet",component:AdminDodajPredmetComponent
+  },
+  {
+    path:"predmet/:id",component:AdminDodajPredmetComponent
+  },
+  {
+    path:"edit",component:EditProfileComponent
+  },
+  {
+    path:"ispitni-rok",component:AdminDodajIspitnirokComponent
+  },
+  {
+    path:"prijavi-ispit",component:PrijaviIspitComponent
+  },
+  {
+    path:"ishod-ispita",component:IshodIspitaComponent
   },
    { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent },
   { path: 'nastavnik/predmet/:id', component: PredmetDetaljiComponent },

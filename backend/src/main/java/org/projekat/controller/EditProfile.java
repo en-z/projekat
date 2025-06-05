@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/auth/profile")
+@RequestMapping("/api/profile")
 public class EditProfile {
     @Autowired
     private ProfilService profilService;

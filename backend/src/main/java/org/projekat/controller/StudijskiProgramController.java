@@ -1,5 +1,6 @@
 package org.projekat.controller;
 
+import org.projekat.dto.StudiskiDTO;
 import org.projekat.model.StudijskiProgram;
 import org.projekat.service.StudijskiProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class StudijskiProgramController {
                 .thenApply(ResponseEntity::ok).get();
     }
     @GetMapping("/by-fakultet")
-    public ResponseEntity<List<org.projekat.dtos.StudiskiDTO>>getByFakultet(@RequestParam("fakultetId") long id)throws Exception{
+    public ResponseEntity<List<StudiskiDTO>>getByFakultet(@RequestParam("fakultetId") long id)throws Exception{
         return studijskiProgramService.getStudiskiByFakultet(id).thenApply(ResponseEntity::ok).get();
     }
     @GetMapping("/{id}")
@@ -32,7 +33,7 @@ public class StudijskiProgramController {
     }
 
     @PostMapping
-    public ResponseEntity<StudijskiProgram> create(@RequestBody StudijskiProgram program)throws Exception {
+    public ResponseEntity<?> create(@RequestBody StudiskiDTO program)throws Exception {
         return studijskiProgramService.save(program)
                 .thenApply(saved -> new ResponseEntity<>(saved, HttpStatus.CREATED)).get();
     }

@@ -9,11 +9,8 @@
   </li>
 </ul>
 
-<div *ngIf="selectedId">
-  <h3>Selected Subject: {{ selectedId.naziv }}</h3>
-</div>
 
-<button (click)="onSubmit()" [disabled]="!selectedId">
+<button (click)="onSubmit()" [disabled]="!selectedPredmet">
   Submit Selected Subject
 </button>
 

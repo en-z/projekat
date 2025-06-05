@@ -41,9 +41,9 @@ export class AdminDodajPredmetComponent implements OnInit{
   onSubmit(){
     const predmet: Predmet = this.predmetForm.value;
     if (this.id) {
-      this.predmetService.update(this.id!,predmet).subscribe(() => 'Updated!');
+      this.predmetService.update(this.id!,predmet).subscribe(() => this.router.navigate(['/univerziteti']));
     } else {
-      this.predmetService.create(predmet).subscribe(() => 'Created!');
+      this.predmetService.create(predmet).subscribe(() => this.router.navigate(['/univerziti']));
     }
   }
 }

@@ -1,7 +1,11 @@
 package org.projekat.service;
 
+import org.projekat.dto.StudiskiDTO;
+import org.projekat.model.Fakultet;
+import org.projekat.model.Nastavnik;
 import org.projekat.model.StudijskiProgram;
 import org.projekat.repository.StudijskiProgramRepository;
+import org.projekat.repository.users.NastavnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,10 @@ import java.util.stream.Collectors;
 public class StudijskiProgramService {
     @Autowired
     private StudijskiProgramRepository studijskiProgramRepository;
+    @Autowired
+    private NastavnikRepository nastavnikRepository;
+    @Autowired
+    private org.projekat.repositorys.FakultetRepository fakultetRepository;
     @Async
     public CompletableFuture<List<StudijskiProgram>> findAll() {
         return CompletableFuture.completedFuture(studijskiProgramRepository.findAll());
@@ -27,8 +35,15 @@ public class StudijskiProgramService {
     }
 
     @Async
-    public CompletableFuture<StudijskiProgram> save(StudijskiProgram program) {
-        return CompletableFuture.completedFuture(studijskiProgramRepository.save(program));
+    public CompletableFuture<StudijskiProgram> save(StudiskiDTO program) {
+        StudijskiProgram sp = new StudijskiProgram();
+        Nastavnik n = nastavnikRepository.findById(program.getRukovodioc().getId()).orElseThrow(()->new RuntimeException("error na sacuvaj program"));
+        sp.setRukovodilac(n);
+        sp.setOpis(program.getOpis());
+        sp.setNaziv(program.getNaziv());
+        Fakultet f = fakultetRepository.findById(program.getFakultetId()).orElseThrow(()->new RuntimeException("id nije dobar"));
+        sp.setFakultet(f);
+        return CompletableFuture.completedFuture(studijskiProgramRepository.save(sp));
     }
 
     @Async
@@ -47,8 +62,8 @@ public class StudijskiProgramService {
         return CompletableFuture.completedFuture(null);
     }
     @Async
-    public CompletableFuture<List<org.projekat.dtos.StudiskiDTO>> getStudiskiByFakultet(long id){
-        List<org.projekat.dtos.StudiskiDTO> studiskiProgramList = studijskiProgramRepository.findByFakultet_Id(id).stream().map(f->new org.projekat.dtos.StudiskiDTO(f.getId(),f.getNaziv(),f.getOpis(),f.getRukovodilac(),f.getFakultet().getId())).collect(Collectors.toList());
+    public CompletableFuture<List<org.projekat.dto.StudiskiDTO>> getStudiskiByFakultet(long id){
+        List<org.projekat.dto.StudiskiDTO> studiskiProgramList = studijskiProgramRepository.findByFakultet_Id(id).stream().map(f->new StudiskiDTO(f)).collect(Collectors.toList());
         return CompletableFuture.completedFuture(studiskiProgramList);
     }
 }

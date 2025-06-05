@@ -1,8 +1,10 @@
 package org.projekat.service;
 
 import org.projekat.dto.PredmetDTO;
+import org.projekat.dto.UniverzitetDTO;
 import org.projekat.model.*;
 import org.projekat.repository.StudijskiProgramRepository;
+import org.projekat.repository.users.NastavnikRepository;
 import org.projekat.repositorys.FakultetRepository;
 import org.projekat.repository.PredmetRepository;
 import org.projekat.repository.UniverzitetRepository;
@@ -24,6 +26,8 @@ public class UniverzitetService {
     private StudijskiProgramRepository studiskiProgramRepository;
     @Autowired
     private PredmetRepository predmetRepository;
+    @Autowired
+    private NastavnikRepository nastavnikRepository;
     @Async
     public CompletableFuture<List<Univerzitet>> getUniverzitete(){
         List<Univerzitet> univerzitetList = univerzitetRepository.findAll();
@@ -47,8 +51,16 @@ public class UniverzitetService {
     }
 
     @Async
-    public CompletableFuture<Univerzitet> save(Univerzitet univerzitet) {
-        return CompletableFuture.completedFuture(univerzitetRepository.save(univerzitet));
+    public CompletableFuture<Univerzitet> save(UniverzitetDTO dto) {
+        Nastavnik n = nastavnikRepository.findById(dto.getRektor().getId()).orElseThrow(()->new RuntimeException("kakao"));
+        Univerzitet u = new Univerzitet();
+        u.setRektor(n);
+        u.setAdresa(dto.getAdresa());//ako postoji da se ne pravi nova
+        u.setKontakt(dto.getKontakt());
+        u.setEmail(dto.getEmail());
+        u.setOpis(dto.getOpis());
+        u.setNaziv(dto.getNaziv());
+        return CompletableFuture.completedFuture(univerzitetRepository.save(u));
     }
 
     @Async

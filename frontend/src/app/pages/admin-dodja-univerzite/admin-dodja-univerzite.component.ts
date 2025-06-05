@@ -34,7 +34,7 @@ export class AdminDodjaUniverziteComponent {
     this.nastavnikService.getAll().subscribe((data)=>{
       this.nastavnici = data;
     });
-    console.log(this.nastavnici);
+    console.log(this.nastavnici)
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if(this.id){
       this.univerzitetService.getById(this.id).subscribe((data)=>{
@@ -43,7 +43,7 @@ export class AdminDodjaUniverziteComponent {
           kontakt: data.kontakt,
           email: data.email,
           opis: data.opis,
-          rektorId: data.rektor.osoba_id,
+          rektorId: data.rektor,
           ulica: data.adresa.ulica,
           broj: data.adresa.broj,
           grad: data.adresa.grad,
@@ -60,9 +60,12 @@ export class AdminDodjaUniverziteComponent {
         email: this.form.value.email,
         opis: this.form.value.opis,
         rektor: {
-            osoba_id: this.form.value.osoba_id,
+            id: this.form.value.rektorId,
             ime: '',
-            prezime: ''
+            prezime: '',
+            biografija: '',
+            satus: '',
+            angazovanja: []
         },
         adresa: {
             id: null,

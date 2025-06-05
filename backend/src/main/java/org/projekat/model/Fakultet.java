@@ -26,7 +26,7 @@ public class Fakultet {
     @OneToOne
     @JoinColumn(name = "dekan",referencedColumnName = "osoba_id")
     private Nastavnik dekan;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "adresa_id",referencedColumnName = "id")
     private Adresa adresa;
     public void update(Fakultet f){

@@ -6,5 +6,5 @@ export interface StudiskiProgram{
   naziv:string,
   opis:string,
   rukovodioc:Nastavnik,
-  fakultet:FakultetDTO,
+  fakultetId:number,
 }

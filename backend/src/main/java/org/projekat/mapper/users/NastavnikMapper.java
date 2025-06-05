@@ -11,9 +11,11 @@ import java.util.stream.Collectors;
 public class NastavnikMapper {
     public static NastavnikDTO toDTO(Nastavnik nastavnik) {
         NastavnikDTO dto = new NastavnikDTO();
-        dto.setOsobaId(nastavnik.getId());
+        dto.setId(nastavnik.getId());
         dto.setStatus(nastavnik.getStatus());
-
+        dto.setIme(nastavnik.getOsoba().getIme());
+        dto.setPrezime(nastavnik.getOsoba().getPrezime());
+        dto.setBiografija(nastavnik.getBiografija());
         if (nastavnik.getAngazovanja() != null) {
             dto.setAngazovanja(nastavnik.getAngazovanja().stream().map(a -> {
                 AngazovanjeDTO aDto = new AngazovanjeDTO();
@@ -38,7 +40,7 @@ public class NastavnikMapper {
 
     public static Nastavnik fromDTO(NastavnikDTO dto) {
         Nastavnik nastavnik = new Nastavnik();
-        nastavnik.setId(dto.getOsobaId());
+        nastavnik.setId(dto.getId());
         nastavnik.setStatus(dto.getStatus());
         return nastavnik;
     }

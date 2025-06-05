@@ -19,7 +19,7 @@
         <div class="flex items-center justify-between">
           <button (click)="onFakultetChange(f.id!)"
                   class="text-green-700 hover:underline">
-            {{ f.naziv }}
+            {{ f.naziv}}
           </button>
 
           <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="space-x-1">

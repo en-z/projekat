@@ -77,4 +77,7 @@ public class StudentService {
         prijavaIspitaRepository.save(pi);
         return CompletableFuture.completedFuture(HttpStatus.CREATED);
     }
+    public Student save(Student student) {
+        return studentRepository.save(student);
+    }
 }

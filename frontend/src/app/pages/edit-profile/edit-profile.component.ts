@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import 'jwt-decode'
-import { jwtDecode } from 'jwt-decode';
-import { NastavnikService } from '../../services/nastavink.service';
-import { OsobaService } from '../../services/osoba.service';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { ProfilService } from '../../services/profil.service';
 
-interface JwtPayload {
-  roles:string[]|string
-}
 @Component({
   selector: 'app-edit-profile',
   imports: [CommonModule,ReactiveFormsModule,FormsModule],
@@ -17,52 +12,64 @@ interface JwtPayload {
   styleUrl: './edit-profile.component.css'
 })
 export class EditProfileComponent implements OnInit {
-  userType:'user'|'nastavnik'= 'user';
   profilForm!:FormGroup;
-  constructor(private http:HttpClient,private userService:OsobaService,private fb:FormBuilder,private nastavnikService:NastavnikService){}
-  ngOnInit(): void {
-    const token = localStorage.getItem('jwtToken')||'';
-    this.getRoleFromToken(token);
-    this.forma();
-    if(this.userType == 'nastavnik'){
-      this.nastavnikService.getNoIdFromToken().subscribe((data)=>{
-        this.profilForm.patchValue(data)
-      })
-    }else{
-      this.userService.getNoIdFromToken().subscribe((data)=>{
-        this.profilForm.patchValue(data)
-      })
-    }
-  }
-  getRoleFromToken(token:string){
-    const decoded = jwtDecode<JwtPayload>(token);
-    let roles = decoded.roles;
-    if(typeof roles ==='string')roles = [roles];
-    if(roles.includes('ROLE_TEACHER')) this.userType = 'nastavnik';
-    else this.userType = this.userType = 'user';
-  }
-  forma(){
-    const base = this.fb.group({
-      email:[''],
-      password:[''],
-      ime:[''],
-      prezime:[''],
-      adresa:this.fb.group({
-        ulica:[''],
-        broj:[''],
-        grad:[''],
-        drzava:[''],
+  userRoles:string[]=[];
+  showExtraFields = false;
+  constructor(private profilService:ProfilService,private fb:FormBuilder,private authServidce:AuthService){};
+  ngOnInit(){
+    this.userRoles = this.authServidce.getAllRoles();
+    this.showExtraFields = this.userRoles.includes('ROLE_NASTAVNIK');
+
+    this.profilForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      ime: ['', Validators.required],
+      prezime: ['', Validators.required],
+      adresa: this.fb.group({
+        ulica: ['', Validators.required],
+        grad: ['', Validators.required],
+        postanskiBroj: ['', Validators.required],
       }),
+      status: [''],
+      biografija: [''],
     });
-    if(this.userType =='nastavnik'){
-      (base as FormGroup).addControl('status',this.fb.control(''));
-      (base as FormGroup).addControl('biografija',this.fb.control(''));
+
+    if (!this.showExtraFields) {
+      this.profilForm.get('status')?.disable();
+      this.profilForm.get('biografija')?.disable();
     }
-    this.profilForm = base;
   }
-  onSubmit(){
-    if(this.profilForm.valid){
-      this.http.post('http://localhost:8080/api/editprofile',this.profilForm.value);
+  loadProfil() {
+    this.profilService.getProfil().subscribe({
+      next: (profil) => {
+        this.profilForm.patchValue({
+          email: profil.email,
+          ime: profil.ime,
+          prezime: profil.prezime,
+          adresa: profil.adresa,
+          status: profil.status,
+          biografija: profil.biografija,
+        });
+
+        if (this.showExtraFields) {
+          this.profilForm.get('status')?.enable();
+          this.profilForm.get('biografija')?.enable();
+        } else {
+          this.profilForm.get('status')?.disable();
+          this.profilForm.get('biografija')?.disable();
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load profil', err);
+      },
+    });
+  }
+
+  onSubmit() {
+    if (this.profilForm.valid) {
+      this.profilService.postProfil(this.profilForm.value)
+    }else{
+      alert("Forma nije ispravna")
     }
   }
 }
