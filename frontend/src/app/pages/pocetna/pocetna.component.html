@@ -1,0 +1,39 @@
+<div class="container">
+
+  <div class="filter-section">
+    <label for="kategorija">Kategorija:</label>
+    <select id="kategorija" [(ngModel)]="izabranaKategorija" (change)="filtrirajPoKategoriji()">
+      <option value="">Sve</option>
+      <option *ngFor="let kategorija of kategorije" [value]="kategorija">
+        {{ kategorija }}
+      </option>
+    </select>
+  </div>
+
+  <div class="search-section">
+    <label for="filterPolje">Pretraži po:</label>
+    <select id="filterPolje" [(ngModel)]="izabranoPolje">
+      <option *ngFor="let polje of filterPolje" [value]="polje">{{ polje }}</option>
+    </select>
+
+    <input type="text" [(ngModel)]="pretraga" placeholder="Unesi tekst..." />
+    <button (click)="pretrazi()">Pretraži</button>
+    <button (click)="resetujPretragu()">Resetuj</button>
+  </div>
+
+  <div class="knjige-lista">
+    <div *ngFor="let knjiga of knjige" class="knjiga-kartica">
+      <h3>{{ knjiga.naziv }}</h3>
+      <p><strong>Autor:</strong> {{ knjiga.autor }}</p>
+      <p><strong>Opis:</strong> {{ knjiga.opis }}</p>
+      <p><strong>Kategorija:</strong> {{ knjiga.kategorija }}</p>
+      <p><strong>Količina:</strong> {{ knjiga.kolicina }}</p>
+
+      <button (click)="izdaj(knjiga.id!)" [disabled]="knjiga.kolicina === 0">
+        Izdaj knjigu
+      </button>
+    </div>
+  </div>
+
+</div>
+

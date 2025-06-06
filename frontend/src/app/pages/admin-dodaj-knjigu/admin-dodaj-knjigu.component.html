@@ -1,0 +1,44 @@
+<form [formGroup]="knjigaForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="naziv">Naziv</label>
+    <input id="naziv" formControlName="naziv" />
+    <div *ngIf="knjigaForm.get('naziv')?.invalid && knjigaForm.get('naziv')?.touched">
+      Naziv je obavezan.
+    </div>
+  </div>
+
+  <div>
+    <label for="kategorija">Kategorija</label>
+    <input id="kategorija" formControlName="kategorija" />
+    <div *ngIf="knjigaForm.get('kategorija')?.invalid && knjigaForm.get('kategorija')?.touched">
+      Kategorija je obavezna.
+    </div>
+  </div>
+
+  <div>
+    <label for="opis">Opis</label>
+    <textarea id="opis" formControlName="opis"></textarea>
+    <div *ngIf="knjigaForm.get('opis')?.invalid && knjigaForm.get('opis')?.touched">
+      Opis je obavezan.
+    </div>
+  </div>
+
+  <div>
+    <label for="autor">Autor</label>
+    <input id="autor" formControlName="autor" />
+    <div *ngIf="knjigaForm.get('autor')?.invalid && knjigaForm.get('autor')?.touched">
+      Autor je obavezan.
+    </div>
+  </div>
+
+  <div>
+    <label for="kolicina">Količina</label>
+    <input id="kolicina" type="number" formControlName="kolicina" />
+    <div *ngIf="knjigaForm.get('kolicina')?.invalid && knjigaForm.get('kolicina')?.touched">
+      Količina mora biti broj veći ili jednak 0.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="knjigaForm.invalid">Sačuvaj</button>
+</form>
+

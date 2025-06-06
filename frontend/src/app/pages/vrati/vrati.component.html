@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h2>Izdate knjige</h2>
+
+  <div *ngIf="izdate.length > 0; ">
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Knjiga</th>
+          <th>Autor</th>
+          <th>Datum izdavanja</th>
+          <th>Akcija</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let izdata of izdate">
+          <td>{{ izdata.knjiga.naziv }}</td>
+          <td>{{ izdata.knjiga.autor }}</td>
+          <td>{{ izdata.datumIzdavanja | date: 'dd.MM.yyyy' }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="vrati(izdata.id!)">
+              Vrati knjigu
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Prikazuje se ako nema izdatih knjiga -->
+  <div *ngIf="izdate.length === 0">
+    <p>Nemate trenutno izdatih knjiga.</p>
+  </div>
+</div>
+
