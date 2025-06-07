@@ -17,12 +17,11 @@ public class PrijavaIspita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int godina;
     @ManyToOne
     @JoinColumn
     private IspitniRok rok;
     private LocalDate datumPrijave;
-    //private LocalDate datumOdrzavanja;
+    private LocalDate datumOdrzavanja;
     @ManyToOne
     @JoinColumn(name = "student_id",referencedColumnName = "osoba_id")
     private Student student;

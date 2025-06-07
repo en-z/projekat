@@ -1,16 +1,63 @@
-<div *ngIf="loading">Loading...</div>
-<div *ngIf="error">{{ error }}</div>
+<div class="p-6">
+  <h1 class="text-2xl font-bold mb-4">Lista Predmeta</h1>
 
-<ul *ngIf="listaPredmeta.length">
-  <li *ngFor="let predmet of listaPredmeta">
-    <button (click)="selected(predmet.id)">
-      {{ predmet.naziv}}
-    </button>
-  </li>
-</ul>
+  <table class="table-auto w-full border border-gray-300 rounded">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="border px-4 py-2 text-left">Naziv Predmeta</th>
+        <th class="border px-4 py-2 text-left">Akcija</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let predmet of predmeti">
+        <td class="border px-4 py-2">{{ predmet.naziv }}</td>
+        <td class="border px-4 py-2">
+          <button
+            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
+            (click)="odabirRokova(predmet)"
+          >
+            Prijavi
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
+  <div
+    *ngIf="showWindow"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+  >
+    <div class="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative">
+      <h2 class="text-xl font-bold mb-4">Izaberite Rok</h2>
 
-<button (click)="onSubmit()" [disabled]="!selectedPredmet">
-  Submit Selected Subject
-</button>
+      <label for="rok-select" class="block mb-2 font-medium">Rok:</label>
+      <select
+        id="rok-select"
+        [(ngModel)]="selectedRok"
+        class="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+      >
+        <option [ngValue]="null" disabled selected>-- Izaberite rok --</option>
+        <option *ngFor="let rok of rokovi" [ngValue]="rok">
+          {{ rok.naziv }}
+        </option>
+      </select>
+
+      <div class="flex justify-end space-x-3">
+        <button
+          class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+          (click)="showWindow = false"
+        >
+          Otkaži
+        </button>
+        <button
+          class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          [disabled]="!selectedRok"
+          (click)="submitPrijava(selectedRok)"
+        >
+          Potvrdi
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 

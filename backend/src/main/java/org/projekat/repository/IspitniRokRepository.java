@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IspitniRokRepository extends JpaRepository<IspitniRok,Long> {
-    @Query(value = "SELECT * FROM IspitniRok ir WHERE " +
-            "(CURRENT_DATE BETWEEN ir.pocetak DATE_ADD(ir.pocetak, INTERVAL 10 DAY)) " +
-            "OR ir.kraj>= CURRENT_DATE", nativeQuery = true)
-    Optional<List<IspitniRok>> getAktivneRokove(LocalDate now);
+    @Query(value = "SELECT * FROM IspitniRok ir WHERE CURRENT_DATE BETWEEN DATE_SUB(ir.pocetak, INTERVAL 10 DAY) AND ir.kraj", nativeQuery = true)
+    List<IspitniRok> getAktivneRokove();
 }

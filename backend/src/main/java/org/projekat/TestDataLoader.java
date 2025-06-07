@@ -87,7 +87,7 @@ public class TestDataLoader implements CommandLineRunner {
 
         User userStudent = new User();
         userStudent.setEmail("student@test.com");
-        userStudent.setPassword(passwordEncoder.encode("test123"));
+        userStudent.setPassword("test123");
         userStudent.setRoles(List.of("ROLE_STUDENT"));
         userStudent = userService.save(userStudent);
 
@@ -166,7 +166,6 @@ public class TestDataLoader implements CommandLineRunner {
         prijava.setStudent(student);
         prijava.setPredmet(predmet);
         prijava.setRok(ir);
-        prijava.setGodina(2025);
         prijava.setDatumPrijave(LocalDate.now());
         prijavaIspitaService.save(prijava);
 
@@ -202,13 +201,12 @@ public class TestDataLoader implements CommandLineRunner {
         prijava2.setStudent(student2);
         prijava2.setPredmet(predmet);
         prijava2.setRok(ir);
-        prijava2.setGodina(2025);
         prijava2.setDatumPrijave(LocalDate.now());
         prijavaIspitaService.save(prijava2);
 
         User userStudent3 = new User();
         userStudent3.setEmail("student3@test.com");
-        userStudent3.setPassword(passwordEncoder.encode("test123"));
+        userStudent3.setPassword("test123");
         userStudent3.setRoles(List.of("ROLE_STUDENT"));
         userStudent3 = userService.save(userStudent3);
 
@@ -220,7 +218,7 @@ public class TestDataLoader implements CommandLineRunner {
 
         Student student3 = new Student();
         student3.setOsoba(osobaStudent3);
-        student3.setBrojIndeksa("2021/0034");
+        student3.setBrojIndeksa("20210034");
         student3.setGodinaUpisa(2021);
         student3.setProsecnaOcena(7.9F);
         student3.setOsvojeniESPB(80);
@@ -270,5 +268,13 @@ public class TestDataLoader implements CommandLineRunner {
         studijskiProgram=studijskiProgramRepository.save(studijskiProgram);
         predmet.setStudijskiProgram(studijskiProgram);
         predmetService.save(predmet);
+        student.setProgram(studijskiProgram);
+        student = studentService.save(student);
+        Predmet p1 = new Predmet();
+        p1.setNaziv("djfaklaw");
+        p1.setStudijskiProgram(studijskiProgram);
+        p1.setEsbp(8);
+        p1.setDan(1);
+        predmetService.save(p1);
     }
 }

@@ -1,0 +1,34 @@
+<div>
+  <button *ngIf="authServie.hasRole('ROLE_ADMIN')" (click)="navToAdd()">Dodaj rok</button>
+   <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Naziv
+      </th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Početak
+      </th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Kraj
+      </th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <tr *ngFor="let rok of rokovi" class="hover:bg-gray-50">
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        {{ rok.naziv }}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        {{ rok.pocetak }}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        {{ rok.kraj }}
+      </td>
+      <td *ngIf="authServie.hasRole('ROLE_ADMIN')" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        <button (click)="navToPut(rok.id!)">Promjeni</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

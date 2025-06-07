@@ -1,8 +1,7 @@
-type Year = number;
 export interface PrijavaIspit{
   id:number|null;
-  godina:Year;
+  datumOdrzavanja:Date;
   rok:number;
-  datumPrijave:Date;
   predmetId:number;
+  datumPrijave:Date;
 }

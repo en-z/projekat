@@ -44,7 +44,7 @@ public class StudentService {
     @Async
     public CompletableFuture<ResponseEntity<?>> getPredmeteZaUpis(long id){ //
         LocalDate now = LocalDate.now();
-        List<IspitniRok> ispitniRokList = ispitniRokRepository.getAktivneRokove(now).orElse(Collections.emptyList());
+        List<IspitniRok> ispitniRokList = ispitniRokRepository.getAktivneRokove();
         if(ispitniRokList.isEmpty()){
             return CompletableFuture.completedFuture(ResponseEntity.ok("prazno"));//todo:Promjeni
         }
@@ -54,8 +54,8 @@ public class StudentService {
         List<Predmet> predmetList = predmetRepository.findNijePrijavljenIliPolozen(maxSemestar,id,student.getProgram().getId());//TODO(en):godbbolt kad je dereference i mozda optional da se stavi da je ovo
         List<PredmetDTO> predmetDTOS = new ArrayList<>();
         int size = predmetList.size();
-        for(int i=0;i<size;i++){
-            predmetDTOS.add(new PredmetDTO(predmetList.get(i)));
+        for (Predmet predmet : predmetList) {
+            predmetDTOS.add(new PredmetDTO(predmet));
         }
         return CompletableFuture.completedFuture(ResponseEntity.ok(predmetDTOS));
     }
@@ -69,8 +69,9 @@ public class StudentService {
         PrijavaIspita pi = new PrijavaIspita();
         Student s = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("ovo nece puc"));
         pi.setStudent(s);
-        pi.setRok(dto.getRok());
-        pi.setGodina(dto.getGodina());
+        IspitniRok r = ispitniRokRepository.findById(dto.getRok()).orElseThrow(()->new RuntimeException("error"));
+        pi.setRok(r);
+        pi.setDatumOdrzavanja(dto.getDatumOdrzavanja());
         Predmet p = predmetRepository.findById(dto.getPredmetId()).orElseThrow();
         pi.setPredmet(p);
         pi.setDatumPrijave(LocalDate.now());

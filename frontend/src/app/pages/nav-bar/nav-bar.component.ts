@@ -23,4 +23,7 @@ export class NavBarComponent {
   goToRegister(){
     this.router.navigate(['/register'])
   }
+  goToPrijaviIspit(){
+    this.router.navigate(['/prijava-ispita'])
+  }
 }

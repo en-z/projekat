@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.projekat.model.IspitniRok;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -12,7 +13,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class PrijavaIspitaDTO {
     private Long id;
-    private int godina;
-    private IspitniRok rok;
+    private LocalDate datumOdrzavanja;
+    private Long rok;
     private Long predmetId;
+    private LocalDate datumPrijave;
 }

@@ -6,60 +6,66 @@ import { PrijavaIspit } from '../../models/prijavaIspit';
 import { HttpClient } from '@angular/common/http';
 import { IspitniRokService } from '../../services/ispitniRok.service';
 import { IspitniRok } from '../../models/ispitniRok';
+import { PredmetService } from '../../services/predmet.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-prijavi-ispit',
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './prijavi-ispit.component.html',
   styleUrl: './prijavi-ispit.component.css'
 })
 
 export class PrijaviIspitComponent implements OnInit{
-  listaPredmeta:Predmet[]=[];
-  listaRokova:IspitniRok[] = [];
-  error:string|null = null;
-  loading = true;
-  selectedPredmet:number|null= null;
-  selectedRokId:number|null = null;
-  constructor(private rokService:IspitniRokService,private prijava:PrijavaService,private http:HttpClient){}
-  ngOnInit(): void {
-    this.rokService.getAktivne().subscribe({
-      next:(data)=>{
-        if(data.length === 0){
-          this.error = 'Nema aktivnih ispitnih rokova'
-          this.loading = false;
-        }else{
-          this.listaRokova= data;
-          this.getPredmete();
-        }
-      }
-    })
+  predmeti:Predmet[]=[]
+  rokovi:IspitniRok[]=[]
+  selectedPredmet:Predmet|null = null
+  selectedRok:IspitniRok|null = null
+  aktivni:boolean=true;
+  showWindow:boolean = false;
+  constructor(private rokService:IspitniRokService,private predmetService:PredmetService,private prijavaService:PrijavaService){
+
   }
-  getPredmete(){
-    this.prijava.getAll().subscribe({
-      next: (data) => {
-        this.listaPredmeta = data;
-        this.loading = false;
+  ngOnInit(): void {
+    this.loadRok()
+    if(this.rokovi.length == 0){
+      this.aktivni =false
+    }
+    this.loadPredmete()
+    console.log(this.predmeti);
+    console.log(this.rokovi);
+  }
+  loadPredmete(){
+    this.predmetService.getPredmeteZaUpis().subscribe(data=>{this.predmeti = data,console.log(data)})
+  }
+  loadRok(){
+    this.rokService.getAktivne().subscribe((data)=>{this.rokovi =data,
+                                           console.log(data)})
+  }
+  odabirRokova(predmet:Predmet){
+    this.selectedPredmet = predmet;
+    this.selectedRok = null;
+    this.showWindow = true;
+  }
+  submitPrijava(rok:IspitniRok|null){
+    if (!this.selectedPredmet || !rok) return;
+    var datumOdrzavanjaa = new Date(rok.pocetak)
+    datumOdrzavanjaa.setDate(datumOdrzavanjaa.getDate()+this.selectedPredmet.dan!)
+    const prijava: PrijavaIspit = {
+      id: null,
+      datumOdrzavanja:datumOdrzavanjaa,
+      rok: rok.id!,
+      predmetId: this.selectedPredmet.id,
+      datumPrijave: new Date(),
+    };
+
+    this.prijavaService.create(prijava).subscribe({
+      next: () => {
+        this.showWindow= false;
       },
       error: (err) => {
-        this.error = err.message || 'Greška pri učitavanju predmeta.';
-        this.loading = false;
-      }
+        console.error('Error submitting prijava:', err);
+      },
     });
   }
-  selected(id:number):void{
-    this.selectedPredmet = id;
-  }
-  onSubmit(){
-    if(this.selectedPredmet && this.selectedRokId){
-      let date = new Date();
-      let selectedPrijava:PrijavaIspit={
-          id:null,
-          godina: date.getFullYear(),
-          rok:this.selectedRokId,
-          datumPrijave: date,
-          predmetId:this.selectedPredmet
-      }
-      this.http.post(``,selectedPrijava).subscribe();
-    }
-  }
 }
+

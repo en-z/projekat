@@ -63,7 +63,7 @@ public class StudentController {
 
     @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @GetMapping("/ishod-ispita")
-    public ResponseEntity<List<IshodIspita>> getIshodIspita(Authentication authentication)throws Exception {
+    public ResponseEntity<List<IshodIspita>> getIshodIspita()throws Exception {
         long studentId = extractUserIdFromAuth();
         return studentServiceo.getIshodIspita(studentId)
                 .thenApply(ResponseEntity::ok).get();
@@ -71,7 +71,7 @@ public class StudentController {
 
     @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @PostMapping("/prijava-ispita")
-    public ResponseEntity<Object> prijaviIspit(@RequestBody PrijavaIspitaDTO dto, Authentication authentication)throws Exception {
+    public ResponseEntity<Object> prijaviIspit(@RequestBody PrijavaIspitaDTO dto)throws Exception {
         long studentId = extractUserIdFromAuth();
         return studentServiceo.prijaviIspit(dto, studentId)
                 .thenApply(ResponseEntity::new).get();

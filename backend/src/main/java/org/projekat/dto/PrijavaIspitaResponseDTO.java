@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PrijavaIspitaResponseDTO {
     private Long id;
-    private int godina;
     private IspitniRok rok;
     private LocalDate datumPrijave;
+    private LocalDate datumOdrzavanja;
     private Long predmetId;
     private StudentDTO student;
 }

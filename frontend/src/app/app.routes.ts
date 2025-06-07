@@ -21,6 +21,8 @@ import { AdminDodajIspitnirokComponent } from './pages/admin-dodaj-ispitnirok/ad
 import { PrijaviIspitComponent } from './pages/prijavi-ispit/prijavi-ispit.component';
 import { IshodIspitaComponent } from './pages/ishod-ispita/ishod-ispita.component';
 import { AdminDodajPredmetComponent } from './pages/admin-dodaj-predmet/admin-dodaj-predmet.component';
+import { RoleGuard } from './role.guard';
+import { PrikazRokovaComponent } from './pages/prikaz-rokova/prikaz-rokova.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -29,13 +31,13 @@ export const routes: Routes = [
     path:"register",component:RegistrationComponent
   },
   {
-    path:"fakultet/:id",component:AdminDodajFakultetComponent
+    path:"fakultet/:id",component:AdminDodajFakultetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
-   path:"univerzitet/:id",component:AdminDodjaUniverziteComponent
+   path:"univerzitet/:id",component:AdminDodjaUniverziteComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
-  path:"program/:id",component:AdminDodajStudiskiComponent
+  path:"program/:id",component:AdminDodajStudiskiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
     path:"univerziteti",component:UniverzitetComponent
@@ -44,28 +46,30 @@ export const routes: Routes = [
     path:"",component:NavBarComponent
   },
   {
-    path:"univerzitet",component:AdminDodjaUniverziteComponent
+    path:"univerzitet",component:AdminDodjaUniverziteComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
   },
   {
-    path:"fakultet",component:AdminDodajFakultetComponent
+    path:"fakultet",component:AdminDodajFakultetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
-    path:"program",component:AdminDodajStudiskiComponent
+    path:"program",component:AdminDodajStudiskiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
-    path:"predmet",component:AdminDodajPredmetComponent
+    path:"predmet",component:AdminDodajPredmetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
-    path:"predmet/:id",component:AdminDodajPredmetComponent
+    path:"predmet/:id",component:AdminDodajPredmetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
     path:"edit",component:EditProfileComponent
   },
   {
-    path:"ispitni-rok",component:AdminDodajIspitnirokComponent
+    path:"dodaj-rok",component:AdminDodajIspitnirokComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
+  },{
+    path:"prikaz-rok",component:PrikazRokovaComponent
   },
   {
-    path:"prijavi-ispit",component:PrijaviIspitComponent
+    path:"prijavi-ispit",component:PrijaviIspitComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
   },
   {
     path:"ishod-ispita",component:IshodIspitaComponent

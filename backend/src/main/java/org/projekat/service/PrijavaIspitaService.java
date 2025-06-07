@@ -35,4 +35,5 @@ public class PrijavaIspitaService {
     public List<PrijavaIspita> findByPredmetId(Long predmetId) {
         return repository.findByPredmetId(predmetId);
     }
+
 }

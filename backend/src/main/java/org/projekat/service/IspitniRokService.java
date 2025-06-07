@@ -20,8 +20,7 @@ public class IspitniRokService {
 
     @Async
     public CompletableFuture<List<IspitniRok>> getAktineRokove()throws Exception {
-        LocalDate now = LocalDate.now();
-        return  CompletableFuture.completedFuture(ispitniRokRepository.getAktivneRokove(now).orElse(Collections.emptyList()));
+        return  CompletableFuture.completedFuture(ispitniRokRepository.getAktivneRokove());
     }
 
     @Async

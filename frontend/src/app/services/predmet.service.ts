@@ -16,4 +16,7 @@ export class PredmetService extends BaseService<Predmet>{
     const params = new HttpParams().set('programId',id.toString());
     return this.http.get<Predmet[]>(`${this.baseUrl}/by-program`,{params});
   }
+  getPredmeteZaUpis(){
+    return this.http.get<Predmet[]>(`${this.baseUrl}/predmeti-za-upis`)
+  }
 }
