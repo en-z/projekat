@@ -50,7 +50,7 @@ public class StudentService {
         }
         Student student = studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student nije pronadjen"));
         int godinaStudija = student.getGodinaStudija();
-        int maxSemestar = 2*godinaStudija;// 2*1 = 1 2*2=4 ..6..8
+        int maxSemestar = 2 * godinaStudija;// 2*1 = 1 2*2=4 ..6..8
         List<Predmet> predmetList = predmetRepository.findNijePrijavljenIliPolozen(maxSemestar,id,student.getProgram().getId());//TODO(en):godbbolt kad je dereference i mozda optional da se stavi da je ovo
         List<PredmetDTO> predmetDTOS = new ArrayList<>();
         int size = predmetList.size();

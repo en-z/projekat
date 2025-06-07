@@ -23,6 +23,9 @@ import { IshodIspitaComponent } from './pages/ishod-ispita/ishod-ispita.componen
 import { AdminDodajPredmetComponent } from './pages/admin-dodaj-predmet/admin-dodaj-predmet.component';
 import { RoleGuard } from './role.guard';
 import { PrikazRokovaComponent } from './pages/prikaz-rokova/prikaz-rokova.component';
+import { DodajAdminaComponent } from './pages/dodaj-admina/dodaj-admina.component';
+import { AdminSifarnikComponent } from './pages/admin-sifarnik/admin-sifarnik.component';
+import { HomeComponent } from './pages/home/home.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -43,7 +46,7 @@ export const routes: Routes = [
     path:"univerziteti",component:UniverzitetComponent
   },
   {
-    path:"",component:NavBarComponent
+    path:"",component:HomeComponent
   },
   {
     path:"univerzitet",component:AdminDodjaUniverziteComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
@@ -72,9 +75,17 @@ export const routes: Routes = [
     path:"prijavi-ispit",component:PrijaviIspitComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
   },
   {
-    path:"ishod-ispita",component:IshodIspitaComponent
+    path:"ishod-ispita",component:IshodIspitaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
   },
-   { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent },
+  {
+    path:"add-pow",component:DodajAdminaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
+  },{
+    path:"sifarnik",component:AdminSifarnikComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
+  },
+  {
+    path:"student/predmet",component:StudentiPredmetaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
+  },
+  { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent },
   { path: 'nastavnik/predmet/:id', component: PredmetDetaljiComponent },
   { path: 'nastavnik/predmet/:id/silabus', component: SilabusComponent },
   { path: 'nastavnik/predmet/:id/termini', component: TerminiComponent },

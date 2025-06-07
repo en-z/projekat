@@ -31,4 +31,16 @@ public interface PredmetRepository extends JpaRepository<Predmet,Long> {
             @Param("id") long studiskiId);
 
     List<Predmet> findByNazivContainingIgnoreCase(String naziv);
+    @Query(value = """
+        SELECT * FROM predmet p
+        WHERE p.semestar <= :maxSemestar
+        AND p.studijski_program_id = :id
+        AND p.id NOT IN (
+            SELECT ii.predmet_id from IshodIspita ii
+            where ii.student_id= :uId and ii.bodovi < 51
+        )
+        """,nativeQuery = true)
+    List<Predmet> findByNijePolozen(@Param("uId") long userId,@Param("id") long programId,@Param("maxSemestar")int maxSemestar);
+
+
 }

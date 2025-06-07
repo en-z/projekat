@@ -18,4 +18,6 @@ public class ObavestenjeDTO {
     private LocalDateTime datumPostavljanja;
     private Long predmetId;
     private Long nastavnikId;
+    private String ime;
+    private String prezime;
 }

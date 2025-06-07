@@ -42,6 +42,6 @@ public class Student {
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private List<IshodIspita> ishodIspitaList;
-    //@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    //private List<SlusanjePredmeta> slusaniPredmeti;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<SlusanjePredmeta> slusaniPredmeti;
 }

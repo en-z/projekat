@@ -54,6 +54,14 @@ public class PredmetController {
         long studentId = extractUserIdFromAuth();
         return studentServiceo.getPredmeteZaUpis(studentId).get();
     }
+
+    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
+    @GetMapping("/aktivni-predmeti")
+    public ResponseEntity<List<PredmetDTO>> getPredmeteKojiNisuPolozeni() { // ako predmet nije polozen onda se slusa ako godina studija je semestar*2;
+        long studentId = extractUserIdFromAuth();
+        return ResponseEntity.ok(predmetService.getPredmetZaSlusanje(studentId));
+    }
+
     private long extractUserIdFromAuth() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();

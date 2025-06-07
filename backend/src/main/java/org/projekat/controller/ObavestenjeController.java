@@ -87,6 +87,6 @@ public class ObavestenjeController {
 
     private ObavestenjeDTO toDTO(Obavestenje o) {
         return new ObavestenjeDTO(o.getId(), o.getNaslov(), o.getTekst(),
-                o.getDatum(), o.getPredmet().getId(), o.getAutor().getId());
+                o.getDatum(), o.getPredmet().getId(), o.getAutor().getId(),o.getAutor().getOsoba().getIme(),o.getAutor().getOsoba().getPrezime());
     }
 }

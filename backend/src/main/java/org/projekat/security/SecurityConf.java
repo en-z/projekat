@@ -40,9 +40,9 @@ public class SecurityConf {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/login", "/api/users/registration","/error").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/univerzitet/**","/api/fakultet/**","/api/program/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/auth/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/api/univerzitet/**","/api/fakultet/**","/api/program/**").hasAnyAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.PUT,"/api/univerzitet/**","/api/fakultet/**","/api/program/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/admin/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/admin/**","/api/univerzitet/**","/api/fakultet/**","/api/program/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/api/admin/**","/api/univerzitet/**","/api/fakultet/**","/api/program/**").hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"/api/univerzitet/**","/api/fakultet/**","/api/program/**").hasAnyAuthority("ROLE_ADMIN")
                         // .requestMatchers("/api/nastavnici/**").hasRole("NASTAVNIK")
                         .anyRequest().permitAll()

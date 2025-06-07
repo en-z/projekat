@@ -12,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/auth/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
@@ -28,6 +30,10 @@ public class AdminController {
         return "hello" ;
     }
     @GetMapping("/sifarnik")
+    public ResponseEntity<List<User>> getAll(){
+     return ResponseEntity.ok(userRepository.findAll());
+    }
+    @GetMapping("/sifarnik/by-email")
     public ResponseEntity<User>getByEmail(@RequestParam String email)throws Exception{
         System.out.println("Before async call, auth: " + SecurityContextHolder.getContext().getAuthentication());
         return adminService.grabByEmail(email).get();
@@ -44,10 +50,8 @@ public class AdminController {
     public HttpStatus postUser(@RequestBody AdminDTO dto)throws Exception{
         if(dto.getUserType().contains("admin")){// dodaj ili nastavnika
            return adminService.dodajAdmina(dto.adminFromDTO(dto)).get();// clean
-
         }else if (dto.getUserType().contains("nastavnik")){
            return adminService.dodajNastavnika(dto.nastavnikFromDto(dto)).get();//clean
-
         }
         return HttpStatus.BAD_REQUEST;
     }

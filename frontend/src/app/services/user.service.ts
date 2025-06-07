@@ -8,11 +8,11 @@ import { User } from "../models/user";
 })
 export class UserService extends BaseService<User>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/auth/admin/sifarnik')
+    super(http,'http://localhost:8080/api/admin/sifarnik')
   }
   getByEmail(email:string){
     const params = new HttpParams().set('email',email)
-    return this.http.get<User>(this.baseUrl,{params}) ;
+    return this.http.get<User>(`${this.baseUrl}/by-email`,{params}) ;
   }
 }
 

@@ -48,12 +48,14 @@ export class ObavestenjaComponent implements OnInit {
     if (!this.novo.naslov || !this.novo.tekst) return;
 
     const novoObavestenje: Obavestenje = {
-      id: 0,
-      naslov: this.novo.naslov!,
-      tekst: this.novo.tekst!,
-      predmetId: this.predmetId,
-      nastavnikId: this.nastavnikId,
-      datumPostavljanja: null
+        id: 0,
+        naslov: this.novo.naslov!,
+        tekst: this.novo.tekst!,
+        predmetId: this.predmetId,
+        nastavnikId: this.nastavnikId,
+        datumPostavljanja: null,
+        ime: '',
+        prezime: ''
     };
 
     this.obavestenjeService.create(novoObavestenje).subscribe({
@@ -81,12 +83,14 @@ export class ObavestenjaComponent implements OnInit {
     if (this.uIzmeniId === null) return;
 
     const azurirano: Obavestenje = {
-      id: this.uIzmeniId,
-      naslov: this.izmena.naslov!,
-      tekst: this.izmena.tekst!,
-      datumPostavljanja: null,
-      predmetId: this.predmetId,
-      nastavnikId: this.nastavnikId
+        id: this.uIzmeniId,
+        naslov: this.izmena.naslov!,
+        tekst: this.izmena.tekst!,
+        datumPostavljanja: null,
+        predmetId: this.predmetId,
+        nastavnikId: this.nastavnikId,
+        ime: '',
+        prezime: ''
     };
 
     this.obavestenjeService.update(this.uIzmeniId, azurirano).subscribe({

@@ -1,19 +1,88 @@
 <div>
-  <button *ngIf="isLogged()"(click)="onLogout()"
-    class = "bg-red-600 text-white px-4 py-2 rounded-mb hover:bg-red-700 transition-colors">
+  <button *ngIf="isLogged()" (click)="onLogout()"
+    class="bg-red-600 text-white px-4 py-2 rounded-mb hover:bg-red-700 transition-colors">
     LogOut
   </button>
+
   <button *ngIf="!isLogged()" (click)="goToLogin()"
     class="px-4 py-2 bg-blue-600 rounded-mb hover:bg-blue-700 transition-colors">
     Login
   </button>
-  <button *ngIf="!isLogged()"(click)="goToRegister()"
-    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-grey-700 transition-colors">
+
+  <button *ngIf="!isLogged()" (click)="goToRegister()"
+    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-gray-700 transition-colors">
     Register
   </button>
 
   <button (click)="goToPrijaviIspit()"
-    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-grey-700 transition-colors">
-   prijava ispita
+    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-gray-700 transition-colors">
+    Prijava ispita
   </button>
+
+  <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative inline-block text-left">
+    <button (click)="showStudentmenu= !showStudentmenu"
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      Student Menu ▼
+    </button>
+
+    <div *ngIf="showStudentmenu"
+      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50">
+      <button (click)="goToStudentPredmet()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Predmeti
+      </button>
+      <button (click)="goToPrijaviIspit()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Prijava Ispita
+      </button>
+      <button (click)="gotoIstorijaIspita()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        IshodIspita
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="relative inline-block text-left">
+    <button (click)="showAdmin= !showAdmin"
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      Admin Menu ▼
+    </button>
+
+    <div *ngIf="showAdmin"
+      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50">
+      <button (click)="goToDodajPredmet()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj Predmeti
+      </button>
+      <button (click)="goToDodajRok()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj Rok
+      </button>
+      <button (click)="goToDodajFaks()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj Fakultet
+      </button>
+      <button (click)="goToDodajUni()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj univerzitet
+      </button>
+      <button (click)="goToDodajProgram()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj Program
+      </button>
+      <button (click)="goToDodajRok()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj ispitni rok
+      </button>
+      <button (click)="goToDodajPow()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj powUser
+      </button>
+      <button (click)="goToSifarnik()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Sifarnik
+      </button>
+    </div>
+  </div>
 </div>
+

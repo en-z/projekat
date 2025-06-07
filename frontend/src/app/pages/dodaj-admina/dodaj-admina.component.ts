@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators ,ReactiveFormsModule} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 @Component({
   selector: 'app-dodaj-admina',
-  imports: [],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './dodaj-admina.component.html',
   styleUrl: './dodaj-admina.component.css'
 })
@@ -36,7 +36,7 @@ export class DodajAdminaComponent {
     if(type === "teacher"){
       this.isTeacher = true;
       if(!this.adminForm.contains('status')){
-        this.adminForm.addControl('status',this.fb.control('false',Validators.required));
+        this.adminForm.addControl('status',this.fb.control('',Validators.required));
       }
     }else{
       this.isTeacher = false;

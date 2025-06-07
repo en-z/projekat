@@ -3,6 +3,8 @@ import { Predmet } from '../../models/predmet';
 import { Obavjestenja } from '../../models/obavjestenja';
 import { PredmetService } from '../../services/predmet.service';
 import { CommonModule } from '@angular/common';
+import { ObavestenjeService } from '../../services/obavestenje.service';
+import { Obavestenje } from '../../models/obavestenje';
 
 @Component({
   selector: 'app-student-predmet',
@@ -13,12 +15,12 @@ import { CommonModule } from '@angular/common';
 export class StudentPredmetComponent {
   predmetList:Predmet[]= [];
   selectedPredmet:Predmet|null = null;
-  obavjestenja:Obavjestenja[]=[]
+  obavjestenja:Obavestenje[]=[]
   error:string|null=null;
-  constructor(private predmetService:PredmetService){}
+  constructor(private obavjestenjaService:ObavestenjeService,private predmetService:PredmetService){}
 
   ngOnInit(){
-    this.predmetService.getAll().subscribe({
+    this.predmetService.getPredmeteZaSlusanje().subscribe({
       next:(data:Predmet[])=>{
         this.predmetList = data;
       },
@@ -26,5 +28,9 @@ export class StudentPredmetComponent {
         this.error = err.message || "error na fetch predmete";
       }
     })
+  }
+  getObavjestenja(predmet:Predmet){
+    this.obavjestenja = []
+    this.obavjestenjaService.getByPredmet(predmet.id!).subscribe(data=>this.obavjestenja = data)
   }
 }
