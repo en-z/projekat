@@ -2,25 +2,28 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IshodService } from '../../services/ishod.service';
 import { IshodIspita } from '../../models/ishodIspita';
+import { FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-ishod-ispita',
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './ishod-ispita.component.html',
   styleUrl: './ishod-ispita.component.css'
 })
 export class IshodIspitaComponent {
   ishodLista:IshodIspita[]=[];
-  polozeniIspiti:IshodIspita[]=[];
-  padIspit:IshodIspita[]=[];
+  polozeniIspiti:(IshodIspita&{ocena:number})[]=[];
+  pretragaIspita:IshodIspita[]=[];
   error:string|null = null;
-  loading = true;
+  loading=true
+  totalEsbp:number=0
+  selectedFilter: 'ocena' | 'naziv' | 'pokusaj' = 'ocena';
   constructor(private ishod:IshodService){}
 
   ngOnInit(): void {
     this.ishod.getAll().subscribe({
       next:(data)=>{
         this.ishodLista= data,
-          this.grp();//mozda moze bez kreiranja 2 liste
+          this.grp();
           this.loading = false
       }
       ,error:(err)=>{
@@ -32,38 +35,66 @@ export class IshodIspitaComponent {
     getOcena(n:number):number{
       if(n<51 )return 5;
       if(n>100)return 10;
-      return Math.floor((n-1)/10); //dobijanje ocjene
+      return Math.floor((n-1)/10)+1; //dobijanje ocjene
     }
     grp():void{
       for(var p of this.ishodLista){
-          if(p.bodovi <=51){
-            this.padIspit.push(p);
-          }else{
-            this.polozeniIspiti.push(p);
-          }
+        if(p.bodovi>=51){
+          const ocena = this.getOcena(p.bodovi)
+          this.polozeniIspiti.push({...p,ocena})
+          this.totalEsbp += p.predmet.espb
+        }
       }
-    }
-    getEsbp():number{
-      var broj:number=0;
-      for(var i of this.polozeniIspiti){
-        broj+=i.predmet.espb;
-      }
-      return broj;
     }
     searchByOcena(ocena:number){
+      this.pretragaIspita=[]
       if(ocena <=5){
         alert("lista padnutih ispita");
         return;
       }
-      var bodovi:number = Math.floor((ocena+1)*10)
-
       const minBodovi = 51;
       const interval = 10;
       const lowVal=minBodovi + (ocena-6)*interval;
       const upVal= lowVal + interval -1;
-      return this.polozeniIspiti.filter(i=>i.bodovi>=lowVal && i.bodovi <=upVal);
+      this.pretragaIspita = this.ishodLista.filter(i=>i.bodovi>=lowVal && i.bodovi <=upVal);
     }
-    searchByIme(query:String){
-      return this.ishodLista.filter(i=>i.predmet.naziv.toLowerCase().includes(query.toLowerCase()))
+    seachByNaziv(term:String){
+      this.pretragaIspita=[]
+      const trimed = term.trim().toLowerCase()
+      this.pretragaIspita = this.ishodLista.filter(i=>i.predmet.naziv.toLowerCase().includes(trimed))
     }
+    searchByPokusaj(pokusaj:number){
+      this.pretragaIspita =[]
+      this.pretragaIspita = this.ishodLista.filter(i=>i.brojPokusaja === pokusaj)
+    }
+
+    onFilterInput(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const value = target.value;
+      if (!value.trim()) {
+        this.pretragaIspita = [];
+        return;
+      }
+
+      switch (this.selectedFilter) {
+        case 'ocena':
+          const ocenaNum = Number(value);
+        if (!isNaN(ocenaNum)) {
+          this.searchByOcena(ocenaNum);
+        }
+        break;
+
+        case 'naziv':
+          this.seachByNaziv(value);
+        break;
+
+        case 'pokusaj':
+          const pokusajNum = Number(value);
+        if (!isNaN(pokusajNum)) {
+          this.searchByPokusaj(pokusajNum);
+        }
+        break;
+      }
+}
+
 }

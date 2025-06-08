@@ -1,0 +1,42 @@
+<div *ngIf="fakultet" class="max-w-3xl mx-auto my-8 p-6 bg-white shadow rounded">
+  <h2 class="text-2xl font-bold mb-2">{{ fakultet.naziv }}</h2>
+  <p class="text-gray-700">{{ fakultet.opis }}</p>
+  <p class="text-gray-700">Dekan: {{ fakultet.dekan.ime}}{{fakultet.dekan.prezime}},<br> {{fakultet.dekan.biografija}}</p>
+  <p class="text-gray-700">Adresa: {{ fakultet.adresa.ulica}},{{fakultet.adresa.broj}}:{{fakultet.adresa.grad}},{{fakultet.adresa.drzava}}</p>
+  <p class="text-gray-700">Kontakt info:{{ fakultet.kontakt}}</p>
+  <p class="text-gray-700">Email info:{{ fakultet.email}}</p>
+</div>
+
+<div class="max-w-3xl mx-auto mt-10">
+  <h3 class="text-xl font-semibold mb-4">Studijski programi</h3>
+
+  <div *ngIf="programe.length > 0; else noPrograme" class="space-y-4">
+    <div
+      *ngFor="let program of programe"
+      (click)="router.navigate(['/program-prikaz', program.id])"
+      class="p-4 bg-gray-50 rounded shadow hover:shadow-lg cursor-pointer transition duration-200 hover:bg-green-50"
+    >
+      <h4 class="text-lg font-medium text-green-700">{{ program.naziv }}</h4>
+      <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="flex gap-4 mt-4">
+      <button
+      (click)="router.navigate(['/program', program.id])"
+      class="px-4 py-2 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
+      >
+      Uredi
+      </button>
+      <button
+      (click)="delete(program.id!)"
+      class="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+      >
+      Obriši
+      </button>
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #noPrograme>
+    <p class="text-gray-500">Ovaj fakultet trenutno nema studijskih programa.</p>
+  </ng-template>
+</div>
+

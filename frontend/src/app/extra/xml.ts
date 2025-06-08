@@ -27,7 +27,7 @@ export function exportToXml<T extends Record<string,any>>(
   data:T[],
   root:string,
   item:string,
-  fp:string,
+  filename:string,
 ):void{
   const doc = create({version:'1.0'}).ele(root)
   data.forEach(i=>{
@@ -36,6 +36,10 @@ export function exportToXml<T extends Record<string,any>>(
     node.up();
   });
   const xml=doc.end({prettyPrint:true});
-  writeFileSync(fp,xml,'utf-8')
-  console.log("zavrsen")
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(link.href);
 }

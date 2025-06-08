@@ -14,9 +14,9 @@
     Register
   </button>
 
-  <button (click)="goToPrijaviIspit()"
+  <button (click)="goToUniverziteti()"
     class="px-4 py-2 bg-white-600 rounded-mb hover:bg-gray-700 transition-colors">
-    Prijava ispita
+    Univerziteti
   </button>
 
   <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative inline-block text-left">
@@ -81,6 +81,10 @@
       <button (click)="goToSifarnik()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
         Sifarnik
+      </button>
+      <button (click)="goToExport()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Export User
       </button>
     </div>
   </div>

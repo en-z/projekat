@@ -57,4 +57,11 @@ export class NavBarComponent {
   goToSifarnik(){
     this.router.navigate(['/sifarnik'])
   }
+  goToExport(){
+    this.router.navigate(['/export-user'])
+  }
+  goToUniverziteti(){
+    this.router.navigate(['/univerziteti'])
+  }
+
 }

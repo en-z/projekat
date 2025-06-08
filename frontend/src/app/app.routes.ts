@@ -26,6 +26,9 @@ import { PrikazRokovaComponent } from './pages/prikaz-rokova/prikaz-rokova.compo
 import { DodajAdminaComponent } from './pages/dodaj-admina/dodaj-admina.component';
 import { AdminSifarnikComponent } from './pages/admin-sifarnik/admin-sifarnik.component';
 import { HomeComponent } from './pages/home/home.component';
+import { PrikaziUniverzitetComponent } from './pages/prikazi-univerzitet/prikazi-univerzitet.component';
+import { PrikaziProgramComponent } from './pages/prikazi-program/prikazi-program.component';
+import { ExportUserComponent } from './pages/export-user/export-user.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -64,6 +67,15 @@ export const routes: Routes = [
     path:"predmet/:id",component:AdminDodajPredmetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
+    path:"prikazi-univerzitet/:id",component:PrikaziUniverzitetComponent,
+  },
+  {
+    path:"prikazi-fakultet/:id",component:PrikaziUniverzitetComponent,
+  },
+  {
+    path:"prikazi-program/:id",component:PrikaziProgramComponent
+  },
+  {
     path:"edit",component:EditProfileComponent
   },
   {
@@ -81,6 +93,8 @@ export const routes: Routes = [
     path:"add-pow",component:DodajAdminaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
   },{
     path:"sifarnik",component:AdminSifarnikComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
+  },{
+    path:"export-user",component:ExportUserComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
   },
   {
     path:"student/predmet",component:StudentiPredmetaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}

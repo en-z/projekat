@@ -1,85 +1,33 @@
-<ul class="space-y-2">
-  <li *ngFor="let u of univerziteti">
-    <div class="flex items-center justify-between">
-      <button (click)="onUniverzitetChange(u.id!)"
-              class="font-semibold text-blue-700 hover:underline">
-        {{ u.naziv }}
-      </button>
+<div class="max-w-4xl mx-auto my-10 p-4">
+  <h2 class="text-2xl font-bold mb-6 text-center">Univerziteti</h2>
 
-      <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="space-x-1">
-        <a [routerLink]="['/univerzitet', u.id]"
-           class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 text-xs rounded">Edit</a>
-        <button (click)="deleteUniverzitet(u.id!); $event.stopPropagation()"
-                class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs rounded">Delete</button>
+  <div *ngIf="univerziteti.length > 0; else noData" class="space-y-4">
+    <div
+      *ngFor="let uni of univerziteti"
+      (click)="router.navigate(['/prikaz-univerzitet', uni.id])"
+      class="bg-white p-4 rounded shadow hover:shadow-lg hover:bg-blue-50 cursor-pointer transition"
+    >
+      <p class="text-xl font-semibold text-blue-700">{{ uni.naziv }}</p>
+      <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="flex gap-4 mt-4">
+        <button
+          (click)="router.navigate(['/univerzitet', uni.id])"
+          class="px-4 py-2 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
+        >
+          Uredi
+        </button>
+        <button
+          (click)="deleteUniverzitet(uni.id!)"
+          class="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Obriši
+        </button>
       </div>
     </div>
 
-    <ul *ngIf="u.id === univerzitetId" class="ml-4 space-y-2">
-      <li *ngFor="let f of fakulteti">
-        <div class="flex items-center justify-between">
-          <button (click)="onFakultetChange(f.id!)"
-                  class="text-green-700 hover:underline">
-            {{ f.naziv}}
-          </button>
+  </div>
 
-          <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="space-x-1">
-            <a [routerLink]="['/fakultet', f.id]"
-               class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 text-xs rounded">Edit</a>
-            <button (click)="deleteFakultet(f.id!); $event.stopPropagation()"
-                    class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs rounded">Delete</button>
-          </div>
-        </div>
-
-        <ul *ngIf="f.id === fakultetId" class="ml-4 space-y-2">
-          <li *ngFor="let p of programi">
-            <div class="flex items-center justify-between">
-              <button (click)="onProgramChange(p.id!)"
-                      class="text-purple-700 hover:underline">
-                {{ p.naziv }}
-              </button>
-
-              <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="space-x-1">
-                <a [routerLink]="['/program', p.id]"
-                   class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 text-xs rounded">Edit</a>
-                <button (click)="deleteProgram(p.id!); $event.stopPropagation()"
-                        class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs rounded">Delete</button>
-              </div>
-            </div>
-
-            <ul *ngIf="p.id === programId" class="ml-4 space-y-2">
-              <li *ngFor="let predmet of predmeti">
-                <div class="flex items-center justify-between">
-                  <button (click)="onSilabusChange(predmet.id!)"
-                          class="text-yellow-700 hover:underline">
-                    {{ predmet.naziv }}
-                  </button>
-
-                  <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="space-x-1">
-                    <a [routerLink]="['/predmet', predmet.id]"
-                       class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 text-xs rounded">Edit</a>
-                    <button (click)="deletePredmet(predmet.id!); $event.stopPropagation()"
-                            class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 text-xs rounded">Delete</button>
-                  </div>
-                </div>
-
-                <ul *ngIf="predmet.id === predmetId && silabusi.length" class="ml-4 space-y-1">
-                  <li *ngFor="let s of silabusi" class="text-sm text-gray-600">
-                     {{ s.sadrzaj}}
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<div *ngIf="authService.hasRole('ROLE_ADMIN')" class="mt-4 space-x-2">
-  <a routerLink="/univerzitet" class="btn-primary px-3 py-1 rounded">+ Univerzitet</a>
-  <a *ngIf="univerzitetId" routerLink="/fakultet" class="btn-primary px-3 py-1 rounded">+ Fakultet</a>
-  <a *ngIf="fakultetId" routerLink="/program" class="btn-primary px-3 py-1 rounded">+ Program</a>
-  <a *ngIf="programId" routerLink="/predmet" class="btn-primary px-3 py-1 rounded">+ Predmet</a>
+  <ng-template #noData>
+    <p class="text-gray-500 text-center">Trenutno nema dostupnih univerziteta.</p>
+  </ng-template>
 </div>
 

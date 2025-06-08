@@ -1,0 +1,17 @@
+<div class="p-6 max-w-3xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">Eksport Studenata i Nastavnika</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <h2 class="font-semibold mb-2">Studenti</h2>
+      <button (click)="exportStudentToPdf()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full mb-2">Exportuj Studente (PDF)</button>
+      <button (click)="exportStudentToXml()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Exportuj Studente (XML)</button>
+    </div>
+    <div>
+      <h2 class="font-semibold mb-2">Nastavnici</h2>
+      <button (click)="exportNastavnikToPdf()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full mb-2">Exportuj Nastavnike (PDF)</button>
+      <button (click)="exportNastavnikToXml()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Exportuj Nastavnike (XML)</button>
+    </div>
+  </div>
+</div>
+

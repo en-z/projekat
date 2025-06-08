@@ -1,45 +1,94 @@
-<h2>Group = 5</h2>
-<table border="1" *ngIf="polozeniIspiti.length >0">
-  <thead>
-    <tr>
-      <th>Predmet</th>
-      <th>Broj pokušaja</th>
-      <th>Bodovi</th>
-      <th>ESBP</th>
-      <th>Semestar</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let ishod of polozeniIspiti" >
-      <td>{{ ishod.predmet.naziv}}</td>
-      <td>{{ getOcena(ishod.bodovi)}}</td>
-      <td>{{ ishod.brojPokusaja }}</td>
-      <td>{{ ishod.bodovi }}</td>
-      <td>{{ ishod.predmet.espb}}</td>
-      <td>{{ ishod.predmet.semestar}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="p-6 max-w-4xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6">Ishodi Ispita - Pretraga</h1>
 
-<h2>Group > 5</h2>
-<table border="1" *ngIf="padIspit.length >0">
-  <thead>
-    <tr>
-      <th>Predmet</th>
-      <th>Broj pokušaja</th>
-      <th>Bodovi</th>
-      <th>ESBP</th>
-      <th>Semestar</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let ishod of padIspit" >
-      <td>{{ ishod.predmet.naziv}}</td>
-      <td>{{ ishod.brojPokusaja }}</td>
-      <td>{{ ishod.bodovi }}</td>
-      <td>{{ ishod.predmet.espb}}</td>
-      <td>{{ ishod.predmet.semestar}}</td>
-    </tr>
-  </tbody>
-</table>
+    <h2 class="text-xl font-semibold mb-2">Položeni Ispiti</h2>
+    <table class="min-w-full border border-gray-300 rounded-lg">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 border-b">Predmet Naziv</th>
+          <th class="px-4 py-2 border-b">Bodovi</th>
+          <th class="px-4 py-2 border-b">Ocena</th>
+          <th class="px-4 py-2 border-b">ESBP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ishod of polozeniIspiti" class="hover:bg-gray-50">
+          <td class="px-4 py-2 border-b">{{ ishod.predmet.naziv }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.bodovi }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.ocena }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.predmet.espb }}</td>
+        </tr>
+        <tr><td class="px-4 py-2 border-b">{{totalEsbp}}</td></tr>
+      </tbody>
+    </table>
+  <div class="flex items-end gap-4 mb-6">
+    <div>
+      <label for="filterType" class="block text-sm font-medium text-gray-700">Filter po:</label>
+      <select
+        id="filterType"
+        [(ngModel)]="selectedFilter"
+        class="mt-1 block w-40 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+      >
+        <option value="ocena">Ocena</option>
+        <option value="naziv">Naziv</option>
+        <option value="pokusaj">Pokušaj</option>
+      </select>
+    </div>
+
+    <div class="flex-grow">
+      <label for="searchInput" class="block text-sm font-medium text-gray-700">Unesite vrednost</label>
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Unesite vrednost za pretragu"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        (input)="onFilterInput($event)"
+      />
+    </div>
+  </div>
+
+  <div *ngIf="pretragaIspita.length > 0">
+    <h2 class="text-xl font-semibold mb-2">Rezultati pretrage ({{ pretragaIspita.length }})</h2>
+    <table class="min-w-full border border-gray-300 rounded-lg">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 border-b">Predmet Naziv</th>
+          <th class="px-4 py-2 border-b">Bodovi</th>
+          <th class="px-4 py-2 border-b">Broj Pokusaja</th>
+          <th class="px-4 py-2 border-b">ESBP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ishod of pretragaIspita" class="hover:bg-gray-50">
+          <td class="px-4 py-2 border-b">{{ ishod.predmet.naziv }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.bodovi }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.brojPokusaja }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.predmet.espb }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="pretragaIspita.length === 0">
+    <h2 class="text-xl font-semibold mb-2">Svi Ishodi Ispita</h2>
+    <table class="min-w-full border border-gray-300 rounded-lg mb-8">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 border-b">Predmet Naziv</th>
+          <th class="px-4 py-2 border-b">Bodovi</th>
+          <th class="px-4 py-2 border-b">Broj Pokusaja</th>
+          <th class="px-4 py-2 border-b">ESBP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ishod of ishodLista" class="hover:bg-gray-50">
+          <td class="px-4 py-2 border-b">{{ ishod.predmet.naziv }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.bodovi }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.brojPokusaja }}</td>
+          <td class="px-4 py-2 border-b">{{ ishod.predmet.espb }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 

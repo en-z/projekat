@@ -38,6 +38,7 @@ export class EditProfileComponent implements OnInit {
       this.profilForm.get('status')?.disable();
       this.profilForm.get('biografija')?.disable();
     }
+    this.loadProfil()
   }
   loadProfil() {
     this.profilService.getProfil().subscribe({
