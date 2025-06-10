@@ -63,5 +63,8 @@ export class NavBarComponent {
   goToUniverziteti(){
     this.router.navigate(['/univerziteti'])
   }
+  goToNastavnici(){
+    this.router.navigate(['/nastavnik/predmeti'])
+  }
 
 }

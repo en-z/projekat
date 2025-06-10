@@ -56,7 +56,7 @@ public class TestDataLoader implements CommandLineRunner {
     public void run(String... args) throws ExecutionException, InterruptedException {
         User userNastavnik = new User();
         userNastavnik.setEmail("nastavnik@test.com");
-        userNastavnik.setPassword(passwordEncoderConf.passwordEncoder().encode("test123"));
+        userNastavnik.setPassword("test123");
         userNastavnik.setRoles(List.of("ROLE_NASTAVNIK"));
         userNastavnik = userService.save(userNastavnik);
         User admin= new User();

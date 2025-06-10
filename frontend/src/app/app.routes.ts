@@ -99,16 +99,16 @@ export const routes: Routes = [
   {
     path:"student/predmet",component:StudentiPredmetaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
   },
-  { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent },
-  { path: 'nastavnik/predmet/:id', component: PredmetDetaljiComponent },
-  { path: 'nastavnik/predmet/:id/silabus', component: SilabusComponent },
-  { path: 'nastavnik/predmet/:id/termini', component: TerminiComponent },
-  { path: 'nastavnik/predmet/:id/evaluacije', component: EvaluacijeComponent },
-  { path: 'nastavnik/predmet/:id/obavestenja', component: ObavestenjaComponent },
-  { path: 'nastavnik/predmet/:id/studenti', component: StudentiPredmetaComponent },
-  { path: 'nastavnik/pretraga-studenata', component: PretragaStudenataComponent },
-  { path: 'nastavnik/student/:id', component: StudentProfilComponent },
-  { path: 'nastavnik/predmet/:id/ocene', component: UnosOcenaComponent },
+  { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/predmet/:id', component: PredmetDetaljiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/predmet/:id/silabus', component: SilabusComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/predmet/:id/termini', component: TerminiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/predmet/:id/evaluacije', component: EvaluacijeComponent ,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK']}},
+  { path: 'nastavnik/predmet/:id/obavestenja', component: ObavestenjaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/predmet/:id/studenti', component: StudentiPredmetaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/pretraga-studenata', component: PretragaStudenataComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/student/:id', component: StudentProfilComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/predmet/:id/ocene', component: UnosOcenaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
 
   { path: '**', redirectTo: 'login' }
 ];
