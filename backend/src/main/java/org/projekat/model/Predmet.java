@@ -29,9 +29,11 @@ public class Predmet {
     private StudijskiProgram studijskiProgram;
 
     @OneToOne(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Silabus silabus;
 
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Termin> termini;
 
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
@@ -39,10 +41,13 @@ public class Predmet {
     private Set<Angazovanje> angazovanja;
 
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<InstrumentEvaluacije> instrumenti;
 
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Obavestenje> obavestenja;
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<SlusanjePredmeta> studenti;
 }
