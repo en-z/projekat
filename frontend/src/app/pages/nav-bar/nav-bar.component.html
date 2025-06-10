@@ -18,10 +18,21 @@
     class="px-4 py-2 bg-white-600 rounded-mb hover:bg-gray-700 transition-colors">
     Univerziteti
   </button>
-  <button (click)="goToNastavnici()"
-    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-gray-700 transition-colors">
-    Nastavnici
-  </button>
+
+  <div *ngIf="authService.hasRole('ROLE_NASTAVNIK')" class="relative inline-block text-left">
+    <button (click)="showNastavnik= !showNastavnik"
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      Nastavnik Menu ▼
+    </button>
+
+    <div *ngIf="showNastavnik"
+      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50">
+      <button (click)="goToNastavnikPredmeti()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Predmeti
+      </button>
+    </div>
+  </div>
 
   <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative inline-block text-left">
     <button (click)="showStudentmenu= !showStudentmenu"
