@@ -5,6 +5,7 @@ import com.projekat.nastavnik_service.dto.NastavnikDTO;
 import com.projekat.nastavnik_service.dto.PredmetDTO;
 import com.projekat.nastavnik_service.entity.Nastavnik;
 import com.projekat.nastavnik_service.mapper.users.NastavnikMapper;
+import com.projekat.nastavnik_service.repository.NastavnikRepository;
 import com.projekat.nastavnik_service.service.AngazovanjaService;
 import com.projekat.nastavnik_service.service.NastavnikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import java.util.List;
 public class NastavnikController {
     @Autowired
     private NastavnikService nastavnikService;
+    @Autowired
+    private NastavnikRepository repository;
     @Autowired
     private AngazovanjaService angazovanjeService;
 
@@ -47,6 +50,11 @@ public class NastavnikController {
         nastavnikService.put(dto);
         return ResponseEntity.ok(dto);
     }
+    @GetMapping("/bez-zvanja")
+    public List<Nastavnik> getNastavniciBezZvanja() {
+        return repository.findByZvanjeIsNull();
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

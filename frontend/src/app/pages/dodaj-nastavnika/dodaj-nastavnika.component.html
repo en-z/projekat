@@ -10,15 +10,19 @@
 
     <input formControlName="password" type="password" placeholder="Lozinka" class="w-full mb-2 border px-3 py-2 rounded" />
 
-    <input formControlName="ulica" type="text" placeholder="Ulica" class="w-full mb-2 border px-3 py-2 rounded" />
+    <div formGroupName="adresa">
+      <input formControlName="ulica" type="text" placeholder="Ulica" class="w-full mb-2 border px-3 py-2 rounded" />
 
-    <input formControlName="broj" type="text" placeholder="Broj" class="w-full mb-2 border px-3 py-2 rounded" />
+      <input formControlName="broj" type="text" placeholder="Broj" class="w-full mb-2 border px-3 py-2 rounded" />
 
-    <input formControlName="grad" type="text" placeholder="Grad" class="w-full mb-2 border px-3 py-2 rounded" />
+      <input formControlName="grad" type="text" placeholder="Grad" class="w-full mb-2 border px-3 py-2 rounded" />
 
-    <input formControlName="drzava" type="text" placeholder="Država" class="w-full mb-4 border px-3 py-2 rounded" />
-    <input formControlName="status" type="text" placeholder="status" class="w-full mb-4 border px-3 py-2 rounded" />
-    <input formControlName="biografija" type="text" placeholder="biografija" class="w-full mb-4 border px-3 py-2 rounded" />
+      <input formControlName="drzava" type="text" placeholder="Država" class="w-full mb-4 border px-3 py-2 rounded" />
+    </div>
+
+    <input formControlName="status" type="text" placeholder="Status" class="w-full mb-4 border px-3 py-2 rounded" />
+
+    <input formControlName="biografija" type="text" placeholder="Biografija" class="w-full mb-4 border px-3 py-2 rounded" />
 
     <button type="submit"
       class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full"
@@ -31,5 +35,4 @@
     </div>
   </form>
 </div>
-
 

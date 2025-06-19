@@ -36,7 +36,6 @@ public class DataLoader implements CommandLineRunner {
 
         // Create Nastavnik with managed Adresa
         Nastavnik nastavnik = new Nastavnik();
-        nastavnik.setId(1L);
         nastavnik.setUserId(3L);
         nastavnik.setIme("Marko");
         nastavnik.setPrezime("Markovic");
@@ -72,7 +71,6 @@ public class DataLoader implements CommandLineRunner {
 
         // Create IshodIspita linked to nastavnik and instrumentEvaluacije
         IshodIspita ishod = new IshodIspita();
-        ishod.setId(1L);
         ishod.setBrojPokusaja(1);
         ishod.setBodovi(85.5f);
         ishod.setPredmetId(1L);

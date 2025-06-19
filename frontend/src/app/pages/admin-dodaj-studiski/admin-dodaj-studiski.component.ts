@@ -64,7 +64,7 @@ export class AdminDodajStudiskiComponent {
             ime: '',
             prezime: '',
             biografija: '',
-            satus: '',
+            status: '',
             angazovanja: [],
             adresa: {
               id: null,

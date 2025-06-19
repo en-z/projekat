@@ -109,4 +109,5 @@ uploadFile(): void {
       alert('Došlo je do greške pri slanju fajla.');
     }
   });
+  }
 }

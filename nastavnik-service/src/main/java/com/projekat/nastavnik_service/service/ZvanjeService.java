@@ -1,6 +1,9 @@
 package com.projekat.nastavnik_service.service;
 
+import com.projekat.nastavnik_service.dto.ZvanjeDTO;
+import com.projekat.nastavnik_service.entity.Nastavnik;
 import com.projekat.nastavnik_service.entity.Zvanje;
+import com.projekat.nastavnik_service.repository.NastavnikRepository;
 import com.projekat.nastavnik_service.repository.ZvanjeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import java.util.List;
 public class ZvanjeService {
     @Autowired
     private ZvanjeRepository zvanjeRepository;
+    @Autowired
+    private NastavnikRepository nastavnikRepository;
 
     public List<Zvanje> getAll() {
         return zvanjeRepository.findAll();
@@ -21,8 +26,14 @@ public class ZvanjeService {
                 .orElseThrow(() -> new RuntimeException("Zvanje not found"));
     }
 
-    public Zvanje create(Zvanje zvanje) {
-        return zvanjeRepository.save(zvanje);
+    public Zvanje create(ZvanjeDTO zvanje) {
+        Zvanje z = new Zvanje();
+        Nastavnik n = nastavnikRepository.findById(zvanje.getNastavnikId()).orElseThrow(()->new RuntimeException("Error"));
+        z.setDatumPrestanka(zvanje.getDatumPrestanka());
+        z.setNastavnik(n);
+        z.setDatumIzbora(zvanje.getDatumIzbora());
+        z.setNaziv(zvanje.getNaziv());
+        return zvanjeRepository.save(z);
     }
 
     public Zvanje update(Long id, Zvanje updatedZvanje) {

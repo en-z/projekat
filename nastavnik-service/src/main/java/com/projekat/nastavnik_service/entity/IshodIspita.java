@@ -1,9 +1,6 @@
 package com.projekat.nastavnik_service.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.XmlElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class IshodIspita {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int brojPokusaja;
     private float bodovi;

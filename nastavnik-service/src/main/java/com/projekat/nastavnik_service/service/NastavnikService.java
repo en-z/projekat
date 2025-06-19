@@ -4,7 +4,9 @@ import com.projekat.nastavnik_service.client.AuthClient;
 import com.projekat.nastavnik_service.dto.NastavnikCreateDTO;
 import com.projekat.nastavnik_service.dto.NastavnikDTO;
 import com.projekat.nastavnik_service.dto.RegisterDTO;
+import com.projekat.nastavnik_service.entity.Adresa;
 import com.projekat.nastavnik_service.entity.Nastavnik;
+import com.projekat.nastavnik_service.repository.AdresaRepository;
 import com.projekat.nastavnik_service.repository.AngazovanjaRepository;
 import com.projekat.nastavnik_service.repository.NastavnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class NastavnikService {
     private AuthClient authClient;
    @Autowired
    private AngazovanjaRepository angazovanjaRepository;
+   @Autowired
+    private  AdresaRepository adresaRepository;
 
    public NastavnikCreateDTO create(NastavnikCreateDTO dto){
        RegisterDTO n = new RegisterDTO();
@@ -34,11 +38,20 @@ public class NastavnikService {
            throw new RuntimeException("puko authclient u registraciji");
        }
        Nastavnik nastavnik = new Nastavnik();
-       nastavnik.setAdresa(dto.getAdresa());
+       Adresa adresa = adresaRepository.findByUlicaAndBrojAndGradAndDrzava(dto.getAdresa().getUlica(), dto.getAdresa().getBroj(),dto.getAdresa().getGrad(),dto.getAdresa().getDrzava()).orElse(null);
+       if (adresa ==null){
+           adresa = new Adresa();
+           adresa.setBroj(dto.getAdresa().getBroj());
+           adresa.setGrad(dto.getAdresa().getGrad());
+           adresa.setDrzava(dto.getAdresa().getDrzava());
+           adresa.setUlica(dto.getAdresa().getUlica());
+       }
+       nastavnik.setAdresa(adresa);
        nastavnik.setBiografija(dto.getBiografija());
        nastavnik.setUserId(res.getId());
        nastavnik.setPrezime(dto.getPrezime());
        nastavnik.setIme(dto.getIme());
+       nastavnik.setStatus(dto.getStatus());
        nastavnikRepository.save(nastavnik);
        return dto;
    }
@@ -72,6 +85,7 @@ public class NastavnikService {
        authClient.delete(n.getUserId());
        nastavnikRepository.deleteById(id);
     }
+
 
    private static NastavnikDTO toDTO(Nastavnik n){
       NastavnikDTO dto = new NastavnikDTO();

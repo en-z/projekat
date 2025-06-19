@@ -1,0 +1,33 @@
+<div class="max-w-md mx-auto p-6 bg-white shadow-md rounded">
+  <h2 class="text-xl font-bold mb-4">Dodaj Završni Rad</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>Student</label>
+    <select formControlName="studentId" class="w-full mb-3 border px-3 py-2 rounded" required>
+      <option value="">Izaberite studenta</option>
+      <option *ngFor="let s of studenti" [value]="s.id">{{ s.ime }} {{ s.prezime }}</option>
+    </select>
+
+    <label>Nastavnik</label>
+    <select formControlName="nastavnikId" class="w-full mb-3 border px-3 py-2 rounded" required>
+      <option value="">Izaberite nastavnika</option>
+      <option *ngFor="let n of nastavnici" [value]="n.id">{{ n.ime }} {{ n.prezime }}</option>
+    </select>
+
+    <label>Naslov</label>
+    <input type="text" formControlName="naslov" placeholder="Naslov rada" class="w-full mb-3 border px-3 py-2 rounded" required />
+
+    <label>Opis</label>
+    <textarea formControlName="opis" placeholder="Opis rada" class="w-full mb-3 border px-3 py-2 rounded" required></textarea>
+
+    <label>Fajl</label>
+    <input type="file" accept=".pdf,.doc,.docx" (change)="onFileChange($event)" class="w-full mb-4" required />
+
+    <button type="submit"
+      [disabled]="form.invalid"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded w-full">
+      Dodaj Završni Rad
+    </button>
+  </form>
+</div>
+

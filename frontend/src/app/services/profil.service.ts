@@ -8,7 +8,7 @@ import { Profil } from "../models/profil.service";
 })
 export class ProfilService extends BaseService<Profil>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/profil')
+    super(http,'http://localhost:8080/api/auth')
   }
   getProfil(){
     return this.http.get<Profil>(this.baseUrl)

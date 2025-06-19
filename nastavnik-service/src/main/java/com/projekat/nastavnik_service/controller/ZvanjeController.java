@@ -1,5 +1,6 @@
 package com.projekat.nastavnik_service.controller;
 
+import com.projekat.nastavnik_service.dto.ZvanjeDTO;
 import com.projekat.nastavnik_service.entity.Zvanje;
 import com.projekat.nastavnik_service.service.ZvanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ZvanjeController {
         return ResponseEntity.ok(zvanjeService.findByNastavnikId(id)) ;
     }
    @PostMapping
-    public Zvanje post(@RequestBody Zvanje zvanje){
+    public Zvanje post(@RequestBody ZvanjeDTO zvanje){
        return zvanjeService.create(zvanje);
    }
    @DeleteMapping("/{id}")

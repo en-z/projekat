@@ -1,9 +1,13 @@
 package com.projekat.student_service.service;
 
+import com.projekat.student_service.client.AuthClient;
 import com.projekat.student_service.dto.AddDTO;
 import com.projekat.student_service.dto.StudentDTO;
 import com.projekat.student_service.entity.Student;
 import com.projekat.student_service.repository.StudentRepository;
+import feign.FeignException;
+import feign.Response;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,8 @@ import java.util.stream.Collectors;
 public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private AuthClient authClient;
 
     public List<StudentDTO> getAll(){
         return studentRepository.findAll().stream().map(m->new StudentDTO(m)).collect(Collectors.toList());
@@ -28,11 +34,16 @@ public class StudentService {
         StudentDTO dto = new StudentDTO(s);
         return dto;
     }
+    @Transactional
     public Student create(AddDTO dto){
         Student s = new Student(dto);
-
         s = studentRepository.save(s);
         s.setBrojIndeksa(StudentService.getBrojIndeksa(s.getGodinaUpisa(),s.getId()));
+            try {
+                authClient.dodajRole(s.getUserId());
+            } catch (FeignException e) {
+                throw e;
+            }
         return s;
     }
     public StudentDTO update(long id,StudentDTO dto){

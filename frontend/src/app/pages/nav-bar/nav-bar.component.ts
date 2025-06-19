@@ -16,6 +16,15 @@ export class NavBarComponent {
   showAdmin= false;
   constructor(private router:Router,public authService:AuthService){
   }
+  dodajZavrsni(){
+    this.router.navigate(['/zavrsniRad'])
+  }
+  goToStudenti(){
+    this.router.navigate(['/studenti'])
+  }
+  goToNastavniciPrikaz(){
+    this.router.navigate(['/nastavnici'])
+  }
   onLogout(){
     this.authService.logout();
   }
@@ -27,6 +36,9 @@ export class NavBarComponent {
   }
   goToRegister(){
     this.router.navigate(['/register'])
+  }
+  goToEdit(){
+    this.router.navigate(['/edit'])
   }
   goToPrijaviIspit(){
     this.router.navigate(['/prijava-ispita'])
@@ -54,6 +66,9 @@ export class NavBarComponent {
   }
   goToDodajPow(){
     this.router.navigate(['/add-pow'])
+  }
+  goToDodajNastavnik(){
+    this.router.navigate(['/nastavnik'])
   }
   goToSifarnik(){
     this.router.navigate(['/sifarnik'])

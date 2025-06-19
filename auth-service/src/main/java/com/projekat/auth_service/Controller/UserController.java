@@ -1,8 +1,10 @@
 package com.projekat.auth_service.Controller;
 
+import com.projekat.auth_service.DTO.EditDTO;
 import com.projekat.auth_service.DTO.ImeDTO;
 import com.projekat.auth_service.DTO.LoginDTO;
 import com.projekat.auth_service.DTO.RegisterDTO;
+import com.projekat.auth_service.Security.CustomUserDetails;
 import com.projekat.auth_service.Security.JwtService;
 import com.projekat.auth_service.entity.User;
 import com.projekat.auth_service.repository.UserRepository;
@@ -14,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +39,29 @@ public class UserController {
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authManager;
+    @GetMapping
+    private ResponseEntity<?> get(@AuthenticationPrincipal CustomUserDetails userDetails){
+        long id = userDetails.getId();
+        return ResponseEntity.ok(service.findById(id));
+    }
+    @PostMapping
+    private ResponseEntity<?> post(@RequestBody EditDTO dto, @AuthenticationPrincipal CustomUserDetails userDetails){
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long id = Long.parseLong(userId);
+        User u =service.findById(id);
+        u.setPassword(dto.getPassword());
+        u.setEmail(dto.getEmail());
+        return ResponseEntity.ok(service.save(u));
+    }
+    @PostMapping("/student")
+    public ResponseEntity<?> student(@RequestBody RegisterDTO user)throws Exception{
+        return registerService.addUser(user);
+    }
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@RequestBody RegisterDTO user)throws Exception{
+        List<String>s = new ArrayList<>();
+        s.add("ROLE_USER");
+        user.setRoles(s);
         return registerService.addUser(user);
     }
     @PostMapping("/login")// login
@@ -64,7 +89,7 @@ public class UserController {
     public ResponseEntity<?> getStudente(){
         return ResponseEntity.ok(service.findByRole());
     }
-    @PutMapping("/id")
+    @PutMapping("/{id}/student")
     public ResponseEntity<?> dodajRole(@PathVariable long id){
         User u = userRepository.findById(id).orElseThrow(()->new RuntimeException("NULL"));
         List<String>roles = new ArrayList<>();

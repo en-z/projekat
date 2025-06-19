@@ -25,7 +25,7 @@ export class ExportUserComponent {
       ime: n.ime,
       prezime: n.prezime,
       biografija: n.biografija,
-      status: n.satus,
+      status: n.status,
       adresa:n.adresa
     }));
 
@@ -40,7 +40,7 @@ export class ExportUserComponent {
           ime: n.ime,
           prezime: n.prezime,
           biografija: n.biografija,
-          status: n.satus,
+          status: n.status,
           adresa:n.adresa
         }));
 
@@ -52,7 +52,7 @@ export class ExportUserComponent {
           ime: n.ime,
           prezime: n.prezime,
           biografija: n.biografija,
-          status: n.satus,
+          status: n.status,
           adresa:n.adresa
         }));
       exportToXml(sanitized, 'nastavnici', 'nastavnik', 'nastavnici.xml');

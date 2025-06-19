@@ -2,10 +2,8 @@ package com.projekat.admin_service.service;
 
 import com.projekat.admin_service.DTO.AdminDTO;
 import com.projekat.admin_service.DTO.AdminResponse;
-import com.projekat.admin_service.DTO.NastavnikDTO;
 import com.projekat.admin_service.DTO.RegisterDTO;
 import com.projekat.admin_service.client.AuthClient;
-import com.projekat.admin_service.controller.NastavnikCreate;
 import com.projekat.admin_service.entity.Admin;
 import com.projekat.admin_service.entity.Adresa;
 import com.projekat.admin_service.repository.AdminRepository;

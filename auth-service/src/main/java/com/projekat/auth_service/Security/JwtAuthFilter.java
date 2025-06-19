@@ -1,5 +1,6 @@
 package com.projekat.auth_service.Security;
 
+import com.projekat.auth_service.entity.User;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -39,13 +40,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     List<String> roles = claims.get("roles", List.class);
+                    Long userId = claims.get("id", Long.class);
+
+                    // Dummy User objekat da nahrani CustomUserDetails
+                    User dummy = new User();
+                    dummy.setId(userId);
+                    dummy.setEmail(username);
+                    dummy.setRoles(roles);
+                    CustomUserDetails userDetails = new CustomUserDetails(dummy);
 
                     List<SimpleGrantedAuthority> authorities = roles.stream()
                             .map(SimpleGrantedAuthority::new)
                             .toList();
 
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            username, null, authorities);
+                            userDetails, null, authorities);
 
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }

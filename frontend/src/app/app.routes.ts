@@ -5,7 +5,6 @@ import { AdminDodajStudiskiComponent } from './pages/admin-dodaj-studiski/admin-
 import { AdminDodajFakultetComponent } from './pages/admin-dodaj-fakultet/admin-dodaj-fakultet.component';
 import { AdminDodjaUniverziteComponent } from './pages/admin-dodja-univerzite/admin-dodja-univerzite.component';
 import { UniverzitetComponent } from './pages/univerzitet/univerzitet.component';
-import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import { NastavnikPredmetiComponent } from './pages/nastavnik/predmeti/nastavnik-predmeti/nastavnik-predmeti.component';
 import { PredmetDetaljiComponent } from './pages/nastavnik/predmeti/predmet-detalji/predmet-detalji.component';
 import { SilabusComponent } from './pages/nastavnik/silabus/silabus.component';
@@ -32,6 +31,12 @@ import { ExportUserComponent } from './pages/export-user/export-user.component';
 import { PrikaziFakultetComponent } from './pages/prikazi-fakultet/prikazi-fakultet.component';
 import { PocetnaComponent } from './pages/pocetna/pocetna.component';
 import { VratiComponent } from './pages/vrati/vrati.component';
+import { DodajNastavnikaComponent } from './pages/dodaj-nastavnika/dodaj-nastavnika.component';
+import { NastavniciComponent } from './pages/nastavnici/nastavnici.component';
+import { StudentiComponenti } from './pages/studenti/studenti.component';
+import { DodajStudentaComponent } from './pages/dodaj-studenta/dodaj-studenta.component';
+import { DodajZavrsniradComponent } from './pages/dodaj-zavrsnirad/dodaj-zavrsnirad.component';
+import { DodajZvanjeComponent } from './pages/dodaj-zvanje/dodaj-zvanje.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -40,10 +45,22 @@ export const routes: Routes = [
     path:"register",component:RegistrationComponent
   },
   {
+    path:"dodaj-studenta",component:DodajStudentaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+  },
+  {
     path:"fakultet/:id",component:AdminDodajFakultetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
+    path:"zavrsniRad",component:DodajZavrsniradComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+  },
+  {
    path:"univerzitet/:id",component:AdminDodjaUniverziteComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+  },
+  {
+   path:"zvanje",component:DodajZvanjeComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+  },
+  {
+   path:"studenti",component:StudentiComponenti,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
   path:"program/:id",component:AdminDodajStudiskiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
@@ -91,6 +108,12 @@ export const routes: Routes = [
   },
   {
     path:"ishod-ispita",component:IshodIspitaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
+  },
+  {
+    path:"nastavnik",component:DodajNastavnikaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
+  },
+  {
+    path:"nastavnici",component:NastavniciComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
   },
   {
     path:"add-pow",component:DodajAdminaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}

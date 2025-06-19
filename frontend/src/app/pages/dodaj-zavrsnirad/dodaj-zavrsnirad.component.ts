@@ -1,0 +1,68 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { StudentService } from '../../services/student.service';
+import { NastavnikService } from '../../services/nastavink.service';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-dodaj-zavrsnirad',
+  imports: [CommonModule,ReactiveFormsModule],
+  templateUrl: './dodaj-zavrsnirad.component.html',
+  styleUrl: './dodaj-zavrsnirad.component.css'
+})
+export class DodajZavrsniradComponent {
+  form!: FormGroup;
+  studenti: any[] = [];
+  nastavnici: any[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private studentService: StudentService,
+    private nastavnikService: NastavnikService,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      studentId: ['', Validators.required],
+      nastavnikId: ['', Validators.required],
+      naslov: ['', Validators.required],
+      opis: ['', Validators.required],
+      file: [null, Validators.required]
+    });
+
+    this.studentService.getAll().subscribe(data => this.studenti = data);
+    this.nastavnikService.getAll().subscribe(data => this.nastavnici = data);
+  }
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form.patchValue({ file: file });
+    }
+  }
+
+  onSubmit() {
+    if (this.form.invalid) return;
+
+    const formData = new FormData();
+    formData.append('studentId', this.form.get('studentId')?.value);
+    formData.append('nastavnikId', this.form.get('nastavnikId')?.value);
+    formData.append('naslov', this.form.get('naslov')?.value);
+    formData.append('opis', this.form.get('opis')?.value);
+    formData.append('file', this.form.get('file')?.value);
+
+    this.http.post('http://localhost:8080/api/nastavnik/zavrsni', formData).subscribe({
+      next: (res) => {
+        alert('Završni rad uspešno dodat!');
+        this.form.reset();
+      },
+      error: (err) => {
+        alert('Greška pri dodavanju završnog rada.');
+        console.error(err);
+      }
+    });
+  }
+}
+

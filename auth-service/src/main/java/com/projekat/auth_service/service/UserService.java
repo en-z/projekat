@@ -32,8 +32,10 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public User findById(Long id) {
+        User u = userRepository.findById(id).orElseThrow(()->new RuntimeException("error"));
+        u.setPassword("");
+        return u;
     }
     public List<ImeDTO> findByRole(){
        return userRepository.findByRolesContaining("ROLE_USER").stream().map(m->new ImeDTO(m.getId(),m.getIme(),m.getPrezime())).toList();

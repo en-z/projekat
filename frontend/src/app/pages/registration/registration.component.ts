@@ -25,11 +25,6 @@ export class RegistrationComponent {
       passwordConf: ['', [Validators.required, Validators.minLength(5), this.passwordConfirmValidator.bind(this)]],
       ime: ['', [Validators.required]],
       prezime: ['', [Validators.required]],
-      ulica: ['', [Validators.required]],
-      broj: ['', [Validators.required]],
-      grad: ['', [Validators.required]],
-      drzava: ['', [Validators.required]],
-      roles:['ROLE_ADMIN']
     });
   }
 

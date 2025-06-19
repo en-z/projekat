@@ -7,7 +7,7 @@ export interface Nastavnik{
   ime:string,
   prezime:string,
   biografija:string,
-  satus:string,
+  status:string,
   adresa:Adresa,
   angazovanja:Angazovanje[],
   //opis:string,
