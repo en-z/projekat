@@ -1,7 +1,6 @@
 package com.projekat.biblioteka_service.controller;
 
-import DTO.NotifikacijaDTO;
-import com.projekat.biblioteka_service.entity.Notifikacija;
+import com.projekat.biblioteka_service.DTO.NotifikacijaDTO;
 import com.projekat.biblioteka_service.repository.NotifikacijeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

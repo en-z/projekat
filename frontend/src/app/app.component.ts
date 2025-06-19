@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
+import { NotifikacijeComponent } from './pages/notifikacije/notifikacije.component';
 
 @Component({
   selector: 'app-root',

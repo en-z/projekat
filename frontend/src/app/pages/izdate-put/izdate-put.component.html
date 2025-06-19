@@ -1,0 +1,18 @@
+<div>
+  <h3>Izaberite izdate stavke bez datuma vraćanja</h3>
+
+  <select [(ngModel)]="selectedIzdateId">
+    <option [ngValue]="null">-- Izaberite stavku --</option>
+    <option *ngFor="let i of izdateList" [ngValue]="i.id">
+      Korisnik: {{ i.userId }}, Knjiga: {{ i.knjiga.naziv }}, Izdato: {{ i.datumIzdavanja | date:'shortDate' }}
+    </option>
+  </select>
+
+  <div *ngIf="selectedIzdateId">
+    <label for="datumVracanja">Datum vraćanja:</label>
+    <input type="date" [(ngModel)]="noviDatumVracanja" id="datumVracanja" />
+  </div>
+
+  <button (click)="postaviDatum()">Postavi datum vraćanja</button>
+</div>
+

@@ -4,7 +4,7 @@ import { Osoba } from "./osoba";
 export interface Izdate{
   id?:number,
   knjiga:Knjiga,
-  osoba:Osoba,
+  userId:number;
   datumIzdavanja:Date,
-  datumVracanja?:Date,
+  datumVracanja:Date|null,
 }

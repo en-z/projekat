@@ -43,6 +43,7 @@
     </div>
   </div>
   <div *ngIf="authService.hasRole('ROLE_NASTAVNIK')" class="relative inline-block text-left">
+    <app-notifikacije></app-notifikacije>
     <button (click)="showNastavnik= !showNastavnik"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
       Nastavnik Menu ▼
@@ -58,6 +59,7 @@
   </div>
 
   <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative inline-block text-left">
+    <app-notifikacije></app-notifikacije>
     <button (click)="showStudentmenu= !showStudentmenu"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
       Student Menu ▼
@@ -81,6 +83,7 @@
   </div>
 
   <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="relative inline-block text-left">
+    <app-notifikacije></app-notifikacije>
     <button (click)="showAdmin= !showAdmin"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
       Admin Menu ▼

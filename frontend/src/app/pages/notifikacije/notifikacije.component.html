@@ -1,0 +1,17 @@
+<div class="relative inline-block">
+  <button (click)="togglePrikaz()" class="px-4 py-2 bg-yellow-400 rounded hover:bg-yellow-500">
+    🔔 Notifikacije ({{ poruke.length }})
+  </button>
+
+  <div *ngIf="prikazi" class="absolute mt-2 w-80 bg-white border shadow-lg rounded z-50">
+    <div *ngIf="poruke.length === 0" class="p-4 text-gray-500 text-center">
+      Nema notifikacija
+    </div>
+    <ul *ngIf="poruke.length > 0" class="max-h-64 overflow-y-auto">
+      <li *ngFor="let p of poruke" class="p-2 border-b last:border-b-0 hover:bg-gray-100">
+        {{ p.poruka}}
+      </li>
+    </ul>
+  </div>
+</div>
+

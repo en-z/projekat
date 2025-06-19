@@ -7,6 +7,8 @@ import { PredmetService } from '../../services/predmet.service';
 import { SilabusService } from '../../services/silabus.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { NastavniMaterijal } from '../../models/NastavniMaterijal';
 
 @Component({
   selector: 'app-prikazi-program',
@@ -18,13 +20,15 @@ export class PrikaziProgramComponent implements OnInit {
   program:StudiskiProgram|null = null
   predmeti:Predmet[]=[]
   silabusi:Silabus[]=[]
+  nastavniMaterijali:NastavniMaterijal[]=[]
   id:number|null = null;
   idPredmet:number|null = null;
   constructor(private progrmaService:StudiskiService,
              private predmetService:PredmetService,
              private silabusService:SilabusService,
              public router:Router,
-             private route:ActivatedRoute){
+             private route:ActivatedRoute,
+             private http:HttpClient){
 
              }
   ngOnInit():void{
@@ -44,5 +48,9 @@ export class PrikaziProgramComponent implements OnInit {
     this.idPredmet = idPredmet;
     this.silabusi = []
     this.silabusService.getAllByPredmetId(idPredmet).subscribe(data=>this.silabusi = data)
+    this.loadNastavniMaterijal();
+  }
+  loadNastavniMaterijal(){
+    this.http.get<any[]>(`http://localhost:8080/api/nastavnik/materijali/predmet/${this.idPredmet}`).subscribe(data=>this.nastavniMaterijali= data);
   }
 }

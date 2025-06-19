@@ -68,6 +68,6 @@ pretrazi() {
     this.filtrirajPoKategoriji();
   }
   izdaj(knjigaId:number){
-    this.izdateService.izdaj(knjigaId)
+    this.izdateService.izdaj(knjigaId).subscribe(()=>alert("dodato"))
   }
 }

@@ -2,12 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { NotifikacijeComponent } from '../notifikacije/notifikacije.component';
 @Component({
   standalone:true,
   selector: 'app-nav-bar',
-  imports: [CommonModule],
+  imports: [CommonModule ,NotifikacijeComponent],
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.css'
+  styleUrl: './nav-bar.component.css',
+  template: `
+    <app-notifikacije></app-notifkiacije>
+  `
 })
 export class NavBarComponent {
   showStudentmenu = false;

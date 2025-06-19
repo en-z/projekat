@@ -1,17 +1,26 @@
 package com.projekat.biblioteka_service;
 
+import com.projekat.biblioteka_service.entity.Izdate;
 import com.projekat.biblioteka_service.entity.Knjiga;
+import com.projekat.biblioteka_service.entity.Notifikacija;
+import com.projekat.biblioteka_service.repository.IzdateRepository;
 import com.projekat.biblioteka_service.repository.KnjigaRepository;
+import com.projekat.biblioteka_service.repository.NotifikacijeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
     @Autowired
     private KnjigaRepository knjigaRepository;
+    @Autowired
+    private IzdateRepository izdateRepository;
+    @Autowired
+    private NotifikacijeRepo notifikacijeRepo;
 
     @Override
     public void run(String... args) throws Exception {
@@ -21,7 +30,7 @@ public class DataLoader implements CommandLineRunner {
         knjiga1.setOpis("Klasicni roman Ive Andrica");
         knjiga1.setAutor("Ivo Andric");
         knjiga1.setKolicina(5);
-
+        knjiga1 = knjigaRepository.save(knjiga1);
         Knjiga knjiga2 = new Knjiga();
         knjiga2.setNaziv("Na Drini ćuprija");
         knjiga2.setKategorija("Istorijski roman");
@@ -36,6 +45,16 @@ public class DataLoader implements CommandLineRunner {
         knjiga3.setAutor("Mesa Selimovic");
         knjiga3.setKolicina(7);
 
-        knjigaRepository.saveAll(List.of(knjiga1, knjiga2, knjiga3));
+        knjigaRepository.saveAll(List.of( knjiga2, knjiga3));
+        Izdate i = new Izdate();
+        i.setUserId(1);
+        i.setDatumIzdavanja(LocalDate.now());
+        i.setKnjiga(knjiga1);
+        i=izdateRepository.save(i);
+        Notifikacija n = new Notifikacija();
+        n.setPoruka("Korisnik marko nije vratio knjigu");
+        n.setUserId(1);
+        n.setIzdate(i);
+        notifikacijeRepo.save(n);
     }
 }

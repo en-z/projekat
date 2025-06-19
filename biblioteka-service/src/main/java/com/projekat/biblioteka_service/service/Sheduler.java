@@ -14,14 +14,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-
-public class Sheduler {
+public class Sheduler{
     @Autowired
     private IzdateRepository izdateRepository;
     @Autowired
     private NotifikacijeRepo notifikacijeRepo;
     @Autowired
     private AuthClient authClient;
+
     @Scheduled(cron = "0 0 0 * * *")
     public void proveriIsteklaZaduzenja(){
         LocalDate today = LocalDate.now();

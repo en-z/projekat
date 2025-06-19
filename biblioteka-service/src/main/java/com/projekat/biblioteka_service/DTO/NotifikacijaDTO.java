@@ -1,4 +1,4 @@
-package DTO;
+package com.projekat.biblioteka_service.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

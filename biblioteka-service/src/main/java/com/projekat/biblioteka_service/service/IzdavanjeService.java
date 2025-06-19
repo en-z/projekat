@@ -6,6 +6,8 @@ import com.projekat.biblioteka_service.repository.IzdateRepository;
 import com.projekat.biblioteka_service.repository.KnjigaRepository;
 import com.projekat.biblioteka_service.repository.NotifikacijeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -43,5 +45,15 @@ public class IzdavanjeService {
 
     public List<Izdate> getAll(long id){
         return izdateRepository.findAllByUserId(id);
+    }
+
+    public List<Izdate> getNull(){
+        return izdateRepository.findByDatumVracanjaIsNull();
+    }
+    public HttpStatus put(long id, LocalDate date){
+       Izdate i =izdateRepository.findById(id).orElseThrow(()->new RuntimeException("error"));
+       i.setDatumVracanja(date);
+       izdateRepository.save(i);
+       return HttpStatus.OK;
     }
 }

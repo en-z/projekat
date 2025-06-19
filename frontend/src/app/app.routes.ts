@@ -37,6 +37,8 @@ import { StudentiComponenti } from './pages/studenti/studenti.component';
 import { DodajStudentaComponent } from './pages/dodaj-studenta/dodaj-studenta.component';
 import { DodajZavrsniradComponent } from './pages/dodaj-zavrsnirad/dodaj-zavrsnirad.component';
 import { DodajZvanjeComponent } from './pages/dodaj-zvanje/dodaj-zvanje.component';
+import { NotifikacijeComponent } from './pages/notifikacije/notifikacije.component';
+import { IzdatePutComponent } from './pages/izdate-put/izdate-put.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -45,10 +47,16 @@ export const routes: Routes = [
     path:"register",component:RegistrationComponent
   },
   {
+    path:"notifikacije",component:NotifikacijeComponent
+  },
+  {
     path:"dodaj-studenta",component:DodajStudentaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
     path:"fakultet/:id",component:AdminDodajFakultetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+  },
+  {
+    path:"izdate-datum",component:IzdatePutComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
     path:"zavrsniRad",component:DodajZavrsniradComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
