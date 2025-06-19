@@ -28,15 +28,15 @@ export class PrikaziZavrsneRadoveComponent implements OnInit {
     });
   }
 
-  preuzmiFajl(filePath: string) {
-    this.zavrsniRadService.downloadFile(filePath).subscribe({
+  preuzmiFajl(zavrsniRadId: number, fileName: string) {
+    this.zavrsniRadService.downloadFile(zavrsniRadId).subscribe({
       next: (response) => {
         const blob = new Blob([response.body!], {
           type: response.headers.get('Content-Type') || 'application/octet-stream'
         });
         const a = document.createElement('a');
         a.href = window.URL.createObjectURL(blob);
-        a.download = filePath.split('/').pop() || 'downloaded-file';
+        a.download = fileName;
         a.click();
         window.URL.revokeObjectURL(a.href);
       },

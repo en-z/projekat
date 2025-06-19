@@ -10,7 +10,7 @@
       <p class="text-gray-600"><strong>Nastavnik:</strong> {{ rad.nastavnik?.ime }} {{ rad.nastavnik?.prezime }}</p>
 
       <button
-        (click)="preuzmiFajl(rad.file)"
+        (click)="preuzmiFajl(rad.id, rad.file)"
         class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
       >
         Preuzmi fajl

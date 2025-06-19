@@ -20,8 +20,8 @@ export class ZavrsniRadService {
     return this.http.post(`http://localhost:8080/api/nastavnik/zavrsni`, formData, { responseType: 'text' });
   }
 
-  downloadFile(filePath: string): Observable<any> {
-    return this.http.post(`http://localhost:8080/api/nastavnik/zavrsni/download`, filePath, {
+  downloadFile(zavrsniRadId: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/nastavnik/zavrsni/${zavrsniRadId}/download`, {
       responseType: 'blob',
       observe: 'response'
     });
