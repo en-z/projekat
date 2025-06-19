@@ -7,6 +7,7 @@ import com.projekat.nastavnik_service.repository.NastavnikRepository;
 import com.projekat.nastavnik_service.service.InstrumentEvaluacijeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,11 +52,14 @@ public class InstrumentEvaluacijeController {
 
     @PostMapping
     public ResponseEntity<InstrumentEvaluacijeDTO> create(@RequestBody InstrumentEvaluacijeDTO dto) {
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long id = Long.parseLong(userId);
+
         InstrumentEvaluacije instrument = new InstrumentEvaluacije();
         instrument.setTip(dto.getTip());
         instrument.setOpis(dto.getOpis());
         instrument.setPredmetId(dto.getPredmetId());
-        Nastavnik n = nastavnikRepository.findByUserId(dto.getNastavnikId()).orElseThrow(()->new RuntimeException("error"));//iz jwt
+        Nastavnik n = nastavnikRepository.findByUserId(id).orElseThrow(()->new RuntimeException("error"));//iz jwt
         instrument.setNastavnik(n);
 
         InstrumentEvaluacije saved = service.save(instrument);

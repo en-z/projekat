@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class IshodIspitaService {
     @Autowired
-    StudentClient studentClient;
+    private StudentClient studentClient;
     private final IshodIspitaRepository repository;
 
     public IshodIspitaService(IshodIspitaRepository repository) {
@@ -23,6 +23,9 @@ public class IshodIspitaService {
         return repository.findAll();
     }
 
+    public List<IshodIspita> findByStudent(long id) {
+        return repository.findAllByStudentId(id);
+    }
     public Optional<IshodIspita> findById(Long id) {
         return repository.findById(id);
     }

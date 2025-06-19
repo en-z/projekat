@@ -18,7 +18,7 @@ export class SilabusService {
   }
 
   getAllByPredmetId(predmetId: number): Observable<Silabus[]> {
-    return this.http.get<Silabus[]>(`${this.apiUrl}/predmet/${predmetId}`);
+    return this.http.get<Silabus[]>(`${this.apiUrl}/predmeti/${predmetId}`);
   }
   create(data: Silabus): Observable<Silabus> {
     return this.http.post<Silabus>(this.apiUrl, data);

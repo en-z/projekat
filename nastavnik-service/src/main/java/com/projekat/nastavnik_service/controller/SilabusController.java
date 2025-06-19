@@ -28,12 +28,18 @@ public class SilabusController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/predmet/{predmetId}")
-    public ResponseEntity<List<SilabusDTO>> getByPredmetId(@PathVariable Long predmetId) {
-         List<SilabusDTO> l = silabusService.findByPredmetId(predmetId).stream().map(f->SilabusController.toDto(f)).toList();
-        return ResponseEntity.ok(l);
+    @GetMapping("/predmet/{id}")
+    public ResponseEntity<SilabusDTO> getByPredmetId(@PathVariable long id) {
+         Silabus s = silabusService.findByPredmetId(id);
+         SilabusDTO dto = toDto(s);
+        return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/predmeti/{predmetId}")
+    public ResponseEntity<List<SilabusDTO>> getByAllPredmetId(@PathVariable long predmetId) {
+        List<SilabusDTO> l = silabusService.findAllByPredmetId(predmetId).stream().map(f->SilabusController.toDto(f)).toList();
+        return ResponseEntity.ok(l);
+    }
     @PostMapping
     public ResponseEntity<SilabusDTO> create(@RequestBody SilabusDTO dto) {
         Silabus silabus = new Silabus();

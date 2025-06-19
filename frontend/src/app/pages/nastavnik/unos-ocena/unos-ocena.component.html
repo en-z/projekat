@@ -9,7 +9,12 @@
           {{ student.ime }} {{ student.prezime }} (ID: {{ student.id }})
         </option>
       </select>
-      <input type="number" formControlName="brojPokusaja" placeholder="Broj pokušaja" required>
+      <select formControlName="instumentId" required>
+        <option value="" disabled selected>Izaberi Instrument</option>
+        <option *ngFor="let instrument of instrumenti" [value]="instrument.id">
+          {{ instrument.tip}} (ID: {{ instrument.id }})
+        </option>
+      </select>
       <input type="number" formControlName="bodovi" placeholder="Bodovi" required>
 
       <button type="submit" [disabled]="ocenaForm.invalid">Unesi ocenu</button>

@@ -7,4 +7,5 @@ export interface IshodIspita {
   studentId: number;
   predmetId: number;
   nastavnikId: number;
+  instumentId:number;
 }

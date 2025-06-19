@@ -12,14 +12,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PrijavaIspitaDTO {
     private long id;
-    private IspitniRok ispitniRok;
+    private long rok;
     private long predmetId;
     private LocalDate datumOdrzavanja;
     private LocalDate datumPrijave;
     private long studentId;
     public PrijavaIspitaDTO(PrijavaIspita i){
         this.id = i.getId();
-        this.ispitniRok = i.getRok();
+        this.rok= i.getRok().getId();
         this.predmetId = i.getPredmetId();
         this.datumOdrzavanja = i.getDatumOdrzavanja();
         this.datumPrijave = i.getDatumPrijave();
