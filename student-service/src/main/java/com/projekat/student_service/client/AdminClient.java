@@ -10,6 +10,6 @@ import java.util.List;
 
 @FeignClient(name = "admin-service",url = "http://localhost:8082/api/admin")
 public interface AdminClient {
-    @GetMapping("/api/predmeti/by-ids")
-    ResponseEntity<List<PredmetDTO>> getPredmetiByIds(@RequestParam("ids") List<Long> ids);
+    @GetMapping("/predmeti/by-ids")
+    ResponseEntity<List<PredmetDTO>> getPredmetiByIds(@RequestParam List<Long> ids);
 }

@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 })
 export class IspitniRokService extends BaseService<IspitniRok>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/student/ispitniRok')
+    super(http,'http://localhost:8080/api/student/ispitni-rokovi')
   }
   getAktivne(): Observable<IspitniRok[]> {
     return this.http.get<IspitniRok[]>(`${this.baseUrl}/aktivni`);

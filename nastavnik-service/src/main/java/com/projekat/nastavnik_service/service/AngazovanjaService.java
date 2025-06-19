@@ -50,7 +50,8 @@ public class AngazovanjaService {
     }
 
     public List<PredmetDTO> findPredmetiByUserId(Long userId) {
-        List<Long> predmetIds = angazovanjeRepository.findAllByNastavnikId(userId)
+        Nastavnik n =nastavnikRepository.findByUserId(userId).orElseThrow(()->new RuntimeException("error"));
+        List<Long> predmetIds = angazovanjeRepository.findAllByNastavnikId(n.getId())
                 .stream()
                 .map(ang -> ang.getPredmetId())
                 .toList();

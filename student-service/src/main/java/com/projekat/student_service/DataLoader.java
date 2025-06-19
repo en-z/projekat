@@ -32,7 +32,7 @@ public class DataLoader implements CommandLineRunner {
         adresa.setDrzava("Srbija");
 
         Student student = new Student();
-        student.setUserId(2L);
+        student.setUserId(3L);
         student.setIme("Jovan");
         student.setPrezime("Jovanovic");
         student.setAdresa(adresa);
@@ -40,7 +40,7 @@ public class DataLoader implements CommandLineRunner {
         student.setProsecnaOcena(9.1f);
         student.setGodinaUpisa(2023);
         student.setGodinaStudija(1);
-        student.setStudiskiId(5L);
+        student.setStudiskiId(1L);
         student.setOsvojeniEsbp(30);
         studentRepository.save(student);
 

@@ -36,7 +36,7 @@ public class DataLoader implements CommandLineRunner {
 
         // Create Nastavnik with managed Adresa
         Nastavnik nastavnik = new Nastavnik();
-        nastavnik.setUserId(3L);
+        nastavnik.setUserId(2L);
         nastavnik.setIme("Marko");
         nastavnik.setPrezime("Markovic");
         nastavnik.setStatus("redovni profesor");

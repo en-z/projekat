@@ -20,7 +20,11 @@ export class NastavnikPredmetiComponent implements OnInit {
 
   ucitajPredmete(): void {
     this.nastavnikService.getPredmeti(this.nastavnikId).subscribe({
-      next: (data) => this.predmeti = data,
+      next: (data) =>{
+        this.predmeti = data
+        console.log(data)
+      },
+
       error: (err) => console.error('Greška prilikom dohvata predmeta:', err)
     });
   }

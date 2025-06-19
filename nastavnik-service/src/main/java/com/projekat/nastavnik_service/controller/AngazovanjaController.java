@@ -33,9 +33,9 @@ public class AngazovanjaController {
         return ResponseEntity.ok("Izbrisan");
     }
     @GetMapping("/predmeti")
-    public List<PredmetDTO> getPredmeti(){
+    public ResponseEntity<List<PredmetDTO>> getPredmeti(){
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long id = Long.parseLong(userId);
-        return angazovanjaService.findPredmetiByUserId(id);
+        return ResponseEntity.ok(angazovanjaService.findPredmetiByUserId(id));
     }
 }

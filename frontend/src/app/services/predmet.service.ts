@@ -18,7 +18,7 @@ export class PredmetService extends BaseService<Predmet>{
   }
 
   getPredmeteZaUpis(){
-    return this.http.get<Predmet[]>(`${this.baseUrl}/predmeti-za-upis`)
+    return this.http.get<Predmet[]>(`http://localhost:8080/api/student/prijave-ispita/predmeti`)
   }
 
   getPredmeteZaSlusanje(){
