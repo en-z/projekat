@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ZavrsniRadService {
@@ -24,6 +25,10 @@ public class ZavrsniRadService {
 
     @Autowired
     private NastavnikRepository nastavnikRepository;
+
+    public Optional<ZavrsniRad> findById(Long id) {
+        return repository.findById(id);
+    }
 
     public List<ZavrsniRad> getAll() {
         return repository.findAll();

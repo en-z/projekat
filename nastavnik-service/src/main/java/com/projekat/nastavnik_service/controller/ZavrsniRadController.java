@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.*;
+
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/nastavnik/zavrsni")
@@ -30,7 +31,7 @@ public class ZavrsniRadController {
     }
     @GetMapping("/{id}/download")
     public ResponseEntity<?> downloadFile(@PathVariable Long id) {
-        ZavrsniRad rad = zavrsniRadService.findById(id)
+        ZavrsniRad rad = service.findById(id)
                 .orElseThrow(() -> new RuntimeException("Završni rad nije pronađen"));
 
         Path filePath = Paths.get(rad.getFile());
@@ -54,7 +55,7 @@ public class ZavrsniRadController {
     }
     @GetMapping("/mentor/{nastavnikId}")
     public ResponseEntity<List<ZavrsniRad>> getByMentor(@PathVariable Long nastavnikId) {
-        return ResponseEntity.ok(zavrsniRadService.findByNastavnikId(nastavnikId));
+        return ResponseEntity.ok(service.getByNastavnikUserId(nastavnikId));
     }
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
