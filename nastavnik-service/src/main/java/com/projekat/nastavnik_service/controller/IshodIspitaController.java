@@ -1,9 +1,14 @@
 package com.projekat.nastavnik_service.controller;
 
+import com.projekat.nastavnik_service.client.AdminClient;
 import com.projekat.nastavnik_service.dto.IshodIspitaDTO;
+import com.projekat.nastavnik_service.dto.IshodIspitaStudentDTO;
+import com.projekat.nastavnik_service.dto.PredmetDTO;
+import com.projekat.nastavnik_service.entity.InstrumentEvaluacije;
 import com.projekat.nastavnik_service.entity.IshodIspita;
 import com.projekat.nastavnik_service.entity.Nastavnik;
 import com.projekat.nastavnik_service.mapper.IshodIspitaMapper;
+import com.projekat.nastavnik_service.repository.InstrumentEvaluacijeRepository;
 import com.projekat.nastavnik_service.repository.NastavnikRepository;
 import com.projekat.nastavnik_service.service.IshodIspitaService;
 import com.projekat.nastavnik_service.service.UploadXmlService;
@@ -17,7 +22,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/nastavnik/ishodi")
@@ -26,6 +33,11 @@ public class IshodIspitaController {
     private IshodIspitaService service;
     @Autowired
     private NastavnikRepository nastavnikService;
+
+    @Autowired
+    private InstrumentEvaluacijeRepository instrumentEvaluacijeRepository;
+    @Autowired
+    private AdminClient adminClient;
 
     @GetMapping
     public ResponseEntity<List<IshodIspitaDTO>> getAll() {
@@ -42,6 +54,8 @@ public class IshodIspitaController {
         Nastavnik nastavnik = nastavnikService.findById(dto.getNastavnikId()).orElseThrow();
 
         IshodIspita ishod = IshodIspitaMapper.fromDTO(dto, nastavnik);
+        InstrumentEvaluacije e = instrumentEvaluacijeRepository.findById(dto.getInstumentId()).orElseThrow(()->new RuntimeException("nema instrumenta evaluacije"));
+        ishod.setInstrumentEvaluacije(e);
         IshodIspita saved = service.save(ishod);
         return ResponseEntity.ok(IshodIspitaMapper.toDTO(saved));
     }
@@ -63,13 +77,20 @@ public class IshodIspitaController {
     }
 
     @GetMapping("/student/{id}")
-    public ResponseEntity<List<IshodIspitaDTO>> getByStudent(@PathVariable Long id) {
-        List<IshodIspitaDTO> dtos = service.findAll().stream()
-                .filter(i -> i.getStudentId() == id)
-                .map(IshodIspitaMapper::toDTO)
-                .toList();
+    public ResponseEntity<?> getByStudent(@PathVariable Long id) {
+        List<IshodIspita> ishodi = service.findByStudent(id);
+        List<Long>ids = ishodi.stream().map(IshodIspita::getPredmetId).toList();
+        List<PredmetDTO> dto= adminClient.getPredmetiByIds(ids).getBody();
+        Map<Long, PredmetDTO> predmetMap = dto.stream()
+                .collect(Collectors.toMap(PredmetDTO::getId, p -> p));
 
-        return ResponseEntity.ok(dtos);
+        List<IshodIspitaStudentDTO> dtoo = ishodi.stream()
+                .map(ishod -> {
+                    PredmetDTO predmet = predmetMap.get(ishod.getPredmetId());
+                    return new IshodIspitaStudentDTO(ishod, predmet);
+                })
+                .toList();
+        return ResponseEntity.ok(dtoo);
     }
 
     @GetMapping("/predmet/{id}/unos-ocene-status")

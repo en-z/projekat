@@ -23,6 +23,8 @@ public class DataLoader implements CommandLineRunner {
     private InstrumentEvaluacijeRepository instrumentEvaluacijeRepository;
     @Autowired
     private IshodIspitaRepository ishodIspitaRepository;
+    @Autowired
+    private SilabusRepository silabusRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -78,5 +80,10 @@ public class DataLoader implements CommandLineRunner {
         ishod.setNastavnik(nastavnik);
         ishod.setInstrumentEvaluacije(instrument);
         ishodIspitaRepository.save(ishod);
+        Silabus s =new Silabus();
+        s.setPredmetId(1);
+        s.setSadrzaj("Sadrzaj silabusa");
+        s.setAutor(nastavnik);
+        silabusRepository.save(s);
     }
 }

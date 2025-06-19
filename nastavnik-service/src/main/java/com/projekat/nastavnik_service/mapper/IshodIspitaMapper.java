@@ -24,7 +24,6 @@ public class IshodIspitaMapper {
             Nastavnik nastavnik
     ) {
         IshodIspita ishod = new IshodIspita();
-        ishod.setId(dto.getId());
         ishod.setBrojPokusaja(dto.getBrojPokusaja());
         ishod.setBodovi(dto.getBodovi());
         ishod.setStudentId(dto.getStudentId());

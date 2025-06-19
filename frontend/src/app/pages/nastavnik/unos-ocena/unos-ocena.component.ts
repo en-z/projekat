@@ -7,6 +7,8 @@ import { IshodIspita } from '../../../models/ishod.ispita';
 import { SlusanjePredmetaService } from '../../../services/slusanje.predmeta.service';
 import { Student } from '../../../models/student';
 import { HttpClient } from '@angular/common/http';
+import { InstrumentEvaluacijeService } from '../../../services/instrument.evaluacije.service';
+import { InstrumentEvaluacije } from '../../../models/instrument.evaluacije';
 
 
 @Component({
@@ -19,6 +21,7 @@ export class UnosOcenaComponent implements OnInit {
   ocenaForm!: FormGroup;
   predmetId!: number;
   ishodi: IshodIspita[] = [];
+  instrumenti:InstrumentEvaluacije[]=[];
   dozvoljenUnos: boolean = true;
   studenti: Student[] = [];
 
@@ -27,17 +30,18 @@ export class UnosOcenaComponent implements OnInit {
     private ishodService: IshodIspitaService,
     private slusanjeService: SlusanjePredmetaService,
     private fb: FormBuilder,
-    private http:HttpClient
+    private http:HttpClient,
+    private instrumentService:InstrumentEvaluacijeService
   ) {}
 
   ngOnInit(): void {
   this.predmetId = Number(this.route.snapshot.paramMap.get('id'));
   this.ocenaForm = this.fb.group({
-    brojPokusaja: [null, Validators.required],
     bodovi: [0, Validators.required],
     studentId: [null, Validators.required],
     nastavnikId: [1], // zameni sa dijem iz tokena
-    predmetId: [this.predmetId]
+    predmetId: [this.predmetId],
+    instumentId:[null,Validators.required]
   });
 
   this.ishodService.proveriStatusUnosaOcene(this.predmetId).subscribe(res => {
@@ -46,6 +50,7 @@ export class UnosOcenaComponent implements OnInit {
 
   this.ucitajIshode();
   this.ucitajStudente();
+  this.ucitajInstrumente();
 }
 
   ucitajStudente(): void {
@@ -59,6 +64,9 @@ export class UnosOcenaComponent implements OnInit {
       this.ishodi = data;
       this.ocene();
     });
+  }
+  ucitajInstrumente(){
+    this.instrumentService.getByPredmetId(this.predmetId).subscribe(data=>this.instrumenti = data)
   }
 
   submit(): void {

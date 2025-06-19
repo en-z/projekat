@@ -19,10 +19,13 @@ public class SilabusService {
         return silabusRepository.findById(id);
     }
 
-    public List<Silabus> findByPredmetId(Long predmetId) {
+    public List<Silabus> findAllByPredmetId(Long predmetId) {
         return silabusRepository.findAllByPredmetId(predmetId);
     }
 
+    public Silabus findByPredmetId(long predmetId) {
+        return silabusRepository.findByPredmetId(predmetId).orElseThrow(()->new RuntimeException("error: "+predmetId));
+    }
     public Silabus save(Silabus silabus) {
         return silabusRepository.save(silabus);
     }

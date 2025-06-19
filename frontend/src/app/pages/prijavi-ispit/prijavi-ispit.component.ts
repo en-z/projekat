@@ -61,6 +61,7 @@ export class PrijaviIspitComponent implements OnInit{
     this.prijavaService.create(prijava).subscribe({
       next: () => {
         this.showWindow= false;
+        this.loadPredmete();
       },
       error: (err) => {
         console.error('Error submitting prijava:', err);

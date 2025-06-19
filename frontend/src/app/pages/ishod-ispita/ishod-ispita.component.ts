@@ -20,9 +20,10 @@ export class IshodIspitaComponent {
   constructor(private ishod:IshodService){}
 
   ngOnInit(): void {
-    this.ishod.getAll().subscribe({
+    this.ishod.getByStudent().subscribe({
       next:(data)=>{
         this.ishodLista= data,
+          console.log(data);
           this.grp();
           this.loading = false
       }

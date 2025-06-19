@@ -1,12 +1,15 @@
 package com.projekat.student_service.controller;
 
+import com.projekat.student_service.client.NastavnikClient;
 import com.projekat.student_service.dto.AddDTO;
 import com.projekat.student_service.dto.StudentDTO;
 import com.projekat.student_service.entity.Student;
+import com.projekat.student_service.repository.StudentRepository;
 import com.projekat.student_service.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +21,10 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private StudentRepository studentRepository;
+    @Autowired
+    private NastavnikClient nastavnikClient;
     @GetMapping
     public ResponseEntity<List<StudentDTO>> getAll() {
         return ResponseEntity.ok(studentService.getAll());
@@ -68,5 +75,12 @@ public class StudentController {
         return ResponseEntity.ok(studentService.search(
                 ime, prezime, brojIndeksa, godinaUpisa, minProsek, maxProsek
         ));
+    }
+    @GetMapping("/ishod")
+    public ResponseEntity<?> getIshode(){
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long id = Long.parseLong(userId);
+        Student s = studentRepository.findByUserId(id).orElseThrow(()->new RuntimeException("error"));
+        return nastavnikClient.getIshode(s.getId());
     }
 }
