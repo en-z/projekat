@@ -16,7 +16,6 @@ public class ZavrsniRad {
     private String opis;
     private String naslov;
     private String file;
-    private int status;
     private long studentId;
     @ManyToOne
     private Nastavnik nastavnik;

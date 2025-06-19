@@ -39,14 +39,17 @@ public class ZavrsniRadService {
     }
 
     public void create(ZavrsniRadDTO dto) throws IOException {
+        // Pravljenje foldera uploads/zavrsni-radovi ako ne postoji
         String uploadDir = "uploads/zavrsni-radovi/";
         File dir = new File(uploadDir);
         if (!dir.exists()) dir.mkdirs();
 
+        // Cuvanje fajla u folderu
         String fileName = System.currentTimeMillis() + "_" + dto.getFile().getOriginalFilename();
         Path filePath = Paths.get(uploadDir, fileName);
         Files.copy(dto.getFile().getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
+        // Pravljenje i cuvanje zavrsnog rada
         ZavrsniRad zavrsniRad = new ZavrsniRad();
         zavrsniRad.setStudentId(dto.getStudentId());
         Nastavnik n = nastavnikRepository.findById(dto.getNastavnikId())
@@ -55,14 +58,15 @@ public class ZavrsniRadService {
         zavrsniRad.setNaslov(dto.getNaslov());
         zavrsniRad.setOpis(dto.getOpis());
         zavrsniRad.setFile(filePath.toString());
-        zavrsniRad.setStatus(0);
         repository.save(zavrsniRad);
     }
 
     public ZavrsniRad update(Long id, ZavrsniRadDTO dto) throws IOException {
+        // Provera da li zavrsni rad sa datim id postoji
         ZavrsniRad r = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Završni rad nije pronađen"));
 
+        // Opcionalan update fajla
         if (dto.getFile() != null && !dto.getFile().isEmpty()) {
             String uploadDir = "uploads/zavrsni-radovi/";
             File dir = new File(uploadDir);
@@ -74,6 +78,7 @@ public class ZavrsniRadService {
             r.setFile(filePath.toString());
         }
 
+        // Opcionalan update ostalih atributa
         if (dto.getNaslov() != null) r.setNaslov(dto.getNaslov());
         if (dto.getOpis() != null) r.setOpis(dto.getOpis());
         if (dto.getStudentId() != 0) r.setStudentId(dto.getStudentId());
@@ -83,8 +88,6 @@ public class ZavrsniRadService {
                     .orElseThrow(() -> new RuntimeException("Nastavnik nije pronađen"));
             r.setNastavnik(n);
         }
-
-        r.setStatus(1);
 
         return repository.save(r);
     }

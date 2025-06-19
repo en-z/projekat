@@ -42,10 +42,7 @@ export class PrikaziZavrsneRadoveComponent implements OnInit {
       },
       error: (err) => {
         console.error('Greška pri preuzimanju fajla:', err);
-        alert('Došlo je do greške pri preuzimanju fajla.');
-      },
-      complete: () => {
-        console.log('Završeno preuzimanje fajla.');
+        alert('Došlo je do greške pri preuzimanju fajla.')
       }
     });
   }

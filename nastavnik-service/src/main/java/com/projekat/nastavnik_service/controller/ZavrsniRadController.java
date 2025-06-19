@@ -34,12 +34,14 @@ public class ZavrsniRadController {
         ZavrsniRad rad = service.findById(id)
                 .orElseThrow(() -> new RuntimeException("Završni rad nije pronađen"));
 
+        // Provera da li fajl postoji na putanji iz zavrsnog rada
         Path filePath = Paths.get(rad.getFile());
         if (!Files.exists(filePath)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         try {
+            // Vracanje fajla sa date putanje
             Resource resource = new UrlResource(filePath.toUri());
 
             String fileName = filePath.getFileName().toString();
@@ -68,8 +70,8 @@ public class ZavrsniRadController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> put(@PathVariable Long id, @ModelAttribute ZavrsniRadDTO dto) {
+    @PutMapping(name="/{id}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<?> update(@PathVariable Long id, @ModelAttribute ZavrsniRadDTO dto) {
         try {
             ZavrsniRad updated = service.update(id, dto);
             return ResponseEntity.ok(updated);

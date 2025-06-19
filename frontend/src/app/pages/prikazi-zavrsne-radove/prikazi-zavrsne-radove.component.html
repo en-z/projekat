@@ -5,7 +5,6 @@
     <div *ngFor="let rad of zavrsniRadovi" class="bg-gray-50 p-4 rounded shadow">
       <h3 class="text-lg font-semibold text-blue-700">{{ rad.naslov }}</h3>
       <p class="text-gray-600"><strong>Opis:</strong> {{ rad.opis }}</p>
-      <p class="text-gray-600"><strong>Status:</strong> {{ rad.status }}</p>
       <p class="text-gray-600"><strong>Student ID:</strong> {{ rad.studentId }}</p>
       <p class="text-gray-600"><strong>Nastavnik:</strong> {{ rad.nastavnik?.ime }} {{ rad.nastavnik?.prezime }}</p>
 
