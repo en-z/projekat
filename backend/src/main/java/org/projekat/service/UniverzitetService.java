@@ -44,10 +44,11 @@ public class UniverzitetService {
     }
 
     @Async
-    public CompletableFuture<Univerzitet> findById(Long id) {
+    public CompletableFuture<UniverzitetDTO> findById(Long id) {
         Univerzitet univerzitet = univerzitetRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Univerzitet not found"));
-        return CompletableFuture.completedFuture(univerzitet);
+        UniverzitetDTO univerzitetDTO = new UniverzitetDTO(univerzitet);
+        return CompletableFuture.completedFuture(univerzitetDTO);
     }
 
     @Async

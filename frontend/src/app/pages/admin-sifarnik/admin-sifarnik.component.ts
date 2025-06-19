@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
+import { error } from 'console';
 @Component({
   selector: 'app-admin-sifarnik',
   imports: [CommonModule,FormsModule],
@@ -38,7 +39,8 @@ export class AdminSifarnikComponent {
       next:(user:User)=>{
         this.userList = [user]
         this.loading = false;
-      }
+      },
+      error:err=>this.error = err.message
     })
   }
   genPassword():string{

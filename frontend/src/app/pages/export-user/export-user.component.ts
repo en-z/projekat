@@ -5,6 +5,8 @@ import { StudentService } from '../../services/student.service';
 import { NastavnikService } from '../../services/nastavink.service';
 import { exportToXml } from '../../extra/xml';
 import { exportToPdf } from '../../extra/pdf';
+import { IshodIspitaService } from '../../services/ishod.ispita.service';
+import { IshodIspita } from '../../models/ishod.ispita';
 @Component({
   selector: 'app-export-user',
   imports: [],
@@ -16,24 +18,44 @@ export class ExportUserComponent {
   nastavnici:Nastavnik[]=[]
   loadedN=false;
   loadedS=false;
-  constructor(private studentService:StudentService,private nastavnikService:NastavnikService){}
+  constructor(private studentService:StudentService,private nastavnikService:NastavnikService,private ishodService:IshodIspitaService){}
   exportNastavnikToPdf() {
-    if (!this.loadedN) {
-      this.getNastavnik(() => {
-        exportToPdf(this.nastavnici, 'nastavnici.pdf', 'Spisak Nastavnika');
-      });
-    } else {
-      exportToPdf(this.nastavnici, 'nastavnici.pdf', 'Spisak Nastavnika');
-    }
+    const sanitized = this.nastavnici.map(n => ({
+      id: n.id,
+      ime: n.ime,
+      prezime: n.prezime,
+      biografija: n.biografija,
+      status: n.satus,
+      adresa:n.adresa
+    }));
+
+    exportToPdf(sanitized, 'nastavnici.pdf', 'Spisak Nastavnika');
   }
 
   exportNastavnikToXml() {
     if (!this.loadedN) {
       this.getNastavnik(() => {
-        exportToXml(this.nastavnici, 'nastavnici', 'nastavnik', 'nastavnici.xml');
+        const sanitized = this.nastavnici.map(n => ({
+          id: n.id,
+          ime: n.ime,
+          prezime: n.prezime,
+          biografija: n.biografija,
+          status: n.satus,
+          adresa:n.adresa
+        }));
+
+        exportToXml(sanitized, 'nastavnici', 'nastavnik', 'nastavnici.xml');
       });
     } else {
-      exportToXml(this.nastavnici, 'nastavnici', 'nastavnik', 'nastavnici.xml');
+        const sanitized = this.nastavnici.map(n => ({
+          id: n.id,
+          ime: n.ime,
+          prezime: n.prezime,
+          biografija: n.biografija,
+          status: n.satus,
+          adresa:n.adresa
+        }));
+      exportToXml(sanitized, 'nastavnici', 'nastavnik', 'nastavnici.xml');
     }
   }
 
@@ -68,7 +90,40 @@ export class ExportUserComponent {
   getNastavnik(callback: () => void) {
     this.nastavnikService.getAll().subscribe(data => {
       this.nastavnici = data;
+      console.log(data)
       this.loadedN = true;
       callback();
     });
-  }}
+  }
+
+  parseDateArrayToDate(dateArray: number[]): Date | null {
+  if (!Array.isArray(dateArray) || dateArray.length < 6) return null;
+
+  const [year, month, day, hour, minute, second] = dateArray;
+  return new Date(year, month - 1, day, hour, minute, second);
+}
+
+exportIshode(){
+this.ishodService.getAll().subscribe(data => {
+  const lista = data.map(item => {
+    if (Array.isArray(item.datumUnosa)) {
+      const d = this.parseDateArrayToDate(item.datumUnosa);
+      if (d) item.datumUnosa = d;
+    } else if (typeof item.datumUnosa === 'string') {
+      item.datumUnosa = new Date(item.datumUnosa);
+    }
+    // datumUnosa should now be a Date object
+
+    return item;
+  });
+
+  // Now, before exporting, convert Date to string, e.g.:
+  const exportList = lista.map(item => ({
+    ...item,
+    datumUnosa: item.datumUnosa instanceof Date ? item.datumUnosa.toISOString() : ''
+  }));
+
+  exportToXml(exportList, 'ishodi', 'ishod', 'dsfa.xml');
+});
+}
+}

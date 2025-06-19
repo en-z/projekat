@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.projekat.dto.AngazovanjeDTO;
+import org.projekat.model.Nastavnik;
 
 import java.util.List;
 @AllArgsConstructor
@@ -16,5 +17,10 @@ public class NastavnikDTO {
     private String biografija;
     private String status;
     private List<AngazovanjeDTO> angazovanja;
+    public NastavnikDTO(Nastavnik n){
+        this.id = n.getId();
+        this.ime = n.getOsoba().getIme();
+        this.prezime= n.getOsoba().getPrezime();
+    }
 }
 

@@ -6,7 +6,7 @@ import { InstrumentEvaluacije } from '../models/instrument.evaluacije';
 
 @Injectable({ providedIn: 'root' })
 export class InstrumentEvaluacijeService {
-  private apiUrl = 'http://localhost:8080/api/evaluacije';
+  private apiUrl = 'http://localhost:8080/api/nastavnik/instrumenti';
 
   constructor(private http: HttpClient) {}
 

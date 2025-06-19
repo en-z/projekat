@@ -5,7 +5,7 @@ import { Obavestenje } from '../models/obavestenje';
 
 @Injectable({ providedIn: 'root' })
 export class ObavestenjeService {
-  private apiUrl = 'http://localhost:8080/api/obavestenja';
+  private apiUrl = 'http://localhost:8080/api/nastavnik/obavestenja';
 
   constructor(private http: HttpClient) {}
 

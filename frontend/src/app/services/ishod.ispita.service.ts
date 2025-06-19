@@ -6,7 +6,7 @@ import { IshodIspita } from '../models/ishod.ispita';
 
 @Injectable({ providedIn: 'root' })
 export class IshodIspitaService {
-  private apiUrl = 'http://localhost:8080/api/ishodi';
+  private apiUrl = 'http://localhost:8080/api/nastavnik/ishodi';
 
   constructor(private http: HttpClient) {}
 

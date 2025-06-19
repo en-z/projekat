@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class NastavnikService {
 
-  private apiUrl = 'http://localhost:8080/api/nastavnici';
+  private apiUrl = 'http://localhost:8080/api/nastavnik/nastavnici';
 
   constructor(private http: HttpClient) {}
 
@@ -30,6 +30,6 @@ export class NastavnikService {
   }
 
   getPredmeti(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}/predmeti`);
+    return this.http.get(`${this.apiUrl}/angazovanja/predmeti`);
   }
 }

@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 })
 export class StudiskiService extends BaseService<StudiskiProgram>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/program')
+    super(http,'http://localhost:8080/api/admin/studijski-programi')
   }
   getByFakultet(id:number):Observable<StudiskiProgram[]>{
     const params = new HttpParams().set('fakultetId',id.toString());

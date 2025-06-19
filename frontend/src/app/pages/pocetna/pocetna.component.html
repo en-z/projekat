@@ -1,35 +1,63 @@
-<div class="container">
+<div class="container mx-auto p-6 space-y-6">
 
-  <div class="filter-section">
-    <label for="kategorija">Kategorija:</label>
-    <select id="kategorija" [(ngModel)]="izabranaKategorija" (change)="filtrirajPoKategoriji()">
-      <option value="">Sve</option>
-      <option *ngFor="let kategorija of kategorije" [value]="kategorija">
-        {{ kategorija }}
-      </option>
-    </select>
+  <!-- Filter sekcija -->
+  <div class="flex flex-col md:flex-row items-center gap-4">
+    <div class="flex items-center gap-2">
+      <label for="kategorija" class="font-semibold">Kategorija:</label>
+      <select id="kategorija"
+              [(ngModel)]="izabranaKategorija"
+              (change)="filtrirajPoKategoriji()"
+              class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Sve</option>
+        <option *ngFor="let kategorija of kategorije" [value]="kategorija">
+          {{ kategorija }}
+        </option>
+      </select>
+    </div>
   </div>
 
-  <div class="search-section">
-    <label for="filterPolje">Pretraži po:</label>
-    <select id="filterPolje" [(ngModel)]="izabranoPolje">
-      <option *ngFor="let polje of filterPolje" [value]="polje">{{ polje }}</option>
-    </select>
+  <!-- Search sekcija -->
+  <div class="flex flex-col md:flex-row items-center gap-4">
+    <div class="flex items-center gap-2">
+      <label for="filterPolje" class="font-semibold">Pretraži po:</label>
+      <select id="filterPolje"
+              [(ngModel)]="izabranoPolje"
+              class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option *ngFor="let polje of filterPolje" [value]="polje">{{ polje }}</option>
+      </select>
+    </div>
 
-    <input type="text" [(ngModel)]="pretraga" placeholder="Unesi tekst..." />
-    <button (click)="pretrazi()">Pretraži</button>
-    <button (click)="resetujPretragu()">Resetuj</button>
+    <input type="text"
+           [(ngModel)]="pretraga"
+           placeholder="Unesi tekst..."
+           class="border border-gray-300 rounded px-3 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+    <button (click)="pretrazi()"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+      Pretraži
+    </button>
+    <button (click)="resetujPretragu()"
+            class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition">
+      Resetuj
+    </button>
   </div>
 
-  <div class="knjige-lista">
-    <div *ngFor="let knjiga of knjige" class="knjiga-kartica">
-      <h3>{{ knjiga.naziv }}</h3>
-      <p><strong>Autor:</strong> {{ knjiga.autor }}</p>
-      <p><strong>Opis:</strong> {{ knjiga.opis }}</p>
-      <p><strong>Kategorija:</strong> {{ knjiga.kategorija }}</p>
-      <p><strong>Količina:</strong> {{ knjiga.kolicina }}</p>
+  <!-- Lista knjiga -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let knjiga of knjige"
+         class="bg-white shadow-md rounded p-4 border border-gray-200">
+      <h3 class="text-xl font-bold mb-2">{{ knjiga.naziv }}</h3>
+      <p><span class="font-semibold">Autor:</span> {{ knjiga.autor }}</p>
+      <p><span class="font-semibold">Opis:</span> {{ knjiga.opis }}</p>
+      <p><span class="font-semibold">Kategorija:</span> {{ knjiga.kategorija }}</p>
+      <p><span class="font-semibold">Količina:</span> {{ knjiga.kolicina }}</p>
 
-      <button (click)="izdaj(knjiga.id!)" [disabled]="knjiga.kolicina === 0">
+      <button (click)="izdaj(knjiga.id!)"
+              [disabled]="knjiga.kolicina === 0"
+              class="mt-4 w-full px-4 py-2 rounded text-white
+                     transition
+                     bg-green-600 hover:bg-green-700
+                     disabled:bg-gray-400 disabled:cursor-not-allowed">
         Izdaj knjigu
       </button>
     </div>

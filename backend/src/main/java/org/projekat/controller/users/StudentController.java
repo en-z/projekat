@@ -1,6 +1,7 @@
 package org.projekat.controller.users;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.mapper.Mapper;
 import org.projekat.dto.PrijavaIspitaDTO;
 import org.projekat.dto.users.StudentDTO;
 import org.projekat.jwt.CustomUserDetails;
@@ -28,15 +29,16 @@ public class StudentController {
     @Autowired
     private StudentService studentServiceo;
     @GetMapping
-    public ResponseEntity<List<Student>> getAll() {
-        return ResponseEntity.ok(studentService.findAll());
+    public ResponseEntity<List<StudentDTO>> getAll() {
+        return ResponseEntity.ok(studentService.findAll().stream().map(StudentMapper::toDTO).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getById(@PathVariable Long id) {
-        return studentService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<StudentDTO> getById(@PathVariable Long id) {
+        StudentDTO dto;
+        Student s = studentService.findById(id).orElseThrow(()->new RuntimeException());
+        dto = StudentMapper.toDTO(s);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/search")

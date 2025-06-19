@@ -6,7 +6,7 @@ import { Termin } from '../models/termin';
 
 @Injectable({ providedIn: 'root' })
 export class TerminService {
-  private apiUrl = 'http://localhost:8080/api/termini';
+  private apiUrl = 'http://localhost:8080/api/nastavnik/termini';
 
   constructor(private http: HttpClient) {}
 

@@ -9,6 +9,6 @@ import { PrijavaIspit } from "../models/prijavaIspit";
 })
 export class PrijavaService extends BaseService<PrijavaIspit>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/prijave')
+    super(http,'http://localhost:8080/api/student/prijave-ispita')
   }
 }

@@ -8,6 +8,6 @@ export interface FakultetDTO{
   email:string
   kontakt:string,
   adresa:Adresa,
-  dekan:Nastavnik,
-  univerzitet:Univerzitet,
+  rektor:Nastavnik,
+  univerzitetId:number,
 }

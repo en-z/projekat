@@ -10,7 +10,7 @@ import { Univerzitet } from "../models/univerzitet";
 })
 export class UniverzitetService extends BaseService<Univerzitet>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/univerzitet')
+    super(http,'http://localhost:8080/api/admin/univerziteti')
   }
 }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { KnjigaService } from '../../../services/knjiga.service';
+import { KnjigaService } from '../../services/knjiga.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

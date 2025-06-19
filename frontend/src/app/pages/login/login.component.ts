@@ -23,7 +23,7 @@ export class LoginComponent {
       private router:Router
     ){
       this.loginForm = this.fb.group({
-        username: ['', [Validators.required]],
+        email: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(5)]]
       });
 
@@ -34,13 +34,14 @@ export class LoginComponent {
     onSubmit(){
       if(this.loginForm.invalid)return;
       this.subbmited = true;
-      const{username,password} =this.loginForm.value;
-      this.http.post<{token:string}>('http://localhost:8080/api/users/login',{username,password})
+      const{email,password} =this.loginForm.value;
+      this.http.post<{token:string}>('http://localhost:8080/api/auth/login',{email,password})
       .subscribe({
         next:(res)=>{
-          console.log(username,password);
+          console.log(email,password);
           console.log(res.token);
           localStorage.setItem('jwtToken',res.token);
+          this.router.navigate(['/'])
         },error:(err)=>{
           console.error("Login error:",err);
           this.error = "Pogresan login"

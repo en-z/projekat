@@ -17,7 +17,8 @@ public class IshodIspitaMapper {
                 ishod.getDatumUnosa(),
                 ishod.getStudent().getOsoba_id(),
                 ishod.getPredmet().getId(),
-                ishod.getNastavnik().getId()
+                ishod.getNastavnik().getId(),
+                ishod.getInstrumentEvaluacije().getId()
         );
     }
 

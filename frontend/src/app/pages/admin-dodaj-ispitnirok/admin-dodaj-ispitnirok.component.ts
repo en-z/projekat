@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder,FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder,FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IspitniRokService } from '../../services/ispitniRok.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,9 +14,9 @@ export class AdminDodajIspitnirokComponent implements OnInit {
   id:number |null = null;
   constructor (private route:ActivatedRoute,private router:Router,private fb:FormBuilder,private rokService:IspitniRokService){
     this.rokForm = this.fb.group({
-      naziv:[''],
-      pocetak:[''],
-      kraj:['']
+      naziv:['',Validators.required],
+      pocetak:['',Validators.required],
+      kraj:['',Validators.required]
     });
   }
   ngOnInit() {

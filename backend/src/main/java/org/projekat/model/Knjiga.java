@@ -1,4 +1,4 @@
-package org.projekat.model.biblioteka;
+package org.projekat.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -62,7 +62,6 @@ public class RegisterService {
         Student s = new Student();
         s.setOsoba(osoba);
         s.setProsecnaOcena(0);
-        s.setBrojIndeksa("");//Todo:dodaj idnex
         s.setOsvojeniESPB(0);
         s.setGodinaUpisa(LocalDate.now().getYear());
         s.setGodinaStudija(1);

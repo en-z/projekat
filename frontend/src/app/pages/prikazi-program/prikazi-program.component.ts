@@ -28,14 +28,19 @@ export class PrikaziProgramComponent implements OnInit {
 
              }
   ngOnInit():void{
-    this.id =+!this.route.snapshot.paramMap.get('id')
-    this.progrmaService.getById(this.id!).subscribe(data=>this.program = data)
-    this.loadPredmete()
+    this.id =Number(this.route.snapshot.paramMap.get('id'))
+    this.progrmaService.getById(this.id!).subscribe(data=>{this.program = data
+      this.loadPredmete();
+    })
   }
   loadPredmete(){
-    this.predmetService.getByProgram(this.id!).subscribe(data=>this.predmeti = data)
+    this.predmetService.getByProgram(this.id!).subscribe(data=>{
+      this.predmeti = data
+      console.log(data)
+    })
   }
   loadSilabuse(idPredmet:number){
+    console.log(this.predmeti);
     this.idPredmet = idPredmet;
     this.silabusi = []
     this.silabusService.getAllByPredmetId(idPredmet).subscribe(data=>this.silabusi = data)

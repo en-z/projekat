@@ -14,5 +14,16 @@ export class KnjigaService extends BaseService<Knjiga>{
   getByKategorija(kategorija: string): Observable<Knjiga[]> {
     return this.http.get<Knjiga[]>(`${this.baseUrl}/kategorija/${kategorija}`);
   }
+  searchKnjige(params: { [key: string]: string }): Observable<Knjiga[]> {
+    let httpParams = new HttpParams();
+
+    for (const key in params) {
+      if (params[key]) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+
+    return this.http.get<Knjiga[]>(`${this.baseUrl}/search`, { params: httpParams });
+  }
 }
 

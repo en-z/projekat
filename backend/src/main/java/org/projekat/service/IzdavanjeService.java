@@ -1,11 +1,11 @@
-package org.projekat.service.biblioteka;
+package org.projekat.service;
 
 import org.projekat.model.Osoba;
 import org.projekat.model.Student;
-import org.projekat.model.biblioteka.Izdate;
-import org.projekat.model.biblioteka.Knjiga;
-import org.projekat.repository.biblioteka.IzdateRepository;
-import org.projekat.repository.biblioteka.KnjigaRepository;
+import org.projekat.model.Izdate;
+import org.projekat.model.Knjiga;
+import org.projekat.repository.IzdateRepository;
+import org.projekat.repository.KnjigaRepository;
 import org.projekat.repository.users.OsobaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

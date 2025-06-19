@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 })
 export class PredmetService extends BaseService<Predmet>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/predmeti')
+    super(http,'http://localhost:8080/api/admin/predmeti')
   }
 
   getByProgram(id:number):Observable<Predmet[]>{

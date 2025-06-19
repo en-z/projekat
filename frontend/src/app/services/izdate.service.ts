@@ -13,7 +13,7 @@ export class IzdateService extends BaseService<Izdate>{
     super(http,'http://localhost:8080/api/biblioteka/izdate')
   }
   getByOsobaId(): Observable<Izdate[]> {
-    return this.http.get<Izdate[]>(`${this.baseUrl}/izdaj/osoba`)
+    return this.http.get<Izdate[]>(`${this.baseUrl}/izdaj/user`)
   }
   izdaj(id: number): Observable<Izdate> {
     return this.http.post<Izdate>(`${this.baseUrl}/izdaj/${id}`,{});

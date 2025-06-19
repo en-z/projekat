@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 })
 export class FakultetService extends BaseService<FakultetDTO>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/api/fakultet')
+    super(http,'http://localhost:8080/api/admin/fakulteti')
   }
   getByUniverzitetId(univerzitetId: number): Observable<FakultetDTO[]> {
     const params = new HttpParams().set('univerzitetId', univerzitetId.toString());

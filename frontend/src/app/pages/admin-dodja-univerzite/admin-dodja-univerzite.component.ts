@@ -4,7 +4,7 @@ import { Nastavnik } from '../../models/nastavnik';
 import { UniverzitetService } from '../../services/univerzitet.service';
 import { NastavnikService } from '../../services/nastavink.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -19,15 +19,15 @@ export class AdminDodjaUniverziteComponent {
   nastavnici:Nastavnik[]=[];
   constructor(private fb:FormBuilder,private route:ActivatedRoute,private router:Router,private univerzitetService:UniverzitetService,private nastavnikService:NastavnikService){
   this.form = this.fb.group({
-    naziv:[''],
-    kontakt:[''],
-    email:[''],
-    opis:[''],
-    rektorId:[''],
-    ulica:[''],
-    broj:[''],
-    grad:[''],
-    drzava:[''],
+    naziv:['',Validators.required],
+    kontakt:['',Validators.required],
+    email:['',Validators.required],
+    opis:['',Validators.required],
+    rektorId:['',Validators.required],
+    ulica:['',Validators.required],
+    broj:['',Validators.required],
+    grad:['',Validators.required],
+    drzava:['',Validators.required],
   });
   }
   ngOnInit(){
@@ -65,7 +65,14 @@ export class AdminDodjaUniverziteComponent {
             prezime: '',
             biografija: '',
             satus: '',
-            angazovanja: []
+            angazovanja: [],
+            adresa: {
+              id: null,
+              ulica: this.form.value.ulica,
+              broj: this.form.value.broj,
+              grad: this.form.value.grad,
+              drzava: this.form.value.drzava
+            },
         },
         adresa: {
             id: null,

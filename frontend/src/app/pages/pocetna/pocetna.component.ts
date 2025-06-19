@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Knjiga } from '../../../models/knjiga';
-import { KnjigaService } from '../../../services/knjiga.service';
-import { Izdate } from '../../../models/izdate';
-import { IzdateService } from '../../../services/izdate.service';
+import { Knjiga } from '../../models/knjiga';
+import { KnjigaService } from '../../services/knjiga.service';
+import { Izdate } from '../../models/izdate';
+import { IzdateService } from '../../services/izdate.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -45,13 +45,23 @@ export class PocetnaComponent {
       });
     }
   }
+pretrazi() {
+  const searchParams: any = {};
 
-  pretrazi() {
-    const query = this.pretraga.toLowerCase();
-    this.knjige = this.sveKnjige.filter(knjiga =>
-    String(knjiga[this.izabranoPolje as keyof Knjiga])?.toLowerCase().includes(query)
-    );
+  if (this.izabranaKategorija) {
+    if(this.izabranaKategorija == "Sve")this.izabranaKategorija == null
+    searchParams.kategorija = this.izabranaKategorija;
   }
+
+  if (this.pretraga && this.izabranoPolje) {
+    searchParams[this.izabranoPolje] = this.pretraga;
+  }
+
+  this.knjigaService.searchKnjige(searchParams).subscribe(knjige => {
+    this.knjige = knjige;
+  });
+}
+
 
   resetujPretragu() {
     this.pretraga = '';

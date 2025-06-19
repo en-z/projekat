@@ -28,7 +28,7 @@ public class UniverzitetController {
        return univerzitetService.getUniverzitete().get();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Univerzitet> getById(@PathVariable Long id)throws Exception {
+    public ResponseEntity<UniverzitetDTO> getById(@PathVariable Long id)throws Exception {
         return univerzitetService.findById(id)
                 .thenApply(ResponseEntity::ok).get();
     }

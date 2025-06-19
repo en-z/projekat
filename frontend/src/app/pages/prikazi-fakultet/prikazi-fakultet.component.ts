@@ -20,12 +20,15 @@ export class PrikaziFakultetComponent implements OnInit{
   programe:StudiskiProgram[]=[]
   constructor(public authService:AuthService,private fakultetService:FakultetService,private programService:StudiskiService,public router:Router,private route:ActivatedRoute){}
   ngOnInit(): void {
-    this.id=+!this.route.snapshot.paramMap.get('id')
-    this.fakultetService.getById(this.id).subscribe(data=>this.fakultet=data)
-    this.loadPrograme();
+    this.id=Number(this.route.snapshot.paramMap.get('id'))
+    this.fakultetService.getById(this.id).subscribe(data=>{this.fakultet=data
+                                                    this.loadPrograme();
+                                                    console.log(data)
+    })
   }
   loadPrograme(){
-    this.programService.getByFakultet(this.id!).subscribe(data=>this.programe=data)
+    this.programService.getByFakultet(this.id!).subscribe(data=>{this.programe=data
+                                                          console.log(data)})
   }
   delete(id:number){
     if(confirm("brisanje programa")){

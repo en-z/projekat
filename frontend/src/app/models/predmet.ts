@@ -1,7 +1,7 @@
 export interface Predmet{
   id:number,
   naziv:string,
-  espb:number,
+  esbp:number,
   semestar:number,
   studiskiId:number,
   dan?:number

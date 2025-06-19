@@ -6,15 +6,15 @@
     </div>
 
     <div class="mb-4">
-      <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+      <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
       <input
         type="text"
-        id="username"
-        formControlName="username"
+        id="email"
+        formControlName="email"
         class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      <div *ngIf="f['username'].touched && f['username'].invalid" class="text-sm text-red-600 mt-1">
-        <div *ngIf="f['username'].errors?.['required']">Email je prazan</div>
+      <div *ngIf="f['email'].touched && f['email'].invalid" class="text-sm text-red-600 mt-1">
+        <div *ngIf="f['email'].errors?.['required']">Email je prazan</div>
       </div>
     </div>
 

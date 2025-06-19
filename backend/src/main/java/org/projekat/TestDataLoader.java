@@ -8,6 +8,7 @@ import org.projekat.model.Nastavnik;
 import org.projekat.model.Osoba;
 import org.projekat.model.Student;
 import org.projekat.model.User;
+import org.projekat.repository.IshodIspitaRepository;
 import org.projekat.repository.PredmetRepository;
 import org.projekat.repository.StudijskiProgramRepository;
 import org.projekat.repository.UniverzitetRepository;
@@ -32,6 +33,8 @@ import java.util.concurrent.ExecutionException;
 @Profile("dev")
 @RequiredArgsConstructor
 public class TestDataLoader implements CommandLineRunner {
+
+    private final IshodIspitaRepository ishodIspitaService;
     private final UniverzitetRepository univerzitetService;
     private final StudijskiProgramRepository studijskiProgramRepository;
     private final org.projekat.repositorys.FakultetRepository fakultetRepository;
@@ -156,7 +159,7 @@ public class TestDataLoader implements CommandLineRunner {
         instrument.setOpis("Test 1 - osnove programiranja");
         instrument.setPredmet(predmet);
         instrument.setNastavnik(nastavnik);
-        instrumentEvaluacijeService.save(instrument);
+        instrument = instrumentEvaluacijeService.save(instrument);
         IspitniRok ir = new IspitniRok();
         ir.setNaziv("januar");
         ir.setPocetak(LocalDate.now());
@@ -276,5 +279,14 @@ public class TestDataLoader implements CommandLineRunner {
         p1.setEsbp(8);
         p1.setDan(1);
         predmetService.save(p1);
+        IshodIspita ishodIspita = new IshodIspita();
+        ishodIspita.setStudent(student);
+        ishodIspita.setBodovi(90);
+        ishodIspita.setBrojPokusaja(1);
+        ishodIspita.setPredmet(p1);
+        ishodIspita.setDatumUnosa(LocalDateTime.now());
+        ishodIspita.setNastavnik(nastavnik);
+        ishodIspita.setInstrumentEvaluacije(instrument);
+        ishodIspitaService.save(ishodIspita);
     }
 }

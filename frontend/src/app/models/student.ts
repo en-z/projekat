@@ -7,4 +7,5 @@ export interface Student{
   email: string;
   prosecnaOcena: number;
   osvojeniESPB: number;
+  studiskiId:number;
 }

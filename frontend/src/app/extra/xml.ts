@@ -13,7 +13,8 @@ function addObjectToXml(node:any,obj:Record<string,any>):void{ //en:testriaj rek
         }
         child.up();
       });
-    }else if(typeof v ==='object' && v!==null){
+    }
+    else if(typeof v ==='object' && v!==null){
       const child = node.ele(k);
       addObjectToXml(child,v);
       child.up();

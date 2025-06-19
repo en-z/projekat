@@ -27,7 +27,7 @@ public class StudijskiProgramController {
         return studijskiProgramService.getStudiskiByFakultet(id).thenApply(ResponseEntity::ok).get();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<StudijskiProgram> getById(@PathVariable Long id)throws Exception {
+    public ResponseEntity<StudiskiDTO> getById(@PathVariable Long id)throws Exception {
         return studijskiProgramService.findById(id)
                 .thenApply(ResponseEntity::ok).get();
     }

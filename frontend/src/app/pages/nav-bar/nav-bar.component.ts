@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class NavBarComponent {
   showStudentmenu = false;
   showNastavnik= false;
+  showBiblioteka= false;
   showAdmin= false;
   constructor(private router:Router,public authService:AuthService){
   }
@@ -68,5 +69,11 @@ export class NavBarComponent {
   }
   goToNastavnikPredmeti(){
     this.router.navigate(['/nastavnik/predmeti'])
+  }
+  goToBiblioteka(){
+    this.router.navigate(['/biblioteka'])
+  }
+  vrati(){
+    this.router.navigate(['/biblioteka/iznajmljene'])
   }
 }

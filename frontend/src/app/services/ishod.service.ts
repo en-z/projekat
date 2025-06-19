@@ -8,7 +8,7 @@ import { IshodIspita } from "../models/ishodIspita";
 })
 export class IshodService extends BaseService<IshodIspita>{
   constructor(http:HttpClient){
-    super(http,'http://localhost:8080/auth/student/ishod')
+    super(http,'http://localhost:8080/api/nastavnik/ishodi')
   }
 
 }

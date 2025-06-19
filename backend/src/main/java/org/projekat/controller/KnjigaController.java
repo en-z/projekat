@@ -1,7 +1,8 @@
-package org.projekat.controller.biblioteka;
+package org.projekat.controller;
 
-import org.projekat.model.biblioteka.Knjiga;
-import org.projekat.service.biblioteka.KnjigaService;
+import org.projekat.dto.users.StudentDTO;
+import org.projekat.model.Knjiga;
+import org.projekat.service.KnjigaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class KnjigaController {
     public List<Knjiga> getAll() {
         return knjigaService.getAll();
     }
-    @GetMapping("/{id}")
+    @GetMapping("/{id:\\d+}")
     public ResponseEntity<Knjiga> getById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(knjigaService.getById(id));
@@ -34,5 +35,14 @@ public class KnjigaController {
     @GetMapping("/kategorija/{kategorija}")
     public List<Knjiga> getByKategorija(@PathVariable String kategorija) {
         return knjigaService.getByKategorija(kategorija);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<Knjiga>> pretraziStudente(
+            @RequestParam(required = false) String naziv,
+            @RequestParam(required = false) String kategorija,
+            @RequestParam(required = false) String opis,
+            @RequestParam(required = false) String autor
+    ) {
+        return ResponseEntity.ok(knjigaService.search(naziv, kategorija, opis, autor));
     }
 }

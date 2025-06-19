@@ -5,7 +5,7 @@ import { SlusanjePredmeta } from '../models/slusanje.predmeta';
 
 @Injectable({ providedIn: 'root' })
 export class SlusanjePredmetaService {
-  private apiUrl = 'http://localhost:8080/api/slusanja';
+  private apiUrl = 'http://localhost:8080/api/student/slusanja';
 
   constructor(private http: HttpClient) {}
 

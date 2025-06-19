@@ -20,11 +20,11 @@ export class AdminDodajPredmetComponent implements OnInit{
   constructor (private programService:StudiskiService,private predmetService:PredmetService,private fb:FormBuilder,private route:ActivatedRoute,private router:Router){
     this.predmetForm = this.fb.group({
       id:[],
-      naziv:[''],
+      naziv:['',Validators.required],
       espb: [0, [Validators.required, Validators.min(1)]],
       semestar: [1, Validators.required],
       studiskiId: [null, Validators.required],
-      dan: [null]
+      dan: [null,Validators.required]
     })
   }
   ngOnInit(){

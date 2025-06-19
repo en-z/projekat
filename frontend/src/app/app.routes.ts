@@ -29,6 +29,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { PrikaziUniverzitetComponent } from './pages/prikazi-univerzitet/prikazi-univerzitet.component';
 import { PrikaziProgramComponent } from './pages/prikazi-program/prikazi-program.component';
 import { ExportUserComponent } from './pages/export-user/export-user.component';
+import { PrikaziFakultetComponent } from './pages/prikazi-fakultet/prikazi-fakultet.component';
+import { PocetnaComponent } from './pages/pocetna/pocetna.component';
+import { VratiComponent } from './pages/vrati/vrati.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -70,7 +73,7 @@ export const routes: Routes = [
     path:"prikazi-univerzitet/:id",component:PrikaziUniverzitetComponent,
   },
   {
-    path:"prikazi-fakultet/:id",component:PrikaziUniverzitetComponent,
+    path:"prikazi-fakultet/:id",component:PrikaziFakultetComponent,
   },
   {
     path:"prikazi-program/:id",component:PrikaziProgramComponent
@@ -109,6 +112,7 @@ export const routes: Routes = [
   { path: 'nastavnik/pretraga-studenata', component: PretragaStudenataComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/student/:id', component: StudentProfilComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id/ocene', component: UnosOcenaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
-
+  {path:'biblioteka',component:PocetnaComponent},
+  {path:'biblioteka/iznajmljene',component:VratiComponent},
   { path: '**', redirectTo: 'login' }
 ];

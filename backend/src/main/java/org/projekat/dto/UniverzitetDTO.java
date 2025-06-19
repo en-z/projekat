@@ -27,7 +27,7 @@ public class UniverzitetDTO {
         this.kontakt = u.getKontakt();
         this.email = u.getEmail();
         this.opis = u.getOpis();
-        this.rektor= NastavnikMapper.toDTO(u.getRektor());
+        this.rektor= new NastavnikDTO(u.getRektor());
         this.adresa = u.getAdresa();
     }
 }

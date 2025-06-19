@@ -51,6 +51,9 @@ public class FakultetService {
     @Async
     public CompletableFuture<List<FakultetDTO>> getFakultetByUniverzitet(long id){
         List<FakultetDTO> fakultetList = fakultetRepository.findByUniverzitet_Id(id).stream().map(FakultetDTO::new).collect(Collectors.toList());
+        for (FakultetDTO f : fakultetList) {
+           System.out.println(f.getRektor().getIme());
+        }
         return CompletableFuture.completedFuture(fakultetList);
     }
 }

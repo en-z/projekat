@@ -42,7 +42,7 @@ export class IshodIspitaComponent {
         if(p.bodovi>=51){
           const ocena = this.getOcena(p.bodovi)
           this.polozeniIspiti.push({...p,ocena})
-          this.totalEsbp += p.predmet.espb
+          this.totalEsbp += p.predmet.esbp
         }
       }
     }

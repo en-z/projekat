@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Izdate } from '../../../models/izdate';
-import { IzdateService } from '../../../services/izdate.service';
+import { Izdate } from '../../models/izdate';
+import { IzdateService } from '../../services/izdate.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -28,10 +28,11 @@ public class StudijskiProgramService {
     }
 
     @Async
-    public CompletableFuture<StudijskiProgram> findById(Long id) {
+    public CompletableFuture<StudiskiDTO> findById(Long id) {
         StudijskiProgram program = studijskiProgramRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Program not found"));
-        return CompletableFuture.completedFuture(program);
+        StudiskiDTO s = new StudiskiDTO(program);
+        return CompletableFuture.completedFuture(s);
     }
 
     @Async

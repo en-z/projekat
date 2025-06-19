@@ -1,6 +1,6 @@
-package org.projekat.repository.biblioteka;
+package org.projekat.repository;
 
-import org.projekat.model.biblioteka.Izdate;
+import org.projekat.model.Izdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -17,22 +17,22 @@ import { AuthService } from '../../services/auth.service';
 export class PrikaziUniverzitetComponent implements OnInit {
   univerzitet:Univerzitet|null=null;
   fakulteti:FakultetDTO[]=[]
-  id:number=0;
+  id:number|null=null;
   constructor(public authService:AuthService,private route:ActivatedRoute,public router:Router,private univerzitetService:UniverzitetService,private fakService:FakultetService){
   }
   ngOnInit(): void {
-    this.id = +!this.route.snapshot.paramMap.get('id')
-    this.univerzitetService.getById(this.id).subscribe(data=>this.univerzitet = data)
-    this.loadFakultete()
+    this.id = Number(this.route.snapshot.paramMap.get('id'))
+    this.univerzitetService.getById(this.id).subscribe(data=>{this.univerzitet = data,
+                                                       console.log(data)
+      this.loadFakultete()
+    })
   }
   loadFakultete(){
-    this.fakService.getByUniverzitetId(this.id).subscribe(data=>this.fakulteti = data)
+    this.fakService.getByUniverzitetId(this.id!).subscribe(data=>this.fakulteti = data)
   }
   delete(id:number){
-    if(confirm("brisanje fakulteta")){
       this.fakService.delete(id).subscribe(()=>{
        this.fakulteti= this.fakulteti.filter(u=>u.id !==id)
       })
-    }
   }
 }

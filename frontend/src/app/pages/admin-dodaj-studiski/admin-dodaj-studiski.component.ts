@@ -5,7 +5,7 @@ import { FakultetDTO } from '../../models/fakultet';
 import { NastavnikService } from '../../services/nastavink.service';
 import { FakultetService } from '../../services/fakultet.service';
 import { StudiskiService } from '../../services/studiski.service';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -30,10 +30,10 @@ export class AdminDodajStudiskiComponent {
     private http:HttpClient
   ){
     this.form = this.fb.group({
-      naziv:[''],
-      opis:[''],
-      fakultet_id:[''],
-      rukovodioc:[''],
+      naziv:['',Validators.required],
+      opis:['',Validators.required],
+      fakultet_id:['',Validators.required],
+      rukovodioc:['',Validators.required],
     })
   }
   ngOnInit(){
@@ -65,7 +65,14 @@ export class AdminDodajStudiskiComponent {
             prezime: '',
             biografija: '',
             satus: '',
-            angazovanja: []
+            angazovanja: [],
+            adresa: {
+              id: null,
+              ulica: this.form.value.ulica,
+              broj: this.form.value.broj,
+              grad: this.form.value.grad,
+              drzava: this.form.value.drzava
+            },
         },
         fakultetId: this.form.value.fakultet_id,
         id: null

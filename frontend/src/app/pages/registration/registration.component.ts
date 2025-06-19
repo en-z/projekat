@@ -54,7 +54,7 @@ export class RegistrationComponent {
       }
     return acc;
   }, {});
-    this.http.post("http://localhost:8080/auth/v1/registration",lowValute).subscribe({
+    this.http.post("http://localhost:8080/api/auth/registration",lowValute).subscribe({
       next:(res)=>{
         //route na login home
     },error:(e)=>{

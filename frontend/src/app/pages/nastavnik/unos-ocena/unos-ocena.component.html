@@ -9,18 +9,17 @@
           {{ student.ime }} {{ student.prezime }} (ID: {{ student.id }})
         </option>
       </select>
-      <input type="number" formControlName="ocena" placeholder="Ocena (5-10)" required min="5" max="10">
       <input type="number" formControlName="brojPokusaja" placeholder="Broj pokušaja" required>
       <input type="number" formControlName="bodovi" placeholder="Bodovi" required>
-
-      <label>
-        Položen:
-        <input type="checkbox" formControlName="polozen">
-      </label>
 
       <button type="submit" [disabled]="ocenaForm.invalid">Unesi ocenu</button>
     </form>
   </ng-container>
+    <h3>Učitaj fajl sa ishodima</h3>
+    <form (submit)="uploadFile()" enctype="multipart/form-data">
+    <input type="file" accepte=".xlm" (change)="onFileSelected($event)" required>
+    <button type="submit" [disabled]="!selectedFile">Pošalji fajl</button>
+    </form>
 
   <ng-template #blokirano>
     <p style="color: red;">
@@ -37,7 +36,6 @@
       <strong>Ocena:</strong> {{ ishod.ocena }} |
       <strong>Bodovi:</strong> {{ ishod.bodovi }} |
       <strong>Pokušaji:</strong> {{ ishod.brojPokusaja }} |
-      <strong>Položen:</strong> {{ ishod.polozen ? 'Da' : 'Ne' }}
     </li>
   </ul>
 </div>

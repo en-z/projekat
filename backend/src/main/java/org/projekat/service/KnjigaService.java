@@ -1,7 +1,7 @@
-package org.projekat.service.biblioteka;
+package org.projekat.service;
 
-import org.projekat.model.biblioteka.Knjiga;
-import org.projekat.repository.biblioteka.KnjigaRepository;
+import org.projekat.model.Knjiga;
+import org.projekat.repository.KnjigaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +23,9 @@ public class KnjigaService {
     }
     public List<Knjiga> getByKategorija(String kategorija){
         return knjigaRepository.findByKategorijaIgnoreCase(kategorija);
+    }
+
+    public List<Knjiga> search(String naziv,String kategorija,String opis,String autor){
+        return knjigaRepository.search(naziv,kategorija,opis,autor);
     }
 }

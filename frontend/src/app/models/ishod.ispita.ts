@@ -3,8 +3,7 @@ export interface IshodIspita {
   ocena: number;
   brojPokusaja: number;
   bodovi: number;
-  polozen: boolean;
-  datumUnosa: Date;
+  datumUnosa:string| Date;
   studentId: number;
   predmetId: number;
   nastavnikId: number;

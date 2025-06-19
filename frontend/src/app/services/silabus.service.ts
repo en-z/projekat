@@ -5,7 +5,7 @@ import { Silabus } from '../models/silabus';
 
 @Injectable({ providedIn: 'root' })
 export class SilabusService {
-  private apiUrl = 'http://localhost:8080/api/silabusi';
+  private apiUrl = 'http://localhost:8080/api/nastavnik/silabusi';
 
   constructor(private http: HttpClient) {}
 

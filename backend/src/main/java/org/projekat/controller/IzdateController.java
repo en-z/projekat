@@ -1,8 +1,8 @@
-package org.projekat.controller.biblioteka;
+package org.projekat.controller;
 
 import org.projekat.jwt.CustomUserDetails;
-import org.projekat.model.biblioteka.Izdate;
-import org.projekat.service.biblioteka.IzdavanjeService;
+import org.projekat.model.Izdate;
+import org.projekat.service.IzdavanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

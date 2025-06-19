@@ -26,7 +26,7 @@ public class FakultetDTO {
         this.opis=f.getOpis();
         this.kontakt=f.getKontakt();
         this.adresa=f.getAdresa();
-        this.rektor = NastavnikMapper.toDTO(f.getDekan());
+        this.rektor = new NastavnikDTO(f.getDekan());
         this.univerzitetDTO = new UniverzitetDTO(f.getUniverzitet());
     }
 }
