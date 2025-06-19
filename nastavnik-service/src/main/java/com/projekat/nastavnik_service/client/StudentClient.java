@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "student-service",url = "http://localhost:8083/api/student")
 public interface StudentClient {
-    @PutMapping("/studenti/ocena")
+    @PutMapping("/studenti/prosecna")
     ResponseEntity<?> upisiOcenu(@RequestParam long id, @RequestParam float ocena);
 }
