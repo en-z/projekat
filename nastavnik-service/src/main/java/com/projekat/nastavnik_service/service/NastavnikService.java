@@ -89,7 +89,7 @@ public class NastavnikService {
 
    private static NastavnikDTO toDTO(Nastavnik n){
       NastavnikDTO dto = new NastavnikDTO();
-        dto.setId(n.getId());
+       dto.setId(n.getId());
        dto.setIme(n.getIme());
        dto.setPrezime(n.getPrezime());
        dto.setStatus(n.getStatus());

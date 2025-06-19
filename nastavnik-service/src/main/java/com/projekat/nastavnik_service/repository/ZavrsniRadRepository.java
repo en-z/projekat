@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ZavrsniRadRepository extends JpaRepository<ZavrsniRad,Long> {
-    List<ZavrsniRad> findByNastavnikId(long id);
+    List<ZavrsniRad> findByNastavnikUserId(long userId);
 }

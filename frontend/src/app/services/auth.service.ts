@@ -5,12 +5,14 @@ import { Router} from '@angular/router'
 })
 
 export class AuthService{
-  roles:string[]=[];
+  roles: string[] = [];
+  currentUserId: number | undefined;
+
   constructor(private router:Router){}
   logout(){
     localStorage.removeItem('jwtToken')
     this.roles = [];
-    //this.router.navigate(['/login'])
+    this.router.navigate(['/login'])
   }
   isLoggedIn():boolean{
     return !!localStorage.getItem('jwtToken')
@@ -21,10 +23,14 @@ export class AuthService{
 
     try{
       const payload = JSON.parse(atob(token.split('.')[1]))
-      this.roles = payload.roles ||[]
+      this.roles = payload.roles || []
+      console.table(payload);
+      console.log(payload);
+      this.currentUserId = payload.id
     }catch(err){
       console.error("jwt:",err)
       this.roles = []
+      this.currentUserId = undefined
     }
   }
   isExpired():boolean{

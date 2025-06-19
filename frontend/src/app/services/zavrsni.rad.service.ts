@@ -13,6 +13,17 @@ export class ZavrsniRadService {
   }
 
   getByMentor(nastavnikId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/mentor/${nastavnikId}`);
+    return this.http.get(`http://localhost:8080/api/nastavnik/zavrsni/mentor/${nastavnikId}`);
+  }
+
+  create(formData: FormData): Observable<any> {
+    return this.http.post(`http://localhost:8080/api/nastavnik/zavrsni`, formData, { responseType: 'text' });
+  }
+
+  downloadFile(filePath: string): Observable<any> {
+    return this.http.post(`http://localhost:8080/api/nastavnik/zavrsni/download`, filePath, {
+      responseType: 'blob',
+      observe: 'response'
+    });
   }
 }

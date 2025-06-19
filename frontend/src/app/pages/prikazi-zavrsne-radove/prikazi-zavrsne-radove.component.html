@@ -1,0 +1,24 @@
+<div class="max-w-4xl mx-auto my-8 p-6 bg-white shadow rounded">
+  <h2 class="text-2xl font-bold mb-4">Završni radovi</h2>
+
+  <div *ngIf="zavrsniRadovi.length > 0; else nemaRadova" class="space-y-4">
+    <div *ngFor="let rad of zavrsniRadovi" class="bg-gray-50 p-4 rounded shadow">
+      <h3 class="text-lg font-semibold text-blue-700">{{ rad.naslov }}</h3>
+      <p class="text-gray-600"><strong>Opis:</strong> {{ rad.opis }}</p>
+      <p class="text-gray-600"><strong>Status:</strong> {{ rad.status }}</p>
+      <p class="text-gray-600"><strong>Student ID:</strong> {{ rad.studentId }}</p>
+      <p class="text-gray-600"><strong>Nastavnik:</strong> {{ rad.nastavnik?.ime }} {{ rad.nastavnik?.prezime }}</p>
+
+      <button
+        (click)="preuzmiFajl(rad.file)"
+        class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Preuzmi fajl
+      </button>
+    </div>
+  </div>
+
+  <ng-template #nemaRadova>
+    <p class="text-gray-500">Nema dostupnih završnih radova za ovog mentora.</p>
+  </ng-template>
+</div>

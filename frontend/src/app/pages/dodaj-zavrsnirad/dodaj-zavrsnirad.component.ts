@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StudentService } from '../../services/student.service';
 import { NastavnikService } from '../../services/nastavink.service';
-import { HttpClient } from '@angular/common/http';
+import { ZavrsniRadService } from '../../services/zavrsni.rad.service';
 
 @Component({
   selector: 'app-dodaj-zavrsnirad',
@@ -20,7 +20,7 @@ export class DodajZavrsniradComponent {
     private fb: FormBuilder,
     private studentService: StudentService,
     private nastavnikService: NastavnikService,
-    private http: HttpClient
+    private zavrsniRadService: ZavrsniRadService,
   ) {}
 
   ngOnInit(): void {
@@ -53,8 +53,8 @@ export class DodajZavrsniradComponent {
     formData.append('opis', this.form.get('opis')?.value);
     formData.append('file', this.form.get('file')?.value);
 
-    this.http.post('http://localhost:8080/api/nastavnik/zavrsni', formData).subscribe({
-      next: (res) => {
+    this.zavrsniRadService.create(formData).subscribe({
+      next: () => {
         alert('Završni rad uspešno dodat!');
         this.form.reset();
       },

@@ -44,18 +44,14 @@
   </div>
   <div *ngIf="authService.hasRole('ROLE_NASTAVNIK')" class="relative inline-block text-left">
     <app-notifikacije></app-notifikacije>
-    <button (click)="showNastavnik= !showNastavnik"
+    <button (click)="goToNastavnikPredmeti()"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
-      Nastavnik Menu ▼
+      Predmeti
     </button>
-
-    <div *ngIf="showNastavnik"
-      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50">
-      <button (click)="goToNastavnikPredmeti()"
-        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
-        Predmeti
-      </button>
-    </div>
+    <button (click)="goToZavrsniRadovi()"
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      Zavrsni radovi
+    </button>
   </div>
 
   <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative inline-block text-left">

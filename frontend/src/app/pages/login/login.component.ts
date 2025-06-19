@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder,FormGroup,Validators,ReactiveFormsModule } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent {
     constructor(
       private fb:FormBuilder,
       private http:HttpClient,
-      private router:Router
+      private router:Router,
+      private authService:AuthService
     ){
       this.loginForm = this.fb.group({
         email: ['', [Validators.required]],
@@ -41,6 +43,7 @@ export class LoginComponent {
           console.log(email,password);
           console.log(res.token);
           localStorage.setItem('jwtToken',res.token);
+          this.authService.loadRoleFromJWt();
           this.router.navigate(['/'])
         },error:(err)=>{
           console.error("Login error:",err);

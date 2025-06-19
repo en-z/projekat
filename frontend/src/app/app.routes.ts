@@ -39,6 +39,7 @@ import { DodajZavrsniradComponent } from './pages/dodaj-zavrsnirad/dodaj-zavrsni
 import { DodajZvanjeComponent } from './pages/dodaj-zvanje/dodaj-zvanje.component';
 import { NotifikacijeComponent } from './pages/notifikacije/notifikacije.component';
 import { IzdatePutComponent } from './pages/izdate-put/izdate-put.component';
+import { PrikaziZavrsneRadoveComponent } from './pages/prikazi-zavrsne-radove/prikazi-zavrsne-radove.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -59,7 +60,10 @@ export const routes: Routes = [
     path:"izdate-datum",component:IzdatePutComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
-    path:"zavrsniRad",component:DodajZavrsniradComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+    path:"zavrsni-rad",component:DodajZavrsniradComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+  },
+  {
+    path:"zavrsni-radovi",component:PrikaziZavrsneRadoveComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK']},
   },
   {
    path:"univerzitet/:id",component:AdminDodjaUniverziteComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},

@@ -21,7 +21,7 @@ export class NavBarComponent {
   constructor(private router:Router,public authService:AuthService){
   }
   dodajZavrsni(){
-    this.router.navigate(['/zavrsniRad'])
+    this.router.navigate(['/zavrsni-rad'])
   }
   goToStudenti(){
     this.router.navigate(['/studenti'])
@@ -94,5 +94,8 @@ export class NavBarComponent {
   }
   vrati(){
     this.router.navigate(['/biblioteka/iznajmljene'])
+  }
+  goToZavrsniRadovi() {
+    this.router.navigate(['/zavrsni-radovi'])
   }
 }
