@@ -30,6 +30,6 @@ export class NastavnikService {
   }
 
   getPredmeti(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/angazovanja/predmeti`);
+    return this.http.get(`this://localhost:8080/api/nastavnik/angazovanja/predmeti`);
   }
 }
