@@ -17,7 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 @RestController
@@ -57,6 +59,19 @@ public class UserController {
         User u =userRepository.findById(id).orElseThrow(()->new RuntimeException("error"));
         ImeDTO i= new ImeDTO(u.getIme(),u.getPrezime());
         return ResponseEntity.ok(i);
+    }
+    @GetMapping("/zaUpis")
+    public ResponseEntity<?> getStudente(){
+        return ResponseEntity.ok(service.findByRole());
+    }
+    @PutMapping("/id")
+    public ResponseEntity<?> dodajRole(@PathVariable long id){
+        User u = userRepository.findById(id).orElseThrow(()->new RuntimeException("NULL"));
+        List<String>roles = new ArrayList<>();
+        roles.add("ROLE_STUDENT");
+        u.setRoles(roles);
+        userRepository.save(u);
+        return ResponseEntity.noContent().build();
     }
     @GetMapping("/sifarnik")
     public ResponseEntity<?>getAll(){

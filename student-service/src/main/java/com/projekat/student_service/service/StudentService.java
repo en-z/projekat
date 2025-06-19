@@ -1,5 +1,6 @@
 package com.projekat.student_service.service;
 
+import com.projekat.student_service.dto.AddDTO;
 import com.projekat.student_service.dto.StudentDTO;
 import com.projekat.student_service.entity.Student;
 import com.projekat.student_service.repository.StudentRepository;
@@ -27,10 +28,12 @@ public class StudentService {
         StudentDTO dto = new StudentDTO(s);
         return dto;
     }
-    public StudentDTO create(StudentDTO dto){
+    public Student create(AddDTO dto){
         Student s = new Student(dto);
-        studentRepository.save(s);
-        return dto;
+
+        s = studentRepository.save(s);
+        s.setBrojIndeksa(StudentService.getBrojIndeksa(s.getGodinaUpisa(),s.getId()));
+        return s;
     }
     public StudentDTO update(long id,StudentDTO dto){
         Student s =studentRepository.findById(id).orElseThrow(()->new RuntimeException("erro"));
@@ -40,10 +43,19 @@ public class StudentService {
         studentRepository.save(s);
         return dto;
     }
+    public void ocena(long id,float ocena){
+       Student s = studentRepository.findById(id).orElseThrow(()->new RuntimeException("error"));
+       s.setProsecnaOcena(ocena);
+       studentRepository.save(s);
+    }
     public void delete(long id){
         studentRepository.deleteById(id);
     }
     public List<StudentDTO> search(String ime,String prezime,String brojIndeksa,int godinaUpisa,float minProsek,float maxProsek){
         return studentRepository.search(ime,prezime,brojIndeksa,godinaUpisa,minProsek,maxProsek).stream().map(f->new StudentDTO(f)).collect(Collectors.toList());
+    }
+    private static String getBrojIndeksa(int y, long id){
+        String format = String.format("%06d",id);
+       return y+format;
     }
 }

@@ -1,5 +1,7 @@
 package com.projekat.auth_service.service;
 
+import com.projekat.auth_service.DTO.ImeDTO;
+import com.projekat.auth_service.DTO.LoginDTO;
 import com.projekat.auth_service.Security.CustomUserDetails;
 import com.projekat.auth_service.entity.User;
 import com.projekat.auth_service.repository.UserRepository;
@@ -11,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,7 +35,9 @@ public class UserService implements UserDetailsService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
-
+    public List<ImeDTO> findByRole(){
+       return userRepository.findByRolesContaining("ROLE_USER").stream().map(m->new ImeDTO(m.getId(),m.getIme(),m.getPrezime())).toList();
+    }
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(()->new RuntimeException("Nema korisnika sa tim mailom"));
     }

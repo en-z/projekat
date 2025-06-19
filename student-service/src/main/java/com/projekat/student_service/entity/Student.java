@@ -1,5 +1,6 @@
 package com.projekat.student_service.entity;
 
+import com.projekat.student_service.dto.AddDTO;
 import com.projekat.student_service.dto.StudentDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,5 +39,16 @@ public class Student {
         this.godinaUpisa = dto.getGodinaUpisa();
         this.studiskiId = dto.getStudiskiId();
         this.osvojeniEsbp = dto.getOsvojeniEsbp();
+    }
+    public Student (AddDTO dto){
+        this.userId = dto.getUserId();
+        this.studiskiId = dto.getStudiskiId();
+        this.adresa = new Adresa(null,dto.getUlica(),dto.getBroj(),dto.getGrad(),dto.getDrzava());
+        this.ime = dto.getIme();
+        this.prezime = dto.getPrezime();
+        this.prosecnaOcena = 0;
+        this.godinaStudija = 1;
+        this.godinaUpisa = LocalDate.now().getYear();
+        this.osvojeniEsbp = 0;
     }
 }

@@ -1,6 +1,8 @@
 package com.projekat.student_service.controller;
 
+import com.projekat.student_service.dto.AddDTO;
 import com.projekat.student_service.dto.StudentDTO;
+import com.projekat.student_service.entity.Student;
 import com.projekat.student_service.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +34,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDTO> create(@RequestBody StudentDTO dto) {
-        StudentDTO created = studentService.create(dto);
+    public ResponseEntity<?> create(@RequestBody AddDTO dto) {
+        Student created = studentService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
@@ -42,12 +44,17 @@ public class StudentController {
         StudentDTO updated = studentService.update(id, dto);
         return ResponseEntity.ok(updated);
     }
-
+    @PutMapping("/prosecna")
+    public ResponseEntity<?> update(@RequestParam long id, @RequestParam float ocena) {
+        studentService.ocena(id,ocena);
+        return ResponseEntity.accepted().build();
+    }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    public ResponseEntity<?> delete(@PathVariable long id) {
         studentService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 
     @GetMapping("/search")
     public ResponseEntity<List<StudentDTO>> search(

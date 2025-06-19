@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Adresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String ulica;
     private String broj;
     private String grad;
