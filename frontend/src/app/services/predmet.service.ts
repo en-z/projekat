@@ -22,6 +22,6 @@ export class PredmetService extends BaseService<Predmet>{
   }
 
   getPredmeteZaSlusanje(){
-    return this.http.get<Predmet[]>(`${this.baseUrl}/aktivni-predmeti`)
+    return this.http.get<Predmet[]>(`http://localhost:8080/api/student/slusanja/student`)
   }
 }

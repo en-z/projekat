@@ -45,7 +45,7 @@ export class NavBarComponent {
     this.router.navigate(['/edit'])
   }
   goToPrijaviIspit(){
-    this.router.navigate(['/prijava-ispita'])
+    this.router.navigate(['/prijavi-ispit'])
   }
   goToStudentPredmet(){
     this.router.navigate(['/student/predmet'])

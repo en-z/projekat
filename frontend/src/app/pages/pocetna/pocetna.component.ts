@@ -6,6 +6,7 @@ import { IzdateService } from '../../services/izdate.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pocetna',
@@ -24,7 +25,8 @@ export class PocetnaComponent {
   filterPolje: string[] = ['naziv','opis','autor'];
   izabranoPolje:string= 'naziv'
 
-  constructor(private authService:AuthService,private knjigaService: KnjigaService,private izdateService:IzdateService) {}
+  constructor(private router:Router,public authService:AuthService,private knjigaService: KnjigaService,private izdateService:IzdateService) {}
+
 
   ngOnInit(): void {
     this.ucitajSveKnjige();
@@ -71,6 +73,10 @@ pretrazi() {
   izdaj(knjigaId:number){
     this.izdateService.izdaj(knjigaId).subscribe(()=>alert("dodato"))
   }
-  edit(knjigaId:number){}
-  add(knjigaId:number){}
+  edit(knjigaId:number){
+    this.router.navigate([`/biblioteka/knjiga/${knjigaId}`])
+  }
+  add(){
+    this.router.navigate(['/biblioteka/knjiga'])
+  }
 }
