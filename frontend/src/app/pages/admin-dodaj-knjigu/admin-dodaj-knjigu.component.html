@@ -23,11 +23,20 @@
     </div>
   </div>
 
+
   <div>
     <label for="autor">Autor</label>
     <input id="autor" formControlName="autor" />
     <div *ngIf="knjigaForm.get('autor')?.invalid && knjigaForm.get('autor')?.touched">
       Autor je obavezan.
+    </div>
+  </div>
+
+  <div>
+    <label for="godinaIzdavanja">Godina izdavanja</label>
+    <input id="godinaIzdavanja" type="number" formControlName="godinaIzdavanja" min="0"/>
+    <div *ngIf="knjigaForm.get('godinaIzdavanja')?.invalid && knjigaForm.get('godinaIzdavanja')?.touched">
+      Opis je obavezan.
     </div>
   </div>
 

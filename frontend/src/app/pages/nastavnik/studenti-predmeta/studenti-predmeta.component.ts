@@ -25,4 +25,9 @@ export class StudentiPredmetaComponent implements OnInit {
       this.studenti = data;
     });
   }
+  ucitajStudente(){
+  this.slusanjeService.getByPredmet(this.predmetId).subscribe(data => {
+    this.studenti = data;
+  });
+  }
 }

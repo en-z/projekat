@@ -13,7 +13,7 @@ export class SlusanjePredmetaService {
     return this.http.get<SlusanjePredmeta[]>(`${this.apiUrl}/predmet/${predmetId}`);
   }
 
-  getByStudent(studentId: number): Observable<SlusanjePredmeta[]> {
-    return this.http.get<SlusanjePredmeta[]>(`${this.apiUrl}/student/${studentId}`);
+  getByStudent(): Observable<SlusanjePredmeta[]> {
+    return this.http.get<SlusanjePredmeta[]>(`${this.apiUrl}/student`);
   }
 }

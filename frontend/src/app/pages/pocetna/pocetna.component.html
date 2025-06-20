@@ -1,20 +1,5 @@
 <div class="container mx-auto p-6 space-y-6">
 
-  <!-- Filter sekcija -->
-  <div class="flex flex-col md:flex-row items-center gap-4">
-    <div class="flex items-center gap-2">
-      <label for="kategorija" class="font-semibold">Kategorija:</label>
-      <select id="kategorija"
-              [(ngModel)]="izabranaKategorija"
-              (change)="filtrirajPoKategoriji()"
-              class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option value="">Sve</option>
-        <option *ngFor="let kategorija of kategorije" [value]="kategorija">
-          {{ kategorija }}
-        </option>
-      </select>
-    </div>
-  </div>
 
   <!-- Search sekcija -->
   <div class="flex flex-col md:flex-row items-center gap-4">
@@ -42,7 +27,13 @@
     </button>
   </div>
 
-  <!-- Lista knjiga -->
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')"  (click)="add()"
+              class="mt-4 w-full px-4 py-2 rounded text-white
+                     transition
+                     bg-green-600 hover:bg-green-700
+                     disabled:bg-gray-400 disabled:cursor-not-allowed">
+        add knjigu
+      </button>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <div *ngFor="let knjiga of knjige"
          class="bg-white shadow-md rounded p-4 border border-gray-200">
@@ -52,13 +43,20 @@
       <p><span class="font-semibold">Kategorija:</span> {{ knjiga.kategorija }}</p>
       <p><span class="font-semibold">Količina:</span> {{ knjiga.kolicina }}</p>
 
-      <button (click)="izdaj(knjiga.id!)"
+      <button *ngIf="authService.hasRole('ROLE_STUDENT')||authService.hasRole('ROLE_NASTAVNIK')"  (click)="izdaj(knjiga.id!)"
               [disabled]="knjiga.kolicina === 0"
               class="mt-4 w-full px-4 py-2 rounded text-white
                      transition
                      bg-green-600 hover:bg-green-700
                      disabled:bg-gray-400 disabled:cursor-not-allowed">
         Izdaj knjigu
+      </button>
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')"  (click)="edit(knjiga.id!)"
+              class="mt-4 w-full px-4 py-2 rounded text-white
+                     transition
+                     bg-green-600 hover:bg-green-700
+                     disabled:bg-gray-400 disabled:cursor-not-allowed">
+        Edit knjigu
       </button>
     </div>
   </div>

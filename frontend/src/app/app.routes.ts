@@ -39,7 +39,9 @@ import { DodajZavrsniradComponent } from './pages/dodaj-zavrsnirad/dodaj-zavrsni
 import { DodajZvanjeComponent } from './pages/dodaj-zvanje/dodaj-zvanje.component';
 import { NotifikacijeComponent } from './pages/notifikacije/notifikacije.component';
 import { IzdatePutComponent } from './pages/izdate-put/izdate-put.component';
+import { AdminDodajKnjiguComponent } from './pages/admin-dodaj-knjigu/admin-dodaj-knjigu.component';
 import { PrikaziZavrsneRadoveComponent } from './pages/prikazi-zavrsne-radove/prikazi-zavrsne-radove.component';
+import { StudentPredmetComponent } from './pages/student-predmet/student-predmet.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -135,7 +137,7 @@ export const routes: Routes = [
     path:"export-user",component:ExportUserComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}
   },
   {
-    path:"student/predmet",component:StudentiPredmetaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
+    path:"student/predmet",component:StudentPredmetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
   },
   { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id', component: PredmetDetaljiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
@@ -148,6 +150,9 @@ export const routes: Routes = [
   { path: 'nastavnik/student/:id', component: StudentProfilComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id/ocene', component: UnosOcenaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   {path:'biblioteka',component:PocetnaComponent},
+  {path:'biblioteka/knjiga',component:AdminDodajKnjiguComponent},
+  {path:'biblioteka/knjiga/:id',component:AdminDodajKnjiguComponent},
   {path:'biblioteka/iznajmljene',component:VratiComponent},
-  { path: '**', redirectTo: 'login' }
+  {path:'biblioteka/izdate',component:IzdatePutComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}},
+  { path: '**', redirectTo: '' }
 ];

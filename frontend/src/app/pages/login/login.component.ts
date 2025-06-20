@@ -22,7 +22,7 @@ export class LoginComponent {
       private fb:FormBuilder,
       private http:HttpClient,
       private router:Router,
-      private authService:AuthService
+      private authService:AuthService,
     ){
       this.loginForm = this.fb.group({
         email: ['', [Validators.required]],
@@ -43,7 +43,7 @@ export class LoginComponent {
           console.log(email,password);
           console.log(res.token);
           localStorage.setItem('jwtToken',res.token);
-          this.authService.loadRoleFromJWt();
+          this.authService.loadRoleFromJWt()
           this.router.navigate(['/'])
         },error:(err)=>{
           console.error("Login error:",err);
