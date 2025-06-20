@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ZavrsniRadRepository extends JpaRepository<ZavrsniRad,Long> {
     List<ZavrsniRad> findByNastavnikUserId(long userId);
+    List<ZavrsniRad> findByNastavnikId(long userId);
 }

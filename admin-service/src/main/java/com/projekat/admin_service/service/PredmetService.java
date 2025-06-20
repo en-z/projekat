@@ -2,6 +2,7 @@ package com.projekat.admin_service.service;
 
 import com.projekat.admin_service.DTO.PredmetDTO;
 import com.projekat.admin_service.entity.Predmet;
+import com.projekat.admin_service.entity.StudijskiProgram;
 import com.projekat.admin_service.repository.PredmetRepository;
 import com.projekat.admin_service.repository.StudijskiProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class PredmetService {
     }
     public PredmetDTO create(PredmetDTO dto){
         Predmet p = dto.toPredmet();
+        StudijskiProgram sp = studijskiProgramRepository.findById(dto.getStudiskiId()).orElseThrow(()->new RuntimeException("Error"));
+        p.setStudijskiProgram(sp);
         predmetRepository.save(p);
         return dto;
     }

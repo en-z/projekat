@@ -2,6 +2,7 @@ package com.projekat.nastavnik_service.controller;
 
 import com.projekat.nastavnik_service.dto.ZavrsniRadDTO;
 import com.projekat.nastavnik_service.entity.ZavrsniRad;
+import com.projekat.nastavnik_service.repository.ZavrsniRadRepository;
 import com.projekat.nastavnik_service.service.ZavrsniRadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,30 +19,28 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/nastavnik/zavrsni")
 public class ZavrsniRadController {
-
+    @Autowired
+    private ZavrsniRadRepository zavrsniRadService;
     @Autowired
     private ZavrsniRadService service;
     @GetMapping
     public ResponseEntity<List<ZavrsniRad>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        return ResponseEntity.ok(zavrsniRadService.findAll());
     }
     @GetMapping("/{id}/download")
     public ResponseEntity<?> downloadFile(@PathVariable Long id) {
-        ZavrsniRad rad = service.findById(id)
+        ZavrsniRad rad = zavrsniRadService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Završni rad nije pronađen"));
 
-        // Provera da li fajl postoji na putanji iz zavrsnog rada
         Path filePath = Paths.get(rad.getFile());
         if (!Files.exists(filePath)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         try {
-            // Vracanje fajla sa date putanje
             Resource resource = new UrlResource(filePath.toUri());
 
             String fileName = filePath.getFileName().toString();
@@ -57,7 +56,7 @@ public class ZavrsniRadController {
     }
     @GetMapping("/mentor/{nastavnikId}")
     public ResponseEntity<List<ZavrsniRad>> getByMentor(@PathVariable Long nastavnikId) {
-        return ResponseEntity.ok(service.getByNastavnikUserId(nastavnikId));
+        return ResponseEntity.ok(zavrsniRadService.findByNastavnikId(nastavnikId));
     }
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
