@@ -15,22 +15,30 @@ public class UniverzitetController {
     @Autowired
     private UniverzitetService univerzitetService;
 
-    // GET all univerziteti
     @GetMapping
     public ResponseEntity<List<UniverzitetDto>> getAll() {
         return ResponseEntity.ok(univerzitetService.getAll());
     }
 
-    // GET univerzitet by ID
+    @GetMapping("/aktivni")
+    public ResponseEntity<List<UniverzitetDto>> getAktivni() {
+        return ResponseEntity.ok(univerzitetService.getAktivne());
+    }
+    @GetMapping("/neaktivni")
+    public ResponseEntity<List<UniverzitetDto>> getNeaktivni() {
+        return ResponseEntity.ok(univerzitetService.getNeaktivne());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UniverzitetDto> getById(@PathVariable long id) {
         return ResponseEntity.ok(univerzitetService.getById(id));
     }
+
     @PostMapping
     public ResponseEntity<?>create(@RequestBody UniverzitetDto dto){
        return ResponseEntity.ok(univerzitetService.create(dto));
     }
-    // PUT update univerzitet
+
     @PutMapping("/{id}")
     public ResponseEntity<UniverzitetDto> update(@PathVariable long id, @RequestBody UniverzitetDto dto) {
         return ResponseEntity.ok(univerzitetService.update(id, dto));

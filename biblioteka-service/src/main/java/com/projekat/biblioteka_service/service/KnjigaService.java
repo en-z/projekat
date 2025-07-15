@@ -21,11 +21,8 @@ public class KnjigaService {
     public Knjiga save(Knjiga knjiga){
         return knjigaRepository.save(knjiga);
     }
-    public List<Knjiga> getByKategorija(String kategorija){
-        return knjigaRepository.findByKategorijaIgnoreCase(kategorija);
-    }
 
-    public List<Knjiga> search(String naziv,String kategorija,String opis,String autor){
-        return knjigaRepository.search(naziv,kategorija,opis,autor);
+    public List<Knjiga> search(String naziv,String kategorija,String opis,String autor,Integer kolicinaOd,Integer kolicinaDo, Integer godinaOd,Integer godinaDo){
+        return knjigaRepository.search(naziv,kategorija,opis,autor,godinaOd,godinaDo,kolicinaOd,kolicinaDo);
     }
 }

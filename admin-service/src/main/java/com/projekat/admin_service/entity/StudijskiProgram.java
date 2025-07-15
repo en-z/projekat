@@ -17,5 +17,6 @@ public class StudijskiProgram {
     private String opis;
     @ManyToOne
     private Fakultet fakultet;
+    private Boolean aktivan;
     private long nastavnikId;
 }

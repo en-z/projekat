@@ -21,6 +21,12 @@ public class PredmetService {
     public List<PredmetDTO> getAll(){
         return predmetRepository.findAll().stream().map(p -> new PredmetDTO(p) ).collect(Collectors.toList());
     }
+    public List<PredmetDTO> getAktivne(){
+        return predmetRepository.findByAktivanTrue().stream().map(p->new PredmetDTO(p)).collect(Collectors.toList());
+    }
+    public List<PredmetDTO> getNeaktivne(){
+        return predmetRepository.findByAktivanFalse().stream().map(p->new PredmetDTO(p)).collect(Collectors.toList());
+    }
     public PredmetDTO getById(long id){
         Predmet p =predmetRepository.findById(id).orElseThrow(()->new RuntimeException("no id"));
         PredmetDTO dto = new PredmetDTO(p);
@@ -30,14 +36,20 @@ public class PredmetService {
         Predmet p = dto.toPredmet();
         StudijskiProgram sp = studijskiProgramRepository.findById(dto.getStudiskiId()).orElseThrow(()->new RuntimeException("Error"));
         p.setStudijskiProgram(sp);
+        p.setAktivan(true);
         predmetRepository.save(p);
         return dto;
     }
     public void delete(long id){
-        predmetRepository.deleteById(id);
+        Predmet p = predmetRepository.findById(id).orElse(null);
+        if(p == null){
+            throw new RuntimeException("no ID");
+        }
+        p.setAktivan(false);
+        predmetRepository.save(p);
     }
     public List<PredmetDTO>findByFakultetId(long id){
-        return predmetRepository.findByStudijskiProgram_Id(id).stream().map(p->new PredmetDTO(p)).collect(Collectors.toList());
+        return predmetRepository.findByStudijskiProgram_IdAndAktivanTrue(id).stream().map(p->new PredmetDTO(p)).collect(Collectors.toList());
     }
     public List<PredmetDTO>findByIDS(List<Long>ids){
        return predmetRepository.findAllById(ids).stream().map(p->new PredmetDTO(p)).toList();

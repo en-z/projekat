@@ -34,6 +34,12 @@ spring:
           predicates:
             - Path=/api/biblioteka/**
 
+        - id: osoblje
+          uri: http://localhost:8089
+          predicates:
+            - Path=/api/osoblje/**
+
+
   logging:
     level:
       org.springframework.cloud.gateway.route.RouteDefinitionLocator: DEBUG

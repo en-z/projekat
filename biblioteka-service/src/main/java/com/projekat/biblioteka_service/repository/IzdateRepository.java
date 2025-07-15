@@ -10,6 +10,5 @@ import java.util.List;
 public interface IzdateRepository extends JpaRepository<Izdate,Long> {
     List<Izdate> findAllByUserId(long id);
     List<Izdate> findByDatumVracanja(LocalDate datum);
-    List<Izdate> findByDatumVracanjaIsNull();
-
+    List<Izdate> findByTrajnaFalse();
 }

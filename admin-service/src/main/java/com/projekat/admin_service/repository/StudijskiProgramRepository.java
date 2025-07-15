@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface StudijskiProgramRepository extends JpaRepository<StudijskiProgram,Long> {
-    List<StudijskiProgram> findByFakultet_Id(Long id);
+    List<StudijskiProgram> findByFakultet_IdAndAktivanTrue(Long id);
+    List<StudijskiProgram> findByAktivanFalse();
+    List<StudijskiProgram> findByAktivanTrue();
 }

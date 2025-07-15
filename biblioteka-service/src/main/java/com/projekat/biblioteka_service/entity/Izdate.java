@@ -18,6 +18,7 @@ public class Izdate {
     private long userId;
     @ManyToOne
     private Knjiga knjiga;
+    private Boolean trajna;
     private LocalDate datumIzdavanja;
     private LocalDate datumVracanja;
 }

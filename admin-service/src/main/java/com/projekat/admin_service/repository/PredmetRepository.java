@@ -2,15 +2,15 @@ package com.projekat.admin_service.repository;
 
 import com.projekat.admin_service.entity.Predmet;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface PredmetRepository extends JpaRepository<Predmet,Long> {
-    List<Predmet> findByStudijskiProgram_Id(long id);
+    List<Predmet> findByAktivanFalse();
+    List<Predmet> findByAktivanTrue();
+    List<Predmet> findByStudijskiProgram_IdAndAktivanTrue(long id);
     List<Predmet> findByNazivContainingIgnoreCase(String naziv);
     /*
     @Query(value = """

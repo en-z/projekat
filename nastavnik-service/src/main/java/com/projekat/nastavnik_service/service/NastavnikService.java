@@ -52,6 +52,7 @@ public class NastavnikService {
        nastavnik.setPrezime(dto.getPrezime());
        nastavnik.setIme(dto.getIme());
        nastavnik.setStatus(dto.getStatus());
+       nastavnik.setAktivan(true);
        nastavnikRepository.save(nastavnik);
        return dto;
    }
@@ -73,7 +74,6 @@ public class NastavnikService {
        NastavnikDTO dto = NastavnikService.toDTO(n);
        return dto;
    }
-
     public NastavnikDTO getByUserId(long id){
         Nastavnik n = nastavnikRepository.findByUserId(id).orElseThrow(()->new RuntimeException("error"));
         NastavnikDTO dto = NastavnikService.toDTO(n);
@@ -81,11 +81,9 @@ public class NastavnikService {
     }
     public void delete(long id){
         Nastavnik n = nastavnikRepository.findById(id).orElseThrow(()->new RuntimeException("error"));
-       angazovanjaRepository.deleteAllInBatch(n.getAngazovanja());
-       authClient.delete(n.getUserId());
-       nastavnikRepository.deleteById(id);
+        n.setAktivan(false);
+        nastavnikRepository.save(n);
     }
-
 
    private static NastavnikDTO toDTO(Nastavnik n){
       NastavnikDTO dto = new NastavnikDTO();

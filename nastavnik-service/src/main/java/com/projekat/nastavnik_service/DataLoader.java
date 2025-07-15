@@ -28,7 +28,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        /*
         // Create and save Adresa first to avoid detached entity issues
         Adresa adresa = new Adresa();
         adresa.setUlica("Bulevar Kralja Aleksandra");
@@ -85,5 +85,6 @@ public class DataLoader implements CommandLineRunner {
         s.setSadrzaj("Sadrzaj silabusa");
         s.setAutor(nastavnik);
         silabusRepository.save(s);
+         */
     }
 }

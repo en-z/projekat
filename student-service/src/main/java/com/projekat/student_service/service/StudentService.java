@@ -9,6 +9,7 @@ import feign.FeignException;
 import feign.Response;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,13 +38,10 @@ public class StudentService {
     @Transactional
     public Student create(AddDTO dto){
         Student s = new Student(dto);
+        s.setAktivan(true);
         s = studentRepository.save(s);
         s.setBrojIndeksa(StudentService.getBrojIndeksa(s.getGodinaUpisa(),s.getId()));
-            try {
-                authClient.dodajRole(s.getUserId());
-            } catch (FeignException e) {
-                throw e;
-            }
+        authClient.dodajRole(s.getUserId());
         return s;
     }
     public StudentDTO update(long id,StudentDTO dto){
@@ -60,10 +58,47 @@ public class StudentService {
        studentRepository.save(s);
     }
     public void delete(long id){
-        studentRepository.deleteById(id);
+        Student s = studentRepository.findById(id).orElse(null);
+        if( s ==null){
+            throw new RuntimeException("No user id");
+        }
+        s.setAktivan(false);
+        studentRepository.save(s);
     }
-    public List<StudentDTO> search(String ime,String prezime,String brojIndeksa,int godinaUpisa,float minProsek,float maxProsek){
-        return studentRepository.search(ime,prezime,brojIndeksa,godinaUpisa,minProsek,maxProsek).stream().map(f->new StudentDTO(f)).collect(Collectors.toList());
+    public List<StudentDTO> search(
+            String ime,
+            String prezime,
+            String brojIndeksa,
+            Integer godinaUpisa,
+            Integer godinaStudija,
+            Long studiskiId,
+            Float prosekMin,
+            Float prosekMax,
+            Integer esbpMin,
+            Integer esbpMax,
+            Boolean aktivan,
+            String ulica,
+            String broj,
+            String grad,
+            String drzava
+    ){
+        return studentRepository.search(
+                 ime,
+                 prezime,
+                 brojIndeksa,
+                 godinaUpisa,
+                 godinaStudija,
+                 studiskiId,
+                 prosekMin,
+                 prosekMax,
+                 esbpMin,
+                 esbpMax,
+                 aktivan,
+                 ulica,
+                 broj,
+                 grad,
+                 drzava
+        ).stream().map(f->new StudentDTO(f)).toList();
     }
     private static String getBrojIndeksa(int y, long id){
         String format = String.format("%06d",id);

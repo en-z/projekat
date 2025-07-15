@@ -16,6 +16,7 @@ public class Univerzitet {
     private String naziv;
     private String kontakt;
     private String email;
+    private Boolean aktivan;
     private String opis;
     private long nastavnikId;
     @OneToOne(cascade = CascadeType.ALL)

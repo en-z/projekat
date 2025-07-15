@@ -35,11 +35,43 @@ public class UniverzitetService {
         u.setNastavnikId(dto.getRektor().getId());
         u.setKontakt(dto.getKontakt());
         u.setOpis(dto.getOpis());
+        u.setAktivan(true);
         univerzitetRepository.save(u);
         return dto;
     }
     public List<UniverzitetDto> getAll() {
         List<Univerzitet> univerziteti = univerzitetRepository.findAll();
+
+        return univerziteti.stream().map(u -> {
+            UniverzitetDto dto = new UniverzitetDto(u);
+            try {
+                NastavnikDTO rektor = nastavnikClient.getNastavnikById(u.getNastavnikId()).getBody();
+                dto.setRektor(rektor);
+            } catch (Exception e) {
+                // Handle unavailable rector service or missing data
+                dto.setRektor(null); // or some default value
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
+    public List<UniverzitetDto> getAktivne() {
+        List<Univerzitet> univerziteti = univerzitetRepository.findByAktivanTrue();
+
+        return univerziteti.stream().map(u -> {
+            UniverzitetDto dto = new UniverzitetDto(u);
+            try {
+                NastavnikDTO rektor = nastavnikClient.getNastavnikById(u.getNastavnikId()).getBody();
+                dto.setRektor(rektor);
+            } catch (Exception e) {
+                // Handle unavailable rector service or missing data
+                dto.setRektor(null); // or some default value
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    public List<UniverzitetDto> getNeaktivne() {
+        List<Univerzitet> univerziteti = univerzitetRepository.findByAktivanFalse();
 
         return univerziteti.stream().map(u -> {
             UniverzitetDto dto = new UniverzitetDto(u);
@@ -68,6 +100,11 @@ public class UniverzitetService {
         return dto;
     }
     public void delete(long id){
-        univerzitetRepository.deleteById(id);
+        Univerzitet u = univerzitetRepository.findById(id) .orElse(null);
+        if(u == null){
+            throw new RuntimeException("Error id not found");
+        }
+        u.setAktivan(false);
+        univerzitetRepository.save(u);
     }
 }

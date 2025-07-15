@@ -17,7 +17,8 @@ public class KnjigaController {
     public List<Knjiga> getAll() {
         return knjigaService.getAll();
     }
-    @GetMapping("/{id:\\d+}")
+
+    @GetMapping("/{id}")
     public ResponseEntity<Knjiga> getById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(knjigaService.getById(id));
@@ -31,17 +32,17 @@ public class KnjigaController {
         return ResponseEntity.ok(knjigaService.save(knjiga));
     }
 
-    @GetMapping("/kategorija/{kategorija}")
-    public List<Knjiga> getByKategorija(@PathVariable String kategorija) {
-        return knjigaService.getByKategorija(kategorija);
-    }
     @GetMapping("/search")
     public ResponseEntity<List<Knjiga>> pretraziStudente(
             @RequestParam(required = false) String naziv,
             @RequestParam(required = false) String kategorija,
             @RequestParam(required = false) String opis,
-            @RequestParam(required = false) String autor
+            @RequestParam(required = false) String autor,
+            @RequestParam(required = false) Integer kolicinaOd,
+            @RequestParam(required = false) Integer kolicinaDo,
+            @RequestParam(required = false) Integer godinaOd,
+            @RequestParam(required = false) Integer godinaDo
     ) {
-        return ResponseEntity.ok(knjigaService.search(naziv, kategorija, opis, autor));
+        return ResponseEntity.ok(knjigaService.search(naziv, kategorija, opis, autor,kolicinaOd,kolicinaDo,godinaOd,godinaDo));
     }
 }

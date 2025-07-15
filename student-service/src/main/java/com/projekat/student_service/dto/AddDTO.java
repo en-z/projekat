@@ -16,5 +16,4 @@ public class AddDTO {
     private String drzava;
     private long userId;
     private long studiskiId;
-
 }

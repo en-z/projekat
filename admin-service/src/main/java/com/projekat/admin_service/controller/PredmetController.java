@@ -23,11 +23,21 @@ public class PredmetController {
         return ResponseEntity.ok(predmetService.getAll());
     }
 
+
+    @GetMapping("/aktivni")
+    public ResponseEntity<List<PredmetDTO>> getAktivni() {
+        return ResponseEntity.ok(predmetService.getAktivne());
+    }
+
+    @GetMapping("/neaktivni")
+    public ResponseEntity<List<PredmetDTO>> getNeaktivni() {
+        return ResponseEntity.ok(predmetService.getNeaktivne());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PredmetDTO> getById(@PathVariable long id) {
         return ResponseEntity.ok(predmetService.getById(id));
     }
-
     @PostMapping
     public ResponseEntity<PredmetDTO> create(@RequestBody PredmetDTO dto) {
         PredmetDTO created = predmetService.create(dto);

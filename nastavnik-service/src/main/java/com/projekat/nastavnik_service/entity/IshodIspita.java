@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,6 +20,7 @@ public class IshodIspita {
     private long id;
     private int brojPokusaja;
     private float bodovi;
+    private List<Long> kolokvijumiId; // ovo ili id ili float bodova iz kookvijuma
     private LocalDateTime datumUnosa;
     private long predmetId;
     private long studentId;

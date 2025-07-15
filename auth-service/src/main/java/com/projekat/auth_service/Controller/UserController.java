@@ -53,10 +53,6 @@ public class UserController {
         u.setEmail(dto.getEmail());
         return ResponseEntity.ok(service.save(u));
     }
-    @PostMapping("/student")
-    public ResponseEntity<?> student(@RequestBody RegisterDTO user)throws Exception{
-        return registerService.addUser(user);
-    }
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@RequestBody RegisterDTO user)throws Exception{
         List<String>s = new ArrayList<>();
@@ -85,7 +81,7 @@ public class UserController {
         ImeDTO i= new ImeDTO(u.getIme(),u.getPrezime());
         return ResponseEntity.ok(i);
     }
-    @GetMapping("/zaUpis")
+    @GetMapping("/zaupis")
     public ResponseEntity<?> getStudente(){
         return ResponseEntity.ok(service.findByRole());
     }

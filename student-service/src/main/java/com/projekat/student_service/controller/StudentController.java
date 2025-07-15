@@ -17,10 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/student/studenti")
 public class StudentController {
-
     @Autowired
     private StudentService studentService;
-
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
@@ -58,22 +56,30 @@ public class StudentController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
-        studentService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
-
     @GetMapping("/search")
     public ResponseEntity<List<StudentDTO>> search(
-            @RequestParam(required = false) String ime,
-            @RequestParam(required = false) String prezime,
-            @RequestParam(required = false) String brojIndeksa,
-            @RequestParam(required = false) Integer godinaUpisa,
-            @RequestParam(defaultValue = "0") float minProsek,
-            @RequestParam(defaultValue = "10") float maxProsek
+            @RequestParam(required = false)  String ime,
+            @RequestParam(required = false)  String prezime,
+            @RequestParam(required = false)  String brojIndeksa,
+            @RequestParam(required = false)  Integer godinaUpisa,
+            @RequestParam(required = false)  Integer godinaStudija,
+            @RequestParam(required = false)  Long studiskiId,
+            @RequestParam(required = false)  Float prosekMin,
+            @RequestParam(required = false)  Float prosekMax,
+            @RequestParam(required = false)  Integer esbpMin,
+            @RequestParam(required = false)  Integer esbpMax,
+            @RequestParam(required = false)  Boolean aktivan,
+            @RequestParam(required = false)  String ulica,
+            @RequestParam(required = false)  String broj,
+            @RequestParam(required = false)  String grad,
+            @RequestParam(required = false)  String drzava
     ) {
         return ResponseEntity.ok(studentService.search(
-                ime, prezime, brojIndeksa, godinaUpisa, minProsek, maxProsek
+                ime, prezime, brojIndeksa, godinaUpisa, godinaStudija,studiskiId,prosekMin,prosekMax,esbpMin,esbpMax,aktivan,ulica,broj,grad,drzava
         ));
     }
     @GetMapping("/ishod")

@@ -17,6 +17,7 @@ public class DataLoader implements CommandLineRunner {
     private UserService userRepository;
     @Override
     public void run(String... args) throws Exception {
+        /*
         User u = new User();
         u.setEmail("admin@test.com");
         u.setPassword("admin");
@@ -40,5 +41,6 @@ public class DataLoader implements CommandLineRunner {
         r.setRoles(list2);
         userRepository.save(r);
         System.out.println("DOne");
+         */
     }
 }

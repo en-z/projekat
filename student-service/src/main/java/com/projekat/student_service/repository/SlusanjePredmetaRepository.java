@@ -10,5 +10,4 @@ public interface SlusanjePredmetaRepository extends JpaRepository<SlusanjePredme
     List<SlusanjePredmeta> findByPredmetId(long id);
     List<SlusanjePredmeta> findAllByStudentId(long id);
     void deleteByStudentIdAndPredmetId(Long studentId, Long predmetId);
-
 }

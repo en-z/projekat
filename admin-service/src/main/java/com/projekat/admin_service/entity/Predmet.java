@@ -15,6 +15,7 @@ public class Predmet {
     private long id;
     private String naziv;
     private int esbp;
+    private Boolean aktivan;
     private int semestar;
     private int dan;
     @ManyToOne

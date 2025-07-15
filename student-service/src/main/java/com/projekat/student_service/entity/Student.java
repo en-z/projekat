@@ -19,7 +19,7 @@ public class Student {
     private long userId;
     private String ime;
     private String prezime;
-    @ManyToOne(cascade = CascadeType.PERSIST )
+    @OneToOne(cascade = CascadeType.PERSIST )
     private Adresa adresa;
     private String brojIndeksa;
     private float prosecnaOcena;
@@ -27,6 +27,7 @@ public class Student {
     private int godinaStudija;
     private long studiskiId;
     private int osvojeniEsbp;
+    private boolean aktivan;
 
     public Student (StudentDTO dto){
         this.userId = dto.getUserId();

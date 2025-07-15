@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface FakultetRepository extends JpaRepository<Fakultet,Long> {
-    List<Fakultet> findByUniverzitet_Id(long id);
+    List<Fakultet> findByUniverzitet_IdAndAktivanTrue(long id);
+    List<Fakultet> findByAktivanFalse();
+    List<Fakultet> findByAktivanTrue();
 }

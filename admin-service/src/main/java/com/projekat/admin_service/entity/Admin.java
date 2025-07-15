@@ -17,6 +17,7 @@ public class Admin {
     private long userId;
     private String ime;
     private String prezime;
+    private Boolean aktivan;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "adresa_id")
     private Adresa adresa;

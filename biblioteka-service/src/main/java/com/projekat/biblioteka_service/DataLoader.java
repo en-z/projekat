@@ -24,6 +24,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        /*
         Knjiga knjiga1 = new Knjiga();
         knjiga1.setNaziv("Prokleta Avlija");
         knjiga1.setKategorija("Roman");
@@ -56,5 +57,6 @@ public class DataLoader implements CommandLineRunner {
         n.setUserId(1);
         n.setIzdate(i);
         notifikacijeRepo.save(n);
+         */
     }
 }

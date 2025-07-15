@@ -17,6 +17,7 @@ public class Fakultet {
     private String opis;
     private String kontakt;
     private String email;
+    private Boolean aktivan;
     @ManyToOne
     private Univerzitet univerzitet;
     private long nastavnikId;

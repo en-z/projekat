@@ -1,9 +1,8 @@
 package com.projekat.admin_service.DTO;
 
 import com.projekat.admin_service.entity.Predmet;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

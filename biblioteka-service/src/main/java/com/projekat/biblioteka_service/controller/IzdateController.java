@@ -1,7 +1,9 @@
 package com.projekat.biblioteka_service.controller;
 
 import com.projekat.biblioteka_service.DTO.DatumDTO;
+import com.projekat.biblioteka_service.DTO.IzdajDto;
 import com.projekat.biblioteka_service.entity.Izdate;
+import com.projekat.biblioteka_service.entity.Knjiga;
 import com.projekat.biblioteka_service.service.IzdavanjeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,33 +15,30 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/biblioteka/izdate")
+@RequestMapping("/api/biblioteka/izdate")
 public class IzdateController {
     @Autowired
     private IzdavanjeService izdavanjeService;
-    @GetMapping("/nul")
-    public ResponseEntity<?>getsveIzdate(){
-        return ResponseEntity.ok(izdavanjeService.getNull());
+    @GetMapping
+    public List<Izdate> getAll(){
+       return izdavanjeService.getAll();
     }
     @GetMapping("/user")
     public List<Izdate> getIzdate() {
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long id = Long.parseLong(userId);
-
-        return izdavanjeService.getAll(id);
+        return izdavanjeService.getAllUser(id);
     }
 
-    @PostMapping("/izdaj/{kid}")
-    public ResponseEntity<?> izdaj(@PathVariable long kid) {
-        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        long id = Long.parseLong(userId);
-        System.out.println(id);
+    @PostMapping("/izdaj")
+    public ResponseEntity<?> izdaj(@RequestBody IzdajDto dto) {
         try {
-            return ResponseEntity.ok(izdavanjeService.izdajKjigu(kid, id));
+            return ResponseEntity.ok(izdavanjeService.izdajKjigu(dto));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e);
         }
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> put(@PathVariable long id, @RequestBody DatumDTO dto){
         return ResponseEntity.ok(izdavanjeService.put(id,dto.datumVracanja));

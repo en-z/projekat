@@ -9,11 +9,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface KnjigaRepository extends JpaRepository<Knjiga,Long> {
-    List<Knjiga> findByKategorijaIgnoreCase(String kategorija);
     @Query("SELECT k FROM Knjiga k WHERE " +
-            "LOWER(k.naziv) LIKE LOWER(CONCAT('%', :naziv, '%')) OR " +
-            "LOWER(k.kategorija) LIKE LOWER(CONCAT('%', :kategorija, '%')) OR " +
-            "LOWER(k.opis) LIKE LOWER(CONCAT('%', :opis, '%')) OR " +
-            "LOWER(k.autor) LIKE LOWER(CONCAT('%', :autor, '%'))")
-    List<Knjiga> search(@Param("naziv") String naziv,@Param("kategorija") String kategorija,@Param("opis") String opis,@Param("autor") String autor);
+            "(:naziv IS NULL OR LOWER(k.naziv) LIKE LOWER(CONCAT('%', :naziv, '%'))) AND " +
+            "(:kategorija IS NULL OR LOWER(k.kategorija) LIKE LOWER(CONCAT('%', :kategorija, '%'))) AND " +
+            "(:opis IS NULL OR LOWER(k.opis) LIKE LOWER(CONCAT('%', :opis, '%'))) AND " +
+            "(:autor IS NULL OR LOWER(k.autor) LIKE LOWER(CONCAT('%', :autor, '%'))) AND " +
+            "(:godinaOd IS NULL OR k.godinaIzdavanja >= :godinaOd) AND " +
+            "(:godinaDo IS NULL OR k.godinaIzdavanja <= :godinaDo) AND" +
+            "(:kolicinaOd IS NULL OR k.kolicina>= :kolicinaOd) AND" +
+            "(:kolicinaDo IS NULL OR k.kolicina<= :kolicinaDo)"
+    )
+    List<Knjiga> search(@Param("naziv") String naziv,@Param("kategorija") String kategorija,@Param("opis") String opis,@Param("autor") String autor,@Param("godinaOd") Integer godinaOd,@Param("godinaDo") Integer godinaDo,@Param("kolicinaOd") Integer kolicinaOd,@Param("kolicinaDo") Integer kolicinaDo);
 }

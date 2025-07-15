@@ -34,6 +34,48 @@ public class FakultetService {
        dto.setEmail(f.getEmail());
        return dto;
    }
+    public List<FakultetDTO> getAktivni() {
+        List<Fakultet> fa = fakultetRepository.findByAktivanTrue();
+        return fa.stream().map(f -> {
+            FakultetDTO dto = new FakultetDTO();
+            dto.setId(f.getId());
+            dto.setOpis(f.getOpis());
+            dto.setKontakt(f.getKontakt());
+            dto.setEmail(f.getEmail());
+            dto.setUniverzitetId(f.getUniverzitet().getId());
+            dto.setAdresa(f.getAdresa());
+
+            try {
+                NastavnikDTO rektor = nastavnikClient.getNastavnikById(f.getNastavnikId()).getBody();
+                dto.setRektor(rektor);
+            } catch (Exception e) {
+                // Fail-safe: rector service unavailable
+                dto.setRektor(null);
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
+    public List<FakultetDTO> getNeaktivni() {
+        List<Fakultet> fa = fakultetRepository.findByAktivanFalse();
+        return fa.stream().map(f -> {
+            FakultetDTO dto = new FakultetDTO();
+            dto.setId(f.getId());
+            dto.setOpis(f.getOpis());
+            dto.setKontakt(f.getKontakt());
+            dto.setEmail(f.getEmail());
+            dto.setUniverzitetId(f.getUniverzitet().getId());
+            dto.setAdresa(f.getAdresa());
+            try {
+                NastavnikDTO rektor = nastavnikClient.getNastavnikById(f.getNastavnikId()).getBody();
+                dto.setRektor(rektor);
+            } catch (Exception e) {
+                // Fail-safe: rector service unavailable
+                dto.setRektor(null);
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
     public List<FakultetDTO> getAll() {
         List<Fakultet> fakulteti = fakultetRepository.findAll();
 
@@ -77,10 +119,15 @@ public class FakultetService {
         return dto;
     }
     public void delete(long id){
-       fakultetRepository.deleteById(id);
+        Fakultet f = fakultetRepository.findById(id) .orElse(null);
+        if(f == null){
+            throw new RuntimeException("NOtfound by id");
+        }
+        f.setAktivan(false);
+        fakultetRepository.save(f);
     }
     public List<FakultetDTO> getByUniverzitetId(long univerzitetId) {
-        List<Fakultet> fakulteti = fakultetRepository.findByUniverzitet_Id(univerzitetId);
+        List<Fakultet> fakulteti = fakultetRepository.findByUniverzitet_IdAndAktivanTrue(univerzitetId);
 
         return fakulteti.stream().map(f -> {
             FakultetDTO dto = new FakultetDTO();
@@ -108,6 +155,7 @@ public class FakultetService {
         f.setNastavnikId(dto.getRektor().getId());
         Univerzitet u = univerzitetRepository.findById(dto.getUniverzitetId()).orElseThrow(()->new RuntimeException("error"));
         f.setUniverzitet(u);
+        f.setAktivan(true);
         fakultetRepository.save(f);
         return dto;
     }

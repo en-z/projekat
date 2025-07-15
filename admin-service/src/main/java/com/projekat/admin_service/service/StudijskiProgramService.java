@@ -28,6 +28,33 @@ public class StudijskiProgramService {
         dto.setRukovodioc(nastavnikDTO);
         return dto;
     }
+
+    public List<StudijskiProgramDTO> getAktivni() {
+        List<StudijskiProgram> programi = studijskiProgramRepository.findByAktivanTrue();
+        return programi.stream().map(s -> {
+            StudijskiProgramDTO dto = new StudijskiProgramDTO(s);
+            try {
+                NastavnikDTO rukovodioc = nastavnikClient.getNastavnikById(s.getNastavnikId()).getBody();
+                dto.setRukovodioc(rukovodioc);
+            } catch (Exception e) {
+                dto.setRukovodioc(null);
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
+    public List<StudijskiProgramDTO> getNeaktivne() {
+        List<StudijskiProgram> programi = studijskiProgramRepository.findByAktivanFalse();
+        return programi.stream().map(s -> {
+            StudijskiProgramDTO dto = new StudijskiProgramDTO(s);
+            try {
+                NastavnikDTO rukovodioc = nastavnikClient.getNastavnikById(s.getNastavnikId()).getBody();
+                dto.setRukovodioc(rukovodioc);
+            } catch (Exception e) {
+                dto.setRukovodioc(null);
+            }
+            return dto;
+        }).collect(Collectors.toList());
+    }
     public List<StudijskiProgramDTO> getAll() {
         List<StudijskiProgram> programi = studijskiProgramRepository.findAll();
 
@@ -48,7 +75,7 @@ public class StudijskiProgramService {
         s.setOpis(dto.getOpis());
         s.setFakultet(fakultetRepository.findById(dto.getFakultetId()).orElseThrow(()->new RuntimeException("errro")));
         s.setNastavnikId(dto.getRukovodioc().getId());
-
+        s.setAktivan(true);
         StudijskiProgram saved = studijskiProgramRepository.save(s);
 
         return dto;
@@ -68,13 +95,15 @@ public class StudijskiProgramService {
         return response;
     }
     public void delete(long id) {
-        if (!studijskiProgramRepository.existsById(id)) {
+        StudijskiProgram  sp = studijskiProgramRepository.findById(id).orElse(null);
+        if (sp == null) {
             throw new RuntimeException("Studijski program not found");
         }
-        studijskiProgramRepository.deleteById(id);
+        sp.setAktivan(false);
+        studijskiProgramRepository.save(sp);
     }
     public List<StudijskiProgramDTO> getByFakultetId(long fakultetId) {
-        List<StudijskiProgram> programi = studijskiProgramRepository.findByFakultet_Id(fakultetId);
+        List<StudijskiProgram> programi = studijskiProgramRepository.findByFakultet_IdAndAktivanTrue(fakultetId);
 
         return programi.stream().map(s -> {
             StudijskiProgramDTO dto = new StudijskiProgramDTO(s);
