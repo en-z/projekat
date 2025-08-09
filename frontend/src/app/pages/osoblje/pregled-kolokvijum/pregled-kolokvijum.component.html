@@ -1,0 +1,33 @@
+<h2>Pregled rasporeda kolokvijuma</h2>
+
+<!-- Izbor programa -->
+<label>Izaberi program:
+  <select [(ngModel)]="izabraniProgramId" (change)="onProgramChange()">
+    <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
+  </select>
+</label>
+
+<hr />
+
+<!-- Tabela sa kolokvijumima -->
+<table *ngIf="kolokvijumi.length > 0" border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Predmet</th>
+      <th>Učionica</th>
+      <th>Datum i vreme</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let k of kolokvijumi">
+      <td>{{ mapaPredmeta.get(k.predmetId)}}</td>
+      <td>{{ k.ucionica }}</td>
+      <td>{{ formatDatum(k.datum) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="kolokvijumi.length === 0 && izabraniProgramId">
+  Nema zakazanih kolokvijuma za izabrani program.
+</p>
+

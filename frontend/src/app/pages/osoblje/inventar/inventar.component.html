@@ -1,0 +1,41 @@
+<table>
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>Opis</th>
+      <th>Trenutna količina</th>
+      <th>Naruči količinu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of inventar">
+      <td>{{ item.naziv }}</td>
+      <td>{{ item.opis }}</td>
+      <td>{{ item.kolicina }}</td>
+      <td>
+        <input
+          type="number"
+          [(ngModel)]="narudzbe[item.id!]"
+          min="0"
+          placeholder="Unesi količinu"
+        />
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <input [(ngModel)]="noviProizvod.naziv" placeholder="Naziv novog" />
+      </td>
+      <td>
+        <input [(ngModel)]="noviProizvod.opis" placeholder="Opis" />
+      </td>
+      <td colspan="2">
+        <button (click)="dodajNovi()">Dodaj proizvod</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+<button (click)="naruci()">Naruči označene količine</button>
+

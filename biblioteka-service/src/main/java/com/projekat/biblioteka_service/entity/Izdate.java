@@ -14,8 +14,8 @@ import java.time.LocalDate;
 public class Izdate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private long userId;
+    private Long id;
+    private Long userId;
     @ManyToOne
     private Knjiga knjiga;
     private Boolean trajna;

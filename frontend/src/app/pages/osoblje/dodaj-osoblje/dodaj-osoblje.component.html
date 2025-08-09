@@ -1,0 +1,33 @@
+<h2>Kreiraj osoblje</h2>
+
+<form (ngSubmit)="kreiraj()" #osobljeForm="ngForm">
+  <label>Ime:
+    <input type="text" [(ngModel)]="osoblje.ime" name="ime" required />
+  </label>
+  <br />
+
+  <label>Prezime:
+    <input type="text" [(ngModel)]="osoblje.prezime" name="prezime" required />
+  </label>
+  <br />
+
+  <label>Email:
+    <input type="email" [(ngModel)]="osoblje.email" name="email" required />
+  </label>
+  <br />
+
+  <label>Lozinka:
+    <input type="password" [(ngModel)]="osoblje.password" name="password" required />
+  </label>
+  <br />
+
+  <label>Fakultet:
+    <select [(ngModel)]="osoblje.fakultetId" name="fakultetId" required>
+      <option *ngFor="let f of fakulteti" [value]="f.id">{{ f.naziv }}</option>
+    </select>
+  </label>
+  <br />
+
+  <button type="submit" [disabled]="!osobljeForm.form.valid">Kreiraj</button>
+</form>
+

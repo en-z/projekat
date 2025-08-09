@@ -1,0 +1,37 @@
+<h2>Pregled rasporeda predavanja</h2>
+
+<label>Izaberi program:
+  <select [(ngModel)]="izabraniProgramId" (change)="onProgramChange()">
+    <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
+  </select>
+</label>
+
+<hr />
+
+<table *ngIf="rasporedi.length > 0" border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Semestar</th>
+      <th>Dan</th>
+      <th>Vreme</th>
+      <th>Predmet</th>
+      <th>Datum od</th>
+      <th>Datum do</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of rasporedi">
+      <td>{{ r.semestar }}</td>
+      <td>{{ r.dan }}</td>
+      <td>{{ r.vreme }}h</td>
+      <td>{{ mapaPredmeta.get(r.predmetId)}}</td>
+      <td>{{ r.datumOd }}</td>
+      <td>{{ r.datumDo }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="rasporedi.length === 0 && izabraniProgramId">
+  Nema rasporeda za izabrani program.
+</p>
+

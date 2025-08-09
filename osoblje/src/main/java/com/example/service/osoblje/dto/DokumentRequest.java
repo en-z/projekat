@@ -11,8 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class DokumentRequest {
     private MultipartFile file;
-    private Long studentId;
-    private Long nastavnikId;
+    private Long userId;
     private String naslov;
     private String opis;
 }

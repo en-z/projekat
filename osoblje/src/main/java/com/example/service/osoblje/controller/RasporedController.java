@@ -28,8 +28,8 @@ public class RasporedController {
     }
 
     @PostMapping
-    public ResponseEntity<Raspored> create(@RequestBody Raspored raspored) {
-        Raspored saved = rasporedService.save(raspored);
+    public ResponseEntity<List<Raspored>> create(@RequestBody List<Raspored> raspored) {
+        List<Raspored> saved = rasporedService.saveAll(raspored);
         return ResponseEntity.ok(saved);
     }
 

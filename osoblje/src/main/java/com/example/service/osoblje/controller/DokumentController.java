@@ -6,6 +6,10 @@ import com.example.service.osoblje.service.DokumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +37,7 @@ public class DokumentController {
     @Autowired
     private DokumentService dokumentService;
     @PostMapping("/upload")
-    public ResponseEntity<Dokument> upload( @RequestBody DokumentRequest dokumentRequest ) {
+    public ResponseEntity<Dokument> upload( @ModelAttribute  DokumentRequest dokumentRequest ) {
         try {
             if (!Files.exists(rootLocation)) {
                 Files.createDirectories(rootLocation);
@@ -44,10 +48,9 @@ public class DokumentController {
             Files.copy(dokumentRequest.getFile().getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             Dokument dokument = new Dokument();
-            dokument.setStudentId(dokumentRequest.getStudentId());
-            dokument.setNastavnikId(dokumentRequest.getNastavnikId());
+            dokument.setUserId(dokumentRequest.getUserId());
             dokument.setNaslov(dokumentRequest.getNaslov());
-            dokument.setOpis(dokument.getOpis());
+            dokument.setOpis(dokumentRequest.getOpis());
             dokument.setDatum(LocalDate.now());
             dokument.setPath(filePath.toString());
 
@@ -88,23 +91,33 @@ public class DokumentController {
         }
     }
 
-    @GetMapping
-    public List<Dokument> getAll() {
-        return dokumentService.findAll();
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Dokument> getById(@PathVariable Long id) {
         return dokumentService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    @GetMapping("/student/{id}")
-    public ResponseEntity<List<Dokument>> getByStudentId(@PathVariable Long id) {
-        return new ResponseEntity<>(dokumentService.findByStudentId(id),HttpStatus.OK);
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Page<Dokument>> getByStudentId(@PathVariable Long id,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "5") int size
+                                                         ) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        return new ResponseEntity<>(dokumentService.findByUserId(id,pageable),HttpStatus.OK);
     }
-    @GetMapping("/nastavnik/{id}")
-    public ResponseEntity<List<Dokument>> getByNastavnikId(@PathVariable Long id) {
-        return new ResponseEntity<>(dokumentService.findByNastanvnikId(id),HttpStatus.OK);
+    @GetMapping("/dokument")
+    public ResponseEntity<Page<Dokument>> getDokumenti(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "datum") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction
+    ) {
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(dokumentService.getAllDokumenti(pageable));
     }
 }

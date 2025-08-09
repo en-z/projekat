@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> { //Za brisanje i dodavanje u batchu
     Optional<User> findByEmail(String email);
+    List<User> findByEmailContainingIgnoreCase(String email);
     List<User> findByRolesContaining(String role);
     boolean existsByEmail(String email);
 }

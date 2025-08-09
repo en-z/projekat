@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 public class SlusanjePredmeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private long predmetId;
+    private Long id;
+    private Long predmetId;
     @ManyToOne
     private Student student;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IshodIspitaService } from '../../../services/ishod.ispita.service';
 import { IshodIspita } from '../../../models/ishod.ispita';
@@ -9,113 +9,102 @@ import { Student } from '../../../models/student';
 import { HttpClient } from '@angular/common/http';
 import { InstrumentEvaluacijeService } from '../../../services/instrument.evaluacije.service';
 import { InstrumentEvaluacije } from '../../../models/instrument.evaluacije';
+import { IspitniRokService } from '../../../services/ispitniRok.service';
+import { PrijavaService } from '../../../services/prijava.service';
+import { StudentService } from '../../../services/student.service';
+import { KolokvijumRezultatService } from '../../../services/kolokvijumRezultat.service';
+import { KolokvijumRezultat } from '../../../models/kolokvijumRezultat';
 
 
 @Component({
   selector: 'app-unos-ocena',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './unos-ocena.component.html',
   styleUrls: ['./unos-ocena.component.css']
 })
 export class UnosOcenaComponent implements OnInit {
-  ocenaForm!: FormGroup;
   predmetId!: number;
-  ishodi: IshodIspita[] = [];
-  instrumenti:InstrumentEvaluacije[]=[];
-  dozvoljenUnos: boolean = true;
-  studenti: Student[] = [];
+  rokovi: any[] = [];
+  izabraniRokId!: number;
+  studenti: any[] = [];
+  dozvoljenUnos:boolean = false;
+  instrumenti:InstrumentEvaluacije[]=[]
+  instrumentId = 1;
+  openedRow: number | null = null;
+  tabela: IshodIspita[] = [];
+  kolokvijumiStudenta:KolokvijumRezultat[]=[]
+  kolokvijumiMapa: { [index: number]: KolokvijumRezultat[] } = {};
 
   constructor(
-    private route: ActivatedRoute,
-    private ishodService: IshodIspitaService,
-    private slusanjeService: SlusanjePredmetaService,
-    private fb: FormBuilder,
-    private http:HttpClient,
-    private instrumentService:InstrumentEvaluacijeService
+    private ispitniRokService: IspitniRokService,
+    private instrumentService:InstrumentEvaluacijeService,
+    private studenService:StudentService,
+    private ishodService:IshodIspitaService,
+    private kolokvijumService:KolokvijumRezultatService,
+    private route:ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {
-  this.predmetId = Number(this.route.snapshot.paramMap.get('id'));
-  this.ocenaForm = this.fb.group({
-    bodovi: [0, Validators.required],
-    studentId: [null, Validators.required],
-    nastavnikId: [1], // zameni sa dijem iz tokena
-    predmetId: [this.predmetId],
-    instumentId:[null,Validators.required]
-  });
+  ngOnInit() {
+    this.predmetId = Number(this.route.snapshot.paramMap.get('id'));
+    this.ucitajRokove();
+    this.ishodService.proveriStatusUnosaOcene(this.predmetId).subscribe(res => {
+      this.dozvoljenUnos = res;
+    });
+    this.instrumentService.getByPredmetId(this.predmetId).subscribe(data=>{
+      this.instrumenti= data;
+    })
+  }
 
-  this.ishodService.proveriStatusUnosaOcene(this.predmetId).subscribe(res => {
-    this.dozvoljenUnos = res;
-  });
-
-  this.ucitajIshode();
-  this.ucitajStudente();
-  this.ucitajInstrumente();
-}
-
-  ucitajStudente(): void {
-   this.slusanjeService.getByPredmet(this.predmetId).subscribe(data => {
-     this.studenti = data.map(s => s.student);
-   });
-}
-
-  ucitajIshode(): void {
-    this.ishodService.getByPredmet(this.predmetId).subscribe(data => {
-      this.ishodi = data;
-      this.ocene();
+  ucitajRokove() {
+    this.ispitniRokService.getAktivne().subscribe(rokovi => {
+      this.rokovi = rokovi;
     });
   }
-  ucitajInstrumente(){
-    this.instrumentService.getByPredmetId(this.predmetId).subscribe(data=>this.instrumenti = data)
+
+  onRokChange() {
+    if (!this.izabraniRokId) return;
+    this.studenService.getByPredmetIdAndRok(this.izabraniRokId,this.predmetId).subscribe(studenti => {
+      this.studenti = studenti;
+      this.tabela = studenti.map(s => ({
+        id: null,
+        brojPokusaja: null,
+        rokId: this.izabraniRokId,
+        kolokvijumiId: [],
+        polozen: false,
+        bodovi: 0,
+        ocena: 0,
+        datumUnosa: '',
+        studentId: s.id,
+        predmetId: this.predmetId,
+        nastavnikId: null,
+        instumentId: this.instrumentId
+      }));
+    });
+  }
+  ucitajKolokvijume(index: number, studentId: number) {
+  if (this.openedRow === index) {
+    this.openedRow = null;
+    return;
   }
 
-  submit(): void {
-    if (this.ocenaForm.valid) {
-      this.ishodService.create(this.ocenaForm.value).subscribe({
-        next: () => {
-          alert('Uspesno uneta ocena!');
-          this.ocenaForm.reset();
-          this.ocenaForm.get('predmetId')?.setValue(this.predmetId);
-          this.ucitajIshode();
-        },
-        error: () => alert('Greška pri unosu.')
-      });
+  this.kolokvijumService.getRezultateStudentaIPredmeta(this.predmetId, studentId)
+    .subscribe(kolokvijumi => {
+      this.kolokvijumiMapa[index]= kolokvijumi;
+      this.openedRow = index;
+    });
+  }
+
+  toggleKolokvijum(red: IshodIspita, kolokvijumId: number, event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      red.kolokvijumiId.push(kolokvijumId);
+    } else {
+      red.kolokvijumiId = red.kolokvijumiId.filter(id => id !== kolokvijumId);
     }
   }
-  ocene(){
-    for (let val of this.ishodi){
-      val.ocena = this.getOcena(val.bodovi)
-    }
-  }
-  getOcena(n:number):number{
-    if(n<51){
-      return 5
-    }
-    return Math.floor((n-1)/10)+1;
-  }
-  selectedFile: File | null = null;
-
-onFileSelected(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  if (input.files && input.files.length > 0) {
-    this.selectedFile = input.files[0];
-  }
-}
-
-uploadFile(): void {
-  if (!this.selectedFile) return;
-
-  const formData = new FormData();
-  formData.append('file', this.selectedFile);
-
-  this.http.post('http://localhost:8080/api/nastavnik/ishodi/xml-file', formData).subscribe({
-    next: (response) => {
-      alert('Fajl je uspešno poslat.');
-    },
-    error: (error) => {
-      console.error('Greška pri slanju fajla', error);
-      alert('Došlo je do greške pri slanju fajla.');
-    }
-  });
+  sacuvaj() {
+    this.ishodService.create(this.tabela).subscribe(data=>{
+      console.log("dodato")
+    })
   }
 }

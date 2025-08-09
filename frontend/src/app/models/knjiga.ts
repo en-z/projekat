@@ -3,6 +3,7 @@ export interface Knjiga{
   naziv:string,
   kategorija:string,
   opis:string,
+  godinaIzdavanja:number,
   autor:string,
   kolicina:number,
 }

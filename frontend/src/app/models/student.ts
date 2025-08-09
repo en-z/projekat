@@ -4,6 +4,7 @@ export interface Student{
   prezime: string;
   brojIndeksa: string;
   godinaUpisa: number;
+  godinaStudija:number,
   email: string;
   prosecnaOcena: number;
   osvojeniESPB: number;

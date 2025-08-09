@@ -1,0 +1,102 @@
+---
+title: "Domaci 1 - Statisticka Analiza Telefona"
+author: "Ognjen Samsal"
+date: "2025-03-13"
+output: html_document
+---
+## interkvartalno rastojanje ,interval varijacije, disperzija 
+disperzija = ((a1..an - avg)^2)s/n prosecno kvadratno odstupanje od sr vredonsti 
+sd = 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data set telefona 
+Preuzeto sa https://www.kaggle.com/datasets/rohsanyadav/smartphones-dataset?select=smartphones_data.csv.csv
+Ucitavanje .csv fajla u r-lang
+```{r telefoni ,include = FALSE}
+library(dplyr)
+```
+
+```{r}
+telefoni_data <- read.csv("smartphones_data.csv",header = TRUE,sep = ",")
+##telefoni_data$Price za dobijanje kolone, isto mozemo preimenovati varijabl npr cena <- telefoni_data[3]
+```
+Problemi sa setom:
+
+1.Valuta cene nije specificirana prespostavka je da su indiski rupi i takodje uracnuata carina u cenu. Uzimamo srednji kurs od 1Rup = 0.01Eur, ostalo ignorisemo
+```{r}
+    telefoni_data$Price = telefoni_data$Price * 0.01
+```
+2.Modeli telefona sa razlicitim kapacitetima memorije u svom nazivu imaju memoriju iako imamo posebnu colonu sa memorijom tako da nije moguce dobiti neke statisticke informacije iz ovog seta(npr. Broj telefona po kompaniji)
+
+Primer 
+```{r}
+apple<- telefoni_data%>%
+    filter(brand_name =='apple') %>%
+    slice(1:50) 
+print(apple$Name)
+```
+
+Imena polja kojim raspolazemo
+```{r colnamess,echo = FALSE}
+colnames(telefoni_data)
+```
+Pojasnjenje polja:
+1.NFC(Near-field Communication) je tehnologija koja omogucava telefonima da se ponasaju kao kreditna kartica ili se spoje brzo sa ostalim uredjajima
+
+Tabela frekvencija za brendove koji se pojavljuju
+```{r}
+Imena_Tabela <- table(telefoni_data$brand_name)
+barplot(Imena_Tabela,las =2)
+```
+
+```{r}
+hist(telefoni_data$Price,main="Distribucija cena telefona",xlab="cena telefona u EUR")
+```
+
+Operativni sistemis su 
+```{r}
+Os_Tabela<- table(telefoni_data$OS)
+pie(Os_Tabela,labels=paste0(round((Os_Tabela/sum(Os_Tabela))*100,1),"%"),main="Distribucija operativnih sistema",col=c("green","blue","red"))
+legend("topright",legend=names(Os_Tabela),fill=c("green","blue","red"),title="Operativni sistemi")
+```
+
+```{r}
+boxplot(telefoni_data$storage,yaxt="n")
+y_ax<-c(32,64,128,256,512,1024)
+axis(2,at=y_ax,labels=y_ax)
+```
+
+```{r}
+hist(telefoni_data$Battery_cap,breaks=3)
+```
+
+```{r}
+library(knitr)
+Con_Table <- table(telefoni_data$brand_name,telefoni_data$has_fast_charging)
+kable(Con_Table)
+```
+```{r }
+##processor brand
+table <- table(telefoni_data$brand_name,telefoni_data$processor_brand)
+table <-cbind(table,Total=rowSums(table))
+kable(table)
+```
+```{r}
+#is primary back and count
+boxplot(telefoni_data$primery_rear_camera)
+```
+
+```{r}
+##is primary front and count
+boxplot(num_front_camera ~Num_Back_Cameras,data = telefoni_data)
+```
+
+```{r}
+##display size
+hist(telefoni_data$display_size.inch)
+```
+```{r}
+hist(telefoni_data$refresh_rate.hz)
+```

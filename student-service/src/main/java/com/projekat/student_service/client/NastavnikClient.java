@@ -9,4 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface NastavnikClient {
     @GetMapping("/ishodi/student/{id}")
     ResponseEntity<?> getIshode(@PathVariable long id);
+    @GetMapping("/kolokvijumi/predmet/{predmetId}/student/{studentId}")
+    ResponseEntity<?>getPredmeteZaStudenta(@PathVariable  Long studentId,@PathVariable Long predmetId);
 }

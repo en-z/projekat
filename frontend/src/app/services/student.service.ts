@@ -17,6 +17,12 @@ export class StudentService {
     return this.http.get<Student>(`${this.apiUrl}/${id}`);
   }
 
+  getByPredmetId(id: number): Observable<Student[]> {
+    return this.http.get<Student[]>(`${this.apiUrl}/predmet/student/${id}`);
+  }
+  getByPredmetIdAndRok(rokId: number,predmetId:number): Observable<Student[]> {
+    return this.http.get<Student[]>(`${this.apiUrl}/rok/{rokId}/predmet/${predmetId}`);
+  }
   search(params: any): Observable<Student[]> {
     let httpParams = new HttpParams();
     for (let key in params) {

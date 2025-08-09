@@ -2,47 +2,74 @@ import { Component } from '@angular/core';
 import { Izdate } from '../../models/izdate';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Zahtjev } from '../../models/zahtjev';
+import { IzdateService } from '../../services/izdate.service';
+import { ZahtjevService } from '../../services/Zahtjev.service';
 
 @Component({
   selector: 'app-izdate-put',
-  imports: [CommonModule,FormsModule],
+  imports: [FormsModule,CommonModule,ReactiveFormsModule],
   templateUrl: './izdate-put.component.html',
   styleUrl: './izdate-put.component.css'
 })
 export class IzdatePutComponent {
-  izdateList: Izdate[] = [];
-  selectedIzdateId: number | null = null;
-  noviDatumVracanja: string = '';
+  searchForm = new FormGroup({
+    userIdMin: new FormControl(null),
+    userIdMax: new FormControl(null),
+    imeContains: new FormControl(''),
+    prezimeContains: new FormControl(''),
 
-  constructor(private http: HttpClient) {}
+    knjigaNazivContains: new FormControl(''),
+    knjigaKategorijaContains: new FormControl(''),
+    knjigaOpisContains: new FormControl(''),
+    knjigaGodinaIzdavanjaMin: new FormControl(null),
+    knjigaGodinaIzdavanjaMax: new FormControl(null),
+    knjigaAutorContains: new FormControl(''),
+    knjigaKolicinaMin: new FormControl(null),
+    knjigaKolicinaMax: new FormControl(null),
+  });
 
-  ngOnInit(): void {
-    this.loadIzdate();
-  }
+  rezultati: Zahtjev[] = [];
+  selektovani?: Zahtjev;
 
-  loadIzdate() {
-    this.http.get<Izdate[]>('http://localhost:8080/api/biblioteka/izdate/nul').subscribe(data => {
-      this.izdateList = data;
+  trajan: boolean = false;
+  datumVracanja?: string;
+
+  constructor(private zahtjevService:ZahtjevService,private izdaj:IzdateService) {}
+
+  pretrazi() {
+    // Uzmi vrednosti iz forme i prosledi kao searchCriteria
+    const searchCriteria = this.searchForm.value;
+    this.zahtjevService.search(searchCriteria).subscribe(res => {
+      this.rezultati = res;
     });
   }
 
-  postaviDatum() {
-    if (this.selectedIzdateId && this.noviDatumVracanja) {
-      const payload = { datumVracanja: this.noviDatumVracanja };
-      console.log(payload)
+  selektuj(zahtjev: Zahtjev) {
+    this.selektovani = zahtjev;
+    this.trajan = false;
+    this.datumVracanja = undefined;
+  }
 
-      this.http.put(`http://localhost:8080/api/biblioteka/izdate/${this.selectedIzdateId}`, payload).subscribe({
-        next: () => {
-          alert('Datum vraćanja uspešno postavljen!');
-          this.loadIzdate();
-          this.noviDatumVracanja = '';
-          this.selectedIzdateId = null;
-        },
-        error: () => alert('Došlo je do greške pri postavljanju datuma')
-      });
-    } else {
-      alert('Izaberite stavku i unesite datum vraćanja');
-    }
+  potvrdiIzdavanje() {
+    if (!this.selektovani) return;
+
+    const dto: Izdate= {
+      knjigaId: this.selektovani.knjiga.id!,
+      userId: this.selektovani.userId,
+      ime: this.selektovani.ime,
+      prezime: this.selektovani.prezime,
+      trajan: this.trajan,
+      datumVracanja: this.trajan ? null : this.datumVracanja || null
+    };
+
+    this.izdaj.izdaj(dto,this.selektovani.id).subscribe(() => {
+      this.selektovani = undefined;
+      this.trajan = false;
+      this.datumVracanja = undefined;
+      this.pretrazi();
+    });
   }
 }
+

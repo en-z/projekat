@@ -48,6 +48,7 @@ export class PocetnaComponent {
       });
     }
   }
+
 pretrazi() {
   const searchParams: any = {};
 
@@ -71,7 +72,7 @@ pretrazi() {
     this.filtrirajPoKategoriji();
   }
   izdaj(knjigaId:number){
-    this.izdateService.izdaj(knjigaId).subscribe(()=>alert("dodato"))
+    this.izdateService.zahtjev(knjigaId).subscribe(()=>(console.log()))
   }
   edit(knjigaId:number){
     this.router.navigate([`/biblioteka/knjiga/${knjigaId}`])

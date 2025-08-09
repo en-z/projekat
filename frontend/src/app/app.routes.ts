@@ -42,6 +42,16 @@ import { IzdatePutComponent } from './pages/izdate-put/izdate-put.component';
 import { AdminDodajKnjiguComponent } from './pages/admin-dodaj-knjigu/admin-dodaj-knjigu.component';
 import { PrikaziZavrsneRadoveComponent } from './pages/prikazi-zavrsne-radove/prikazi-zavrsne-radove.component';
 import { StudentPredmetComponent } from './pages/student-predmet/student-predmet.component';
+import { DodajSlusanjePredmetaComponent } from './pages/dodaj-slusanje-predmeta/dodaj-slusanje-predmeta.component';
+import { RasporedComponent } from './pages/osoblje/raspored/raspored.component';
+import { OpstaObavjestenjaComponent } from './pages/osoblje/opsta-obavjestenja/opsta-obavjestenja.component';
+import { DodajObavjestenjaComponent } from './pages/osoblje/dodaj-obavjestenja/dodaj-obavjestenja.component';
+import { DokumentiComponent } from './pages/osoblje/dokumenti/dokumenti.component';
+import { PrikaziDokumentComponent } from './pages/osoblje/prikazi-dokument/prikazi-dokument.component';
+import { InventarComponent } from './pages/osoblje/inventar/inventar.component';
+import { Component } from '@angular/core';
+import { KolokvijumiComponent } from './pages/osoblje/kolokvijumi/kolokvijumi.component';
+import { PregledKolokvijumComponent } from './pages/osoblje/pregled-kolokvijum/pregled-kolokvijum.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -53,7 +63,10 @@ export const routes: Routes = [
     path:"notifikacije",component:NotifikacijeComponent
   },
   {
-    path:"dodaj-studenta",component:DodajStudentaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+    path:"dodaj-studenta",component:DodajStudentaComponent
+  },
+  {
+    path:"dodaj-slusanja",component:DodajSlusanjePredmetaComponent
   },
   {
     path:"fakultet/:id",component:AdminDodajFakultetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
@@ -138,7 +151,21 @@ export const routes: Routes = [
   },
   {
     path:"student/predmet",component:StudentPredmetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
+  },{
+    path:"raspored",component:RasporedComponent
   },
+  {
+    path:"opsta",component:OpstaObavjestenjaComponent
+  },{
+    path:"opsta-d",component:DodajObavjestenjaComponent
+  },
+  {
+    path:"dokumenti",component:DokumentiComponent
+  },{
+    path:"kolokvijumi",component:KolokvijumiComponent
+  },{path:"pregled-kolokvijuma",component:PregledKolokvijumComponent},
+  {path:"inventar",component:InventarComponent},
+  {path:"prikazi-dokumente",component:PrikaziDokumentComponent},
   { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id', component: PredmetDetaljiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id/silabus', component: SilabusComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},

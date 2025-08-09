@@ -21,8 +21,11 @@ public class RasporedService {
         return rasporedRepostory.findById(id);
     }
 
-    public Raspored save(Raspored raspored) {
+    public Raspored save(Raspored raspored){
         return rasporedRepostory.save(raspored);
+    }
+    public List<Raspored> saveAll(List<Raspored> raspored) {
+        return rasporedRepostory.saveAll(raspored);
     }
 
     public void deleteById(Long id) {

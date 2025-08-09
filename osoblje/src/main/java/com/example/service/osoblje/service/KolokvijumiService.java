@@ -23,6 +23,9 @@ public class KolokvijumiService {
         return kolokvijumiRepository.save(kolokvijum);
     }
 
+    public List<Kolokvijumi> saveAll(List<Kolokvijumi> kolokvijum) {
+        return kolokvijumiRepository.saveAll(kolokvijum);
+    }
     public void deleteById(Long id) {
         kolokvijumiRepository.deleteById(id);
     }

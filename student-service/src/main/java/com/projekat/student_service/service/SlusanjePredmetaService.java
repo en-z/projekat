@@ -2,10 +2,12 @@ package com.projekat.student_service.service;
 
 import com.projekat.student_service.client.AdminClient;
 import com.projekat.student_service.dto.PredmetDTO;
+import com.projekat.student_service.dto.SlusanjaReqDto;
 import com.projekat.student_service.dto.SlusanjePredmetaDTO;
 import com.projekat.student_service.entity.SlusanjePredmeta;
 import com.projekat.student_service.entity.Student;
 import com.projekat.student_service.repository.SlusanjePredmetaRepository;
+import com.projekat.student_service.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.List;
 public class SlusanjePredmetaService {
     @Autowired
     private SlusanjePredmetaRepository slusanjePredmetaRepository;
+    @Autowired
+    private StudentRepository studentRepository;
     @Autowired
     private AdminClient adminClient;
     public List<SlusanjePredmetaDTO> getStudentiNaPredmetu(long id){
@@ -31,14 +35,17 @@ public class SlusanjePredmetaService {
         List<PredmetDTO> d =adminClient.getPredmetiByIds(ids).getBody() ;
         return d;
     }
-    public SlusanjePredmetaDTO upisiStudeenta(SlusanjePredmetaDTO dto){
-        Student s = new Student(dto.getStudent());
-        SlusanjePredmeta sp = new SlusanjePredmeta();
-        sp.setStudent(s);
-        sp.setPredmetId(dto.getPredmetId());
-        sp =slusanjePredmetaRepository.save(sp);
-        dto.setId(sp.getId());
-        return dto;
+    public SlusanjePredmetaDTO upisiStudeenta(List<SlusanjaReqDto> dto){
+        for( SlusanjaReqDto req:dto){
+            List<SlusanjePredmeta> list = new ArrayList<>();
+            Student s = studentRepository.findById(req.getStudentId()).orElse(null);
+            for (Long id:req.getPredmetIds()){
+                list.add(new SlusanjePredmeta(null,id,s));
+            }
+            slusanjePredmetaRepository.deleteAllByStudentId(s.getId());
+            slusanjePredmetaRepository.saveAll(list);
+        }
+        return null;
     }
     public void delete(long studentId,long predmetId){
         slusanjePredmetaRepository.deleteByStudentIdAndPredmetId(studentId,predmetId);

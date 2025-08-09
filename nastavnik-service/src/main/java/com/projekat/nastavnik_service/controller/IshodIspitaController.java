@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -50,14 +51,18 @@ public class IshodIspitaController {
     }
 
     @PostMapping
-    public ResponseEntity<IshodIspitaDTO> create(@RequestBody IshodIspitaDTO dto) {
-        Nastavnik nastavnik = nastavnikService.findById(dto.getNastavnikId()).orElseThrow();
+    public ResponseEntity<List<IshodIspitaDTO>> create(@RequestBody List<IshodIspitaDTO> dtoList) {
+        List<IshodIspita> lista=new ArrayList<>();
 
-        IshodIspita ishod = IshodIspitaMapper.fromDTO(dto, nastavnik);
-        InstrumentEvaluacije e = instrumentEvaluacijeRepository.findById(dto.getInstumentId()).orElseThrow(()->new RuntimeException("nema instrumenta evaluacije"));
-        ishod.setInstrumentEvaluacije(e);
-        IshodIspita saved = service.save(ishod);
-        return ResponseEntity.ok(IshodIspitaMapper.toDTO(saved));
+        for(IshodIspitaDTO dto:dtoList){
+            Nastavnik nastavnik = nastavnikService.findById(dto.getNastavnikId()).orElseThrow();
+            IshodIspita ishod = IshodIspitaMapper.fromDTO(dto, nastavnik);
+            InstrumentEvaluacije e = instrumentEvaluacijeRepository.findById(dto.getInstumentId()).orElseThrow(()->new RuntimeException("nema instrumenta evaluacije"));
+            ishod.setInstrumentEvaluacije(e);
+            lista.add(ishod);
+        }
+        service.save(lista);
+        return ResponseEntity.ok(dtoList);
     }
 
     @DeleteMapping("/{id}")

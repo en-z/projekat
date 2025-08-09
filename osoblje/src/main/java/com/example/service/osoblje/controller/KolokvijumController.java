@@ -29,8 +29,8 @@ public class KolokvijumController{
     }
 
     @PostMapping
-    public ResponseEntity<Kolokvijumi> create(@RequestBody Kolokvijumi kolokvijum) {
-        Kolokvijumi saved = kolokvijumiService.save(kolokvijum);
+    public ResponseEntity<List<Kolokvijumi>> create(@RequestBody List<Kolokvijumi> kolokvijum) {
+        List<Kolokvijumi> saved = kolokvijumiService.saveAll(kolokvijum);
         return ResponseEntity.ok(saved);
     }
 

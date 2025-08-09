@@ -3,6 +3,10 @@ package com.example.service.osoblje.service;
 import com.example.service.osoblje.models.Dokument;
 import com.example.service.osoblje.repository.DokumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +21,8 @@ public class DokumentService {
         return dokumentRepository.findAll();
     }
 
-    public List<Dokument> findByNastanvnikId(Long id) {
-       return dokumentRepository.findByNastavnikId(id);
-    }
-    public List<Dokument>findByStudentId(Long id){
-        return dokumentRepository.findByStudentId(id);
+    public Page<Dokument> findByUserId(Long id, Pageable pageable) {
+       return dokumentRepository.findByUserId(id,pageable);
     }
     public Optional<Dokument> findById(Long id) {
         return dokumentRepository.findById(id);
@@ -33,5 +34,9 @@ public class DokumentService {
 
     public void deleteById(Long id) {
         dokumentRepository.deleteById(id);
+    }
+
+    public Page<Dokument> getAllDokumenti(Pageable pageable) {
+        return dokumentRepository.findAll(pageable);
     }
 }

@@ -14,9 +14,10 @@ export class IshodIspitaService {
     return this.http.get<IshodIspita[]>(this.apiUrl);
   }
 
-  create(data: IshodIspita): Observable<IshodIspita> {
-    return this.http.post<IshodIspita>(this.apiUrl, data);
+  create(data: IshodIspita[]): Observable<IshodIspita[]> {
+    return this.http.post<IshodIspita[]>(this.apiUrl, data);
   }
+
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);

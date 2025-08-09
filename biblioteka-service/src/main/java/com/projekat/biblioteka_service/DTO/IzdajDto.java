@@ -12,6 +12,8 @@ import java.time.LocalDate;
 public class IzdajDto {
     private Long knjigaId;
     private Long userId;
+    private String ime;
+    private String prezime;
     private Boolean trajan;
     private LocalDate datumVracanja;
 }

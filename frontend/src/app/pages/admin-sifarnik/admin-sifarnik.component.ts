@@ -36,11 +36,6 @@ export class AdminSifarnikComponent {
       return;
     }
     this.userService.getByEmail(this.email).subscribe({
-      next:(user:User)=>{
-        this.userList = [user]
-        this.loading = false;
-      },
-      error:err=>this.error = err.message
     })
   }
   genPassword():string{

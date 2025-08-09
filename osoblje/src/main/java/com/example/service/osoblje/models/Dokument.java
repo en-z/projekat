@@ -15,8 +15,7 @@ public class Dokument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long studentId; // za kojeg uzera
-    private Long nastavnikId; // za kojeg uzera
+    private Long userId;
     private String naslov;
     private String opis;
     private String path;

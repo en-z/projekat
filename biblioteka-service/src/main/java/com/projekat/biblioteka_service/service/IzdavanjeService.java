@@ -1,11 +1,13 @@
 package com.projekat.biblioteka_service.service;
 
 import com.projekat.biblioteka_service.DTO.IzdajDto;
+import com.projekat.biblioteka_service.DTO.IzdateSearch;
 import com.projekat.biblioteka_service.entity.Izdate;
 import com.projekat.biblioteka_service.entity.Knjiga;
 import com.projekat.biblioteka_service.repository.IzdateRepository;
 import com.projekat.biblioteka_service.repository.KnjigaRepository;
 import com.projekat.biblioteka_service.repository.NotifikacijeRepo;
+import com.projekat.biblioteka_service.repository.ZahtjevRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
@@ -21,8 +23,26 @@ public class IzdavanjeService {
     @Autowired
     private IzdateRepository izdateRepository;
     @Autowired
+    private ZahtjevRepository zahtjevRepository;
+    @Autowired
     private NotifikacijeRepo notifikacijeRepo;
-    public Izdate izdajKjigu(IzdajDto dto){
+
+    public List<Izdate> search(IzdateSearch search) {
+        return izdateRepository.search(
+                search.getUserIdMin(),
+                search.getUserIdMax(),
+                search.getKnjigaNazivContains(),
+                search.getKnjigaKategorijaContains(),
+                search.getKnjigaOpisContains(),
+                search.getKnjigaGodinaIzdavanjaMin(),
+                search.getKnjigaGodinaIzdavanjaMax(),
+                search.getKnjigaAutorContains(),
+                search.getKnjigaKolicinaMin(),
+                search.getKnjigaKolicinaMax(),
+                search.getTrajna()
+        );
+    }
+    public Izdate izdajKjigu(Long id,IzdajDto dto){
         Knjiga k = knjigaRepository.findById(dto.getKnjigaId()).orElseThrow(()->new RuntimeException("Nije pornadjena"));
         if(k.getKolicina()<=0){
             throw new RuntimeException("Kolicina je 0");
@@ -35,6 +55,7 @@ public class IzdavanjeService {
         izdate.setDatumVracanja(dto.getDatumVracanja());
         k.setKolicina(k.getKolicina()-1);
         knjigaRepository.save(k);
+        zahtjevRepository.deleteById(id);
         return izdateRepository.save(izdate);
     }
 

@@ -14,4 +14,6 @@ public class RegisterDTO {
     private String ime;
     private String prezime;
     private List<String> roles;
+    private Long fakultetId;
+    private Long studiskiId;
 }

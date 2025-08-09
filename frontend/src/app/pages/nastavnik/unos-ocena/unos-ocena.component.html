@@ -1,46 +1,62 @@
-<div class="container">
-  <h2>Unos ocene za predmet ID: {{ predmetId }}</h2>
+<table >
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Bodovi</th>
+      <th>Ocena</th>
+      <th>Kolokvijumi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let red of tabela; let i = index">
+      <tr>
+        <td>
+          {{ studenti[i]?.ime }} {{ studenti[i]?.prezime }}
+        </td>
+        <td>
+          <input type="number"
+                 [(ngModel)]="red.bodovi"
+                 [disabled]="!dozvoljenUnos">
+        </td>
+        <td>
+          <input type="number"
+                 [(ngModel)]="red.ocena"
+                 [disabled]="!dozvoljenUnos">
+        </td>
+        <td>
+          <button
+                  (click)="ucitajKolokvijume(i, red.studentId)">
+            {{ openedRow === i ? 'Sakrij' : 'Prikaži' }} kolokvijume
+          </button>
+        </td>
+      </tr>
 
-  <ng-container *ngIf="dozvoljenUnos; else blokirano">
-    <form [formGroup]="ocenaForm" (ngSubmit)="submit()" class="dodaj">
-      <select formControlName="studentId" required>
-        <option value="" disabled selected>Izaberi studenta</option>
-        <option *ngFor="let student of studenti" [value]="student.id">
-          {{ student.ime }} {{ student.prezime }} (ID: {{ student.id }})
-        </option>
-      </select>
-      <select formControlName="instumentId" required>
-        <option value="" disabled selected>Izaberi Instrument</option>
-        <option *ngFor="let instrument of instrumenti" [value]="instrument.id">
-          {{ instrument.tip}} (ID: {{ instrument.id }})
-        </option>
-      </select>
-      <input type="number" formControlName="bodovi" placeholder="Bodovi" required>
+      <tr *ngIf="openedRow === i">
+        <td colspan="4">
+          <div *ngIf="kolokvijumiMapa[i]; else loadingOrEmpty">
+            <div *ngIf="kolokvijumiMapa[i].length > 0; else noKolokvijumi">
+              <div *ngFor="let kol of kolokvijumiMapa[i]">
+                <label>
+                  <input type="checkbox"
+                         [checked]="red.kolokvijumiId.includes(kol.id!)"
+                         (change)="toggleKolokvijum(red, kol.id!, $event)">
+                  {{ kol.naziv }} Datum:{{kol.datum}} ({{ kol.bodovi }} bodova)
+                </label>
+              </div>
+            </div>
+          </div>
+          <ng-template #noKolokvijumi>
+            <em>Nema kolokvijuma za ovog studenta.</em>
+          </ng-template>
 
-      <button type="submit" [disabled]="ocenaForm.invalid">Unesi ocenu</button>
-    </form>
-  </ng-container>
-    <h3>Učitaj fajl sa ishodima</h3>
-    <form (submit)="uploadFile()" enctype="multipart/form-data">
-    <input type="file" accepte=".xlm" (change)="onFileSelected($event)" required>
-    <button type="submit" [disabled]="!selectedFile">Pošalji fajl</button>
-    </form>
+          <ng-template #loadingOrEmpty>
+            <em>Učitavanje...</em>
+          </ng-template>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
 
-  <ng-template #blokirano>
-    <p style="color: red;">
-      Unos ocena više nije moguc jer je proslo vise od 15 dana od poslednjeg termina ispita.
-    </p>
-  </ng-template>
+<button (click)="sacuvaj()">Sačuvaj</button>
 
-  <hr />
-
-  <h3>Uneti ishodi</h3>
-  <ul>
-    <li *ngFor="let ishod of ishodi">
-      <strong>Student ID:</strong> {{ ishod.studentId }} |
-      <strong>Ocena:</strong> {{ ishod.ocena }} |
-      <strong>Bodovi:</strong> {{ ishod.bodovi }} |
-      <strong>Pokušaji:</strong> {{ ishod.brojPokusaja }} |
-    </li>
-  </ul>
-</div>

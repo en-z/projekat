@@ -1,34 +1,85 @@
-<div class="container mt-4">
-  <h2>Izdate knjige</h2>
-
-  <div *ngIf="izdate.length > 0; ">
-    <table class="table table-striped mt-3">
-      <thead>
-        <tr>
-          <th>Knjiga</th>
-          <th>Autor</th>
-          <th>Datum izdavanja</th>
-          <th>Akcija</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let izdata of izdate">
-          <td>{{ izdata.knjiga.naziv }}</td>
-          <td>{{ izdata.knjiga.autor }}</td>
-          <td>{{ izdata.datumIzdavanja | date: 'dd.MM.yyyy' }}</td>
-          <td>
-            <button class="btn btn-danger btn-sm" (click)="vrati(izdata.id!)">
-              Vrati knjigu
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<form [formGroup]="searchForm" (ngSubmit)="pretrazi()">
+  <div>
+    <label>User ID min:</label>
+    <input formControlName="userIdMin" type="number" />
+  </div>
+  <div>
+    <label>User ID max:</label>
+    <input formControlName="userIdMax" type="number" />
+  </div>
+  <div>
+    <label>Knjiga naziv:</label>
+    <input formControlName="knjigaNazivContains" type="text" />
+  </div>
+  <div>
+    <label>Knjiga kategorija:</label>
+    <input formControlName="knjigaKategorijaContains" type="text" />
+  </div>
+  <div>
+    <label>Knjiga opis:</label>
+    <input formControlName="knjigaOpisContains" type="text" />
+  </div>
+  <div>
+    <label>Godina izdavanja min:</label>
+    <input formControlName="knjigaGodinaIzdavanjaMin" type="number" />
+  </div>
+  <div>
+    <label>Godina izdavanja max:</label>
+    <input formControlName="knjigaGodinaIzdavanjaMax" type="number" />
+  </div>
+  <div>
+    <label>Knjiga autor:</label>
+    <input formControlName="knjigaAutorContains" type="text" />
+  </div>
+  <div>
+    <label>Količina min:</label>
+    <input formControlName="knjigaKolicinaMin" type="number" />
+  </div>
+  <div>
+    <label>Količina max:</label>
+    <input formControlName="knjigaKolicinaMax" type="number" />
+  </div>
+  <div>
+    <label>Trajna:</label>
+    <select formControlName="trajna">
+      <option [ngValue]="null">Svi</option>
+      <option [ngValue]="true">Da</option>
+      <option [ngValue]="false">Ne</option>
+    </select>
   </div>
 
-  <!-- Prikazuje se ako nema izdatih knjiga -->
-  <div *ngIf="izdate.length === 0">
-    <p>Nemate trenutno izdatih knjiga.</p>
-  </div>
+  <button type="submit">Pretraži</button>
+</form>
+
+<hr />
+
+<table *ngIf="izdate.length > 0" border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User ID</th>
+      <th>Knjiga naziv</th>
+      <th>Trajna</th>
+      <th>Datum izdavanja</th>
+      <th>Datum vraćanja</th>
+      <th>Akcija</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of izdate">
+      <td>{{ i.id }}</td>
+      <td>{{ i.userId }}</td>
+      <td>{{ i.knjigaId }}</td>
+      <td>{{ i.trajan? 'Da' : 'Ne' }}</td>
+      <td>{{ i.datumVracanja}}</td>
+      <td>
+        <button (click)="vrati(i.id!)" [disabled]="i.datumVracanja">Vrati</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="izdate.length === 0">
+  Nema podataka.
 </div>
 

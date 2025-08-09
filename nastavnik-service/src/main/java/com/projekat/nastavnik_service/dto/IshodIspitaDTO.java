@@ -5,17 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class IshodIspitaDTO {
     private Long id;
-    private int brojPokusaja;
-    private float bodovi;
+    private Integer brojPokusaja;
+    private Long rokId;
+    private List<Long> kolokvijumiId;
+    private Boolean polozen;
+    private Float bodovi;
+    private Integer ocena;
     private LocalDateTime datumUnosa;
     private Long studentId;
     private Long predmetId;
     private Long nastavnikId;
-    private long instumentId;
-
+    private Long instumentId;
 }

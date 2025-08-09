@@ -1,0 +1,31 @@
+<h2>Izaberi kolokvijum</h2>
+<ul>
+  <li *ngFor="let k of kolokvijumi" (click)="onSelectKolokvijum(k.id!)">
+    {{ k.datum}} (naziv: {{ k.naziv}})
+  </li>
+</ul>
+
+<div *ngIf="studentList.length > 0">
+  <h3>Unesi bodove za kolokvijum #{{ selectedKolokvijumId }}</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Bodovi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of studentList">
+        <td>{{ student.ime }}</td>
+        <td>{{ student.prezime }}</td>
+        <td>{{student.brojIndeksa}}</td>
+        <td>
+          <input type="number" [(ngModel)]="studentBodovi[student.id]" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="submitBodovi()">Sačuvaj bodove</button>
+</div>
+

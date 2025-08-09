@@ -2,10 +2,15 @@ package com.projekat.auth_service.service;
 
 import com.projekat.auth_service.DTO.ImeDTO;
 import com.projekat.auth_service.DTO.LoginDTO;
+import com.projekat.auth_service.DTO.StudentDTO;
 import com.projekat.auth_service.Security.CustomUserDetails;
 import com.projekat.auth_service.entity.User;
 import com.projekat.auth_service.repository.UserRepository;
+import com.projekat.auth_service.repository.ZaUpisRepostiory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +25,8 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ZaUpisRepostiory zaUpisRepostiory;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
@@ -40,10 +47,17 @@ public class UserService implements UserDetailsService {
     public List<ImeDTO> findByRole(){
        return userRepository.findByRolesContaining("ROLE_USER").stream().map(m->new ImeDTO(m.getId(),m.getIme(),m.getPrezime())).toList();
     }
+    public Page<StudentDTO> getZaUpis(Long id, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return zaUpisRepostiory.findByFakultetId(id,pageable).map(z->new StudentDTO(z.getUserId(),z.getIme(),z.getPrezime(),z.getEmail(),z.getFakultetId(),z.getStudiskiId()));
+    }
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(()->new RuntimeException("Nema korisnika sa tim mailom"));
     }
 
+    public List<User> findByEmailCnx(String email) {
+        return userRepository.findByEmailContainingIgnoreCase(email);
+    }
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }

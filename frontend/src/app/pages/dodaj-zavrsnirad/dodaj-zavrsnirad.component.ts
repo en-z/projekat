@@ -55,11 +55,9 @@ export class DodajZavrsniradComponent {
 
     this.zavrsniRadService.create(formData).subscribe({
       next: () => {
-        alert('Završni rad uspešno dodat!');
         this.form.reset();
       },
       error: (err) => {
-        alert('Greška pri dodavanju završnog rada.');
         console.error(err);
       }
     });

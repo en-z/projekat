@@ -1,0 +1,50 @@
+<div class="upload-container">
+
+  <h2>Upload dokumenta</h2>
+
+  <label for="emailSearch">Pretraga korisnika (email):</label>
+  <input
+    id="emailSearch"
+    type="text"
+    [(ngModel)]="emailSearch"
+    (input)="searchUserByEmail()"
+    placeholder="Unesite email (min 3 karaktera)"
+    autocomplete="off"
+  />
+
+  <ul *ngIf="foundUsers.length" class="user-list">
+    <li
+      *ngFor="let user of foundUsers"
+      (click)="selectUser(user)"
+      class="user-item"
+      tabindex="0"
+    >
+      {{ user.ime }} {{ user.prezime }} ({{ user.email }})
+    </li>
+  </ul>
+
+  <form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
+  <div>
+    <label>Naslov:</label>
+    <input type="text" [(ngModel)]="model.naslov" name="naslov" required />
+  </div>
+
+  <div>
+    <label>Opis:</label>
+    <textarea [(ngModel)]="model.opis" name="opis"></textarea>
+  </div>
+
+  <div>
+    <label>User ID:</label>
+    <input type="number" [(ngModel)]="model.userId" name="userId" readonly/>
+  </div>
+
+  <div>
+    <label>Fajl:</label>
+    <input type="file" (change)="onFileChange($event)" required />
+  </div>
+
+  <button type="submit">Pošalji</button>
+</form>
+
+</div>

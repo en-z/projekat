@@ -22,6 +22,7 @@ public class Kolokvijumi {
     private Long id;
     private Long programId;
     private Long predmetId;
+    private String naziv;
     private String ucionica;
     private LocalDateTime datum;
 }

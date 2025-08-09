@@ -17,13 +17,16 @@ import java.util.List;
 public class IshodIspita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private int brojPokusaja;
-    private float bodovi;
+    private Long id;
+    private Integer brojPokusaja;
+    private Float bodovi;
+    private Integer ocena;
+    private Long rokId;
+    private Boolean polozen;
     private List<Long> kolokvijumiId; // ovo ili id ili float bodova iz kookvijuma
     private LocalDateTime datumUnosa;
-    private long predmetId;
-    private long studentId;
+    private Long predmetId;
+    private Long studentId;
     @ManyToOne
     private InstrumentEvaluacije instrumentEvaluacije;
     @ManyToOne

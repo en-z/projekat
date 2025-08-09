@@ -23,14 +23,9 @@ public class InventarController {
         return inventarService.save(inventar);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Inventar> update(@PathVariable Long id, @RequestBody Inventar updated) {
-        return inventarService.findById(id)
-                .map(existing -> {
-                    updated.setId(id);
-                    return ResponseEntity.ok(inventarService.save(updated));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    @PutMapping("/{id}/batch")
+    public ResponseEntity<List<Inventar>> update(@PathVariable Long id, @RequestBody List<Inventar> updated) {
+        return ResponseEntity.ok(inventarService.updateExisting(updated));
     }
 
     @DeleteMapping("/{id}")

@@ -1,0 +1,35 @@
+<select [(ngModel)]="izabraniProgramId" (change)="izaberiProgram(izabraniProgramId!)">
+  <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
+</select>
+
+<table>
+  <tr>
+    <th>Ime</th>
+    <th>Prezime</th>
+  </tr>
+  <ng-container *ngFor="let student of studentiPage?.content">
+    <tr (click)="toggleRow(student.id)">
+      <td>{{ student.ime }}</td>
+      <td>{{ student.prezime }}</td>
+    </tr>
+    <tr *ngIf="expandedStudentId === student.id">
+      <td colspan="2">
+        <div *ngFor="let predmet of predmeti">
+          <label>
+            <input type="checkbox"
+                   [checked]="selectedPredmeti[student.id].has(predmet.id)"
+                   (change)="togglePredmet(student.id, predmet.id)">
+            {{ predmet.naziv }}
+          </label>
+        </div>
+      </td>
+    </tr>
+  </ng-container>
+</table>
+
+
+<button (click)="loadPrevious()">Prethodna</button>
+<button (click)="loadNext()">Sledeća</button>
+
+<button (click)="sacuvaj()">Sačuvaj sve</button>
+

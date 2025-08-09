@@ -16,5 +16,5 @@ public class FakultetDTO {
     private String email;
     private Adresa adresa;
     private NastavnikDTO rektor;
-    private long univerzitetId;
+    private Long univerzitetId;
 }

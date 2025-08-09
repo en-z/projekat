@@ -1,6 +1,8 @@
 package com.projekat.student_service.controller;
 
+import com.projekat.student_service.dto.SlusanjaReqDto;
 import com.projekat.student_service.dto.SlusanjePredmetaDTO;
+import com.projekat.student_service.dto.StudentDTO;
 import com.projekat.student_service.entity.Student;
 import com.projekat.student_service.repository.StudentRepository;
 import com.projekat.student_service.service.SlusanjePredmetaService;
@@ -30,7 +32,7 @@ public class SlusanjePredmeta {
         return ResponseEntity.ok(slusanjePredmetaService.getPredmetiStudenta(s.getId()));
     }
     @PostMapping
-    public ResponseEntity<SlusanjePredmetaDTO> create(@RequestBody SlusanjePredmetaDTO dto){
+    public ResponseEntity<SlusanjePredmetaDTO> create(@RequestBody List<SlusanjaReqDto> dto){
         return ResponseEntity.ok(slusanjePredmetaService.upisiStudeenta(dto));
     }
     @DeleteMapping()

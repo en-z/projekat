@@ -1,0 +1,19 @@
+<h2>Top 10 obavještenja</h2>
+<ul>
+  <li *ngFor="let ob of obavjestenja">{{ ob.naslov }}</li>
+</ul>
+
+<h3>Filter po godini i mjesecu</h3>
+
+<div>
+  <button *ngFor="let g of godine" (click)="onGodinaClick(g)">
+    {{ g }}
+  </button>
+</div>
+
+<div *ngIf="izabranaGodina !== null">
+  <button *ngFor="let m of meseci" (click)="onMesecClick(m)">
+    {{ m }}
+  </button>
+</div>
+

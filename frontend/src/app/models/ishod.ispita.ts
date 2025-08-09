@@ -1,11 +1,14 @@
 export interface IshodIspita {
-  id: number;
-  ocena: number;
-  brojPokusaja: number;
+  id: number|null;
+  brojPokusaja: number|null;
+  rokId:number;
+  kolokvijumiId:number[];
+  polozen:boolean;
   bodovi: number;
+  ocena: number;
   datumUnosa:string| Date;
   studentId: number;
   predmetId: number;
-  nastavnikId: number;
+  nastavnikId: number|null;
   instumentId:number;
 }

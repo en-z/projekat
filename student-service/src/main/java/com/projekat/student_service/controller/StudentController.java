@@ -3,6 +3,7 @@ package com.projekat.student_service.controller;
 import com.projekat.student_service.client.NastavnikClient;
 import com.projekat.student_service.dto.AddDTO;
 import com.projekat.student_service.dto.StudentDTO;
+import com.projekat.student_service.dto.StudentOcenaDTO;
 import com.projekat.student_service.entity.Student;
 import com.projekat.student_service.repository.StudentRepository;
 import com.projekat.student_service.service.StudentService;
@@ -37,9 +38,25 @@ public class StudentController {
     public ResponseEntity<StudentDTO> getByUserId(@PathVariable long userId) {
         return ResponseEntity.ok(studentService.getByUserId(userId));
     }
+    @GetMapping("/rok/{rokId}/predmet/{predmetId}")
+    public ResponseEntity<?> getStudenteZaRok(@PathVariable Long rokId,@PathVariable Long predmetID){
+        return ResponseEntity.ok(studentService.getZaUpisOcena(rokId,predmetID));
+    }
 
+    @GetMapping("/predmet/student/{id}")
+    public ResponseEntity<List<StudentDTO>> getStudenteZaPredmet(@PathVariable long id){
+        return ResponseEntity.ok(studentService.getAllForPredmet(id));
+    }
+
+    @GetMapping("/rezultati/predmet/{id}")
+    public ResponseEntity<?>getStudentaPredmet(@PathVariable Long id){
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long uid = Long.parseLong(userId);
+        Student s = studentRepository.findByUserId(id).orElseThrow(()->new RuntimeException("error"));
+        return nastavnikClient.getPredmeteZaStudenta(s.getId(),id);
+    }
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody AddDTO dto) {
+    public ResponseEntity<?> create(@RequestBody List<AddDTO> dto) {
         Student created = studentService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
@@ -49,8 +66,8 @@ public class StudentController {
         StudentDTO updated = studentService.update(id, dto);
         return ResponseEntity.ok(updated);
     }
-    @PutMapping("/prosecna")
-    public ResponseEntity<?> update(@RequestParam long id, @RequestParam float ocena) {
+    @PutMapping("/predmet/{id}/ocena")
+    public ResponseEntity<?> update(@RequestParam long id, @RequestParam List<StudentOcenaDTO> ocena) {
         studentService.ocena(id,ocena);
         return ResponseEntity.accepted().build();
     }
@@ -81,6 +98,10 @@ public class StudentController {
         return ResponseEntity.ok(studentService.search(
                 ime, prezime, brojIndeksa, godinaUpisa, godinaStudija,studiskiId,prosekMin,prosekMax,esbpMin,esbpMax,aktivan,ulica,broj,grad,drzava
         ));
+    }
+    @GetMapping("/pby")
+    public ResponseEntity<?> getRandom(@RequestParam Long studiskiId,@RequestParam(defaultValue = "0")int page,@RequestParam(defaultValue = "25")int size){
+        return ResponseEntity.ok(studentService.zaAngazovanja(studiskiId,page,size));
     }
     @GetMapping("/ishod")
     public ResponseEntity<?> getIshode(){

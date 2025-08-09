@@ -1,0 +1,10 @@
+<form (ngSubmit)="sacuvajVest()">
+  <input type="text" [(ngModel)]="obavestenje.naslov" name="naslov" placeholder="Naslov" required>
+  <textarea [(ngModel)]="obavestenje.text" name="text" placeholder="Tekst" required></textarea>
+  <input type="number" [(ngModel)]="obavestenje.godina" name="godina" placeholder="Godina">
+  <input type="number" [(ngModel)]="obavestenje.mesec" name="mesec" placeholder="Mesec">
+  <input type="number" [(ngModel)]="obavestenje.dan" name="dan" placeholder="Dan">
+  <input type="number" [(ngModel)]="obavestenje.fakultetId" name="fakultetID" placeholder="Fakultet ID">
+  <button type="submit">Pošalji</button>
+</form>
+

@@ -25,6 +25,8 @@ export class RegistrationComponent {
       passwordConf: ['', [Validators.required, Validators.minLength(5), this.passwordConfirmValidator.bind(this)]],
       ime: ['', [Validators.required]],
       prezime: ['', [Validators.required]],
+      studiskiId:'1',
+      fakultetId:'1'
     });
   }
 

@@ -7,7 +7,9 @@ import com.projekat.auth_service.DTO.RegisterDTO;
 import com.projekat.auth_service.Security.CustomUserDetails;
 import com.projekat.auth_service.Security.JwtService;
 import com.projekat.auth_service.entity.User;
+import com.projekat.auth_service.entity.ZaUpis;
 import com.projekat.auth_service.repository.UserRepository;
+import com.projekat.auth_service.repository.ZaUpisRepostiory;
 import com.projekat.auth_service.service.RegisterService;
 import com.projekat.auth_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,8 @@ public class UserController {
     public UserService service;
     @Autowired
     public UserRepository userRepository; //samo za tesitranje
+    @Autowired
+    public ZaUpisRepostiory zaUpisRepostiory;
     @Autowired
     public RegisterService registerService; //samo za tesitranje
     @Autowired
@@ -81,9 +85,9 @@ public class UserController {
         ImeDTO i= new ImeDTO(u.getIme(),u.getPrezime());
         return ResponseEntity.ok(i);
     }
-    @GetMapping("/zaupis")
-    public ResponseEntity<?> getStudente(){
-        return ResponseEntity.ok(service.findByRole());
+    @GetMapping("/zaupis/{id}")
+    public ResponseEntity<?> getStudente(@PathVariable  Long id,@RequestParam(defaultValue = "0") int page ,@RequestParam(defaultValue = "25") int size){
+        return ResponseEntity.ok(service.getZaUpis(id,page,size));
     }
     @PutMapping("/{id}/student")
     public ResponseEntity<?> dodajRole(@PathVariable long id){
@@ -92,6 +96,8 @@ public class UserController {
         roles.add("ROLE_STUDENT");
         u.setRoles(roles);
         userRepository.save(u);
+        ZaUpis z = zaUpisRepostiory.findByUserId(id);
+        zaUpisRepostiory.delete(z);
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/sifarnik")
@@ -101,6 +107,10 @@ public class UserController {
     @GetMapping("/sifarnik/by-email")
     public ResponseEntity<User>getByEmail(@RequestParam String email)throws Exception{
         return ResponseEntity.ok(service.findByEmail(email));
+    }
+    @GetMapping("/sifarnik/byemail")
+    public ResponseEntity<List<User>>getByEmailCtx(@RequestParam String email)throws Exception{
+        return ResponseEntity.ok(service.findByEmailCnx(email));
     }
     @PutMapping("/sifarnik/{id}")
     public HttpStatus putUser(@PathVariable long id, @RequestBody User newUser) throws Exception{

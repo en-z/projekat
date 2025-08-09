@@ -5,6 +5,8 @@ import { PredmetService } from '../../services/predmet.service';
 import { CommonModule } from '@angular/common';
 import { ObavestenjeService } from '../../services/obavestenje.service';
 import { Obavestenje } from '../../models/obavestenje';
+import { KolokvijumRezultatService } from '../../services/kolokvijumRezultat.service';
+import { KolokvijumRezultat } from '../../models/kolokvijumRezultat';
 
 @Component({
   selector: 'app-student-predmet',
@@ -17,7 +19,8 @@ export class StudentPredmetComponent {
   selectedPredmet:Predmet|null = null;
   obavjestenja:Obavestenje[]=[]
   error:string|null=null;
-  constructor(private obavjestenjaService:ObavestenjeService,private predmetService:PredmetService){}
+  rezultatiKolokvijuma:KolokvijumRezultat[]=[];
+  constructor(private rezultatKolokvijumaService:KolokvijumRezultatService,private obavjestenjaService:ObavestenjeService,private predmetService:PredmetService){}
 
   ngOnInit(){
     this.predmetService.getPredmeteZaSlusanje().subscribe({
@@ -32,5 +35,11 @@ export class StudentPredmetComponent {
   getObavjestenja(predmet:Predmet){
     this.obavjestenja = []
     this.obavjestenjaService.getByPredmet(predmet.id!).subscribe(data=>this.obavjestenja = data)
+  }
+  getKolokvijumRezultate(predmet:Predmet){
+    this.rezultatiKolokvijuma=[]
+    this.rezultatKolokvijumaService.getRezultate(predmet.id).subscribe(data=>{
+      this.rezultatiKolokvijuma = data;
+    })
   }
 }

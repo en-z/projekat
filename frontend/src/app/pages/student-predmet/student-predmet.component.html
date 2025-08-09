@@ -24,6 +24,19 @@
     <ng-template #noNotifications>
       <p>Nema obavještenja za ovaj predmet.</p>
     </ng-template>
+    <h2 class="text-xl font-semibold mb-2">Kolokvijumi za: {{ selectedPredmet.naziv }}</h2>
+
+    <div *ngIf="rezultatiKolokvijuma.length > 0; else noNotifications">
+      <ul>
+        <li *ngFor="let o of rezultatiKolokvijuma" class="mb-1">
+          <p><strong>{{ o.naziv}}</strong></p>
+          <p><strong>{{ o.bodovi}}</strong></p>
+        </li>
+      </ul>
+    </div>
+    <ng-template #noNotifications>
+      <p>Nema rezultata za ovaj predmet.</p>
+    </ng-template>
   </div>
 
   <div *ngIf="error" class="text-red-600 mt-4">

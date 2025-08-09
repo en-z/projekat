@@ -1,18 +1,54 @@
-<div>
-  <h3>Izaberite izdate stavke bez datuma vraćanja</h3>
+<form [formGroup]="searchForm" (ngSubmit)="pretrazi()">
 
-  <select [(ngModel)]="selectedIzdateId">
-    <option [ngValue]="null">-- Izaberite stavku --</option>
-    <option *ngFor="let i of izdateList" [ngValue]="i.id">
-      Korisnik: {{ i.userId }}, Knjiga: {{ i.knjiga.naziv }}, Izdato: {{ i.datumIzdavanja | date:'shortDate' }}
-    </option>
-  </select>
+  <h3>Pretraga Zahtjeva</h3>
 
-  <div *ngIf="selectedIzdateId">
-    <label for="datumVracanja">Datum vraćanja:</label>
-    <input type="date" [(ngModel)]="noviDatumVracanja" id="datumVracanja" />
+  <fieldset>
+    <legend>Korisnik</legend>
+    <label>User ID Min: <input type="number" formControlName="userIdMin" /></label>
+    <label>User ID Max: <input type="number" formControlName="userIdMax" /></label>
+    <label>Ime sadrži: <input type="text" formControlName="imeContains" /></label>
+    <label>Prezime sadrži: <input type="text" formControlName="prezimeContains" /></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Knjiga</legend>
+    <label>Naziv sadrži: <input type="text" formControlName="knjigaNazivContains" /></label>
+    <label>Kategorija sadrži: <input type="text" formControlName="knjigaKategorijaContains" /></label>
+    <label>Opis sadrži: <input type="text" formControlName="knjigaOpisContains" /></label>
+    <label>Godina izdavanja Min: <input type="number" formControlName="knjigaGodinaIzdavanjaMin" /></label>
+    <label>Godina izdavanja Max: <input type="number" formControlName="knjigaGodinaIzdavanjaMax" /></label>
+    <label>Autor sadrži: <input type="text" formControlName="knjigaAutorContains" /></label>
+    <label>Količina Min: <input type="number" formControlName="knjigaKolicinaMin" /></label>
+    <label>Količina Max: <input type="number" formControlName="knjigaKolicinaMax" /></label>
+  </fieldset>
+
+  <button type="submit">Pretraži</button>
+</form>
+
+<hr />
+
+<div *ngIf="rezultati.length > 0">
+  <h3>Rezultati</h3>
+  <ul>
+    <li *ngFor="let z of rezultati" (click)="selektuj(z)" [class.selektovan]="selektovani?.id === z.id">
+      {{ z.ime }} {{ z.prezime }} - {{ z.knjiga.naziv }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="selektovani">
+  <h3>Potvrdi izdavanje za: {{ selektovani.ime }} {{ selektovani.prezime }} - {{ selektovani.knjiga.naziv }}</h3>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="trajan" /> Trajan
+  </label>
+
+  <div *ngIf="!trajan">
+    <label>Datum vraćanja:
+      <input type="date" [(ngModel)]="datumVracanja" />
+    </label>
   </div>
 
-  <button (click)="postaviDatum()">Postavi datum vraćanja</button>
+  <button (click)="potvrdiIzdavanje()">Potvrdi izdavanje</button>
 </div>
 

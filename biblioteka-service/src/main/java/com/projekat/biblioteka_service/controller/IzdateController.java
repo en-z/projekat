@@ -30,10 +30,10 @@ public class IzdateController {
         return izdavanjeService.getAllUser(id);
     }
 
-    @PostMapping("/izdaj")
-    public ResponseEntity<?> izdaj(@RequestBody IzdajDto dto) {
+    @PostMapping("/izdaj/{id}")
+    public ResponseEntity<?> izdaj(@PathVariable Long id, @RequestBody IzdajDto dto) {
         try {
-            return ResponseEntity.ok(izdavanjeService.izdajKjigu(dto));
+            return ResponseEntity.ok(izdavanjeService.izdajKjigu(id,dto));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e);
         }

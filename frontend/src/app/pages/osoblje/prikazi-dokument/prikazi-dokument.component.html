@@ -1,0 +1,48 @@
+<h2>Pretraga korisnika po emailu</h2>
+
+<div>
+  <label for="email">Email:</label>
+  <input type="text" id="email" [(ngModel)]="searchEmail" />
+  <button (click)="searchUsersByEmail()">Pretraži</button>
+</div>
+
+<div *ngIf="user.length > 0">
+  <h3>Pronađeni korisnici:</h3>
+  <ul>
+    <li *ngFor="let korisnik of user">
+      {{ korisnik.ime }} {{ korisnik.prezime }} ({{ korisnik.email }})
+      <button (click)="selectUser(korisnik.id)">Prikaži dokumente</button>
+    </li>
+  </ul>
+  <button (click)="clearUserFilter()">Prikaži sve dokumente</button>
+</div>
+
+<hr />
+
+<h2>Dokumenti</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Naslov</th>
+      <th>Opis</th>
+      <th>Datum</th>
+      <th>Preuzimanje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dokument of dokumenti">
+      <td>{{ dokument.naslov}}</td>
+      <td>{{ dokument.opis }}</td>
+      <td>{{ dokument.datum }}</td>
+      <td>
+        <a [href]="'http://localhost:8080/api/osoblje/dokument/download/' + dokument.id" target="_blank">Preuzmi</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <button (click)="prevPage()" [disabled]="page === 0">Prethodna</button>
+  <span>Strana {{ page + 1 }} / {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">Sledeća</button>
+</div>

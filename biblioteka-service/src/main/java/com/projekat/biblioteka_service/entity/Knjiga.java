@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 public class Knjiga {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String naziv;
     private String kategorija;
     private String opis;
-    private int godinaIzdavanja;
+    private Integer godinaIzdavanja;
     private String autor;
-    private int kolicina;
+    private Integer kolicina;
 }

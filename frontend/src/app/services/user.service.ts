@@ -12,7 +12,7 @@ export class UserService extends BaseService<User>{
   }
   getByEmail(email:string){
     const params = new HttpParams().set('email',email)
-    return this.http.get<User>(`${this.baseUrl}/by-email`,{params}) ;
+    return this.http.get<User[]>(`${this.baseUrl}/byemail`,{params}) ;
   }
 }
 

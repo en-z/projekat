@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class SlusanjeDTO {
     private long id;
     private PredmetDTO dto;
+
 }

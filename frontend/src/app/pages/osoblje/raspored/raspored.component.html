@@ -1,0 +1,33 @@
+<h2>Kreiranje rasporeda</h2>
+
+<label>Datum od: <input type="date" [(ngModel)]="datumOd" /></label>
+<label>Datum do: <input type="date" [(ngModel)]="datumDo" /></label>
+<label>Semestar: <input type="number" [(ngModel)]="semestar" min="1" /></label>
+
+<hr />
+
+<label>Izaberi program:
+  <select [(ngModel)]="izabraniProgramId" (change)="onProgramChange()">
+    <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
+  </select>
+</label>
+
+<table *ngIf="predmeti.length > 0" border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Predmet</th>
+      <th>Dan (1–5)</th>
+      <th>Vreme </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let predmet of predmeti; let i = index">
+      <td>{{ predmet.naziv }}</td>
+      <td><input type="number" min="1" max="5" [(ngModel)]="raspored[i].dan" /></td>
+      <td><input type="number" step="0.5" min="4" max="22" [(ngModel)]="raspored[i].vreme" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="posalji()" [disabled]="!raspored.length">Sačuvaj raspored</button>
+
