@@ -1,4 +1,11 @@
 <div class="max-w-md mx-auto mt-16 p-6 bg-white rounded-xl shadow-md">
+    <div *ngIf="success" class="alert alert-success">
+  {{ success }}
+</div>
+
+<div *ngIf="error" class="alert alert-danger">
+  {{ error }}
+</div>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
 
     <div *ngIf="error" class="mb-4 p-3 bg-red-100 text-red-700 rounded">
@@ -15,6 +22,8 @@
       />
       <div *ngIf="f['email'].touched && f['email'].invalid" class="text-sm text-red-600 mt-1">
         <div *ngIf="f['email'].errors?.['required']">Email je potreban</div>
+        <div *ngIf="f['email'].errors?.['email']">Unesite ispravan format email adrese</div>
+       
       </div>
     </div>
 
@@ -81,5 +90,6 @@
       {{ submitted? 'Registrujem...' : 'Registruj' }}
     </button>
   </form>
+
 </div>
 

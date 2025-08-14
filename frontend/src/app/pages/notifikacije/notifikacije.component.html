@@ -1,5 +1,7 @@
-<div class="relative inline-block">
-  <button (click)="togglePrikaz()" class="px-4 py-2 bg-yellow-400 rounded hover:bg-yellow-500">
+<div class="relative inline-block"
+(mouseenter)="onMenuEnter()"
+(mouseleave)="onMenuLeave()">
+  <button (click)="togglePrikaz()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
     🔔 Notifikacije ({{ poruke.length }})
   </button>
 

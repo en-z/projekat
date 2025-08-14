@@ -15,6 +15,7 @@ export class NotifikacijeComponent {
 
   poruke: Notifikacije[] = [];
   prikazi = false;
+  private hideTimeout:any;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -35,5 +36,20 @@ export class NotifikacijeComponent {
       next: data => this.poruke = data,
       error: err => console.error('Greška pri dohvatanju notifikacija:', err)
     });
+  }
+
+  onMenuEnter():void{
+    this.clearHideTimeout();
+  }
+  onMenuLeave():void{
+    this.hideTimeout=setTimeout(()=>{
+      this.prikazi=false;},50);
+    
+  }
+  private clearHideTimeout():void{
+    if(this.hideTimeout){
+      clearTimeout(this.hideTimeout);
+      this.hideTimeout=null;
+    }
   }
 }

@@ -24,7 +24,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        /*
+
         // 1. Create and save Adresa
         Adresa adresa1 = new Adresa();
         adresa1.setUlica("Kralja Petra");
@@ -96,7 +96,7 @@ public class DataLoader implements CommandLineRunner {
         predmet1.setStudijskiProgram(studijskiProgram);
         predmetRepository.save(predmet1);
         System.out.println("Test data loaded successfully.");
-         */
+
     }
 }
 

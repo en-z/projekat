@@ -20,7 +20,7 @@ export class RegistrationComponent {
     private router: Router
   ) {
     this.registrationForm = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       passwordConf: ['', [Validators.required, Validators.minLength(5), this.passwordConfirmValidator.bind(this)]],
       ime: ['', [Validators.required]],
@@ -39,31 +39,48 @@ export class RegistrationComponent {
 
   get f() {return this.registrationForm.controls}
 
-  onSubmit(){
-    if(this.registrationForm.invalid) return;
-    this.submitted = true;
-    const valute = this.registrationForm.value;
-    const lowValute= Object.keys(valute).reduce((acc: { [key: string]: any }, key: string) => {
-      if(key==="password"|| key ==="passwordConf"){
-        acc[key] = valute[key]
-      }else{
-        acc[key] = typeof valute[key] === 'string' ? valute[key].toLowerCase() : valute[key];
-      }
+success: string | null = null; 
+
+onSubmit() {
+  if (this.registrationForm.invalid) return;
+  this.submitted = true;
+  const valute = this.registrationForm.value;
+
+  const lowValute = Object.keys(valute).reduce((acc: { [key: string]: any }, key: string) => {
+    if (key === "password" || key === "passwordConf") {
+      acc[key] = valute[key];
+    } else {
+      acc[key] = typeof valute[key] === 'string' ? valute[key].toLowerCase() : valute[key];
+    }
     return acc;
   }, {});
-    this.http.post("http://localhost:8080/api/auth/registration",lowValute).subscribe({
-      next:(res)=>{
-        //route na login home
-    },error:(e)=>{
-      if(e.status === 409 && e.error){
+
+  this.http.post("http://localhost:8080/api/auth/registration", lowValute).subscribe({
+    next: (res) => {
+      this.success = "Registracija uspešna! Uskoro cete biti preusmereni na pocetnu stranu!"; // ovde poruka uspeha
+      this.error = null; // resetuj eventualnu prethodnu grešku
+
+      // automatski preusmeri na početnu posle 2 sekunde
+      setTimeout(() => {
+        this.router.navigate(['/']);
+      },2000);
+    },
+    error: (e) => {
+      if (e.status === 409 && e.error) {
         this.error = e.error;
-      }else{
-        this.error = "Greska na serveru"
+      } else {
+        this.error = "Greška na serveru";
       }
+      this.success = null; // nema poruke uspeha
       this.submitted = false;
     },
-    complete:()=>{this.submitted = false}
-    });
-  }
+    complete: () => {
+      this.submitted = false;
+    }
+  });
+}
+
+
+  
 }
 

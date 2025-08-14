@@ -5,29 +5,32 @@
   </button>
 
   <button *ngIf="!isLogged()" (click)="goToLogin()"
-    class="px-4 py-2 bg-blue-600 rounded-mb hover:bg-blue-700 transition-colors">
+    class="px-5 py-2 bg-gray-300 rounded hover:bg-gray-500 transition-colors">
     Login
   </button>
 
   <button *ngIf="!isLogged()" (click)="goToRegister()"
-    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-gray-700 transition-colors">
+    class="px-5 py-2 bg-gray-300 rounded hover:bg-gray-500 transition-colors">
     Register
   </button>
 
 <button *ngIf="isLogged()" (click)="goToEdit()"
-  class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors">
+  class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
   Uredi Profil
 </button>
 
   <button (click)="goToUniverziteti()"
-    class="px-4 py-2 bg-white-600 rounded-mb hover:bg-gray-700 transition-colors">
+    class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
     Univerziteti
   </button>
 
- <div class="relative inline-block text-left">
+ <div class="relative inline-block text-left"
+ (mouseleave)="onMenuLeave()"
+ (mouseenter)="onMenuEnter()">
     <button (click)="showBiblioteka= !showBiblioteka"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
-      Bibliotek Menu ▼
+      Biblioteka Menu ▼
+      
     </button>
 
     <div *ngIf="showBiblioteka"
@@ -54,7 +57,9 @@
     </button>
   </div>
 
-  <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative inline-block text-left">
+  <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative inline-block text-left"
+  (mouseleave)="onMenuLeave()"
+  (mouseenter)="onMenuEnter()">
     <app-notifikacije></app-notifikacije>
     <button (click)="showStudentmenu= !showStudentmenu"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
@@ -62,7 +67,9 @@
     </button>
 
     <div *ngIf="showStudentmenu"
-      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50">
+      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50"
+      (mouseleave)="onMenuLeave()"
+      (mouseenter)="onMenuEnter()">
       <button (click)="goToStudentPredmet()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
         Predmeti
@@ -78,7 +85,9 @@
     </div>
   </div>
 
-  <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="relative inline-block text-left">
+  <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="relative inline-block text-left"
+  (mouseleave)="onMenuLeave()"
+  (mouseenter)="onMenuEnter()">
     <app-notifikacije></app-notifikacije>
     <button (click)="showAdmin= !showAdmin"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
@@ -86,18 +95,20 @@
     </button>
 
     <div *ngIf="showAdmin"
-      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50">
+      class=" absolute left-0 top-full mt-2 w-48 bg-white border rounded shadow-lg z-50"
+      (mouseleave)="onMenuLeave()"
+      (mouseenter)="onMenuEnter()">
       <button (click)="goToNastavniciPrikaz()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
-       Prikzi Nastavnike
+       Prikazi Nastavnike
       </button>
       <button (click)="goToStudenti()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
-       Prikzi Studente
+       Prikazi Studente
       </button>
       <button (click)="goToDodajPredmet()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
-        Dodaj Predmeti
+        Dodaj Predmete
       </button>
       <button (click)="goToDodajRok()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
@@ -109,7 +120,7 @@
       </button>
       <button (click)="goToDodajUni()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
-        Dodaj univerzitet
+        Dodaj Univerzitet
       </button>
       <button (click)="goToDodajProgram()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
@@ -125,7 +136,7 @@
       </button>
       <button (click)="goToDodajNastavnik()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
-        Dodaj nastavnik
+        Dodaj nastavnika
       </button>
       <button (click)="goToSifarnik()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">

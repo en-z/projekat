@@ -11,16 +11,16 @@ export class OpstaObavjestenjaService {
 
   constructor(private http: HttpClient) {}
 
-  getTop10(fakultetId: number): Observable<OpstaObavjestenja[]> {
-    return this.http.get<OpstaObavjestenja[]>(`${this.baseUrl}/${fakultetId}`);
+  getTop10(fakultetID: number): Observable<OpstaObavjestenja[]> {
+    return this.http.get<OpstaObavjestenja[]>(`${this.baseUrl}/${fakultetID}`);
   }
 
-  getByFakultetMesecGodina(fakultetId: number, godina?: number, mesec?: number): Observable<OpstaObavjestenja[]> {
+  getByFakultetMesecGodina(fakultetID: number, godina?: number, mesec?: number): Observable<OpstaObavjestenja[]> {
     let params = new HttpParams();
     if (godina != null) params = params.set('godina', godina.toString());
     if (mesec != null) params = params.set('mesec', mesec.toString());
 
-    return this.http.get<OpstaObavjestenja[]>(`${this.baseUrl}/fakultet/${fakultetId}`, { params });
+    return this.http.get<OpstaObavjestenja[]>(`${this.baseUrl}/fakultet/${fakultetID}`, { params });
   }
 
   post(oba:OpstaObavjestenja): Observable<any>{
