@@ -14,6 +14,7 @@ import com.projekat.nastavnik_service.service.IshodIspitaService;
 import com.projekat.nastavnik_service.service.UploadXmlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,9 +54,10 @@ public class IshodIspitaController {
     @PostMapping
     public ResponseEntity<List<IshodIspitaDTO>> create(@RequestBody List<IshodIspitaDTO> dtoList) {
         List<IshodIspita> lista=new ArrayList<>();
-
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long uid = Long.parseLong(userId);
+        Nastavnik nastavnik = nastavnikService.findById(1L).orElseThrow(()->new RuntimeException("nastavnik nema id"));
         for(IshodIspitaDTO dto:dtoList){
-            Nastavnik nastavnik = nastavnikService.findById(dto.getNastavnikId()).orElseThrow();
             IshodIspita ishod = IshodIspitaMapper.fromDTO(dto, nastavnik);
             InstrumentEvaluacije e = instrumentEvaluacijeRepository.findById(dto.getInstumentId()).orElseThrow(()->new RuntimeException("nema instrumenta evaluacije"));
             ishod.setInstrumentEvaluacije(e);

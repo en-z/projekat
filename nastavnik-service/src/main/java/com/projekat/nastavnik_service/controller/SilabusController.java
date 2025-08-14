@@ -7,6 +7,7 @@ import com.projekat.nastavnik_service.repository.NastavnikRepository;
 import com.projekat.nastavnik_service.service.SilabusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +46,9 @@ public class SilabusController {
         Silabus silabus = new Silabus();
         silabus.setSadrzaj(dto.getSadrzaj());
         silabus.setPredmetId(dto.getPredmetId());
-        Nastavnik n = nastavnikRepository.findById(dto.getId()).orElseThrow(()->new RuntimeException("Error"));
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long uid = Long.parseLong(userId);
+        Nastavnik n = nastavnikRepository.findById(uid).orElseThrow(()->new RuntimeException("Error"));
         silabus.setAutor(n);
         silabus= silabusService.create(silabus);
         dto.setId(silabus.getId());

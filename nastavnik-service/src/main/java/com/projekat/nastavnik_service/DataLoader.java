@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -26,6 +28,8 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private SilabusRepository silabusRepository;
 
+    @Autowired
+    private KolokvijumiRezultatRepository kolokvijumiRezultatRepository;
     @Override
     public void run(String... args) throws Exception {
 
@@ -85,6 +89,13 @@ public class DataLoader implements CommandLineRunner {
         s.setSadrzaj("Sadrzaj silabusa");
         s.setAutor(nastavnik);
         silabusRepository.save(s);
+        KolokvijumRezultat kolokvijumRezultat = new KolokvijumRezultat();
+        kolokvijumRezultat.setBodovi(20f);
+        kolokvijumRezultat.setStudentId(1L);
+        kolokvijumRezultat.setPredmetId(1L);
+        kolokvijumRezultat.setDatum(Date.from(Instant.now()));
+        kolokvijumRezultat.setNaziv("Prvi kolokvijum");
+        kolokvijumiRezultatRepository.save(kolokvijumRezultat);
 
     }
 }

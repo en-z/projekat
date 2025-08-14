@@ -52,6 +52,8 @@ import { InventarComponent } from './pages/osoblje/inventar/inventar.component';
 import { Component } from '@angular/core';
 import { KolokvijumiComponent } from './pages/osoblje/kolokvijumi/kolokvijumi.component';
 import { PregledKolokvijumComponent } from './pages/osoblje/pregled-kolokvijum/pregled-kolokvijum.component';
+import { KolokvijumComponent } from './pages/nastavnik/kolokvijum/kolokvijum.component';
+import { DodajOsobljeComponent } from './pages/osoblje/dodaj-osoblje/dodaj-osoblje.component';
 export const routes: Routes = [
   {
     path:"login",component:LoginComponent
@@ -151,21 +153,18 @@ export const routes: Routes = [
   },
   {
     path:"student/predmet",component:StudentPredmetComponent,canActivate:[RoleGuard],data:{roles:['ROLE_STUDENT']}
-  },{
-    path:"raspored",component:RasporedComponent
   },
-  {
-    path:"opsta",component:OpstaObavjestenjaComponent
-  },{
-    path:"opsta-d",component:DodajObavjestenjaComponent
-  },
-  {
-    path:"dokumenti",component:DokumentiComponent
-  },{
-    path:"kolokvijumi",component:KolokvijumiComponent
-  },{path:"pregled-kolokvijuma",component:PregledKolokvijumComponent},
-  {path:"inventar",component:InventarComponent},
+  { path:"osoblje/raspored",component:RasporedComponent },
+  { path:"osoblje/opsta",component:OpstaObavjestenjaComponent }
+  ,{ path:"osoblje/opsta-d",component:DodajObavjestenjaComponent },
+  { path:"osoblje/raspored",component:RasporedComponent },
+  { path:"osoblje/kolokvijum",component:KolokvijumiComponent },
+  { path:"osoblje/dokumenti",component:DokumentiComponent }
+  ,{path:"osoblje/pregled-kolokvijuma",component:PregledKolokvijumComponent},
+  {path:"osoblje/inventar",component:InventarComponent},
   {path:"prikazi-dokumente",component:PrikaziDokumentComponent},
+
+  {path:"dodaj-osoblje",component:DodajOsobljeComponent},
   { path: 'nastavnik/predmeti', component: NastavnikPredmetiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id', component: PredmetDetaljiComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id/silabus', component: SilabusComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
@@ -176,6 +175,7 @@ export const routes: Routes = [
   { path: 'nastavnik/pretraga-studenata', component: PretragaStudenataComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/student/:id', component: StudentProfilComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   { path: 'nastavnik/predmet/:id/ocene', component: UnosOcenaComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
+  { path: 'nastavnik/predmet/:id/kolokvijum', component: KolokvijumComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK'] }},
   {path:'biblioteka',component:PocetnaComponent},
   {path:'biblioteka/knjiga',component:AdminDodajKnjiguComponent},
   {path:'biblioteka/knjiga/:id',component:AdminDodajKnjiguComponent},

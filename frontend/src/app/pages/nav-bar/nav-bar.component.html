@@ -30,7 +30,7 @@
     <button (click)="showBiblioteka= !showBiblioteka"
       class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
       Biblioteka Menu ▼
-      
+
     </button>
 
     <div *ngIf="showBiblioteka"
@@ -81,6 +81,38 @@
       <button (click)="gotoIstorijaIspita()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
         IshodIspita
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="authService.hasRole('ROLE_OSOBLJE')" class="relative inline-block text-left"
+  (mouseleave)="onMenuLeave()"
+  (mouseenter)="onMenuEnter()">
+    <app-notifikacije></app-notifikacije>
+    <button (click)="showOsobljeMenu= !showOsobljeMenu"
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      Osoblje Menu ▼
+    </button>
+
+    <div *ngIf="showOsobljeMenu"
+      class="absolute mt-2 w-48 bg-white border rounded shadow-lg z-50"
+      (mouseleave)="onMenuLeave()"
+      (mouseenter)="onMenuEnter()">
+      <button (click)="goToDodajDokumenta()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+       Dodaj Dokumenta
+      </button>
+      <button (click)="goToDodajRaspored()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj raspored
+      </button>
+      <button (click)="goToDodajKolokvijum()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj kolokvujim
+      </button>
+      <button (click)="goToInventar()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Inventar
       </button>
     </div>
   </div>

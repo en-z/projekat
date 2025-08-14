@@ -39,8 +39,8 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getByUserId(userId));
     }
     @GetMapping("/rok/{rokId}/predmet/{predmetId}")
-    public ResponseEntity<?> getStudenteZaRok(@PathVariable Long rokId,@PathVariable Long predmetID){
-        return ResponseEntity.ok(studentService.getZaUpisOcena(rokId,predmetID));
+    public ResponseEntity<?> getStudenteZaRok(@PathVariable Long rokId,@PathVariable Long predmetId){
+        return ResponseEntity.ok(studentService.getZaUpisOcena(rokId,predmetId));
     }
 
     @GetMapping("/predmet/student/{id}")

@@ -7,6 +7,7 @@ import com.projekat.nastavnik_service.repository.NastavnikRepository;
 import com.projekat.nastavnik_service.service.TerminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -47,7 +48,9 @@ public class TerminController {
 
     @PostMapping
     public ResponseEntity<TerminDTO> create(@RequestBody TerminDTO dto) {
-        Nastavnik nastavnik = nastavnikService.findById(dto.getNastavnikId())
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long uid = Long.parseLong(userId);
+        Nastavnik nastavnik = nastavnikService.findById(uid)
                 .orElseThrow(() -> new RuntimeException("Nastavnik ne postoji"));
 
         Termin termin = new Termin();

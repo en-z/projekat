@@ -24,7 +24,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
+
         Adresa adresa = new Adresa();
         adresa.setUlica("Bulevar Oslobodjenja");
         adresa.setBroj("15");
@@ -51,13 +51,13 @@ public class DataLoader implements CommandLineRunner {
         ispitniRokRepository.save(ispitniRok);
         System.out.println("Done");
         SlusanjePredmeta slusanjePredmeta1 = new SlusanjePredmeta();
-        slusanjePredmeta1.setPredmetId(1);
+        slusanjePredmeta1.setPredmetId(1L);
         slusanjePredmeta1.setStudent(student);
         slusanjePredmetaRepository.save(slusanjePredmeta1) ;
         SlusanjePredmeta slusanjePredmeta2 = new SlusanjePredmeta();
-        slusanjePredmeta2.setPredmetId(2);
+        slusanjePredmeta2.setPredmetId(2L);
         slusanjePredmeta2.setStudent(student);
         slusanjePredmetaRepository.save(slusanjePredmeta2) ;
-         */
+
     }
 }

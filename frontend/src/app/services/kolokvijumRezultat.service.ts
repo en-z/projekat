@@ -16,7 +16,7 @@ export class KolokvijumRezultatService{
       return this.http.get<KolokvijumRezultat[]>(`http://localhost:8080/api/student/studenti/rezultati/predmet/${predmetId}`)
     }
     getRezultateStudentaIPredmeta(predmetId:number,studentId:number):Observable<KolokvijumRezultat[]>{// za dobijanje rezultata studenta kad nastavnik zatrazi
-      return this.http.get<KolokvijumRezultat[]>(`${this.baseUrl}/predmet/${predmetId}/student/${studentId}`)
+      return this.http.get<KolokvijumRezultat[]>(`http://localhost:8080/api/nastavnik/kolokvijumi/predmet/${predmetId}/student/${studentId}`)
     }
 }
 

@@ -20,6 +20,7 @@ export class NavBarComponent {
   showNastavnik= false;
   showBiblioteka= false;
   showAdmin= false;
+  showOsobljeMenu= false;
 
   private hideTimeout:any;
   private clearHideTimeout(){
@@ -27,7 +28,7 @@ export class NavBarComponent {
       clearTimeout(this.hideTimeout);
       this.hideTimeout=null;
     }
-    
+
   }
   constructor(private router:Router,public authService:AuthService){
   }
@@ -55,7 +56,7 @@ export class NavBarComponent {
   goToLogin(){
     this.router.navigate(['/login'])
   }
-  
+
   goToRegister(){
     this.router.navigate(['/register'])
   }
@@ -131,7 +132,7 @@ export class NavBarComponent {
   goToNastavnikPredmeti(){
     this.router.navigate(['/nastavnik/predmeti'])
   }
-  
+
   goToBiblioteka(){
     this.clearHideTimeout();
     this.showBiblioteka=false;
@@ -150,10 +151,21 @@ export class NavBarComponent {
       this.showBiblioteka=false;
       this.showAdmin=false;
       this.showStudentmenu=false;
-  },50); 
+  },50);
   }
   goToZavrsniRadovi() {
-   
     this.router.navigate(['/zavrsni-radovi'])
+  }
+  goToDodajDokumenta() {
+    this.router.navigate(['/osoblje/dokumenti'])
+  }
+  goToDodajRaspored() {
+    this.router.navigate(['osoblje/raspored'])
+  }
+  goToDodajKolokvijum(){
+    this.router.navigate(['osoblje/kolokvijum'])
+  }
+  goToInventar(){
+    this.router.navigate(['osoblje/inventar'])
   }
 }

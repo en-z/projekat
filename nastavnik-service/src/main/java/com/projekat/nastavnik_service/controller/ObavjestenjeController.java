@@ -7,6 +7,7 @@ import com.projekat.nastavnik_service.service.NastavnikService;
 import com.projekat.nastavnik_service.service.ObavjestenjaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -48,12 +49,14 @@ public class ObavjestenjeController{
 
     @PostMapping
     public ResponseEntity<ObavestenjeDTO> create(@RequestBody ObavestenjeDTO dto) {
+        String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long uid = Long.parseLong(userId);
         Obavestenje o = new Obavestenje();
         o.setNaslov(dto.getNaslov());
         o.setTekst(dto.getTekst());
         o.setDatum(LocalDateTime.now());
         o.setPredmetId(dto.getPredmetId());
-        o.setAutor(nastavnikService.findById(dto.getNastavnikId()).orElseThrow(()->new RuntimeException("error")));
+        o.setAutor(nastavnikService.findByUserId(uid).orElseThrow(()->new RuntimeException("error")));
 
         return ResponseEntity.ok(toDTO(service.save(o)));
     }

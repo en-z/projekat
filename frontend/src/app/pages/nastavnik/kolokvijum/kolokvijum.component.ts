@@ -6,6 +6,7 @@ import { StudentService } from '../../../services/student.service';
 import { KolokvijumRezultatService } from '../../../services/kolokvijumRezultat.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-kolokvijum',
@@ -19,10 +20,12 @@ export class KolokvijumComponent implements OnInit{
   kolokvijumi:Kolokvijum[]=[]
   selectedKolokvijumId: number | null = null;
   studentBodovi: { [studentId: number]: number } = {};
-  constructor(private kolokvijumService:KolokvijumService,private studentService:StudentService,private kolokvijumRezultatService:KolokvijumRezultatService){}
+  constructor(private router:ActivatedRoute,private kolokvijumService:KolokvijumService,private studentService:StudentService,private kolokvijumRezultatService:KolokvijumRezultatService){}
   ngOnInit(): void {
+    this.predmetId = Number(this.router.snapshot.paramMap.get('id'));
     this.kolokvijumService.getByPredmet(this.predmetId).subscribe(data=>{
       this.kolokvijumi = data;
+      console.log(data)
     })
   }
   onSelectKolokvijum(kolokvijumId: number) {

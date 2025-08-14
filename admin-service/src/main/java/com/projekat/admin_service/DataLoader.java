@@ -52,6 +52,7 @@ public class DataLoader implements CommandLineRunner {
         univerzitet.setEmail("kontakt@bg.ac.rs");
         univerzitet.setOpis("Najveći univerzitet u Srbiji");
         univerzitet.setNastavnikId(1);
+        univerzitet.setAktivan(true);
         univerzitet.setAdresa(adresa2);  // use existing saved adresa
         univerzitet = univerzitetRepository.save(univerzitet);
 
@@ -69,6 +70,7 @@ public class DataLoader implements CommandLineRunner {
         fakultet.setUniverzitet(univerzitet);
         fakultet.setNastavnikId(1);
         fakultet.setAdresa(fakultetAdresa);
+        fakultet.setAktivan(true);
         fakultet = fakultetRepository.save(fakultet);
 
         // 5. Create and save StudijskiProgram with Fakultet
@@ -77,6 +79,7 @@ public class DataLoader implements CommandLineRunner {
         studijskiProgram.setOpis("Program za IT struku");
         studijskiProgram.setFakultet(fakultet);
         studijskiProgram.setNastavnikId(1);
+        studijskiProgram.setAktivan(true);
         studijskiProgram = studijskiProgramRepository.save(studijskiProgram);
 
         // 6. Create and save Predmet with StudijskiProgram
@@ -85,6 +88,7 @@ public class DataLoader implements CommandLineRunner {
         predmet.setEsbp(6);
         predmet.setSemestar(1);
         predmet.setDan(3);
+        predmet.setAktivan(true);
         predmet.setStudijskiProgram(studijskiProgram);
         predmetRepository.save(predmet);
 
@@ -93,10 +97,10 @@ public class DataLoader implements CommandLineRunner {
         predmet1.setEsbp(6);
         predmet1.setSemestar(1);
         predmet1.setDan(4);
+        predmet1.setAktivan(true);
         predmet1.setStudijskiProgram(studijskiProgram);
         predmetRepository.save(predmet1);
         System.out.println("Test data loaded successfully.");
-
     }
 }
 

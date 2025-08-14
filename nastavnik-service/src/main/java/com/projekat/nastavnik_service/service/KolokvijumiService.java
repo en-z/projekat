@@ -25,6 +25,7 @@ public class KolokvijumiService {
         return kolokvijumiRezultatRepository.findAllByStudentId(id);
     }
     public List<KolokvijumRezultat> getAllStudentPredmet(Long predmetId,Long studentId){
+        System.out.println(kolokvijumiRezultatRepository.findAllByPredmetIdAndStudentId(predmetId,studentId));
         return kolokvijumiRezultatRepository.findAllByPredmetIdAndStudentId(predmetId,studentId);
     }
     public List<KolokvijumRezultat> saveAll(List<KolokvijumRezultat> list){

@@ -1,3 +1,16 @@
+<div>
+  <label for="rokSelect">Odaberi ispitni rok:</label>
+  <select id="rokSelect"
+          [(ngModel)]="izabraniRokId"
+          (change)="onRokChange()">
+    <option value="" disabled selected>-- Izaberi rok --</option>
+    <option *ngFor="let rok of rokovi" [value]="rok.id">
+      {{ rok.naziv }} ({{ rok.datumPocetka | date:'dd.MM.yyyy' }} - {{ rok.datumKraja | date:'dd.MM.yyyy' }})
+    </option>
+  </select>
+</div>
+<br>
+
 <table >
   <thead>
     <tr>
@@ -11,7 +24,7 @@
     <ng-container *ngFor="let red of tabela; let i = index">
       <tr>
         <td>
-          {{ studenti[i]?.ime }} {{ studenti[i]?.prezime }}
+          {{ studenti[i]?.ime }} {{ studenti[i]?.prezime }} (Indeks:{{studenti[i]?.brojIndeksa}})
         </td>
         <td>
           <input type="number"

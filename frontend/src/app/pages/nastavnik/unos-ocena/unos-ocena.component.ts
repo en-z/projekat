@@ -89,6 +89,7 @@ export class UnosOcenaComponent implements OnInit {
 
   this.kolokvijumService.getRezultateStudentaIPredmeta(this.predmetId, studentId)
     .subscribe(kolokvijumi => {
+      console.log(kolokvijumi)
       this.kolokvijumiMapa[index]= kolokvijumi;
       this.openedRow = index;
     });
@@ -103,7 +104,9 @@ export class UnosOcenaComponent implements OnInit {
     }
   }
   sacuvaj() {
+    console.log(this.tabela)
     this.ishodService.create(this.tabela).subscribe(data=>{
+      console.log(this.tabela)
       console.log("dodato")
     })
   }

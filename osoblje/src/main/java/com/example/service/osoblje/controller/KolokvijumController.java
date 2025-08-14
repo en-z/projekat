@@ -60,6 +60,7 @@ public class KolokvijumController{
 
     @GetMapping("/predmet/{predmetId}")
     public List<Kolokvijumi> getByPredmetId(@PathVariable Long predmetId) {
+        System.out.println(kolokvijumiService.findByPredmetId(predmetId));
         return kolokvijumiService.findByPredmetId(predmetId);
     }
 }
