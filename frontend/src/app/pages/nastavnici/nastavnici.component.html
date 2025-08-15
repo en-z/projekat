@@ -1,33 +1,43 @@
-<div class="max-w-xl mx-auto p-4">
-  <div class="flex gap-4 mb-6">
-  <button (click)="xmlExport()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-    Export XML
-  </button>
-
-  <button (click)="pdfExport()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-    Export PDF
-  </button>
-</div>
-
-  <form [formGroup]="searchForm" class="grid grid-cols-1 gap-3 mb-6">
-    <input formControlName="ime" type="text" placeholder="Ime" class="border p-2 rounded" />
-    <input formControlName="prezime" type="text" placeholder="Prezime" class="border p-2 rounded" />
-    <input formControlName="biografija" type="text" placeholder="Biografija" class="border p-2 rounded" />
-    <input formControlName="status" type="text" placeholder="Status" class="border p-2 rounded" />
-  </form>
-
-  <div *ngIf="filtrirani.length > 0; else sviNastavnici">
-    <div *ngFor="let n of filtrirani" class="mb-4 p-4 border rounded shadow-sm">
-      <p class="font-semibold">{{ n.ime }} {{ n.prezime }} - {{ n.status }}</p>
-      <p>{{ n.biografija }}</p>
-    </div>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
-
-  <ng-template #sviNastavnici>
-    <div *ngFor="let n of nastavnici" class="mb-4 p-4 border rounded shadow-sm">
-      <p class="font-semibold">{{ n.ime }} {{ n.prezime }} - {{ n.status }}</p>
-      <p>{{ n.biografija }}</p>
+  <div class="max-w-xl mx-auto p-4">
+    <div class="flex gap-4 mb-6">
+    <button (click)="xmlExport()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Export XML
+    </button>
+  
+    <button (click)="pdfExport()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+      Export PDF
+    </button>
+  </div>
+  
+    <form [formGroup]="searchForm" class="grid grid-cols-1 gap-3 mb-6">
+      <input formControlName="ime" type="text" placeholder="Ime" class="border p-2 rounded" />
+      <input formControlName="prezime" type="text" placeholder="Prezime" class="border p-2 rounded" />
+      <input formControlName="biografija" type="text" placeholder="Biografija" class="border p-2 rounded" />
+      <input formControlName="status" type="text" placeholder="Status" class="border p-2 rounded" />
+    </form>
+  
+    <div *ngIf="filtrirani.length > 0; else sviNastavnici">
+      <div *ngFor="let n of filtrirani" class="mb-4 p-4 border rounded shadow-sm">
+        <p class="font-semibold">{{ n.ime }} {{ n.prezime }} - {{ n.status }}</p>
+        <p>{{ n.biografija }}</p>
+      </div>
     </div>
-  </ng-template>
+  
+    <ng-template #sviNastavnici>
+      <div *ngFor="let n of nastavnici" class="mb-4 p-4 border rounded shadow-sm">
+        <p class="font-semibold">{{ n.ime }} {{ n.prezime }} - {{ n.status }}</p>
+        <p>{{ n.biografija }}</p>
+      </div>
+    </ng-template>
+  </div>
 </div>
+
 

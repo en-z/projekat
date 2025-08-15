@@ -1,20 +1,30 @@
-<div class="container" *ngIf="predmet">
-  <h2>{{ predmet.naziv }}</h2>
-  <p><strong>ID:</strong> {{ predmet.id }}</p>
-  <p><strong>ESPB:</strong> {{ predmet.espb }}</p>
-  <button (click)="otvoriListuStudenata()">Pregled studenata</button>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
 
+  <div class="container mt-0 text-center text font-bold" *ngIf="predmet">
+    <h2>{{ predmet.naziv }}</h2>
+    
+    <p><strong>ESPB:</strong> {{ predmet.espb }}</p>
+    <button (click)="otvoriListuStudenata() ">Pregled studenata</button>
+  
+  
+    <h3>Akcije</h3>
+    <button class=""(click)="idiNa('silabus')">Silabus</button>
+    <button (click)="idiNa('termini')">Termini</button>
+    <button (click)="idiNa('evaluacije')">Evaluacije</button>
+    <button (click)="idiNa('obavestenja')">Obaveštenja</button>
+    <button (click)="idiNa('ocene')">Unos ocena</button>
+    <button (click)="idiNa('kolokvijum')">Unos kolokvijuma bodova</button>
+  </div>
+  
+  <div *ngIf="!predmet">
+    <p>Učitavanje predmeta...</p>
+  </div>
 
-  <h3>Akcije</h3>
-  <button (click)="idiNa('silabus')">Silabus</button>
-  <button (click)="idiNa('termini')">Termini</button>
-  <button (click)="idiNa('evaluacije')">Evaluacije</button>
-  <button (click)="idiNa('obavestenja')">Obaveštenja</button>
-  <!-- <button (click)="idiNa('studenti')">Studenti</button> -->
-  <button (click)="idiNa('ocene')">Unos ocena</button>
-  <button (click)="idiNa('kolokvijum')">Unos kolokvijuma bodova</button>
-</div>
-
-<div *ngIf="!predmet">
-  <p>Učitavanje predmeta...</p>
 </div>

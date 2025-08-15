@@ -23,6 +23,8 @@ export class DodajOsobljeComponent {
   };
 
   fakulteti: FakultetDTO[]=[]
+adminForm: any;
+error: any;
 
   constructor(
     private osobljeService: OsobljeService,

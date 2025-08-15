@@ -1,33 +1,110 @@
-<h2>Kreiraj osoblje</h2>
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kreiraj osoblje – Tailwind single-file</title>
 
-<form (ngSubmit)="kreiraj()" #osobljeForm="ngForm">
-  <label>Ime:
-    <input type="text" [(ngModel)]="osoblje.ime" name="ime" required />
-  </label>
-  <br />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-800">
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <h2 class="text-2xl font-semibold text-center mb-6">Kreiraj osoblje</h2>
 
-  <label>Prezime:
-    <input type="text" [(ngModel)]="osoblje.prezime" name="prezime" required />
-  </label>
-  <br />
+      <!-- KARTICA -->
+      <div class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100">
+        <!-- Forma (novalidate da ne smeta nativna validacija browsera) -->
+        <form (ngSubmit)="kreiraj()" #osobljeForm="ngForm" novalidate class="grid gap-4">
+          <!-- Ime -->
+          <label class="block">
+            <span class="block text-sm font-medium text-gray-700">Ime</span>
+            <input type="text"
+                   [(ngModel)]="osoblje.ime"
+                   name="ime"
+                   required
+                   #imeCtrl="ngModel"
+                   class="mt-1 w-full rounded-xl border bg-white p-3 text-sm shadow-sm outline-none transition
+                          focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                   [ngClass]="{'border-gray-300': !imeCtrl.invalid, 'border-red-500 ring-2 ring-red-500': imeCtrl.invalid && imeCtrl.touched}" />
+            <span *ngIf="imeCtrl.errors?.['required'] && imeCtrl.touched" class="text-red-500 text-xs">Ime je obavezno.</span>
+          </label>
 
-  <label>Email:
-    <input type="email" [(ngModel)]="osoblje.email" name="email" required />
-  </label>
-  <br />
+          <!-- Prezime -->
+          <label class="block">
+            <span class="block text-sm font-medium text-gray-700">Prezime</span>
+            <input type="text"
+                   [(ngModel)]="osoblje.prezime"
+                   name="prezime"
+                   required
+                   #prezimeCtrl="ngModel"
+                   class="mt-1 w-full rounded-xl border bg-white p-3 text-sm shadow-sm outline-none transition
+                          focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                   [ngClass]="{'border-gray-300': !prezimeCtrl.invalid, 'border-red-500 ring-2 ring-red-500': prezimeCtrl.invalid && prezimeCtrl.touched}" />
+            <span *ngIf="prezimeCtrl.errors?.['required'] && prezimeCtrl.touched" class="text-red-500 text-xs">Prezime je obavezno.</span>
+          </label>
 
-  <label>Lozinka:
-    <input type="password" [(ngModel)]="osoblje.password" name="password" required />
-  </label>
-  <br />
+          <!-- Email -->
+          <label class="block">
+            <span class="block text-sm font-medium text-gray-700">Email</span>
+            <input type="email"
+                   [(ngModel)]="osoblje.email"
+                   name="email"
+                   required
+                   email
+                   #emailCtrl="ngModel"
+                   class="mt-1 w-full rounded-xl border bg-white p-3 text-sm shadow-sm outline-none transition
+                          focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                   [ngClass]="{'border-gray-300': !emailCtrl.invalid, 'border-red-500 ring-2 ring-red-500': emailCtrl.invalid && emailCtrl.touched}" />
+            <!-- Prikaz grešaka -->
+            <span *ngIf="emailCtrl.errors?.['required'] && emailCtrl.touched" class="text-red-500 text-xs">Email je obavezan.</span>
+            <span *ngIf="emailCtrl.errors?.['email'] && emailCtrl.touched" class="text-red-500 text-xs">Unesite validnu email adresu </span>
+          </label>
 
-  <label>Fakultet:
-    <select [(ngModel)]="osoblje.fakultetId" name="fakultetId" required>
-      <option *ngFor="let f of fakulteti" [value]="f.id">{{ f.naziv }}</option>
-    </select>
-  </label>
-  <br />
+          <!-- Lozinka -->
+          <label class="block">
+            <span class="block text-sm font-medium text-gray-700">Lozinka</span>
+            <input type="password"
+                   [(ngModel)]="osoblje.password"
+                   name="password"
+                   required
+                   minlength="5"
+                   #passCtrl="ngModel"
+                   class="mt-1 w-full rounded-xl border bg-white p-3 text-sm shadow-sm outline-none transition
+                          focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                   [ngClass]="{'border-gray-300': !passCtrl.invalid, 'border-red-500 ring-2 ring-red-500': passCtrl.invalid && passCtrl.touched}" />
+            <!-- Prikaz grešaka -->
+            <span *ngIf="passCtrl.errors?.['required'] && passCtrl.touched" class="text-red-500 text-xs">Lozinka je obavezna.</span>
+            <span *ngIf="passCtrl.errors?.['minlength'] && passCtrl.touched" class="text-red-500 text-xs">Lozinka mora imati najmanje 5 karaktera.</span>
+          </label>
 
-  <button type="submit" [disabled]="!osobljeForm.form.valid">Kreiraj</button>
-</form>
+          <!-- Fakultet -->
+          <label class="block">
+            <span class="block text-sm font-medium text-gray-700">Fakultet</span>
+            <select [(ngModel)]="osoblje.fakultetId"
+                    name="fakultetId"
+                    required
+                    #fakCtrl="ngModel"
+                    class="mt-1 w-full rounded-xl border bg-white p-3 text-sm shadow-sm outline-none transition
+                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                    [ngClass]="{'border-gray-300': !fakCtrl.invalid, 'border-red-500 ring-2 ring-red-500': fakCtrl.invalid && fakCtrl.touched}">
+              <option *ngFor="let f of fakulteti" [value]="f.id">{{ f.naziv }}</option>
+            </select>
+            <span *ngIf="fakCtrl.errors?.['required'] && fakCtrl.touched" class="text-red-500 text-xs">Izaberite fakultet.</span>
+          </label>
 
+          <!-- Submit dugme -->
+          <button type="submit"
+                  [disabled]="osobljeForm.invalid"
+                  class="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50">
+            Kreiraj
+          </button>
+        </form>
+
+        <!-- Info/napomena -->
+        <p class="mt-4 text-center text-xs text-gray-500">Sva polja su obavezna.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -98,6 +98,12 @@ export class NavBarComponent {
     this.showAdmin=false;
     this.router.navigate(['/program'])
   }
+  goToDodajOsoblje(){
+    this.clearHideTimeout();
+    this.showAdmin=false;
+    this.router.navigate(['/dodaj-osoblje'])
+
+  }
   goToDodajRok(){
     this.clearHideTimeout();
     this.showAdmin=false;

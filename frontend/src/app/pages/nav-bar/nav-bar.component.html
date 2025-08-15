@@ -1,4 +1,11 @@
-<div>
+<div class=" relative flex flex-col items-center bg-cover bg-center bg-fixed"
+style="background-image: url('pozadina.jpg');">
+  <div class="absolute inset-0 flex justify-center items-center pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
+<div 
+  class="absolute top-0 left-0 w-full flex flex-wrap justify-content p-4 space-x-2 z-50 bg-transparent"
+>
   <button *ngIf="isLogged()" (click)="onLogout()"
     class="bg-red-600 text-white px-4 py-2 rounded-mb hover:bg-red-700 transition-colors">
     LogOut
@@ -154,6 +161,10 @@
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
         Dodaj Univerzitet
       </button>
+      <button (click)="goToDodajOsoblje()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj Osoblje
+      </button>
       <button (click)="goToDodajProgram()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
         Dodaj Program
@@ -180,5 +191,6 @@
       </button>
     </div>
   </div>
+
 </div>
 

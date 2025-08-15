@@ -1,42 +1,62 @@
-<div *ngIf="univerzitet" class="max-w-3xl mx-auto my-8 p-6 bg-white shadow rounded">
-  <h2 class="text-2xl font-bold mb-2">{{ univerzitet.naziv }}</h2>
-  <p class="text-gray-700">{{ univerzitet.opis }}</p>
-  <p class="text-gray-700">Rektor: {{ univerzitet.rektor.ime}}{{univerzitet.rektor.prezime}},<br> {{univerzitet.rektor.biografija}}</p>
-  <p class="text-gray-700">Adresa: {{ univerzitet.adresa.ulica}},{{univerzitet.adresa.broj}}:{{univerzitet.adresa.grad}},{{univerzitet.adresa.drzava}}</p>
-  <p class="text-gray-700">Kontakt info:{{ univerzitet.kontakt}}</p>
-  <p class="text-gray-700">Email info:{{ univerzitet.email}}</p>
-</div>
-
-<div class="max-w-3xl mx-auto mt-10">
-  <h3 class="text-xl font-semibold mb-4">Fakulteti</h3>
-
-  <div *ngIf="fakulteti.length > 0; else noFakulteti" class="space-y-4">
-    <div
-      *ngFor="let fakultet of fakulteti"
-      (click)="router.navigate(['/prikazi-fakultet', fakultet.id])"
-      class="p-4 bg-gray-50 rounded shadow hover:shadow-lg cursor-pointer transition duration-200 hover:bg-blue-50"
-    >
-      <h4 class="text-lg font-medium text-blue-700">{{ fakultet.naziv }}</h4>
-            <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="flex gap-4 mt-4">
-      <button
-      (click)="router.navigate(['/fakultet', fakultet.id])"
-      class="px-4 py-2 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
-      >
-      Uredi
-      </button>
-      <button
-      (click)="delete(fakultet.id!)"
-      class="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
-      >
-      Obriši
-      </button>
-      </div>
-
-    </div>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
 
-  <ng-template #noFakulteti>
-    <p class="text-gray-500">Ovaj univerzitet trenutno nema fakulteta.</p>
-  </ng-template>
-</div>
+  <!-- Podaci o univerzitetu -->
+  <div *ngIf="univerzitet" 
+     class="relative z-10 w-full max-w-md p-6 mt-60 bg-white/70 border border-white/50 rounded-2xl shadow-xl backdrop-blur-md">
 
+
+    <h2 class="text-2xl font-bold mb-2">{{ univerzitet.naziv }}</h2>
+    <p class="text-gray-700">{{ univerzitet.opis }}</p>
+    <p class="text-gray-700">
+      Rektor: {{ univerzitet.rektor.ime }} {{ univerzitet.rektor.prezime }},
+      <br>{{ univerzitet.rektor.biografija }}
+    </p>
+    <p class="text-gray-700">
+      Adresa: {{ univerzitet.adresa.ulica }}, {{ univerzitet.adresa.broj }} :
+      {{ univerzitet.adresa.grad }}, {{ univerzitet.adresa.drzava }}
+    </p>
+    <p class="text-gray-700">Kontakt info: {{ univerzitet.kontakt }}</p>
+    <p class="text-gray-700">Email info: {{ univerzitet.email }}</p>
+  </div>
+
+  <!-- Fakulteti -->
+  <div class="max-w-3xl mx-auto mt-10 relative z-10">
+    <h3 class="text-xl font-semibold mb-4">Fakulteti</h3>
+
+    <div *ngIf="fakulteti.length > 0; else noFakulteti" class="space-y-4">
+      <div
+        *ngFor="let fakultet of fakulteti"
+        (click)="router.navigate(['/prikazi-fakultet', fakultet.id])"
+        class="p-4 bg-gray-50/70 rounded shadow hover:shadow-lg cursor-pointer transition duration-200 hover:bg-blue-50/50"
+      >
+        <h4 class="text-lg font-medium text-blue-700">{{ fakultet.naziv }}</h4>
+
+        <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="flex gap-4 mt-4">
+          <button
+            (click)="router.navigate(['/fakultet', fakultet.id])"
+            class="px-4 py-2 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
+          >
+            Uredi
+          </button>
+          <button
+            (click)="delete(fakultet.id!)"
+            class="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Obriši
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noFakulteti>
+      <p class="text-gray-500">Ovaj univerzitet trenutno nema fakulteta.</p>
+    </ng-template>
+  </div>
+</div>

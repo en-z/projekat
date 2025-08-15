@@ -1,55 +1,89 @@
-<form [formGroup]="searchForm" (ngSubmit)="pretrazi()">
-  <div>
-    <label>User ID min:</label>
-    <input formControlName="userIdMin" type="number" />
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
-  <div>
-    <label>User ID max:</label>
-    <input formControlName="userIdMax" type="number" />
+<div class="relative z-10 w-full max-w-md p-6 mt-60 bg-white/70 border border-white/50 rounded-2xl shadow-xl backdrop-blur-md">
+<form [formGroup]="searchForm" (ngSubmit)="pretrazi()" class="space-y-2">
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">User ID min:</label>
+    <input formControlName="userIdMin" type="number"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Knjiga naziv:</label>
-    <input formControlName="knjigaNazivContains" type="text" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">User ID max:</label>
+    <input formControlName="userIdMax" type="number"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Knjiga kategorija:</label>
-    <input formControlName="knjigaKategorijaContains" type="text" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Knjiga naziv:</label>
+    <input formControlName="knjigaNazivContains" type="text"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Knjiga opis:</label>
-    <input formControlName="knjigaOpisContains" type="text" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Knjiga kategorija:</label>
+    <input formControlName="knjigaKategorijaContains" type="text"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Godina izdavanja min:</label>
-    <input formControlName="knjigaGodinaIzdavanjaMin" type="number" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Knjiga opis:</label>
+    <input formControlName="knjigaOpisContains" type="text"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Godina izdavanja max:</label>
-    <input formControlName="knjigaGodinaIzdavanjaMax" type="number" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Godina izdavanja min:</label>
+    <input formControlName="knjigaGodinaIzdavanjaMin" type="number"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Knjiga autor:</label>
-    <input formControlName="knjigaAutorContains" type="text" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Godina izdavanja max:</label>
+    <input formControlName="knjigaGodinaIzdavanjaMax" type="number"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Količina min:</label>
-    <input formControlName="knjigaKolicinaMin" type="number" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Knjiga autor:</label>
+    <input formControlName="knjigaAutorContains" type="text"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Količina max:</label>
-    <input formControlName="knjigaKolicinaMax" type="number" />
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Količina min:</label>
+    <input formControlName="knjigaKolicinaMin" type="number"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
   </div>
-  <div>
-    <label>Trajna:</label>
-    <select formControlName="trajna">
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Količina max:</label>
+    <input formControlName="knjigaKolicinaMax" type="number"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition"/>
+  </div>
+
+  <div class="flex items-center space-x-2">
+    <label class="text-sm font-medium text-gray-700 w-32">Trajna:</label>
+    <select formControlName="trajna"
+      class="flex-1 px-1 py-0.5 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent transition">
       <option [ngValue]="null">Svi</option>
       <option [ngValue]="true">Da</option>
       <option [ngValue]="false">Ne</option>
     </select>
   </div>
 
-  <button type="submit">Pretraži</button>
+  <button type="submit"
+    class="w-full bg-blue-600 text-white py-1.5 rounded-sm font-medium hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 transition">
+    Pretraži
+  </button>
 </form>
+
 
 <hr />
 
@@ -82,4 +116,4 @@
 <div *ngIf="izdate.length === 0">
   Nema podataka.
 </div>
-
+</div>
