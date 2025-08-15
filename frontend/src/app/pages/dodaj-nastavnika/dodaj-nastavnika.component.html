@@ -1,4 +1,13 @@
-<div class="max-w-md mx-auto p-6 bg-white shadow-md rounded">
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad tabele -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-44 h-auto opacity-40 drop-shadow-2xl">
+  </div>
+
+<div class="max-w-md mx-auto p-6 bg-white shadow-md rounded mt-10">
   <h2 class="text-xl font-bold mb-4">Dodaj Korisnika</h2>
 
   <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
@@ -25,7 +34,7 @@
     <input formControlName="biografija" type="text" placeholder="Biografija" class="w-full mb-4 border px-3 py-2 rounded" />
 
     <button type="submit"
-      class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded w-full"
       [disabled]="adminForm.invalid">
       Dodaj Korisnika
     </button>

@@ -10,7 +10,7 @@
   <!-- Podaci o univerzitetu -->
   <div *ngIf="univerzitet" 
      class="relative z-10 w-full max-w-md p-6 mt-60 bg-white/70 border border-white/50 rounded-2xl shadow-xl backdrop-blur-md">
-
+    <img src="univerzitet.jpg"class="w-full h-auto  ">
 
     <h2 class="text-2xl font-bold mb-2">{{ univerzitet.naziv }}</h2>
     <p class="text-gray-700">{{ univerzitet.opis }}</p>
@@ -24,11 +24,11 @@
     </p>
     <p class="text-gray-700">Kontakt info: {{ univerzitet.kontakt }}</p>
     <p class="text-gray-700">Email info: {{ univerzitet.email }}</p>
-  </div>
+  
 
   <!-- Fakulteti -->
-  <div class="max-w-3xl mx-auto mt-10 relative z-10">
-    <h3 class="text-xl font-semibold mb-4">Fakulteti</h3>
+  
+    <h3 class="text-xl font-semibold mb-4 font-bold">Fakulteti</h3>
 
     <div *ngIf="fakulteti.length > 0; else noFakulteti" class="space-y-4">
       <div
@@ -59,4 +59,4 @@
       <p class="text-gray-500">Ovaj univerzitet trenutno nema fakulteta.</p>
     </ng-template>
   </div>
-</div>
+

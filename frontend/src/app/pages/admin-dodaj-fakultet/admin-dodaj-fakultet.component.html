@@ -1,142 +1,150 @@
-<div class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
-  <h1 class="text-2xl font-bold mb-6 text-center">
-    {{ id ? 'Izmeni Fakultet' : 'Dodaj Fakultet' }}
-  </h1>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad tabele -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-44 h-auto opacity-40 drop-shadow-2xl">
+  </div>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+  <!-- Container -->
+  <div class="w-[750px] mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+    <h1 class="text-2xl font-bold mb-4 text-center">
+      {{ id ? 'Izmeni Fakultet' : 'Dodaj Fakultet' }}
+    </h1>
 
-    <div>
-      <label for="naziv" class="block text-gray-700 font-semibold mb-2">Naziv</label>
-      <input
-        id="naziv"
-        type="text"
-        formControlName="naziv"
-        placeholder="Unesite naziv fakulteta"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        required
-      />
-    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
 
-    <div>
-      <label for="kontakt" class="block text-gray-700 font-semibold mb-2">Kontakt</label>
-      <input
-        id="kontakt"
-        type="text"
-        formControlName="kontakt"
-        placeholder="Unesite kontakt"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
+      <div>
+        <label for="naziv" class="block text-gray-700 font-semibold mb-1">Naziv</label>
+        <input
+          id="naziv"
+          type="text"
+          formControlName="naziv"
+          placeholder="Unesite naziv fakulteta"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+      </div>
 
-    <div>
-      <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
-      <input
-        id="email"
-        type="email"
-        formControlName="email"
-        placeholder="Unesite email"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
+      <div>
+        <label for="kontakt" class="block text-gray-700 font-semibold mb-1">Kontakt</label>
+        <input
+          id="kontakt"
+          type="text"
+          formControlName="kontakt"
+          placeholder="Unesite kontakt"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-    <div>
-      <label for="opis" class="block text-gray-700 font-semibold mb-2">Opis</label>
-      <textarea
-        id="opis"
-        formControlName="opis"
-        rows="4"
-        placeholder="Unesite opis"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-      ></textarea>
-    </div>
+      <div>
+        <label for="email" class="block text-gray-700 font-semibold mb-1">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Unesite email"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-    <div>
-      <label for="dekan_id" class="block text-gray-700 font-semibold mb-2">Dekan</label>
-      <select
-        id="dekan_id"
-        formControlName="dekan_id"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        required
+      <div>
+        <label for="opis" class="block text-gray-700 font-semibold mb-1">Opis</label>
+        <textarea
+          id="opis"
+          formControlName="opis"
+          rows="3"
+          placeholder="Unesite opis"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="dekan_id" class="block text-gray-700 font-semibold mb-1">Dekan</label>
+        <select
+          id="dekan_id"
+          formControlName="dekan_id"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        >
+          <option value="" disabled selected>Izaberite dekana</option>
+          <option *ngFor="let n of nastavnici" [value]="n.id">
+            {{ n.ime }} {{ n.prezime }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label for="univerzitet_id" class="block text-gray-700 font-semibold mb-1">Univerzitet</label>
+        <select
+          id="univerzitet_id"
+          formControlName="univerzitet_id"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        >
+          <option value="" disabled selected>Izaberite univerzitet</option>
+          <option *ngFor="let u of univerziteti" [value]="u.id">
+            {{ u.naziv }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Adresa u dva reda -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="ulica" class="block text-gray-700 font-semibold mb-1">Ulica</label>
+          <input
+            id="ulica"
+            type="text"
+            formControlName="ulica"
+            placeholder="Unesite ulicu"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label for="broj" class="block text-gray-700 font-semibold mb-1">Broj</label>
+          <input
+            id="broj"
+            type="text"
+            formControlName="broj"
+            placeholder="Unesite broj"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label for="grad" class="block text-gray-700 font-semibold mb-1">Grad</label>
+          <input
+            id="grad"
+            type="text"
+            formControlName="grad"
+            placeholder="Unesite grad"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label for="drzava" class="block text-gray-700 font-semibold mb-1">Država</label>
+          <input
+            id="drzava"
+            type="text"
+            formControlName="drzava"
+            placeholder="Unesite državu"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
       >
-        <option value="" disabled selected>Izaberite dekana</option>
-        <option *ngFor="let n of nastavnici" [value]="n.id">
-          {{ n.ime }} {{ n.prezime }}
-        </option>
-      </select>
-    </div>
+        {{ id ? 'Sačuvaj Izmene' : 'Dodaj Fakultet' }}
+      </button>
 
-    <div>
-      <label for="univerzitet_id" class="block text-gray-700 font-semibold mb-2">Univerzitet</label>
-      <select
-        id="univerzitet_id"
-        formControlName="univerzitet_id"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        required
-      >
-        <option value="" disabled selected>Izaberite univerzitet</option>
-        <option *ngFor="let u of univerziteti" [value]="u.id">
-          {{ u.naziv }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Adresa - Ulica -->
-    <div>
-      <label for="ulica" class="block text-gray-700 font-semibold mb-2">Ulica</label>
-      <input
-        id="ulica"
-        type="text"
-        formControlName="ulica"
-        placeholder="Unesite ulicu"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
-
-    <!-- Adresa - Broj -->
-    <div>
-      <label for="broj" class="block text-gray-700 font-semibold mb-2">Broj</label>
-      <input
-        id="broj"
-        type="text"
-        formControlName="broj"
-        placeholder="Unesite broj"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
-
-    <!-- Adresa - Grad -->
-    <div>
-      <label for="grad" class="block text-gray-700 font-semibold mb-2">Grad</label>
-      <input
-        id="grad"
-        type="text"
-        formControlName="grad"
-        placeholder="Unesite grad"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
-
-    <!-- Adresa - Drzava -->
-    <div>
-      <label for="drzava" class="block text-gray-700 font-semibold mb-2">Država</label>
-      <input
-        id="drzava"
-        type="text"
-        formControlName="drzava"
-        placeholder="Unesite državu"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
-
-    <!-- Submit button -->
-    <button
-      type="submit"
-      [disabled]="form.invalid"
-      class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
-    >
-      {{ id ? 'Sačuvaj Izmene' : 'Dodaj Fakultet' }}
-    </button>
-
-  </form>
+    </form>
+  </div>
 </div>
-

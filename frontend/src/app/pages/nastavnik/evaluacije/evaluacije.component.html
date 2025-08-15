@@ -1,36 +1,46 @@
-<div class="container">
-  <h2>Instrumenti evaluacije</h2>
-
-  <div class="dodaj">
-    <h3>Dodaj novu evaluaciju</h3>
-    <input type="text" [(ngModel)]="novaEvaluacija.tip" placeholder="Tip evaluacije">
-    <input type="text" [(ngModel)]="novaEvaluacija.opis" placeholder="Opis">
-    <button (click)="dodajEvaluaciju()">Dodaj</button>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
-
-  <hr>
-
-  <div *ngIf="evaluacije.length > 0">
-    <h3>Lista evaluacija</h3>
-    <ul>
-      <li *ngFor="let e of evaluacije">
-        <div *ngIf="uIzmeniId !== e.id">
-          <strong>{{ e.tip }}</strong> – {{ e.opis }}
-          <button (click)="pokreniIzmenu(e)">Izmeni</button>
-          <button (click)="obrisiEvaluaciju(e.id)">Obriši</button>
-        </div>
-
-        <div *ngIf="uIzmeniId === e.id">
-          <input type="text" [(ngModel)]="izmenaEvaluacija.tip">
-          <input type="text" [(ngModel)]="izmenaEvaluacija.opis">
-          <button (click)="sacuvajIzmenu()">Sačuvaj</button>
-          <button (click)="otkaziIzmenu()">Otkaži</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <div *ngIf="evaluacije.length === 0">
-    <p>Nema evaluacija za prikaz.</p>
+  <div class="relative z-10 mt-60 w-full"></div>
+    <div class="container mx-auto" >
+      <h2>Instrumenti evaluacije</h2>
+  
+    <div class="dodaj">
+      <h3>Dodaj novu evaluaciju</h3>
+      <input type="text" [(ngModel)]="novaEvaluacija.tip" placeholder="Tip evaluacije" class=" border border-gray-500 rounded-2xl" >
+      <input type="text" [(ngModel)]="novaEvaluacija.opis" placeholder="Opis"class=" border border-gray-500 rounded-2xl">
+      <button (click)="dodajEvaluaciju()">Dodaj</button>
+    </div>
+  
+    <hr>
+  
+    <div *ngIf="evaluacije.length > 0">
+      <h3>Lista evaluacija</h3>
+      <ul>
+        <li *ngFor="let e of evaluacije">
+          <div *ngIf="uIzmeniId !== e.id">
+            <strong>{{ e.tip }}</strong> – {{ e.opis }}
+            <button (click)="pokreniIzmenu(e)">Izmeni</button>
+            <button (click)="obrisiEvaluaciju(e.id)">Obriši</button>
+          </div>
+  
+          <div *ngIf="uIzmeniId === e.id">
+            <input type="text" [(ngModel)]="izmenaEvaluacija.tip" class=" border border-gray-500 rounded-2xl">
+            <input type="text" [(ngModel)]="izmenaEvaluacija.opis" class=" border border-gray-500 rounded-2xl">
+            <button (click)="sacuvajIzmenu()">Sačuvaj</button>
+            <button (click)="otkaziIzmenu()">Otkaži</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  
+    <div *ngIf="evaluacije.length === 0">
+      <p>Nema evaluacija za prikaz.</p>
+    </div>
   </div>
 </div>

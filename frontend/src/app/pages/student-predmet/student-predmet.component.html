@@ -1,13 +1,24 @@
-<div class="p-6">
-  <h1 class="text-2xl font-bold mb-4">Lista Predmeta</h1>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-32"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad tabele, centriran -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-40 drop-shadow-2xl">
+  </div>
+<div class="p-6 mt-20 ">
+  <form class="mb-50 px-20 bg-gray-100 text-black-700 rounded">
+    <h1 class="text-2xl font-bold mb-4">Lista Predmeta</h1>
 
-  <ul>
-    <li *ngFor="let predmet of predmetList" (click)="selectedPredmet = predmet; getObavjestenja(predmet)"
-        [class.selected]="selectedPredmet?.id === predmet.id"
-        style="cursor:pointer; padding:5px; border:1px solid #ccc; margin-bottom:4px;">
-      {{ predmet.naziv }}
-    </li>
-  </ul>
+    <ul class="bg-gray-200 space-y-10 ">
+      <li class="p-5 bg-gray-100 rounded" *ngFor="let predmet of predmetList" (click)="selectedPredmet = predmet; getObavjestenja(predmet)"
+          [class.selected]="selectedPredmet?.id === predmet.id"
+          style="cursor:pointer; padding:5px; border:1px solid #ccc; margin-bottom:4px;">
+        {{ predmet.naziv }}
+        
+      </li>
+    </ul>
+ 
 
   <div *ngIf="selectedPredmet" class="mt-4 p-4 border rounded bg-gray-50">
     <h2 class="text-xl font-semibold mb-2">Obavještenja za: {{ selectedPredmet.naziv }}</h2>
@@ -42,5 +53,6 @@
   <div *ngIf="error" class="text-red-600 mt-4">
     {{ error }}
   </div>
+  </form>
 </div>
 

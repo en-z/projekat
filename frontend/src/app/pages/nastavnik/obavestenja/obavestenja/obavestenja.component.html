@@ -1,12 +1,21 @@
-<div class="container">
-  <h2>Obaveštenja</h2>
-
-  <div class="dodaj">
-    <h3>Dodaj novo obaveštenje</h3>
-    <input type="text" [(ngModel)]="novo.naslov" placeholder="Naslov">
-    <textarea [(ngModel)]="novo.tekst" placeholder="Tekst"></textarea>
-    <button (click)="dodaj()">Dodaj</button>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
+  <div class="relative z-10 mt-50 w-full"></div>
+  <div class="container">
+    <h2>Obaveštenja</h2>
+
+    <div class="dodaj">
+      <h3>Dodaj novo obaveštenje</h3>
+      <input type="text" [(ngModel)]="novo.naslov" placeholder="Naslov">
+      <textarea [(ngModel)]="novo.tekst" placeholder="Tekst"></textarea>
+      <button (click)="dodaj()">Dodaj</button>
+    </div>
 
   <hr>
 
@@ -34,4 +43,5 @@
   <div *ngIf="obavestenja.length === 0">
     <p>Nema obaveštenja za prikaz.</p>
   </div>
+</div>
 </div>

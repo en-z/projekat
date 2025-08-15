@@ -6,10 +6,12 @@ style="background-image: url('pozadina.jpg');">
 <div 
   class="absolute top-0 left-0 w-full flex flex-wrap justify-content p-4 space-x-2 z-50 bg-transparent"
 >
-  <button *ngIf="isLogged()" (click)="onLogout()"
-    class="bg-red-600 text-white px-4 py-2 rounded-mb hover:bg-red-700 transition-colors">
-    LogOut
-  </button>
+  <button *ngIf="isLogged()" 
+        (click)="onLogout()"
+        class="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors">
+  LogOut
+</button>
+
 
   <button *ngIf="!isLogged()" (click)="goToLogin()"
     class="px-5 py-2 bg-gray-300 rounded hover:bg-gray-500 transition-colors">
@@ -55,11 +57,11 @@ style="background-image: url('pozadina.jpg');">
   <div *ngIf="authService.hasRole('ROLE_NASTAVNIK')" class="relative inline-block text-left">
     <app-notifikacije></app-notifikacije>
     <button (click)="goToNastavnikPredmeti()"
-      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors translate-x-[10px]">
       Predmeti
     </button>
     <button (click)="goToZavrsniRadovi()"
-      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors translate-x-[20px]">
       Zavrsni radovi
     </button>
   </div>
@@ -69,7 +71,7 @@ style="background-image: url('pozadina.jpg');">
   (mouseenter)="onMenuEnter()">
     <app-notifikacije></app-notifikacije>
     <button (click)="showStudentmenu= !showStudentmenu"
-      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors translate-x-[10px]">
       Student Menu ▼
     </button>
 
@@ -97,7 +99,7 @@ style="background-image: url('pozadina.jpg');">
   (mouseenter)="onMenuEnter()">
     <app-notifikacije></app-notifikacije>
     <button (click)="showOsobljeMenu= !showOsobljeMenu"
-      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors translate-x-[10px]">
       Osoblje Menu ▼
     </button>
 
@@ -129,7 +131,7 @@ style="background-image: url('pozadina.jpg');">
   (mouseenter)="onMenuEnter()">
     <app-notifikacije></app-notifikacije>
     <button (click)="showAdmin= !showAdmin"
-      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors">
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors translate-x-[10px]">
       Admin Menu ▼
     </button>
 

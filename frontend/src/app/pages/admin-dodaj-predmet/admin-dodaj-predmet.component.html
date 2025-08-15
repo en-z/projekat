@@ -1,61 +1,78 @@
-<form [formGroup]="predmetForm" (ngSubmit)="onSubmit()" class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow space-y-6">
-  <h2 class="text-2xl font-bold text-gray-800">{{ id ? 'Izmeni Predmet' : 'Dodaj Predmet' }}</h2>
-  <div>
-    <label class="block mb-1 text-sm font-medium text-gray-700">Naziv</label>
-    <input
-      type="text"
-      formControlName="naziv"
-      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      placeholder="Unesite naziv predmeta"
-    />
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini -->
+  <div class="absolute top-10 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-40 h-40 opacity-30 drop-shadow-2xl">
   </div>
 
-  <div>
-    <label class="block mb-1 text-sm font-medium text-gray-700">ESPB</label>
-    <input
-      type="number"
-      formControlName="esbp"
-      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      placeholder="Unesite ESPB"
-    />
-  </div>
-
-  <div>
-    <label class="block mb-1 text-sm font-medium text-gray-700">Semestar</label>
-    <input
-      type="number"
-      formControlName="semestar"
-      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      placeholder="Unesite semestar"
-    />
-  </div>
-
-  <div>
-    <label class="block mb-1 text-sm font-medium text-gray-700">Studijski program</label>
-    <select
-      formControlName="studiskiId"
-      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    >
-      <option [ngValue]="null" disabled selected>Izaberite program</option>
-      <option *ngFor="let program of listaPrograma" [value]="program.id">{{ program.naziv }}</option>
-    </select>
-  </div>
-
-  <div>
-    <label class="block mb-1 text-sm font-medium text-gray-700">Dan </label>
-    <input
-      type="number"
-      formControlName="dan"
-      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      placeholder="Unesite dan"
-    />
-  </div>
-
-  <button
-    type="submit"
-    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+  <!-- Forma -->
+  <form 
+    [formGroup]="predmetForm" 
+    (ngSubmit)="onSubmit()" 
+    class="w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg space-y-5 z-10 mt-50"
   >
-    {{ id ? 'Izmeni' : 'Dodaj' }}
-  </button>
-</form>
+    <h2 class="text-xl font-bold text-gray-800 text-center">
+      {{ id ? 'Izmeni Predmet' : 'Dodaj Predmet' }}
+    </h2>
 
+    <div>
+      <label class="block mb-1 text-sm font-medium text-gray-700">Naziv</label>
+      <input
+        type="text"
+        formControlName="naziv"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Unesite naziv predmeta"
+      />
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium text-gray-700">ESPB</label>
+      <input
+        type="number"
+        formControlName="esbp"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Unesite ESPB"
+      />
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium text-gray-700">Semestar</label>
+      <input
+        type="number"
+        formControlName="semestar"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Unesite semestar"
+      />
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium text-gray-700">Studijski program</label>
+      <select
+        formControlName="studiskiId"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option [ngValue]="null" disabled selected>Izaberite program</option>
+        <option *ngFor="let program of listaPrograma" [value]="program.id">{{ program.naziv }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm font-medium text-gray-700">Dan</label>
+      <input
+        type="number"
+        formControlName="dan"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Unesite dan"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition w-full"
+    >
+      {{ id ? 'Izmeni' : 'Dodaj' }}
+    </button>
+  </form>
+</div>

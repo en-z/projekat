@@ -1,4 +1,13 @@
-<div class="max-w-md mx-auto p-6 bg-white shadow-md rounded">
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad tabele -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-44 h-auto opacity-40 drop-shadow-2xl">
+  </div>
+
+<div class="max-w-md mx-auto p-6 bg-white shadow-md rounded mt-10">
   <h2 class="text-xl font-bold mb-4">Dodaj Završni Rad</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">

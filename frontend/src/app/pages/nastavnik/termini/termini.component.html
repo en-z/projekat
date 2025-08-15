@@ -1,11 +1,20 @@
-<div class="container">
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
+
+<div class="relative z-10 w-full max-w-md p-6 mt-60 bg-white/100 border border-white/50 rounded-2xl shadow-xl backdrop-blur-md">
   <h2>Termini</h2>
 
   <!-- Dodavanje -->
   <div class="dodaj">
     <h3>Dodaj novi termin</h3>
-    <input type="text" [(ngModel)]="noviTermin.tema" placeholder="Tema">
-    <input type="datetime-local" [(ngModel)]="noviTermin.datum" [min]="minDateTime">
+    <input type="text" [(ngModel)]="noviTermin.tema" placeholder="Tema" class="border border-gray-400 rounded-2xl">
+    <input type="datetime-local" [(ngModel)]="noviTermin.datum" [min]="minDateTime" class="border border-gray-400 rounded px-2 py-1">
     <button (click)="dodajTermin()">Dodaj</button>
   </div>
 

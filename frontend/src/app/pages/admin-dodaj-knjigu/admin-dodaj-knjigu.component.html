@@ -1,53 +1,80 @@
-<form [formGroup]="knjigaForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="naziv">Naziv</label>
-    <input id="naziv" formControlName="naziv" />
-    <div *ngIf="knjigaForm.get('naziv')?.invalid && knjigaForm.get('naziv')?.touched">
-      Naziv je obavezan.
-    </div>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad forme -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-44 h-auto opacity-40 drop-shadow-2xl">
   </div>
 
-  <div>
-    <label for="kategorija">Kategorija</label>
-    <input id="kategorija" formControlName="kategorija" />
-    <div *ngIf="knjigaForm.get('kategorija')?.invalid && knjigaForm.get('kategorija')?.touched">
-      Kategorija je obavezna.
+  <!-- Stylizovana forma -->
+  <form [formGroup]="knjigaForm" (ngSubmit)="onSubmit()"
+        class="bg-white/90 backdrop-blur-md shadow-xl rounded-xl p-6 mt-15 w-11/12 md:w-2/3 lg:w-1/2 space-y-3 ">
+    
+    <div>
+      <label for="naziv" class="block font-semibold mb-1">Naziv</label>
+      <input id="naziv" formControlName="naziv"
+             class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <div *ngIf="knjigaForm.get('naziv')?.invalid && knjigaForm.get('naziv')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Naziv je obavezan.
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="opis">Opis</label>
-    <textarea id="opis" formControlName="opis"></textarea>
-    <div *ngIf="knjigaForm.get('opis')?.invalid && knjigaForm.get('opis')?.touched">
-      Opis je obavezan.
+    <div>
+      <label for="kategorija" class="block font-semibold mb-1">Kategorija</label>
+      <input id="kategorija" formControlName="kategorija"
+             class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <div *ngIf="knjigaForm.get('kategorija')?.invalid && knjigaForm.get('kategorija')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Kategorija je obavezna.
+      </div>
     </div>
-  </div>
 
-
-  <div>
-    <label for="autor">Autor</label>
-    <input id="autor" formControlName="autor" />
-    <div *ngIf="knjigaForm.get('autor')?.invalid && knjigaForm.get('autor')?.touched">
-      Autor je obavezan.
+    <div>
+      <label for="opis" class="block font-semibold mb-1">Opis</label>
+      <textarea id="opis" formControlName="opis"
+                class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      <div *ngIf="knjigaForm.get('opis')?.invalid && knjigaForm.get('opis')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Opis je obavezan.
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="godinaIzdavanja">Godina izdavanja</label>
-    <input id="godinaIzdavanja" type="number" formControlName="godinaIzdavanja" min="0"/>
-    <div *ngIf="knjigaForm.get('godinaIzdavanja')?.invalid && knjigaForm.get('godinaIzdavanja')?.touched">
-      Opis je obavezan.
+    <div>
+      <label for="autor" class="block font-semibold mb-1">Autor</label>
+      <input id="autor" formControlName="autor"
+             class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <div *ngIf="knjigaForm.get('autor')?.invalid && knjigaForm.get('autor')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Autor je obavezan.
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="kolicina">Količina</label>
-    <input id="kolicina" type="number" formControlName="kolicina" />
-    <div *ngIf="knjigaForm.get('kolicina')?.invalid && knjigaForm.get('kolicina')?.touched">
-      Količina mora biti broj veći ili jednak 0.
+    <div>
+      <label for="godinaIzdavanja" class="block font-semibold mb-1">Godina izdavanja</label>
+      <input id="godinaIzdavanja" type="number" formControlName="godinaIzdavanja" min="0"
+             class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <div *ngIf="knjigaForm.get('godinaIzdavanja')?.invalid && knjigaForm.get('godinaIzdavanja')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Godina izdavanja je obavezna.
+      </div>
     </div>
-  </div>
 
-  <button type="submit" [disabled]="knjigaForm.invalid">Sačuvaj</button>
-</form>
+    <div>
+      <label for="kolicina" class="block font-semibold mb-1">Količina</label>
+      <input id="kolicina" type="number" formControlName="kolicina" min="0"
+             class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <div *ngIf="knjigaForm.get('kolicina')?.invalid && knjigaForm.get('kolicina')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Količina mora biti broj veći ili jednak 0.
+      </div>
+    </div>
 
+    <button type="submit"
+            [disabled]="knjigaForm.invalid"
+            class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed">
+      Sačuvaj
+    </button>
+  </form>
+</div>

@@ -7,17 +7,27 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gray-50 text-gray-800">
-  <div class="min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-md">
-      <h2 class="text-2xl font-semibold text-center mb-6">Kreiraj osoblje</h2>
 
-      <!-- KARTICA -->
-      <div class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100">
-        <!-- Forma (novalidate da ne smeta nativna validacija browsera) -->
-        <form (ngSubmit)="kreiraj()" #osobljeForm="ngForm" novalidate class="grid gap-4">
+<body class="min-h-screen bg-gray-50 text-gray-800">
+  <div 
+    class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
+    style="background-image: url('pozadina.jpg');"
+  >
+    <!-- Grb u pozadini -->
+    <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+      <img src="slika1.png" alt="Grb" class="w-40 h-40 opacity-25 drop-shadow-2xl">
+    </div>
+
+    <!-- Kartica / kontejner -->
+    <div class="w-full max-w-2xl mx-auto px-4 mt-10">
+   
+
+      <div class="rounded-2xl bg-white/95 backdrop-blur-sm p-6 shadow-xl ring-1 ring-gray-200 z-10">
+        <h2 class="text-2xl font-semibold text-center mb-6 drop-shadow">Kreiraj osoblje</h2>
+        <!-- TVOJA FORMA — samo vizuelne klase -->
+        <form (ngSubmit)="kreiraj()" #osobljeForm="ngForm" novalidate class="grid gap-4 md:grid-cols-2">
           <!-- Ime -->
-          <label class="block">
+          <label class="block md:col-span-1">
             <span class="block text-sm font-medium text-gray-700">Ime</span>
             <input type="text"
                    [(ngModel)]="osoblje.ime"
@@ -31,7 +41,7 @@
           </label>
 
           <!-- Prezime -->
-          <label class="block">
+          <label class="block md:col-span-1">
             <span class="block text-sm font-medium text-gray-700">Prezime</span>
             <input type="text"
                    [(ngModel)]="osoblje.prezime"
@@ -45,7 +55,7 @@
           </label>
 
           <!-- Email -->
-          <label class="block">
+          <label class="block md:col-span-2">
             <span class="block text-sm font-medium text-gray-700">Email</span>
             <input type="email"
                    [(ngModel)]="osoblje.email"
@@ -56,13 +66,13 @@
                    class="mt-1 w-full rounded-xl border bg-white p-3 text-sm shadow-sm outline-none transition
                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                    [ngClass]="{'border-gray-300': !emailCtrl.invalid, 'border-red-500 ring-2 ring-red-500': emailCtrl.invalid && emailCtrl.touched}" />
-            <!-- Prikaz grešaka -->
+            <!-- Prikaz grešaka (ostaje tvoj) -->
             <span *ngIf="emailCtrl.errors?.['required'] && emailCtrl.touched" class="text-red-500 text-xs">Email je obavezan.</span>
             <span *ngIf="emailCtrl.errors?.['email'] && emailCtrl.touched" class="text-red-500 text-xs">Unesite validnu email adresu </span>
           </label>
 
           <!-- Lozinka -->
-          <label class="block">
+          <label class="block md:col-span-2">
             <span class="block text-sm font-medium text-gray-700">Lozinka</span>
             <input type="password"
                    [(ngModel)]="osoblje.password"
@@ -73,13 +83,13 @@
                    class="mt-1 w-full rounded-xl border bg-white p-3 text-sm shadow-sm outline-none transition
                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                    [ngClass]="{'border-gray-300': !passCtrl.invalid, 'border-red-500 ring-2 ring-red-500': passCtrl.invalid && passCtrl.touched}" />
-            <!-- Prikaz grešaka -->
+            <!-- Prikaz grešaka (ostaje tvoj) -->
             <span *ngIf="passCtrl.errors?.['required'] && passCtrl.touched" class="text-red-500 text-xs">Lozinka je obavezna.</span>
             <span *ngIf="passCtrl.errors?.['minlength'] && passCtrl.touched" class="text-red-500 text-xs">Lozinka mora imati najmanje 5 karaktera.</span>
           </label>
 
           <!-- Fakultet -->
-          <label class="block">
+          <label class="block md:col-span-2">
             <span class="block text-sm font-medium text-gray-700">Fakultet</span>
             <select [(ngModel)]="osoblje.fakultetId"
                     name="fakultetId"
@@ -94,17 +104,20 @@
           </label>
 
           <!-- Submit dugme -->
-          <button type="submit"
-                  [disabled]="osobljeForm.invalid"
-                  class="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50">
-            Kreiraj
-          </button>
+          <div class="md:col-span-2">
+            <button type="submit"
+                    [disabled]="osobljeForm.invalid"
+                    class="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-medium text-white shadow-sm transition
+                           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50">
+              Kreiraj
+            </button>
+          </div>
         </form>
 
-        <!-- Info/napomena -->
         <p class="mt-4 text-center text-xs text-gray-500">Sva polja su obavezna.</p>
       </div>
     </div>
   </div>
 </body>
+
 </html>

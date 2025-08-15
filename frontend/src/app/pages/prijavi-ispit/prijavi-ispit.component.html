@@ -1,27 +1,38 @@
-<div class="p-6">
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-32"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad tabele, centriran -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-40 drop-shadow-2xl">
+  </div>
+
+<div class="p-6 mt-40">
+  <form class="mb-50 px-20 bg-gray-100 text-black-700 ">
   <h1 class="text-2xl font-bold mb-4">Lista Predmeta</h1>
 
-  <table class="table-auto w-full border border-gray-300 rounded">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="border px-4 py-2 text-left">Naziv Predmeta</th>
-        <th class="border px-4 py-2 text-left">Akcija</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let predmet of predmeti">
-        <td class="border px-4 py-2">{{ predmet.naziv }}</td>
-        <td class="border px-4 py-2">
-          <button
-            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
-            (click)="odabirRokova(predmet)"
-          >
-            Prijavi
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+ <table class="table-auto w-full border border-gray-300 rounded-lg shadow-md bg-white">
+  <thead class="bg-gray-200">
+    <tr>
+      <th class="px-4 py-2 border-b border-gray-300 text-left">Naziv Predmeta</th>
+      <th class="px-4 py-2 border-b border-gray-300 text-left">Akcija</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let predmet of predmeti" class="bg-white hover:bg-gray-50">
+      <td class="px-4 py-2 border-b border-gray-300">{{ predmet.naziv }}</td>
+      <td class="px-4 py-2 border-b border-gray-300">
+        <button
+          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
+          (click)="odabirRokova(predmet)"
+        >
+          Prijavi
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
   <div
     *ngIf="showWindow"
@@ -59,5 +70,6 @@
       </div>
     </div>
   </div>
+  </form>
 </div>
 

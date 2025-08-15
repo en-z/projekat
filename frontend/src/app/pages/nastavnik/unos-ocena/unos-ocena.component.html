@@ -1,6 +1,15 @@
-<div>
-  <label for="rokSelect">Odaberi ispitni rok:</label>
-  <select id="rokSelect"
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
+<div class="container">
+  <label for="rokSelect">Odaberi ispitni rok: </label>
+  <select class="border  border-gray-500 rounded-2xl"
+          id="rokSelect"
           [(ngModel)]="izabraniRokId"
           (change)="onRokChange()">
     <option value="" disabled selected>-- Izaberi rok --</option>
@@ -9,67 +18,71 @@
     </option>
   </select>
 </div>
-<br>
 
-<table >
-  <thead>
+
+<table class="min-w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
+  <thead class="bg-gray-100 border-b border-gray-300">
     <tr>
-      <th>Student</th>
-      <th>Bodovi</th>
-      <th>Ocena</th>
-      <th>Kolokvijumi</th>
+      <th class="px-4 py-2 text-left font-semibold text-gray-700">Student</th>
+      <th class="px-4 py-2 text-left font-semibold text-gray-700">Bodovi</th>
+      <th class="px-4 py-2 text-left font-semibold text-gray-700">Ocena</th>
+      <th class="px-4 py-2 text-left font-semibold text-gray-700">Kolokvijumi</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="bg-gray-100 border-b border-gray-300">
     <ng-container *ngFor="let red of tabela; let i = index">
-      <tr>
-        <td>
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-4 py-2">
           {{ studenti[i]?.ime }} {{ studenti[i]?.prezime }} (Indeks:{{studenti[i]?.brojIndeksa}})
         </td>
-        <td>
+        <td class="px-4 py-2">
           <input type="number"
                  [(ngModel)]="red.bodovi"
-                 [disabled]="!dozvoljenUnos">
+                 [disabled]="!dozvoljenUnos"
+                 class="border border-gray-300 rounded px-2 py-1 w-20">
         </td>
-        <td>
+        <td class="px-4 py-2">
           <input type="number"
                  [(ngModel)]="red.ocena"
-                 [disabled]="!dozvoljenUnos">
+                 [disabled]="!dozvoljenUnos"
+                 class="border border-gray-300 rounded px-2 py-1 w-20">
         </td>
-        <td>
+        <td class="px-4 py-2">
           <button
-                  (click)="ucitajKolokvijume(i, red.studentId)">
+                  (click)="ucitajKolokvijume(i, red.studentId)"
+                  class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">
             {{ openedRow === i ? 'Sakrij' : 'Prikaži' }} kolokvijume
           </button>
         </td>
       </tr>
 
-      <tr *ngIf="openedRow === i">
-        <td colspan="4">
+      <tr *ngIf="openedRow === i" class="bg-gray-50">
+        <td colspan="4" class="px-4 py-2">
           <div *ngIf="kolokvijumiMapa[i]; else loadingOrEmpty">
             <div *ngIf="kolokvijumiMapa[i].length > 0; else noKolokvijumi">
-              <div *ngFor="let kol of kolokvijumiMapa[i]">
-                <label>
+              <div *ngFor="let kol of kolokvijumiMapa[i]" class="mb-1">
+                <label class="flex items-center gap-2">
                   <input type="checkbox"
                          [checked]="red.kolokvijumiId.includes(kol.id!)"
                          (change)="toggleKolokvijum(red, kol.id!, $event)">
-                  {{ kol.naziv }} Datum:{{kol.datum}} ({{ kol.bodovi }} bodova)
+                  {{ kol.naziv }} — Datum: {{kol.datum}} ({{ kol.bodovi }} bodova)
                 </label>
               </div>
             </div>
           </div>
           <ng-template #noKolokvijumi>
-            <em>Nema kolokvijuma za ovog studenta.</em>
+            <em class="text-gray-500">Nema kolokvijuma za ovog studenta.</em>
           </ng-template>
 
           <ng-template #loadingOrEmpty>
-            <em>Učitavanje...</em>
+            <em class="text-gray-500">Učitavanje...</em>
           </ng-template>
         </td>
       </tr>
     </ng-container>
   </tbody>
 </table>
+
 
 <button (click)="sacuvaj()">Sačuvaj</button>
 

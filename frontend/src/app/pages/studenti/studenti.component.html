@@ -1,35 +1,55 @@
-<div class="max-w-4xl mx-auto p-4 bg-white shadow rounded">
-  <h2 class="text-xl font-bold mb-4">Pretraga Studenata</h2>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-44"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
 
-  <div class="flex gap-4 mb-6">
-  <button (click)="xmlExport()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-    Export XML
-  </button>
+  <!-- Glavni container -->
+  <div class="w-[700px] mx-auto p-6 bg-gray-50  rounded-lg shadow-lg mt-15">
+    <!-- Naslov -->
+    <h2 class="text-2xl font-bold mb-6 text-center">Pretraga Studenata</h2>
 
-  <button (click)="pdfExport()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-    Export PDF
-  </button>
+    <!-- Dugmad za export -->
+    <div class="flex gap-4 justify-center mb-8">
+      <button 
+        (click)="xmlExport()" 
+        class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition"
+      >
+        Export XML
+      </button>
+      <button 
+        (click)="pdfExport()" 
+        class="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 transition"
+      >
+        Export PDF
+      </button>
+    </div>
+
+    <!-- Forma -->
+    <form [formGroup]="searchForm" class="grid grid-cols-2 gap-4 mb-8">
+      <input formControlName="ime" type="text" placeholder="Ime" class="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input formControlName="prezime" type="text" placeholder="Prezime" class="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input formControlName="godinaUpisa" type="text" placeholder="Godina upisa" class="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input formControlName="email" type="text" placeholder="Email" class="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input formControlName="prosecnaOcena" type="text" placeholder="Prosečna ocena" class="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input formControlName="osvojeniESPB" type="text" placeholder="Osvojeni ESPB" class="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <input formControlName="studiskiId" type="text" placeholder="Studijski ID" class="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </form>
+
+    <!-- Rezultati -->
+    <h3 class="text-lg font-semibold mb-4 border-b pb-2">Rezultati:</h3>
+    <ul *ngIf="filtrirani.length > 0; else nemaRezultata" class="space-y-3">
+      <li *ngFor="let s of filtrirani" class="p-4 border rounded shadow-sm bg-gray-50">
+        <strong>{{ s.ime }} {{ s.prezime }}</strong> – 
+        Email: {{ s.email }}, ESPB: {{ s.osvojeniESPB }}, Ocena: {{ s.prosecnaOcena }}
+      </li>
+    </ul>
+
+    <ng-template #nemaRezultata>
+      <p class="text-gray-600 italic">Nema pronađenih studenata.</p>
+    </ng-template>
+  </div>
 </div>
-
-  <form [formGroup]="searchForm" class="grid grid-cols-2 gap-4 mb-6">
-    <input formControlName="ime" type="text" placeholder="Ime" class="border px-3 py-2 rounded" />
-    <input formControlName="prezime" type="text" placeholder="Prezime" class="border px-3 py-2 rounded" />
-    <input formControlName="godinaUpisa" type="text" placeholder="Godina upisa" class="border px-3 py-2 rounded" />
-    <input formControlName="email" type="text" placeholder="Email" class="border px-3 py-2 rounded" />
-    <input formControlName="prosecnaOcena" type="text" placeholder="Prosečna ocena" class="border px-3 py-2 rounded" />
-    <input formControlName="osvojeniESPB" type="text" placeholder="Osvojeni ESPB" class="border px-3 py-2 rounded" />
-    <input formControlName="studiskiId" type="text" placeholder="Studijski ID" class="border px-3 py-2 rounded" />
-  </form>
-
-  <h3 class="text-lg font-semibold mb-2">Rezultati:</h3>
-  <ul *ngIf="filtrirani.length > 0; else nemaRezultata" class="space-y-2">
-    <li *ngFor="let s of filtrirani" class="p-3 border rounded">
-      <strong>{{ s.ime }} {{ s.prezime }}</strong> – Email: {{ s.email }}, ESPB: {{ s.osvojeniESPB }}, Ocena: {{ s.prosecnaOcena }}
-    </li>
-  </ul>
-
-  <ng-template #nemaRezultata>
-    <p class="text-gray-600">Nema pronađenih studenata.</p>
-  </ng-template>
-</div>
-

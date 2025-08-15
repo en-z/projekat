@@ -1,65 +1,79 @@
-<div class="container mx-auto p-6 space-y-6">
-
-
-  <!-- Search sekcija -->
-  <div class="flex flex-col md:flex-row items-center gap-4">
-    <div class="flex items-center gap-2">
-      <label for="filterPolje" class="font-semibold">Pretraži po:</label>
-      <select id="filterPolje"
-              [(ngModel)]="izabranoPolje"
-              class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option *ngFor="let polje of filterPolje" [value]="polje">{{ polje }}</option>
-      </select>
-    </div>
-
-    <input type="text"
-           [(ngModel)]="pretraga"
-           placeholder="Unesi tekst..."
-           class="border border-gray-300 rounded px-3 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-
-    <button (click)="pretrazi()"
-            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-      Pretraži
-    </button>
-    <button (click)="resetujPretragu()"
-            class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition">
-      Resetuj
-    </button>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad forme -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-44 h-auto opacity-40 drop-shadow-2xl">
   </div>
 
-      <button *ngIf="authService.hasRole('ROLE_ADMIN')"  (click)="add()"
-              class="mt-4 w-full px-4 py-2 rounded text-white
-                     transition
-                     bg-green-600 hover:bg-green-700
-                     disabled:bg-gray-400 disabled:cursor-not-allowed">
-        add knjigu
-      </button>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div *ngFor="let knjiga of knjige"
-         class="bg-white shadow-md rounded p-4 border border-gray-200">
-      <h3 class="text-xl font-bold mb-2">{{ knjiga.naziv }}</h3>
-      <p><span class="font-semibold">Autor:</span> {{ knjiga.autor }}</p>
-      <p><span class="font-semibold">Opis:</span> {{ knjiga.opis }}</p>
-      <p><span class="font-semibold">Kategorija:</span> {{ knjiga.kategorija }}</p>
-      <p><span class="font-semibold">Količina:</span> {{ knjiga.kolicina }}</p>
+  <!-- Forma / Container -->
+  <div class="bg-white/90 backdrop-blur-md shadow-xl rounded-xl p-8 mt-30 w-11/12 md:w-3/4 lg:w-2/3">
+    <!-- Search sekcija -->
+    <div class="flex flex-col md:flex-row items-center gap-4 mb-6">
+      <form class="flex flex-col md:flex-row items-center gap-4 w-full">
+        <div class="flex flex-col md:flex-row items-center gap-2 w-full md:w-auto">
+          <label for="filterPolje" class="font-semibold">Pretraži po:</label>
+          <select id="filterPolje"
+                  [(ngModel)]="izabranoPolje"
+                  class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option *ngFor="let polje of filterPolje" [value]="polje">{{ polje }}</option>
+          </select>
+        </div>
 
-      <button *ngIf="authService.hasRole('ROLE_STUDENT')||authService.hasRole('ROLE_NASTAVNIK')"  (click)="izdaj(knjiga.id!)"
-              [disabled]="knjiga.kolicina === 0"
-              class="mt-4 w-full px-4 py-2 rounded text-white
+        <input type="text"
+               [(ngModel)]="pretraga"
+               placeholder="Unesi tekst..."
+               class="border border-gray-300 rounded px-3 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+        <button type="button" (click)="pretrazi()"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+          Pretraži
+        </button>
+        <button type="button" (click)="resetujPretragu()"
+                class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition">
+          Resetuj
+        </button>
+      </form>
+    </div>
+
+    <!-- Dodaj knjigu dugme -->
+    <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="mb-6">
+      <button (click)="add()"
+              class="w-full px-4 py-2 rounded text-white
                      transition
                      bg-green-600 hover:bg-green-700
                      disabled:bg-gray-400 disabled:cursor-not-allowed">
-        Izdaj knjigu
-      </button>
-      <button *ngIf="authService.hasRole('ROLE_ADMIN')"  (click)="edit(knjiga.id!)"
-              class="mt-4 w-full px-4 py-2 rounded text-white
-                     transition
-                     bg-green-600 hover:bg-green-700
-                     disabled:bg-gray-400 disabled:cursor-not-allowed">
-        Edit knjigu
+        Dodaj knjigu
       </button>
     </div>
-  </div>
 
+    <!-- Grid knjiga -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let knjiga of knjige"
+           class="bg-white shadow-md rounded p-4 border border-gray-200">
+        <h3 class="text-xl font-bold mb-2">{{ knjiga.naziv }}</h3>
+        <p><span class="font-semibold">Autor:</span> {{ knjiga.autor }}</p>
+        <p><span class="font-semibold">Opis:</span> {{ knjiga.opis }}</p>
+        <p><span class="font-semibold">Kategorija:</span> {{ knjiga.kategorija }}</p>
+        <p><span class="font-semibold">Količina:</span> {{ knjiga.kolicina }}</p>
+
+        <button *ngIf="authService.hasRole('ROLE_STUDENT')||authService.hasRole('ROLE_NASTAVNIK')"  (click)="izdaj(knjiga.id!)"
+                [disabled]="knjiga.kolicina === 0"
+                class="mt-4 w-full px-4 py-2 rounded text-white
+                       transition
+                       bg-green-600 hover:bg-green-700
+                       disabled:bg-gray-400 disabled:cursor-not-allowed">
+          Izdaj knjigu
+        </button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')"  (click)="edit(knjiga.id!)"
+                class="mt-4 w-full px-4 py-2 rounded text-white
+                       transition
+                       bg-green-600 hover:bg-green-700
+                       disabled:bg-gray-400 disabled:cursor-not-allowed">
+          Edit knjigu
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-
