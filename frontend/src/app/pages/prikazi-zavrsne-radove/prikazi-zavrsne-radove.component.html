@@ -1,4 +1,13 @@
-<div class="max-w-4xl mx-auto my-8 p-6 bg-white shadow rounded">
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb iznad tabele -->
+  <div class="absolute top-12 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-44 h-auto opacity-40 drop-shadow-2xl">
+  </div>
+
+<div class="max-w-4xl mx-auto my-8 p-6 bg-white shadow rounded mt-20">
   <h2 class="text-2xl font-bold mb-4">Završni radovi</h2>
 
   <div *ngIf="zavrsniRadovi.length > 0; else nemaRadova" class="space-y-4">
@@ -21,3 +30,7 @@
     <p class="text-gray-500">Nema dostupnih završnih radova za ovog mentora.</p>
   </ng-template>
 </div>
+</div>
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>

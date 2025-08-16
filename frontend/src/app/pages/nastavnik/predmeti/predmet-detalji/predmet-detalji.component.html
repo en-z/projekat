@@ -6,12 +6,12 @@
   <div class="absolute top-16 flex justify-center w-full pointer-events-none">
     <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
-
-  <div class="container mt-0 text-center text font-bold" *ngIf="predmet">
+<div class="container bg-white/80 border-transparent mt-20">
+  <div class="container  text-center text font-bold" *ngIf="predmet">
     <h2>{{ predmet.naziv }}</h2>
     
     <p><strong>ESPB:</strong> {{ predmet.espb }}</p>
-    <button (click)="otvoriListuStudenata() ">Pregled studenata</button>
+    <button (click)="otvoriListuStudenata() " >Pregled studenata</button>
   
   
     <h3>Akcije</h3>
@@ -26,5 +26,8 @@
   <div *ngIf="!predmet">
     <p>Učitavanje predmeta...</p>
   </div>
-
 </div>
+</div>
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>

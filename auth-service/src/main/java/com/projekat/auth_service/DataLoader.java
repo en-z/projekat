@@ -38,6 +38,14 @@ public class DataLoader implements CommandLineRunner {
         r.setIme("marko");
         r.setPrezime("Markovic");
 
+        User o = new User();
+        o.setEmail("osoblje@gmail.com");
+        o.setPassword("test123");
+        List<String> list11= new ArrayList<>();
+        list.add("ROLE_OSOBLJE");
+        u.setRoles(list);
+        userRepository.save(o);
+
         List<String> list2= new ArrayList<>();
         list2.add("ROLE_STUDENT");
         r.setRoles(list2);

@@ -19,8 +19,10 @@ export class NavBarComponent {
   showStudentmenu = false;
   showNastavnik= false;
   showBiblioteka= false;
-  showAdmin= false;
+  showDodaj=false;
+  showPrikaz=false;
   showOsobljeMenu= false;
+  showAdmin=false;
 
   private hideTimeout:any;
   private clearHideTimeout(){
@@ -34,17 +36,17 @@ export class NavBarComponent {
   }
   dodajZavrsni(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/zavrsni-rad'])
   }
   goToStudenti(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showPrikaz=false;
     this.router.navigate(['/studenti'])
   }
   goToNastavniciPrikaz(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showPrikaz=false;
     this.router.navigate(['/nastavnici'])
   }
   onLogout(){
@@ -59,6 +61,9 @@ export class NavBarComponent {
 
   goToRegister(){
     this.router.navigate(['/register'])
+  }
+  goToPrikaz(){
+    this.router.navigate(['univerzitet/prikazi-univerzitet'])
   }
   goToEdit(){
     this.router.navigate(['/edit'])
@@ -80,43 +85,43 @@ export class NavBarComponent {
   }
   goToDodajFaks(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/fakultet'])
   }
   goToDodajUni(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/univerzitet'])
   }
   goToDodajPredmet(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/predmet'])
   }
   goToDodajProgram(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/program'])
   }
   goToDodajOsoblje(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/dodaj-osoblje'])
 
   }
   goToDodajRok(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/dodaj-rok'])
   }
   goToDodajPow(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/add-pow'])
   }
   goToDodajNastavnik(){
     this.clearHideTimeout();
-    this.showAdmin=false;
+    this.showDodaj=false;
     this.router.navigate(['/nastavnik'])
   }
   goToSifarnik(){
@@ -161,9 +166,12 @@ export class NavBarComponent {
     this.hideTimeout=setTimeout(()=>{
       this.showBiblioteka=false;
       this.showAdmin=false;
+      this.showDodaj=false;
+      this.showPrikaz=false;
       this.showStudentmenu=false;
   },50);
   }
+  
   goToZavrsniRadovi() {
     this.router.navigate(['/zavrsni-radovi'])
   }

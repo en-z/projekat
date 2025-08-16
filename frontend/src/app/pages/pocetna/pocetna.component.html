@@ -6,7 +6,7 @@
   <div class="absolute top-12 flex justify-center w-full pointer-events-none">
     <img src="slika1.png" alt="Grb" class="w-44 h-auto opacity-40 drop-shadow-2xl">
   </div>
-  <div class="bg-white/90 p-6 rounded shadow-md w-full md:w-3/4 lg:w-2/3">
+  <div class="bg-white/90 p-6 rounded shadow-md w-full md:w-3/4 lg:w-2/3 mt-10">
   <!-- Search po nazivu -->
   <div class="flex gap-2 mb-4">
     <input type="text" [(ngModel)]="naziv" placeholder="Pretraži po nazivu"
@@ -20,7 +20,7 @@
       Resetuj
     </button>
     <button (click)="toggleAdvanced()"
-            class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition">
+            class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition">
       Advanced
     </button>
   </div>
@@ -77,14 +77,17 @@
 
     <button *ngIf="authService.hasRole('ROLE_STUDENT')||authService.hasRole('ROLE_NASTAVNIK')" (click)="izdaj(knjiga.id!)"
             [disabled]="knjiga.kolicina === 0"
-            class="mt-4 w-full px-4 py-2 rounded text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
+            class="mt-4 w-full px-4 py-2 rounded text-white bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
       Izdaj knjigu
     </button>
 
     <button *ngIf="authService.hasRole('ROLE_ADMIN')" (click)="edit(knjiga.id!)"
-            class="mt-4 w-full px-4 py-2 rounded text-white bg-green-600 hover:bg-green-700">
+            class="mt-4 w-full px-4 py-2 rounded text-white bg-blue-600 hover:bg-blue-700">
       Edit knjigu
     </button>
   </div>
 </div>
 </div>
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>

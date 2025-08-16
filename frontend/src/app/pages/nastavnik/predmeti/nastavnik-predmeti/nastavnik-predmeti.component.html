@@ -16,9 +16,12 @@
   <ul *ngIf="predmeti.length > 0" class="predmeti-lista">
     <li *ngFor="let predmet of predmeti" class="predmet-item">
       <h3>{{ predmet.naziv }}</h3>
-      <p><strong>ID:</strong> {{ predmet.id }}</p>
       <p><strong>ESPB:</strong> {{ predmet.espb }}</p>
       <button class="px-3 py-1 border border-gray-400 rounded-md hover:border-blue-500 transition" [routerLink]="['/nastavnik/predmet', predmet.id]">Detalji</button>
     </li>
   </ul>
 </div>
+</div>
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>

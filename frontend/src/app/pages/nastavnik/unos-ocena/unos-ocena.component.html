@@ -17,7 +17,7 @@
       {{ rok.naziv }} ({{ rok.datumPocetka | date:'dd.MM.yyyy' }} - {{ rok.datumKraja | date:'dd.MM.yyyy' }})
     </option>
   </select>
-</div>
+
 
 
 <table class="min-w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
@@ -84,5 +84,9 @@
 </table>
 
 
-<button (click)="sacuvaj()">Sačuvaj</button>
-
+<button (click)="sacuvaj()" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">Sačuvaj</button>
+</div>
+</div>
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>

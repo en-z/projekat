@@ -11,13 +11,13 @@
    
 
     <!-- Filter -->
-    <div class="flex flex-col md:flex-row items-start md:items-end gap-4 mb-4">
+    <div class="flex flex-col md:flex-row items-start md:items-end gap-4 mb-4 bg-gray-100 mt-10">
       <div>
-        <label for="filterType" class="block text-sm font-medium text-black-700">Filter po:</label>
+        <label for="filterType" class="block text-sm font-medium text-black-700 ">Filter po:</label>
         <select
           id="filterType"
           [(ngModel)]="selectedFilter"
-          class="mt-1 block w-40 border border-gray-500 "
+          class="mt-1 block w-40 border border-gray-500  "
         >
           <option value="ocena">Ocena</option>
           <option value="naziv">Naziv</option>
@@ -25,21 +25,21 @@
         </select>
       </div>
 
-      <div class="flex-grow">
-        <label for="searchInput" class="block text-sm font-medium text-black-700">Unesite vrednost</label>
+      <div class="flex-grow border-gray-300 mt-5">
+        <label for="searchInput" class=" text-sm font-medium text-black-700 border-white-500">Unesite vrednost:</label>
         <input
           id="searchInput"
           type="text"
           placeholder="Unesite vrednost za pretragu"
-          class="mt-1 block w-full  border-gray-300 shadow-sm "
+          class=" block w-full  border border-gray-700 bg-gray-100    "
           (input)="onFilterInput($event)"
         />
       </div>
     </div>
 
     <!-- Položeni ispiti -->
-    <div>
-      <h2 class="text-xl font-semibold mb-2">Položeni Ispiti</h2>
+    <div class="bg-gray-100">
+      <h2 class="text-xl font-semibold mb-2 ">Položeni Ispiti</h2>
       <table class="min-w-full border border-gray-300 rounded-lg shadow-md bg-white">
         <thead class="bg-gray-100">
           <tr>
@@ -87,7 +87,7 @@
     </div>
 
     <!-- Svi ishodi -->
-    <div *ngIf="pretragaIspita.length === 0">
+    <div *ngIf="pretragaIspita.length === 0" class="bg-gray-100">
       <h2 class="text-xl font-semibold mb-2">Svi Ishodi Ispita</h2>
       <table class="min-w-full border border-gray-300 rounded-lg shadow-md bg-white mb-8">
         <thead class="bg-gray-100">
@@ -110,3 +110,6 @@
     </div>
   </div>
 </div>
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>
