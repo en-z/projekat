@@ -48,7 +48,7 @@ public class SilabusController {
         silabus.setPredmetId(dto.getPredmetId());
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long uid = Long.parseLong(userId);
-        Nastavnik n = nastavnikRepository.findById(uid).orElseThrow(()->new RuntimeException("Error"));
+        Nastavnik n = nastavnikRepository.findByUserId(uid).orElseThrow(()->new RuntimeException("Error"));
         silabus.setAutor(n);
         silabus= silabusService.create(silabus);
         dto.setId(silabus.getId());

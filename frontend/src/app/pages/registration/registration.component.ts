@@ -26,7 +26,8 @@ export class RegistrationComponent {
       ime: ['', [Validators.required]],
       prezime: ['', [Validators.required]],
       studiskiId:'1',
-      fakultetId:'1'
+      fakultetId:'1',
+      roles:["ROLE_USER"]
     });
   }
 
@@ -39,7 +40,7 @@ export class RegistrationComponent {
 
   get f() {return this.registrationForm.controls}
 
-success: string | null = null; 
+success: string | null = null;
 
 onSubmit() {
   if (this.registrationForm.invalid) return;
@@ -81,6 +82,6 @@ onSubmit() {
 }
 
 
-  
+
 }
 

@@ -23,6 +23,7 @@ public class Nastavnik {
     private String prezime;
     private String status;
     private Boolean aktivan;
+    private String email;
     private String biografija;
     @OneToMany(mappedBy = "nastavnik", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Angazovanja> angazovanja;

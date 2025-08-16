@@ -16,16 +16,17 @@ export class IzdateService extends BaseService<Izdate>{
     return this.http.get<Izdate[]>(`${this.baseUrl}/user`)
   }
   izdaj(dto:Izdate,id:number): Observable<Izdate> {
-    return this.http.post<any>(`${this.baseUrl}/izdaj/${id}`,{dto});
+    return this.http.post<any>(`${this.baseUrl}/izdaj/${id}`,dto);
   }
   zahtjev(knjigaId: number): Observable<Izdate> {
-    return this.http.post<any>(`http://localhost:8080/api/biblioteka/zahtjevi`,{knjigaId});
-  }
+  return this.http.post<any>(
+    `http://localhost:8080/api/biblioteka/zahtjevi/${knjigaId}`, knjigaId);
+}
   vrati(id: number): Observable<Izdate> {
     return this.http.post<Izdate>(`${this.baseUrl}/vrati/${id}`,{});
   }
-  search(asd:any):Observable<Izdate[]>{
-    return this.http.post<any>(`${this.baseUrl}/search`,{asd});
+  search(asd:any):Observable<any[]>{
+    return this.http.post<any>(`${this.baseUrl}/search`,asd);
   }
 }
 

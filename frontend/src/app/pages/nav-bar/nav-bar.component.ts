@@ -149,6 +149,11 @@ export class NavBarComponent {
     this.showBiblioteka=false;
     this.router.navigate(['/biblioteka/iznajmljene'])
   }
+  zahtjevi(){
+    this.clearHideTimeout();
+    this.showBiblioteka = false;
+    this.router.navigate(['/biblioteka/izdate'])
+  }
   onMenuEnter(){
     this.clearHideTimeout();
   }
@@ -173,5 +178,17 @@ export class NavBarComponent {
   }
   goToInventar(){
     this.router.navigate(['osoblje/inventar'])
+  }
+  goToDodajOpsta(){
+    this.router.navigate(['osoblje/opsta-d'])
+  }
+  goToOpsta(){
+    this.router.navigate(['osoblje/opsta'])
+  }
+  goToPregledKolokvijuma(){
+    this.router.navigate(['osoblje/pregled-kolokvijuma'])
+  }
+  goToPrikaziDokumente(){
+    this.router.navigate(['prikazi-dokumente'])
   }
 }

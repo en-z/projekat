@@ -18,7 +18,7 @@ export class DodajOsobljeComponent {
     prezime: '',
     email: '',
     password: '',
-    fakultetId: 0,
+    fakultetId: 1,
     roles: ['ROLE_OSOBLJE'],
   };
 
@@ -34,8 +34,9 @@ error: any;
   ngOnInit(): void {
     this.fakultetService.getAll().subscribe(fakulteti => {
       this.fakulteti = fakulteti;
+      console.log( fakulteti);
       if (fakulteti.length > 0) {
-        this.osoblje.fakultetId = 0;// ovo moze da je error ako je prazno ali ostavljam za sad
+        this.osoblje.fakultetId = 1;// ovo moze da je error ako je prazno ali ostavljam za sad
       }
     });
   }

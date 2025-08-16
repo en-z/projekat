@@ -8,11 +8,11 @@ import { ZahtjevSearch } from "../models/ZahtjevSearch";
   providedIn: 'root'
 })
 export class ZahtjevService {
-  private baseUrl = '/api/zahtjevi';
+  private baseUrl = 'http://localhost:8080/api/biblioteka/zahtjevi';
 
   constructor(private http: HttpClient) {}
 
   search(searchData: ZahtjevSearch): Observable<Zahtjev[]> {
-    return this.http.post<Zahtjev[]>(`${this.baseUrl}/search`, searchData);
+    return this.http.post<any>(`${this.baseUrl}/search`, searchData);
   }
 }

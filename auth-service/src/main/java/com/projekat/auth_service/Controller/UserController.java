@@ -59,9 +59,6 @@ public class UserController {
     }
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@RequestBody RegisterDTO user)throws Exception{
-        List<String>s = new ArrayList<>();
-        s.add("ROLE_USER");
-        user.setRoles(s);
         return registerService.addUser(user);
     }
     @PostMapping("/login")// login
@@ -81,8 +78,10 @@ public class UserController {
     }
     @GetMapping("/ime/{id}")
     public ResponseEntity<ImeDTO> getIme(@PathVariable long id){
-        User u =userRepository.findById(id).orElseThrow(()->new RuntimeException("error"));
+        User u =userRepository.findById(id).orElseThrow();
+        System.out.println(u.getPrezime()+u.getIme());
         ImeDTO i= new ImeDTO(u.getIme(),u.getPrezime());
+        System.out.println(i);
         return ResponseEntity.ok(i);
     }
     @GetMapping("/zaupis/{id}")

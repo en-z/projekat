@@ -3,10 +3,10 @@ style="background-image: url('pozadina.jpg');">
   <div class="absolute inset-0 flex justify-center items-center pointer-events-none">
     <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
-<div 
+<div
   class="absolute top-0 left-0 w-full flex flex-wrap justify-content p-4 space-x-2 z-50 bg-transparent"
 >
-  <button *ngIf="isLogged()" 
+  <button *ngIf="isLogged()"
         (click)="onLogout()"
         class="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors">
   LogOut
@@ -51,6 +51,10 @@ style="background-image: url('pozadina.jpg');">
       <button (click)="vrati()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
         Vrati knjigu
+      </button>
+      <button (click)="zahtjevi()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Zahtjevi knjiga
       </button>
     </div>
   </div>
@@ -122,6 +126,23 @@ style="background-image: url('pozadina.jpg');">
       <button (click)="goToInventar()"
         class="block w-full text-left px-4 py-2 hover:bg-gray-200">
         Inventar
+      </button>
+
+      <button (click)="goToDodajOpsta()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        Dodaj opsta obavjestenja
+      </button>
+      <button (click)="goToOpsta()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        pogledaj opsta obavjestenja
+      </button>
+      <button (click)="goToPregledKolokvijuma()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        pogledaj kolokvijume datume // ovov ide van ovoga odje je samo dok testiram brze je
+      </button>
+      <button (click)="goToPrikaziDokumente()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-200">
+        pogledaj Dokumente izdate// ovo treba za svakog uzera da bude vidlivo sad je samo odje jer testiram
       </button>
     </div>
   </div>

@@ -77,7 +77,7 @@ export const routes: Routes = [
     path:"izdate-datum",component:IzdatePutComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
   },
   {
-    path:"zavrsni-rad",component:DodajZavrsniradComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']},
+    path:"zavrsni-rad",component:DodajZavrsniradComponent
   },
   {
     path:"zavrsni-radovi",component:PrikaziZavrsneRadoveComponent,canActivate:[RoleGuard],data:{roles:['ROLE_NASTAVNIK']},
@@ -180,6 +180,6 @@ export const routes: Routes = [
   {path:'biblioteka/knjiga',component:AdminDodajKnjiguComponent},
   {path:'biblioteka/knjiga/:id',component:AdminDodajKnjiguComponent},
   {path:'biblioteka/iznajmljene',component:VratiComponent},
-  {path:'biblioteka/izdate',component:IzdatePutComponent,canActivate:[RoleGuard],data:{roles:['ROLE_ADMIN']}},
+  {path:'biblioteka/izdate',component:IzdatePutComponent},
   { path: '**', redirectTo: '' }
 ];

@@ -13,9 +13,11 @@ import { ZavrsniRadService } from '../../services/zavrsni.rad.service';
 })
 export class DodajZavrsniradComponent {
   form!: FormGroup;
+  studentSearchForm!: FormGroup;
+  nastavnikSearchForm!: FormGroup;
   studenti: any[] = [];
   nastavnici: any[] = [];
-
+  showAdvancedSearch = false;
   constructor(
     private fb: FormBuilder,
     private studentService: StudentService,
@@ -31,10 +33,58 @@ export class DodajZavrsniradComponent {
       opis: ['', Validators.required],
       file: [null, Validators.required]
     });
+    this.studentSearchForm = this.fb.group({
+    brojIndeksa: [''],
+    ime: [''],
+    prezime: [''],
+    godinaUpisa: [''],
+    godinaStudija: [''],
+    studiskiId: [''],
+    prosekMin: [''],
+    prosekMax: [''],
+    esbpMin: [''],
+    esbpMax: [''],
+    aktivan: [''],
+    ulica: [''],
+    broj: [''],
+    grad: [''],
+    drzava: ['']
+  });
 
-    this.studentService.getAll().subscribe(data => this.studenti = data);
-    this.nastavnikService.getAll().subscribe(data => this.nastavnici = data);
+  this.nastavnikSearchForm = this.fb.group({
+    ime: [''],
+    prezime: [''],
+    email: ['']
+  });
   }
+
+  searchStudent() {
+  const params: any = {};
+
+  Object.entries(this.studentSearchForm.value).forEach(([key, value]) => {
+    if (value !== null && value !== '' && value !== undefined) {
+      params[key] = value;
+    }
+  });
+
+  this.studentService.search(params).subscribe(data => {
+    this.studenti = data;
+  });
+}
+  searchNastavnik() {
+   const params: any = {};
+
+   Object.entries(this.nastavnikSearchForm.value).forEach(([key, value]) => {
+    if (value !== null && value !== '' && value !== undefined) {
+      params[key] = value;
+    }
+  });
+
+//  this.nastavnikService.search(params).subscribe(data => {
+ //   this.nastavnici = data;
+  //});
+}
+
 
   onFileChange(event: any) {
     if (event.target.files.length > 0) {

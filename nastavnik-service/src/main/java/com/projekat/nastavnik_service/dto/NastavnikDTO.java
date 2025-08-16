@@ -11,11 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NastavnikDTO {
-    private long id;
+    private Long id;
     private String biografija;
     private String ime;
     private String prezime;
-    private long userId;
+    private String email;
+    private Long userId;
     private Adresa adresa;
     private String status;
     private List<AngazovanjaDTO> Angazovanja;

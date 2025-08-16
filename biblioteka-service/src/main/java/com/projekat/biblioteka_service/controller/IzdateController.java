@@ -2,6 +2,7 @@ package com.projekat.biblioteka_service.controller;
 
 import com.projekat.biblioteka_service.DTO.DatumDTO;
 import com.projekat.biblioteka_service.DTO.IzdajDto;
+import com.projekat.biblioteka_service.DTO.IzdateSearch;
 import com.projekat.biblioteka_service.entity.Izdate;
 import com.projekat.biblioteka_service.entity.Knjiga;
 import com.projekat.biblioteka_service.service.IzdavanjeService;
@@ -33,6 +34,7 @@ public class IzdateController {
     @PostMapping("/izdaj/{id}")
     public ResponseEntity<?> izdaj(@PathVariable Long id, @RequestBody IzdajDto dto) {
         try {
+            System.out.println(dto);
             return ResponseEntity.ok(izdavanjeService.izdajKjigu(id,dto));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e);
@@ -51,5 +53,10 @@ public class IzdateController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e);
         }
+    }
+    @PostMapping("/search")
+    public ResponseEntity<List<Izdate>> search(@RequestBody IzdateSearch dto){
+        System.out.println(dto);
+        return ResponseEntity.ok(izdavanjeService.search(dto));
     }
 }

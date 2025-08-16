@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class IzdateSearch {
     private Long userIdMin;
     private Long userIdMax;
+    private String ime;
+    private String prezime;
     private String knjigaNazivContains;
     private String knjigaKategorijaContains;
     private String knjigaOpisContains;

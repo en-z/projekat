@@ -1,4 +1,4 @@
-<div 
+<div
   class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
   style="background-image: url('pozadina.jpg');"
 >
@@ -8,7 +8,7 @@
   </div>
 <div class="relative z-10 w-full max-w-md p-6 mt-60 bg-white/100 border border-white/50 rounded-2xl shadow-xl backdrop-blur-md">
 <form [formGroup]="searchForm" (ngSubmit)="pretrazi()" class="space-y-2">
- 
+
 
   <div class="flex items-center space-x-2">
     <label class="text-sm font-medium text-gray-700 w-32">Knjiga naziv:</label>
@@ -93,9 +93,10 @@
     <tr *ngFor="let i of izdate">
       <td>{{ i.id }}</td>
       <td>{{ i.userId }}</td>
-      <td>{{ i.knjigaId }}</td>
-      <td>{{ i.trajan? 'Da' : 'Ne' }}</td>
-      <td>{{ i.datumVracanja}}</td>
+      <td>{{ i.knjiga.naziv}}</td>
+      <td>{{ i.trajan? 'Ne' : 'Da' }}</td>
+      <td>{{ i.datumIzdavanja}}</td>
+      <td>{{ i.datumVracanja }}</td>
       <td>
         <button (click)="vrati(i.id!)" [disabled]="i.datumVracanja">Vrati</button>
       </td>

@@ -18,6 +18,8 @@ public interface IzdateRepository extends JpaRepository<Izdate,Long> {
         where 
           (:userIdMin is null or i.userId >= :userIdMin) and
           (:userIdMax is null or i.userId <= :userIdMax) and
+          (:ime is null or i.ime<= :ime) and
+          (:prezime is null or i.prezime<= :prezime) and
           (:knjigaNazivContains is null or lower(i.knjiga.naziv) like lower(concat('%', :knjigaNazivContains, '%'))) and
           (:knjigaKategorijaContains is null or lower(i.knjiga.kategorija) like lower(concat('%', :knjigaKategorijaContains, '%'))) and
           (:knjigaOpisContains is null or lower(i.knjiga.opis) like lower(concat('%', :knjigaOpisContains, '%'))) and
@@ -31,6 +33,8 @@ public interface IzdateRepository extends JpaRepository<Izdate,Long> {
     List<Izdate> search(
             @Param("userIdMin") Long userIdMin,
             @Param("userIdMax") Long userIdMax,
+            @Param("ime") String ime,
+            @Param("prezime") String prezime,
             @Param("knjigaNazivContains") String knjigaNazivContains,
             @Param("knjigaKategorijaContains") String knjigaKategorijaContains,
             @Param("knjigaOpisContains") String knjigaOpisContains,

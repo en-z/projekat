@@ -31,6 +31,8 @@ public class IzdavanjeService {
         return izdateRepository.search(
                 search.getUserIdMin(),
                 search.getUserIdMax(),
+                search.getIme(),
+                search.getPrezime(),
                 search.getKnjigaNazivContains(),
                 search.getKnjigaKategorijaContains(),
                 search.getKnjigaOpisContains(),
@@ -53,7 +55,10 @@ public class IzdavanjeService {
         izdate.setDatumIzdavanja(LocalDate.now());
         izdate.setTrajna(dto.getTrajan());
         izdate.setDatumVracanja(dto.getDatumVracanja());
+        izdate.setIme(dto.getIme());
+        izdate.setPrezime(dto.getPrezime());
         k.setKolicina(k.getKolicina()-1);
+        System.out.println(izdate);
         knjigaRepository.save(k);
         zahtjevRepository.deleteById(id);
         return izdateRepository.save(izdate);

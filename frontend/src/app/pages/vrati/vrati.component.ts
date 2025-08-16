@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 })
 export class VratiComponent implements OnInit{
    searchForm: FormGroup;
-  izdate: Izdate[] = [];
+  izdate: any[] = [];
 
   constructor(private izdateService: IzdateService, private fb: FormBuilder) {
     this.searchForm = this.fb.group({
@@ -44,6 +44,7 @@ export class VratiComponent implements OnInit{
     });
 
     this.izdateService.search(criteria).subscribe(res => {
+      console.log(criteria.trajna)
       this.izdate = res;
     });
   }

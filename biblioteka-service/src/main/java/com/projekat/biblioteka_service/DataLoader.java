@@ -3,9 +3,11 @@ package com.projekat.biblioteka_service;
 import com.projekat.biblioteka_service.entity.Izdate;
 import com.projekat.biblioteka_service.entity.Knjiga;
 import com.projekat.biblioteka_service.entity.Notifikacija;
+import com.projekat.biblioteka_service.entity.Zahtjev;
 import com.projekat.biblioteka_service.repository.IzdateRepository;
 import com.projekat.biblioteka_service.repository.KnjigaRepository;
 import com.projekat.biblioteka_service.repository.NotifikacijeRepo;
+import com.projekat.biblioteka_service.repository.ZahtjevRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,13 +20,12 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private KnjigaRepository knjigaRepository;
     @Autowired
-    private IzdateRepository izdateRepository;
+    private ZahtjevRepository zahtjevRepository;
     @Autowired
     private NotifikacijeRepo notifikacijeRepo;
 
     @Override
     public void run(String... args) throws Exception {
-        /*
         Knjiga knjiga1 = new Knjiga();
         knjiga1.setNaziv("Prokleta Avlija");
         knjiga1.setKategorija("Roman");
@@ -47,16 +48,6 @@ public class DataLoader implements CommandLineRunner {
         knjiga3.setKolicina(7);
 
         knjigaRepository.saveAll(List.of( knjiga2, knjiga3));
-        Izdate i = new Izdate();
-        i.setUserId(1);
-        i.setDatumIzdavanja(LocalDate.now());
-        i.setKnjiga(knjiga1);
-        i=izdateRepository.save(i);
-        Notifikacija n = new Notifikacija();
-        n.setPoruka("Korisnik marko nije vratio knjigu");
-        n.setUserId(1);
-        n.setIzdate(i);
-        notifikacijeRepo.save(n);
-         */
+        zahtjevRepository.save(new Zahtjev(null,1L,"marko","Markovic",knjiga1));
     }
 }

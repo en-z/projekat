@@ -7,6 +7,6 @@ import { Observable } from "rxjs";
 export class OsobljeService{
   constructor (private http:HttpClient){}
   create(osoblje:Osoblje):Observable<any>{
-    return this.http.post('http://localhost:8080/api/osoblje/raspored',osoblje)
+    return this.http.post('http://localhost:8080/api/osoblje/osoblje',osoblje)
   }
 }

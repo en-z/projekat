@@ -4,6 +4,7 @@ import com.example.service.osoblje.client.AuthClient;
 import com.example.service.osoblje.dto.OsobaRegDto;
 import com.example.service.osoblje.dto.RegisterDTO;
 import com.example.service.osoblje.models.Osoblje;
+import com.example.service.osoblje.repository.OsobljeRepository;
 import com.example.service.osoblje.service.OsobljeService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,6 +22,8 @@ import java.util.List;
 public class OsobljeController {
     @Autowired
     private OsobljeService osobljeService;
+    @Autowired
+    private OsobljeRepository osobljeRepository;
     @Autowired
     private AuthClient authClient;
     @GetMapping
@@ -33,6 +37,9 @@ public class OsobljeController {
     @PostMapping
     @Transactional
     public ResponseEntity<Osoblje> post(@RequestBody OsobaRegDto os){
+        List<String> ar= new ArrayList<>();
+        ar.add("ROLE_OSOBLJE");
+        os.setRoles(ar);
         RegisterDTO dto = authClient.register(new RegisterDTO(os)).getBody();
         if(dto == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -40,7 +47,9 @@ public class OsobljeController {
         Osoblje o =new Osoblje();
         o.setFakultetId(os.getFakultetId());
         o.setUserId(dto.getId());
-        return new ResponseEntity<>(osobljeService.save(o),HttpStatus.CREATED);
+        System.out.println(o);
+        osobljeRepository.save(o);
+        return ResponseEntity.ok(o);
     }
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id){

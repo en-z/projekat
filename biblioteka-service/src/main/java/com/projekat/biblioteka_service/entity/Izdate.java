@@ -19,6 +19,8 @@ public class Izdate {
     @ManyToOne
     private Knjiga knjiga;
     private Boolean trajna;
+    private String ime;
+    private String prezime;
     private LocalDate datumIzdavanja;
     private LocalDate datumVracanja;
 }

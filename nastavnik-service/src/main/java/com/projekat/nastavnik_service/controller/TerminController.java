@@ -50,7 +50,7 @@ public class TerminController {
     public ResponseEntity<TerminDTO> create(@RequestBody TerminDTO dto) {
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long uid = Long.parseLong(userId);
-        Nastavnik nastavnik = nastavnikService.findById(uid)
+        Nastavnik nastavnik = nastavnikService.findByUserId(uid)
                 .orElseThrow(() -> new RuntimeException("Nastavnik ne postoji"));
 
         Termin termin = new Termin();

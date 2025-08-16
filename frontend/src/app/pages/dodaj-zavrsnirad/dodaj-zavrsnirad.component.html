@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div 
   class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative pt-40"
   style="background-image: url('pozadina.jpg');"
@@ -9,34 +10,107 @@
 
 <div class="max-w-md mx-auto p-6 bg-white shadow-md rounded mt-10">
   <h2 class="text-xl font-bold mb-4">Dodaj Završni Rad</h2>
+||||||| Stash base
+<div class="max-w-md mx-auto p-6 bg-white shadow-md rounded">
+  <h2 class="text-xl font-bold mb-4">Dodaj Završni Rad</h2>
+=======
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <h2>Dodaj završni rad</h2>
+>>>>>>> Stashed changes
 
+  <!-- Forma za dodavanje završnog rada -->
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <label>Student</label>
-    <select formControlName="studentId" class="w-full mb-3 border px-3 py-2 rounded" required>
-      <option value="">Izaberite studenta</option>
-      <option *ngFor="let s of studenti" [value]="s.id">{{ s.ime }} {{ s.prezime }}</option>
-    </select>
+    <div>
+      <label>Student</label>
+      <select formControlName="studentId" required>
+        <option value="">-- Izaberi studenta --</option>
+        <option *ngFor="let s of studenti" [value]="s.id">
+          {{ s.ime }} {{ s.prezime }} ({{ s.brojIndeksa }})
+        </option>
+      </select>
+    </div>
 
-    <label>Nastavnik</label>
-    <select formControlName="nastavnikId" class="w-full mb-3 border px-3 py-2 rounded" required>
-      <option value="">Izaberite nastavnika</option>
-      <option *ngFor="let n of nastavnici" [value]="n.id">{{ n.ime }} {{ n.prezime }}</option>
-    </select>
+    <div>
+      <label>Nastavnik</label>
+      <select formControlName="nastavnikId" required>
+        <option value="">-- Izaberi nastavnika --</option>
+        <option *ngFor="let n of nastavnici" [value]="n.id">
+          {{ n.ime }} {{ n.prezime }}
+        </option>
+      </select>
+    </div>
 
-    <label>Naslov</label>
-    <input type="text" formControlName="naslov" placeholder="Naslov rada" class="w-full mb-3 border px-3 py-2 rounded" required />
+    <div>
+      <label>Naslov</label>
+      <input type="text" formControlName="naslov" />
+    </div>
 
-    <label>Opis</label>
-    <textarea formControlName="opis" placeholder="Opis rada" class="w-full mb-3 border px-3 py-2 rounded" required></textarea>
+    <div>
+      <label>Opis</label>
+      <textarea formControlName="opis"></textarea>
+    </div>
 
-    <label>Fajl</label>
-    <input type="file" accept=".pdf,.doc,.docx" (change)="onFileChange($event)" class="w-full mb-4" required />
+    <div>
+      <label>Fajl</label>
+      <input type="file" (change)="onFileChange($event)" />
+    </div>
 
-    <button type="submit"
-      [disabled]="form.invalid"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded w-full">
-      Dodaj Završni Rad
+    <button type="submit" [disabled]="form.invalid">Sačuvaj</button>
+  </form>
+
+  <hr />
+
+  <!-- Napredna pretraga studenata -->
+  <h3>Pretraga studenata</h3>
+  <form [formGroup]="studentSearchForm" (ngSubmit)="searchStudent()">
+    <input formControlName="brojIndeksa" placeholder="Broj indeksa" />
+    <button type="button" (click)="showAdvancedSearch = !showAdvancedSearch">
+      {{ showAdvancedSearch ? 'Sakrij' : 'Napredna pretraga' }}
     </button>
+     <!-- Napredna pretraga -->
+    <div *ngIf="showAdvancedSearch" class="advanced-section">
+      <input formControlName="ime" placeholder="Ime" />
+      <input formControlName="prezime" placeholder="Prezime" />
+      <input formControlName="godinaUpisa" placeholder="Godina upisa" />
+      <input formControlName="godinaStudija" placeholder="Godina studija" />
+      <input formControlName="studiskiId" placeholder="Studijski program ID" />
+      <input formControlName="prosekMin" placeholder="Prosek min" />
+      <input formControlName="prosekMax" placeholder="Prosek max" />
+      <input formControlName="esbpMin" placeholder="ESBP min" />
+      <input formControlName="esbpMax" placeholder="ESBP max" />
+      <input formControlName="aktivan" placeholder="Aktivan" />
+      <input formControlName="ulica" placeholder="Ulica" />
+      <input formControlName="broj" placeholder="Broj" />
+      <input formControlName="grad" placeholder="Grad" />
+      <input formControlName="drzava" placeholder="Država" />
+    </div>
+
+    <button type="submit">Pretraži studente</button>
+  </form>
+
+  <hr />
+
+  <!-- Pretraga nastavnika -->
+  <h3>Pretraga nastavnika</h3>
+  <form [formGroup]="nastavnikSearchForm" (ngSubmit)="searchNastavnik()">
+    <input formControlName="ime" placeholder="Ime" />
+    <input formControlName="prezime" placeholder="Prezime" />
+    <input formControlName="email" placeholder="Email" />
+    <button type="submit">Pretraži nastavnike</button>
   </form>
 </div>
 

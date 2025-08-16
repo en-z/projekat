@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/api/biblioteka/zahtjevi")
+@RestController
 public class ZahtjevController {
     @Autowired
     private ZahtjevService zahtjevService;
@@ -26,13 +27,14 @@ public class ZahtjevController {
     public List<Zahtjev> search(@RequestBody ZahtjevSearch criteria){
         return zahtjevService.search(criteria);
     }
-    @PostMapping
-    public Zahtjev createOrUpdate(@RequestBody Long knjigaId) {
+    @PostMapping("/{knjigaId}")
+    public Zahtjev createOrUpdate(@PathVariable Long knjigaId) {
         String userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long id = Long.parseLong(userId);
         Zahtjev zahtjev = new Zahtjev();
         zahtjev.setUserId(id);
         ImeDTO ime = authClient.getIme(id).getBody();
+        System.out.println(ime);
         zahtjev.setIme(ime.getIme());
         zahtjev.setPrezime(ime.getPrezime());
         zahtjev.setKnjiga(knjigaService.getById(knjigaId));

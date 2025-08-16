@@ -39,10 +39,10 @@ export class IzdatePutComponent {
   constructor(private zahtjevService:ZahtjevService,private izdaj:IzdateService) {}
 
   pretrazi() {
-    // Uzmi vrednosti iz forme i prosledi kao searchCriteria
     const searchCriteria = this.searchForm.value;
     this.zahtjevService.search(searchCriteria).subscribe(res => {
       this.rezultati = res;
+      console.log(res)
     });
   }
 
@@ -53,17 +53,18 @@ export class IzdatePutComponent {
   }
 
   potvrdiIzdavanje() {
-    if (!this.selektovani) return;
-
+    if (!this.selektovani) {
+      console.warn("prazan")
+      return;
+    }
     const dto: Izdate= {
       knjigaId: this.selektovani.knjiga.id!,
       userId: this.selektovani.userId,
       ime: this.selektovani.ime,
       prezime: this.selektovani.prezime,
       trajan: this.trajan,
-      datumVracanja: this.trajan ? null : this.datumVracanja || null
     };
-
+    console.log(dto)
     this.izdaj.izdaj(dto,this.selektovani.id).subscribe(() => {
       this.selektovani = undefined;
       this.trajan = false;

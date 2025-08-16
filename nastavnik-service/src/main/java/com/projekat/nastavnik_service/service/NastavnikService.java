@@ -53,6 +53,7 @@ public class NastavnikService {
        nastavnik.setIme(dto.getIme());
        nastavnik.setStatus(dto.getStatus());
        nastavnik.setAktivan(true);
+       nastavnik.setEmail(dto.getEmail());
        nastavnikRepository.save(nastavnik);
        return dto;
    }
@@ -63,6 +64,7 @@ public class NastavnikService {
        n.setStatus(dto.getStatus());
        n.setAdresa(dto.getAdresa());
        n.setBiografija(dto.getBiografija());
+       n.setEmail(dto.getEmail());
        nastavnikRepository.save(n);
        return dto;
    }
@@ -84,6 +86,10 @@ public class NastavnikService {
         n.setAktivan(false);
         nastavnikRepository.save(n);
     }
+    public List<NastavnikDTO> search(String ime,String prezime,String email){
+       List<Nastavnik> n = nastavnikRepository.search(ime,prezime,email);
+       return n.stream().map(r->toDTO(r)).toList();
+    }
 
    private static NastavnikDTO toDTO(Nastavnik n){
       NastavnikDTO dto = new NastavnikDTO();
@@ -93,6 +99,7 @@ public class NastavnikService {
        dto.setStatus(n.getStatus());
        dto.setAdresa(n.getAdresa());
        dto.setBiografija(n.getBiografija());
+       dto.setEmail(n.getEmail());
        return dto;
    }
 }

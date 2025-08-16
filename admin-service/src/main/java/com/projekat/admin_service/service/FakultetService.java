@@ -28,6 +28,7 @@ public class FakultetService {
        dto.setId(f.getId());
        dto.setOpis(f.getOpis());
        dto.setUniverzitetId(f.getUniverzitet().getId());
+       dto.setNaziv(f.getNaziv());
        NastavnikDTO nastanivk = nastavnikClient.getNastavnikById(f.getNastavnikId()).getBody();
        dto.setRektor(nastanivk);
        dto.setKontakt(f.getKontakt());
@@ -44,7 +45,7 @@ public class FakultetService {
             dto.setEmail(f.getEmail());
             dto.setUniverzitetId(f.getUniverzitet().getId());
             dto.setAdresa(f.getAdresa());
-
+            dto.setNaziv(f.getNaziv());
             try {
                 NastavnikDTO rektor = nastavnikClient.getNastavnikById(f.getNastavnikId()).getBody();
                 dto.setRektor(rektor);
@@ -65,6 +66,7 @@ public class FakultetService {
             dto.setEmail(f.getEmail());
             dto.setUniverzitetId(f.getUniverzitet().getId());
             dto.setAdresa(f.getAdresa());
+            dto.setNaziv(f.getNaziv());
             try {
                 NastavnikDTO rektor = nastavnikClient.getNastavnikById(f.getNastavnikId()).getBody();
                 dto.setRektor(rektor);
@@ -87,7 +89,7 @@ public class FakultetService {
             dto.setEmail(f.getEmail());
             dto.setUniverzitetId(f.getUniverzitet().getId());
             dto.setAdresa(f.getAdresa());
-
+            dto.setNaziv(f.getNaziv());
             try {
                 NastavnikDTO rektor = nastavnikClient.getNastavnikById(f.getNastavnikId()).getBody();
                 dto.setRektor(rektor);
@@ -112,6 +114,7 @@ public class FakultetService {
         fakultet.setEmail(dto.getEmail());
         fakultet.setUniverzitet(univerzitet);
         fakultet.setAdresa(dto.getAdresa());
+        fakultet.setNaziv(dto.getNaziv());
         fakultet.setNastavnikId(dto.getRektor() != null ? dto.getRektor().getId() : fakultet.getNastavnikId());
 
         Fakultet updated = fakultetRepository.save(fakultet);

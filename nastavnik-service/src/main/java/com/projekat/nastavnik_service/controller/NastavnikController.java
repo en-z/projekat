@@ -71,4 +71,11 @@ public class NastavnikController {
         List<PredmetDTO> dtos = angazovanjeService.findPredmetiByUserId(id);
         return ResponseEntity.ok(dtos);
     }
+    public ResponseEntity<List<NastavnikDTO>> search(
+            @RequestParam(required = false)  String ime,
+            @RequestParam(required = false)  String prezime,
+            @RequestParam(required = false)  String email
+            ){
+        return ResponseEntity.ok(nastavnikService.search(ime,prezime,email));
+    }
 }
