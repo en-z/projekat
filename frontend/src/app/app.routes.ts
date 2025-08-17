@@ -161,6 +161,7 @@ export const routes: Routes = [
   { path:"osoblje/kolokvijum",component:KolokvijumiComponent },
   { path:"osoblje/dokumenti",component:DokumentiComponent }
   ,{path:"osoblje/pregled-kolokvijuma",component:PregledKolokvijumComponent},
+  {path:"osoblje/dodaj-slusanja",component:DodajSlusanjePredmetaComponent},
   {path:"osoblje/inventar",component:InventarComponent},
   {path:"prikazi-dokumente",component:PrikaziDokumentComponent},
 

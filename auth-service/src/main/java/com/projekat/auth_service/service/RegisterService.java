@@ -43,4 +43,19 @@ public class RegisterService {
         regDto.setId(res.getId());
         return ResponseEntity.status(HttpStatus.OK).body(regDto);
     }
+    public ResponseEntity<?> post(RegisterDTO regDto) throws Exception {
+        if (userRepository.existsByEmail(regDto.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email postoji");
+        }
+        regDto.setPassword(passwordEncoder.encode(regDto.getPassword()));
+        User user = new User();
+        user.setEmail(regDto.getEmail());
+        user.setPassword(regDto.getPassword());
+        user.setIme(regDto.getIme());
+        user.setPrezime(regDto.getPrezime());
+        user.setRoles(regDto.getRoles());
+        User res= userRepository.save(user);
+        regDto.setId(res.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(regDto);
+    }
 }

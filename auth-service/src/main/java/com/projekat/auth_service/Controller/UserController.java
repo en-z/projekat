@@ -61,6 +61,10 @@ public class UserController {
     public ResponseEntity<?> addUser(@RequestBody RegisterDTO user)throws Exception{
         return registerService.addUser(user);
     }
+    @PostMapping("/register")
+    public ResponseEntity<?> post(@RequestBody RegisterDTO user)throws Exception{
+        return registerService.post(user);
+    }
     @PostMapping("/login")// login
     public ResponseEntity<Map<String,String>>authAndGetToken(@RequestBody LoginDTO loginDTO){
         Authentication authentication = authManager.authenticate(

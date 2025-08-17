@@ -1,23 +1,36 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators ,ReactiveFormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators ,ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
+import { UniverzitetService } from '../../services/univerzitet.service';
+import { FakultetService } from '../../services/fakultet.service';
+import { StudiskiProgram } from '../../models/StudiskiProgram';
+import { StudiskiService } from '../../services/studiski.service';
+import { Univerzitet } from '../../models/univerzitet';
+import { FakultetDTO } from '../../models/fakultet';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  imports: [ReactiveFormsModule,NgIf],
+  imports: [ReactiveFormsModule,CommonModule,FormsModule],
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit{
   registrationForm: FormGroup;
   submitted = false;
   error: string | null = null;
-
+  univerziteti:Univerzitet[]=[]
+  fakulteti:FakultetDTO[]=[]
+  fakultetiId:number=0;
+  studiski:StudiskiProgram[]=[]
+  studiskiId:number=0;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private univerzitetService:UniverzitetService ,
+    private fakultetService:FakultetService,
+    private studiskiService:StudiskiService,
   ) {
     this.registrationForm = this.fb.group({
       email: ['', [Validators.required,Validators.email]],
@@ -25,12 +38,33 @@ export class RegistrationComponent {
       passwordConf: ['', [Validators.required, Validators.minLength(5), this.passwordConfirmValidator.bind(this)]],
       ime: ['', [Validators.required]],
       prezime: ['', [Validators.required]],
-      studiskiId:'1',
-      fakultetId:'1',
+      studiskiId:this.studiskiId,
+      fakultetId:this.fakultetiId,
       roles:[["ROLE_USER"]]
     });
   }
-
+    ngOnInit(): void {
+      this.univerzitetService.getAll().subscribe(data=>{
+        this.univerziteti = data;
+      })
+    }
+    onSelectUni(event:Event){
+      const select = event.target as HTMLSelectElement; // ovde TS zna da je select
+      const id = Number(select.value); // ili +select.value
+      if (id) {
+        this.fakultetService.getByUniverzitetId(id).subscribe(data => {
+          this.fakulteti = data;
+        });
+      }
+    }
+    onSelectedFak(){
+         const id= this.registrationForm.value.fakultetId!;
+      this.studiskiService.getByFakultet(id).subscribe(data=>{
+        console.log(this.fakultetiId)
+        console.log(data)
+        this.studiski = data;
+      })
+    }
   passwordConfirmValidator(control: any) {
     if (control.value !== this.registrationForm?.get('password')?.value) {
       return { mismatch: true };
@@ -80,8 +114,6 @@ onSubmit() {
     }
   });
 }
-
-
 
 }
 

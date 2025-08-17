@@ -70,6 +70,7 @@
           <button (click)="goToOpsta()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Pogledaj obavještenja</button>
           <button (click)="goToPregledKolokvijuma()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Kolokvijumi datumi</button>
           <button (click)="goToPrikaziDokumente()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dokumenti izdate</button>
+          <button (click)="goToSlusanja()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dokumenti izdate</button>
         </div>
       </div>
 
@@ -79,7 +80,7 @@
 
   <!-- Prikaz Dropdown -->
   <div class="relative" (mouseleave)="onMenuLeave()" (mouseenter)="onMenuEnter()">
-    <button (click)="showPrikaz = !showPrikaz" 
+    <button (click)="showPrikaz = !showPrikaz"
             class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">
       Prikaz ▼
     </button>
@@ -95,11 +96,11 @@
           class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">
     Šifarnik
   </button>
-  
+
 
   <!-- Šifarnik dugme -->
    <div class="relative" (mouseleave)="onMenuLeave()" (mouseenter)="onMenuEnter()">
-    <button (click)="showDodaj = !showDodaj" 
+    <button (click)="showDodaj = !showDodaj"
             class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">
       Dodaj ▼
     </button>
@@ -117,7 +118,7 @@
     </div>
   </div>
 
-  
+
 </div>
 
     </nav>

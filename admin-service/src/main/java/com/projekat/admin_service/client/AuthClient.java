@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "auth-service",url = "http://localhost:8081/api/auth")
 public interface AuthClient {
-    @PostMapping("/registration")
+    @PostMapping("/register")
     ResponseEntity<RegisterDTO> registruj(@RequestBody RegisterDTO dto);
     @DeleteMapping("/user/{id}")
     void delete(@PathVariable long id);

@@ -2,6 +2,7 @@ import { Predmet } from "./predmet";
 
 export interface Angazovanje {
   id: number;
-  predmet: Predmet;
+  predmetId: number;
+  nastavnikId: number;
   uloga: string;
 }

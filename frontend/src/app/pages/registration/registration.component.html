@@ -1,4 +1,4 @@
-<div 
+<div
   class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
   style="background-image: url('pozadina.jpg');"
 >
@@ -6,9 +6,8 @@
   <div class="absolute top-16 flex justify-center w-full pointer-events-none">
     <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
   </div>
-
 <div class="relative z-10 w-full max-w-md p-6 mt-60 bg-white/100 border border-white/50 rounded-2xl shadow-xl backdrop-blur-md">
-  
+
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
       <div *ngIf="error" class="mb-4 p-3 bg-red-100 text-red-700 rounded">
         {{ error }}
@@ -83,6 +82,33 @@
         </div>
       </div>
 
+ <!-- Univerzitet -->
+  <div *ngIf = univerziteti.length >0>
+    <label>Univerzitet</label>
+    <select (change)="onSelectUni($event)">
+      <option value="">-- Odaberi univerzitet --</option>
+      <option *ngFor="let u of univerziteti" [value]="u.id">{{ u.naziv }}</option>
+    </select>
+  </div>
+
+  <!-- Fakultet -->
+  <div *ngIf="fakulteti.length > 0">
+    <label>Fakultet</label>
+    <select formControlName="fakultetId" (change)="onSelectedFak()">
+      <option value="">-- Odaberi fakultet --</option>
+      <option *ngFor="let f of fakulteti" [value]="f.id">{{ f.naziv }}</option>
+    </select>
+  </div>
+
+  <!-- Studijski program -->
+  <div *ngIf="studiski.length > 0">
+    <label>Studijski program</label>
+    <select formControlName="studiskiId">
+      <option value="">-- Odaberi program --</option>
+      <option *ngFor="let sp of studiski" [value]="sp.id">{{ sp.naziv }}</option>
+    </select>
+  </div>
+
       <button
         type="submit"
         [disabled]="submitted"
@@ -94,5 +120,5 @@
   </div>
 </div>
 <footer class="w-full bg-gray-800 text-white py-2 text-center border border-transparent">
- Univerzitet © 2025 
+ Univerzitet © 2025
 </footer>

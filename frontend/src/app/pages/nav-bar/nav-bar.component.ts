@@ -171,7 +171,7 @@ export class NavBarComponent {
       this.showStudentmenu=false;
   },50);
   }
-  
+
   goToZavrsniRadovi() {
     this.router.navigate(['/zavrsni-radovi'])
   }
@@ -195,6 +195,9 @@ export class NavBarComponent {
   }
   goToPregledKolokvijuma(){
     this.router.navigate(['osoblje/pregled-kolokvijuma'])
+  }
+  goToSlusanja(){
+    this.router.navigate(['osoblje/dodaj-slusanja'])
   }
   goToPrikaziDokumente(){
     this.router.navigate(['prikazi-dokumente'])

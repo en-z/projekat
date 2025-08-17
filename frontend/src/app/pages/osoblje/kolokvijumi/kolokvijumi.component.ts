@@ -31,6 +31,7 @@ export class KolokvijumiComponent {
   ngOnInit(): void {
     this.programService.getByFakultet(this.fakultetId).subscribe(programi => {
       this.programi = programi;
+      console.log(programi)
     });
   }
 

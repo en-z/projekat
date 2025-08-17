@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(name = "auth-service",url = "http://localhost:8081/api/auth")
 public interface AuthClient {
-    @PostMapping("/registration")
+    @PostMapping("/register")
     ResponseEntity<RegisterDTO> register(RegisterDTO dto);
     @DeleteMapping("/{id}")
     void delete(long id);
