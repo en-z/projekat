@@ -24,7 +24,7 @@ export class AdminDodajPredmetComponent implements OnInit{
       esbp: [0, [Validators.required, Validators.min(1)]],
       semestar: [1, Validators.required],
       studiskiId: [null, Validators.required],
-      dan: [null,Validators.required,Validators.min(1),Validators.max(7)]
+      dan: [null,[Validators.required,Validators.min(1),Validators.max(7)]]
     })
   }
   ngOnInit(){
@@ -43,7 +43,7 @@ export class AdminDodajPredmetComponent implements OnInit{
     if (this.id) {
       this.predmetService.update(this.id!,predmet).subscribe(() => this.router.navigate(['/univerziteti']));
     } else {
-      this.predmetService.create(predmet).subscribe(() => this.router.navigate(['/univerziti']));
+      this.predmetService.create(predmet).subscribe(() => this.router.navigate(['/univerziteti']));
     }
   }
 }

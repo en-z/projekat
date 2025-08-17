@@ -27,7 +27,7 @@ export class RegistrationComponent {
       prezime: ['', [Validators.required]],
       studiskiId:'1',
       fakultetId:'1',
-      roles:["ROLE_USER"]
+      roles:[["ROLE_USER"]]
     });
   }
 

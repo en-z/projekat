@@ -30,6 +30,7 @@ public class RegisterService {
         if (userRepository.existsByEmail(regDto.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email postoji");
         }
+        System.out.println(regDto.getRoles());
         regDto.setPassword(passwordEncoder.encode(regDto.getPassword()));
         User user = new User();
         user.setEmail(regDto.getEmail());
