@@ -41,38 +41,63 @@
       <!-- ROLE_STUDENT -->
       <div *ngIf="authService.hasRole('ROLE_STUDENT')" class="relative" (mouseleave)="onMenuLeave()" (mouseenter)="onMenuEnter()">
         <app-notifikacije></app-notifikacije>
-        <button (click)="showStudentmenu = !showStudentmenu"
-                class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500">
-          Student ▼
-        </button>
-        <div *ngIf="showStudentmenu"
-             class="absolute mt-2 w-48 bg-white text-black border rounded shadow-lg">
-          <button (click)="goToStudentPredmet()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Predmeti</button>
-          <button (click)="goToPrijaviIspit()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Prijava ispita</button>
-          <button (click)="gotoIstorijaIspita()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Ishod ispita</button>
+        
+        
+          <button (click)="goToStudentPredmet()" class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">Predmeti</button>
+          <button (click)="goToPrijaviIspit()" class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">Prijava ispita</button>
+          <button (click)="gotoIstorijaIspita()" class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">Ishod ispita</button>
         </div>
-      </div>
+      
 
       <!-- ROLE_OSOBLJE -->
-      <div *ngIf="authService.hasRole('ROLE_OSOBLJE')" class="relative" (mouseleave)="onMenuLeave()" (mouseenter)="onMenuEnter()">
-        <app-notifikacije></app-notifikacije>
-        <button (click)="showOsobljeMenu = !showOsobljeMenu"
-                class="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400">
-          Osoblje ▼
+      <div *ngIf="authService.hasRole('ROLE_OSOBLJE')" class="relative flex items-center space-x-2">
+  <app-notifikacije></app-notifikacije>
+
+
+      <div class="relative" (mouseleave)="onMenuLeave()" (mouseenter)="onMenuEnter()">
+        <button (click)="showDodaj = !showDodaj"
+            class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">
+        Dodaj ▼
         </button>
-        <div *ngIf="showOsobljeMenu"
-             class="absolute mt-2 w-56 bg-white text-black border rounded shadow-lg">
+        <div *ngIf="showDodaj"
+         class="absolute mt-2 w-56 bg-white text-black border rounded shadow-lg max-h-80 overflow-auto z-50">
           <button (click)="goToDodajDokumenta()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dodaj dokumenta</button>
           <button (click)="goToDodajRaspored()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dodaj raspored</button>
           <button (click)="goToDodajKolokvijum()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dodaj kolokvijum</button>
-          <button (click)="goToInventar()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Inventar</button>
           <button (click)="goToDodajOpsta()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dodaj obavještenja</button>
+          <button (click)="goToSlusanja()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Slusanje predmeta</button>
+    </div>
+      </div>
+     
+    <div >
+      <button (click)="goToInventar()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Inventar</button>
+    </div>
+    <div class="relative" (mouseleave)="onMenuLeave()" (mouseenter)="onMenuEnter()">
+    <button (click)="showPrikaz = !showPrikaz"
+            class="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-500 transition-colors">
+      Pregled ▼
+    </button>
+    <div *ngIf="showPrikaz"
+         class="absolute mt-2 w-48 bg-white text-black border rounded shadow-lg max-h-80 overflow-auto z-50">
+      <button (click)="goToOpsta()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Pogledaj obavještenja</button>
+          <button (click)="goToPregledKolokvijuma()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Kolokvijumi datumi</button>
+          <button (click)="goToPrikaziDokumente()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dokumenti izdate</button>
+          
+    </div>
+  </div>
+
+  </div>
+        <div *ngIf="showOsobljeMenu"
+             class="absolute mt-2 w-56 bg-white text-black border rounded shadow-lg">
+       
+          
+
           <button (click)="goToOpsta()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Pogledaj obavještenja</button>
           <button (click)="goToPregledKolokvijuma()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Kolokvijumi datumi</button>
           <button (click)="goToPrikaziDokumente()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dokumenti izdate</button>
           <button (click)="goToSlusanja()" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Dokumenti izdate</button>
         </div>
-      </div>
+      
 
       <!-- ROLE_ADMIN -->
       <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="relative flex items-center space-x-2">

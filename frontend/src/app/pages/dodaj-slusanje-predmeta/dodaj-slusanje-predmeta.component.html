@@ -1,43 +1,96 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<h2>Izaberi Program</h2>
-<select [(ngModel)]="izabraniProgramId" (change)="izaberiProgram(izabraniProgramId!)">
-  <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
-</select>
+<div class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-start relative p-6"
+     style="background-image: url('pozadina.jpg');">
 
-<table>
-  <tr>
-    <th>Ime</th>
-    <th>Prezime</th>
-  </tr>
-  <ng-container *ngFor="let student of studentiPage?.content">
-    <tr (click)="toggleRow(student.id)">
-      <td>{{ student.ime }}</td>
-      <td>{{ student.prezime }}</td>
-    </tr>
-    <tr *ngIf="expandedStudentId === student.id">
-      <td colspan="2">
-        <div *ngFor="let predmet of predmeti">
-          <label>
-            <input type="checkbox"
-                   [checked]="selectedPredmeti[student.id].has(predmet.id)"
-                   (change)="togglePredmet(student.id, predmet.id)">
-            {{ predmet.naziv }}
-          </label>
-        </div>
-      </td>
-    </tr>
-  </ng-container>
-</table>
+  <!-- Grb -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
+ <div class="w-full max-w-5xl mt-50 bg-white/70 backdrop-blur-lg rounded-3xl shadow-xl border border-gray-200 p-6 flex flex-col gap-8">
 
+  <!-- Naslov sekcije -->
+  <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">
+    Izaberi Program
+  </h2>
+   
+  <!-- Select program -->
+  <div class="flex items-center gap-4">
+    <label class="font-medium text-gray-700">Program:</label>
+    <select 
+      [(ngModel)]="izabraniProgramId" 
+      (change)="izaberiProgram(izabraniProgramId!)"
+      class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    >
+      <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
+    </select>
+  </div>
+<hr class="w-full max-w-2xl border-gray-300 mb-6" />
+  <!-- Tabela studenata -->
+  <div class="overflow-x-auto">
+    <table class="min-w-md border-collapse bg-white/90 rounded-lg shadow">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="px-2 py-1 text-left">Ime</th>
+          <th class="px-2 py-1 text-left">Prezime</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let student of studentiPage?.content">
+          <tr 
+            (click)="toggleRow(student.id)" 
+            class="cursor-pointer hover:bg-indigo-50 transition border-b"
+          >
+            <td class="px-4 py-2">{{ student.ime }}</td>
+            <td class="px-4 py-2">{{ student.prezime }}</td>
+          </tr>
+          <tr *ngIf="expandedStudentId === student.id" class="bg-gray-50">
+            <td colspan="2" class="px-4 py-2">
+              <div class="flex flex-wrap gap-3">
+                <label *ngFor="let predmet of predmeti" class="flex items-center gap-2">
+                  <input 
+                    type="checkbox"
+                    [checked]="selectedPredmeti[student.id].has(predmet.id)"
+                    (change)="togglePredmet(student.id, predmet.id)"
+                    class="w-4 h-4 accent-indigo-600"
+                  >
+                  {{ predmet.naziv }}
+                </label>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
 
-<button (click)="loadPrevious()">Prethodna</button>
-<button (click)="loadNext()">Sledeća</button>
+  <!-- Navigacija stranica -->
+  <div class="flex justify-between mt-4">
+    <button 
+      (click)="loadPrevious()"
+      class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Prethodna
+    </button>
+    <button 
+      (click)="loadNext()"
+      class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Sledeća
+    </button>
+  </div>
 
-<button (click)="sacuvaj()">Sačuvaj sve</button>
+  <!-- Dugme sačuvaj -->
+  <div class="text-center mt-4">
+    <button 
+      (click)="sacuvaj()"
+      class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+    >
+      Sačuvaj sve
+    </button>
+  </div>
+</div>
 
+</div>
+
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>

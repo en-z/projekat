@@ -17,20 +17,13 @@
     <fieldset class="border border-gray-300 rounded-lg p-4 space-y-3">
       <legend class="px-2 font-semibold text-lg">Korisnik</legend>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
         <label class="flex flex-col">
-          <span class="text-sm font-medium">User ID Min:</span>
-          <input type="number" formControlName="userIdMin" class="border rounded p-2">
-        </label>
-        <label class="flex flex-col">
-          <span class="text-sm font-medium">User ID Max:</span>
-          <input type="number" formControlName="userIdMax" class="border rounded p-2">
-        </label>
-        <label class="flex flex-col">
-          <span class="text-sm font-medium">Ime sadrži:</span>
+          <span class="text-sm font-medium">Ime:</span>
           <input type="text" formControlName="imeContains" class="border rounded p-2">
         </label>
         <label class="flex flex-col">
-          <span class="text-sm font-medium">Prezime sadrži:</span>
+          <span class="text-sm font-medium">Prezime:</span>
           <input type="text" formControlName="prezimeContains" class="border rounded p-2">
         </label>
       </div>
@@ -41,27 +34,27 @@
       <legend class="px-2 font-semibold text-lg">Knjiga</legend>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <label class="flex flex-col">
-          <span class="text-sm font-medium">Naziv sadrži:</span>
+          <span class="text-sm font-medium">Naziv:</span>
           <input type="text" formControlName="knjigaNazivContains" class="border rounded p-2">
         </label>
         <label class="flex flex-col">
-          <span class="text-sm font-medium">Kategorija sadrži:</span>
+          <span class="text-sm font-medium">Kategorija:</span>
           <input type="text" formControlName="knjigaKategorijaContains" class="border rounded p-2">
         </label>
         <label class="flex flex-col">
-          <span class="text-sm font-medium">Opis sadrži:</span>
+          <span class="text-sm font-medium">Opis:</span>
           <input type="text" formControlName="knjigaOpisContains" class="border rounded p-2">
         </label>
         <label class="flex flex-col">
-          <span class="text-sm font-medium">Godina izdavanja Min:</span>
+          <span class="text-sm font-medium">Godina izdavanja pocetak:</span>
           <input type="number" formControlName="knjigaGodinaIzdavanjaMin" class="border rounded p-2">
         </label>
         <label class="flex flex-col">
-          <span class="text-sm font-medium">Godina izdavanja Max:</span>
+          <span class="text-sm font-medium">Godina izdavanja kraj:</span>
           <input type="number" formControlName="knjigaGodinaIzdavanjaMax" class="border rounded p-2">
         </label>
         <label class="flex flex-col">
-          <span class="text-sm font-medium">Autor sadrži:</span>
+          <span class="text-sm font-medium">Autor:</span>
           <input type="text" formControlName="knjigaAutorContains" class="border rounded p-2">
         </label>
         <label class="flex flex-col">

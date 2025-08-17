@@ -1,33 +1,56 @@
-<h2>Pregled rasporeda kolokvijuma</h2>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative p-6"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
+<div class="w-full max-w-5xl mt-50 bg-white/70 backdrop-blur-lg rounded-3xl shadow-xl border border-gray-200 p-8 flex flex-col gap-8">
 
-<!-- Izbor programa -->
-<label>Izaberi program:
-  <select [(ngModel)]="izabraniProgramId" (change)="onProgramChange()">
-    <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
-  </select>
-</label>
+  <h2 class=" font-bold text-gray-800    shadow ">
+    Pregled rasporeda kolokvijuma
+  </h2>
 
-<hr />
+  <!-- Izbor programa -->
+  <label class="block mb-4 text-lg font-medium text-black-700 font-bold px-4 py-2 rounded shadow">
+    Izaberi program:
+    <select 
+      [(ngModel)]="izabraniProgramId" 
+      (change)="onProgramChange()"
+      class="ml-2 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    >
+      <option *ngFor="let p of programi" [value]="p.id">{{ p.naziv }}</option>
+    </select>
+  </label>
 
-<!-- Tabela sa kolokvijumima -->
-<table *ngIf="kolokvijumi.length > 0" border="1" cellpadding="5">
-  <thead>
-    <tr>
-      <th>Predmet</th>
-      <th>Učionica</th>
-      <th>Datum i vreme</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let k of kolokvijumi">
-      <td>{{ mapaPredmeta.get(k.predmetId)}}</td>
-      <td>{{ k.ucionica }}</td>
-      <td>{{ formatDatum(k.datum) }}</td>
-    </tr>
-  </tbody>
-</table>
+  <hr class="w-full max-w-2xl border-gray-300 mb-6" />
 
-<p *ngIf="kolokvijumi.length === 0 && izabraniProgramId">
-  Nema zakazanih kolokvijuma za izabrani program.
-</p>
+  <!-- Tabela sa kolokvijumima -->
+  <table *ngIf="kolokvijumi.length > 0" class="border-collapse w-full max-w-3xl bg-white/90 rounded-lg shadow overflow-hidden">
+    <thead class="bg-blue-600 text-white">
+      <tr>
+        <th class="px-4 py-2 text-left">Predmet</th>
+        <th class="px-4 py-2 text-left">Učionica</th>
+        <th class="px-4 py-2 text-left">Datum i vreme</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let k of kolokvijumi" class="border-b hover:bg-indigo-50 transition">
+        <td class="px-4 py-2">{{ mapaPredmeta.get(k.predmetId)}}</td>
+        <td class="px-4 py-2">{{ k.ucionica }}</td>
+        <td class="px-4 py-2">{{ formatDatum(k.datum) }}</td>
+      </tr>
+    </tbody>
+  </table>
 
+  <p *ngIf="kolokvijumi.length === 0 && izabraniProgramId" 
+     class="mt-6 text-lg text-red-600 font-medium bg-white/80 px-6 py-3 rounded shadow">
+    Nema zakazanih kolokvijuma za izabrani program.
+  </p>
+</div>
+</div>
+
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>

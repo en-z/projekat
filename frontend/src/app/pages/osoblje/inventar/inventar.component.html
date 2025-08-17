@@ -1,41 +1,84 @@
-<table>
-  <thead>
-    <tr>
-      <th>Naziv</th>
-      <th>Opis</th>
-      <th>Trenutna količina</th>
-      <th>Naruči količinu</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of inventar">
-      <td>{{ item.naziv }}</td>
-      <td>{{ item.opis }}</td>
-      <td>{{ item.kolicina }}</td>
-      <td>
-        <input
-          type="number"
-          [(ngModel)]="narudzbe[item.id!]"
-          min="0"
-          placeholder="Unesi količinu"
-        />
-      </td>
-    </tr>
+<div 
+  class="min-h-screen bg-cover bg-center bg-fixed flex flex-col items-center justify-center relative"
+  style="background-image: url('pozadina.jpg');"
+>
+  <!-- Grb u pozadini, iznad forme -->
+  <div class="absolute top-16 flex justify-center w-full pointer-events-none">
+    <img src="slika1.png" alt="Grb" class="w-48 h-auto opacity-30 drop-shadow-2xl">
+  </div>
+<!-- KARTICA SA INVENTAROM -->
+<div class="w-full max-w-4xl bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-gray-200 p-6 mt-48">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Inventar</h2>
 
-    <tr>
-      <td>
-        <input [(ngModel)]="noviProizvod.naziv" placeholder="Naziv novog" />
-      </td>
-      <td>
-        <input [(ngModel)]="noviProizvod.opis" placeholder="Opis" />
-      </td>
-      <td colspan="2">
-        <button (click)="dodajNovi()">Dodaj proizvod</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Naziv</th>
+          <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Opis</th>
+          <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Trenutna količina</th>
+          <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Naruči količinu</th>
+        </tr>
+      </thead>
 
-<br />
-<button (click)="naruci()">Naruči označene količine</button>
+      <tbody class="bg-white divide-y divide-gray-100">
+        <tr *ngFor="let item of inventar" class="hover:bg-gray-50">
+          <td class="px-4 py-3 text-sm text-gray-800">{{ item.naziv }}</td>
+          <td class="px-4 py-3 text-sm text-gray-600 max-w-xs truncate">{{ item.opis }}</td>
+          <td class="px-4 py-3 text-sm text-gray-800">{{ item.kolicina }}</td>
+          <td class="px-4 py-3">
+            <input
+              type="number"
+              [(ngModel)]="narudzbe[item.id!]"
+              min="0"
+              placeholder="Količina"
+              class="w-28 rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </td>
+        </tr>
 
+        <!-- Dodavanje novog proizvoda -->
+        <tr class="bg-gray-50">
+          <td class="px-4 py-3">
+            <input
+              [(ngModel)]="noviProizvod.naziv"
+              placeholder="Naziv novog"
+              class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </td>
+          <td class="px-4 py-3">
+            <input
+              [(ngModel)]="noviProizvod.opis"
+              placeholder="Opis"
+              class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </td>
+          <td class="px-4 py-3 text-sm text-gray-600">—</td>
+          <td class="px-4 py-3">
+            <button
+              (click)="dodajNovi()"
+              class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              Dodaj proizvod
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-6 text-right">
+    <button
+      (click)="naruci()"
+      class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Naruči označene količine
+    </button>
+  </div>
+</div>
+
+
+</div>
+<footer class="w-full bg-gray-900 text-white py-2 text-center border border-transparent">
+ Univerzitet © 2025 
+</footer>
